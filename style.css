@@ -1,0 +1,772 @@
+/* 自定义动画 */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(124, 58, 237, 0.6);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes draw-ring {
+    from {
+        stroke-dashoffset: 352;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes reveal-text {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes count-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes particle-float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.5;
+    }
+    25% {
+        transform: translateY(-50px) translateX(20px);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-100px) translateX(-10px);
+        opacity: 0.3;
+    }
+    75% {
+        transform: translateY(-50px) translateX(-20px);
+        opacity: 0.6;
+    }
+}
+
+/* 动画类 */
+.animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-shake {
+    animation: shake 0.3s ease-in-out;
+}
+
+.animate-reveal-text {
+    animation: reveal-text 1s ease-out forwards;
+}
+
+/* 字体 */
+.font-serif {
+    font-family: 'Noto Serif SC', serif;
+}
+
+.font-sans {
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+/* 粒子背景 */
+#particles-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.8) 0%, rgba(245, 158, 11, 0.4) 100%);
+    border-radius: 50%;
+    animation: particle-float 10s ease-in-out infinite;
+}
+
+/* 页面基础样式 */
+.page {
+    display: none;
+    position: relative;
+    z-index: 1;
+}
+
+.page.active {
+    display: block;
+}
+
+/* 选项卡片 */
+.option-card {
+    position: relative;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.option-card:hover {
+    border-color: rgba(124, 58, 237, 0.5);
+    background: rgba(124, 58, 237, 0.1);
+    transform: translateY(-2px);
+}
+
+.option-card.selected {
+    border-color: #7C3AED;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(245, 158, 11, 0.1));
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+}
+
+.option-card.selected::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #7C3AED, #F59E0B);
+}
+
+.option-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    margin-right: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.option-card.selected .option-label {
+    background: linear-gradient(135deg, #7C3AED, #F59E0B);
+    color: white;
+}
+
+/* 进度环动画 */
+.progress-ring {
+    stroke-dasharray: 352;
+    stroke-dashoffset: 352;
+    transition: stroke-dashoffset 1s ease-out;
+}
+
+/* 按钮基础样式 */
+.btn-primary {
+    position: relative;
+    padding: 12px 32px;
+    background: linear-gradient(135deg, #7C3AED, #F59E0B);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+}
+
+.btn-secondary {
+    padding: 12px 32px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(124, 58, 237, 0.5);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(124, 58, 237, 0.7);
+}
+
+/* 题目切换动画 */
+.question-transition-enter {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.question-transition-leave {
+    opacity: 1;
+    transform: translateX(-20px);
+}
+
+/* 设置面板开关 */
+.toggle-on {
+    background: linear-gradient(135deg, #7C3AED, #F59E0B) !important;
+}
+
+.toggle-on span {
+    transform: translateX(20px) !important;
+}
+
+/* 晨曦暖阳主题 - 优化颜色显示 */
+.theme-light {
+    background: linear-gradient(135deg, #FFF7ED, #F5F3FF, #FDF2F8) !important;
+    color: #1E293B !important;
+}
+
+.theme-light .text-gray-400,
+.theme-light .text-gray-500 {
+    color: #475569 !important;
+}
+
+.theme-light .text-gray-300 {
+    color: #334155 !important;
+}
+
+.theme-light .text-gray-600 {
+    color: #475569 !important;
+}
+
+.theme-light .text-white {
+    color: #1E293B !important;
+}
+
+.theme-light .text-black {
+    color: #FFFFFF !important;
+}
+
+.theme-light .bg-white\/5 {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(10px);
+}
+
+.theme-light .bg-white\/10 {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(10px);
+}
+
+.theme-light .bg-white\/20 {
+    background: rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-light .bg-black\/60 {
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+.theme-light .border-white\/10 {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.theme-light .border-white\/20 {
+    border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+.theme-light .border-gray-500 {
+    border-color: #94A3B8 !important;
+}
+
+/* 晨曦暖阳主题下的卡片样式 */
+.theme-light .info-card {
+    background: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.theme-light .info-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+.theme-light .result-card,
+.theme-light .bg-white\/5 {
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 晨曦暖阳主题下的选项卡片 */
+.theme-light .option-card {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.theme-light .option-card:hover {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: #7C3AED !important;
+}
+
+.theme-light .option-card.selected {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(245, 158, 11, 0.05)) !important;
+    border-color: #7C3AED !important;
+}
+
+/* 晨曦暖阳主题下的文字 */
+.theme-light .text-\[\#F59E0B\] {
+    color: #D97706 !important;
+}
+
+.theme-light .text-\[\#7C3AED\] {
+    color: #6D28D9 !important;
+}
+
+/* 晨曦暖阳主题下的进度条 */
+.theme-light .progress-bar {
+    background: rgba(0, 0, 0, 0.1) !important;
+}
+
+.theme-light .progress-fill {
+    background: linear-gradient(90deg, #6D28D9, #D97706) !important;
+}
+
+/* 晨曦暖阳主题下的输入框 */
+.theme-light input[type="text"],
+.theme-light input[type="email"],
+.theme-light input[type="password"] {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+    color: #1E293B !important;
+}
+
+.theme-light input::placeholder {
+    color: #94A3B8 !important;
+}
+
+/* 晨曦暖阳主题下的按钮 */
+.theme-light .btn-primary {
+    background: linear-gradient(135deg, #6D28D9, #D97706) !important;
+    color: white !important;
+}
+
+.theme-light .btn-secondary {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    color: #1E293B !important;
+}
+
+/* 晨曦暖阳主题下的模态框 */
+.theme-light #dimension-modal > div,
+.theme-light #review-modal > div {
+    background: linear-gradient(135deg, #FFFBEB, #F5F3FF, #FDF2F8) !important;
+    color: #1E293B !important;
+}
+
+/* 晨曦暖阳主题下的滚动条 */
+.theme-light ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+.theme-light ::-webkit-scrollbar-thumb {
+    background: rgba(109, 40, 217, 0.5) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .text-4xl {
+        font-size: 2rem;
+    }
+    
+    .text-6xl {
+        font-size: 3rem;
+    }
+    
+    .px-12 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .py-4 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    
+    .gap-12 {
+        gap: 2rem;
+    }
+    
+    .w-32 {
+        width: 8rem;
+    }
+    
+    .h-32 {
+        height: 8rem;
+    }
+    
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .flex-col {
+        flex-direction: column;
+    }
+    
+    .items-center {
+        align-items: center;
+    }
+    
+    .justify-center {
+        justify-content: center;
+    }
+    
+    .text-center {
+        text-align: center;
+    }
+    
+    .mb-12 {
+        margin-bottom: 2rem;
+    }
+    
+    .mb-8 {
+        margin-bottom: 1.5rem;
+    }
+    
+    .mb-6 {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .text-2xl {
+        font-size: 1.25rem;
+    }
+    
+    .text-xl {
+        font-size: 1.125rem;
+    }
+    
+    .p-8 {
+        padding: 1rem;
+    }
+    
+    .p-6 {
+        padding: 0.75rem;
+    }
+    
+    .gap-8 {
+        gap: 1rem;
+    }
+}
+
+/* 卡片悬停效果增强 */
+.info-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(245, 158, 11, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: inherit;
+}
+
+.info-card:hover::before {
+    opacity: 1;
+}
+
+/* 题目类型标签 */
+.type-entrepreneur {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1));
+    color: #F59E0B;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.type-love {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(124, 58, 237, 0.1));
+    color: #7C3AED;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+/* 测试类型选择按钮 */
+.test-type-btn {
+    transition: all 0.3s ease;
+}
+
+.test-type-btn:hover {
+    transform: scale(1.05);
+}
+
+.test-type-btn.active {
+    transform: scale(1.05);
+}
+
+/* 选项点击振动效果 */
+.option-card:active {
+    transform: scale(0.98);
+}
+
+/* 结果图标动画 */
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.result-icon-bounce {
+    animation: bounce-in 0.6s ease-out;
+}
+
+/* 得分数字跳动 */
+.score-number {
+    display: inline-block;
+}
+
+.score-number.updating {
+    animation: count-up 0.5s ease-out;
+}
+
+/* 幕布揭开效果 */
+.curtain-reveal {
+    animation: reveal-text 1.5s ease-out forwards;
+}
+
+/* 雷达图容器 */
+#radar-chart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* 历史记录项 */
+.history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* 模态框激活状态 */
+.modal-active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.modal-active > div {
+    transform: scale(1) !important;
+}
+
+/* 分享卡片下载按钮 */
+#download-card:hover,
+#copy-link:hover {
+    transform: translateY(-2px);
+}
+
+/* 书籍卡片 */
+.book-card {
+    transition: all 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-4px);
+}
+
+/* 阶段进度条 */
+#stage-progress {
+    transition: width 1s ease-out;
+}
+
+/* 测评状态徽章 */
+.badge-awakened {
+    background: linear-gradient(135deg, #7C3AED, #F59E0B);
+    color: white;
+}
+
+.badge-awakening {
+    background: rgba(255, 255, 255, 0.1);
+    color: #F59E0B;
+    border: 1px solid #F59E0B;
+}
+
+/* 导航链接 */
+.nav-link {
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #7C3AED, #F59E0B);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* 渐变文字 */
+.gradient-text {
+    background: linear-gradient(135deg, #F59E0B, #7C3AED);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 光晕效果 */
+.glow-effect {
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.3), 0 0 60px rgba(245, 158, 11, 0.2);
+}
+
+/* 卡片边框动画 */
+@keyframes border-glow {
+    0%, 100% {
+        border-color: rgba(124, 58, 237, 0.3);
+    }
+    50% {
+        border-color: rgba(245, 158, 11, 0.6);
+    }
+}
+
+.border-animate {
+    animation: border-glow 3s ease-in-out infinite;
+}
+
+/* 小挑战模块样式 */
+#challenge-section {
+    position: relative;
+    overflow: hidden;
+}
+
+#challenge-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+    animation: pulse-glow 4s ease-in-out infinite;
+}
+
+#challenge-content {
+    position: relative;
+    z-index: 1;
+}
+
+#challenge-display {
+    position: relative;
+    z-index: 1;
+}
+
+/* 输入框聚焦效果 */
+input:focus {
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+/* 按钮加载状态 */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
