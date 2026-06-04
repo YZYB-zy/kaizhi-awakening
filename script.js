@@ -2129,6 +2129,12 @@ function loadQuestion(index) {
     document.getElementById('progress-text').textContent = `${index + 1}/${currentQuestions.length}`;
     document.getElementById('progress-bar').style.width = `${((index + 1) / currentQuestions.length) * 100}%`;
     
+    // 第16题时显示娱乐提示
+    const entertainmentTip = document.getElementById('entertainment-tip');
+    if (index + 1 === 16) {
+        entertainmentTip.classList.remove('hidden');
+    }
+    
     // 更新题目编号
     document.getElementById('question-number').textContent = index + 1;
     
