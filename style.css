@@ -284,27 +284,30 @@
     transform: translateX(20px) !important;
 }
 
-/* 晨曦暖阳主题 - 优化颜色显示 */
+/* 晨曦暖阳主题 - 高级配色方案 */
 .theme-light {
-    background: linear-gradient(135deg, #FFF7ED, #F5F3FF, #FDF2F8) !important;
-    color: #1E293B !important;
+    background: #FFFFFF !important;
+    color: #1E1B4B !important;
 }
 
-.theme-light .text-gray-400,
+.theme-light .text-gray-400 {
+    color: #4F46E5 !important;
+}
+
 .theme-light .text-gray-500 {
-    color: #475569 !important;
+    color: #7C3AED !important;
 }
 
 .theme-light .text-gray-300 {
-    color: #334155 !important;
+    color: #1E1B4B !important;
 }
 
 .theme-light .text-gray-600 {
-    color: #475569 !important;
+    color: #6366F1 !important;
 }
 
 .theme-light .text-white {
-    color: #1E293B !important;
+    color: #1E1B4B !important;
 }
 
 .theme-light .text-black {
@@ -312,65 +315,72 @@
 }
 
 .theme-light .bg-white\/5 {
-    background: rgba(255, 255, 255, 0.7) !important;
+    background: linear-gradient(135deg, #EEF2FF, #FDF2F8) !important;
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(124, 58, 237, 0.15) !important;
 }
 
 .theme-light .bg-white\/10 {
-    background: rgba(255, 255, 255, 0.8) !important;
+    background: linear-gradient(135deg, #E0E7FF, #FEF3C7) !important;
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(124, 58, 237, 0.2) !important;
 }
 
 .theme-light .bg-white\/20 {
-    background: rgba(255, 255, 255, 0.9) !important;
+    background: linear-gradient(135deg, #C7D2FE, #FED7AA) !important;
 }
 
 .theme-light .bg-black\/60 {
-    background: rgba(0, 0, 0, 0.5) !important;
+    background: rgba(30, 27, 75, 0.7) !important;
 }
 
 .theme-light .border-white\/10 {
-    border-color: rgba(0, 0, 0, 0.1) !important;
+    border-color: rgba(124, 58, 237, 0.2) !important;
 }
 
 .theme-light .border-white\/20 {
-    border-color: rgba(0, 0, 0, 0.15) !important;
+    border-color: rgba(124, 58, 237, 0.3) !important;
 }
 
 .theme-light .border-gray-500 {
-    border-color: #94A3B8 !important;
+    border-color: #818CF8 !important;
 }
 
 /* 晨曦暖阳主题下的卡片样式 */
 .theme-light .info-card {
-    background: rgba(255, 255, 255, 0.9) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    background: linear-gradient(135deg, #EEF2FF, #FDF2F8) !important;
+    box-shadow: 0 4px 24px rgba(124, 58, 237, 0.1) !important;
+    border: 1px solid rgba(124, 58, 237, 0.15) !important;
 }
 
 .theme-light .info-card:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0 8px 32px rgba(124, 58, 237, 0.18) !important;
+    border-color: rgba(124, 58, 237, 0.3) !important;
 }
 
-.theme-light .result-card,
-.theme-light .bg-white\/5 {
-    background: rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+.theme-light .result-card {
+    background: linear-gradient(135deg, #EEF2FF, #FEFCE8) !important;
+    box-shadow: 0 6px 24px rgba(124, 58, 237, 0.12) !important;
+    border: 1px solid rgba(124, 58, 237, 0.2) !important;
 }
 
 /* 晨曦暖阳主题下的选项卡片 */
 .theme-light .option-card {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-color: rgba(0, 0, 0, 0.1) !important;
+    background: linear-gradient(135deg, #F8FAFC, #F1F5F9) !important;
+    border-color: rgba(124, 58, 237, 0.2) !important;
+    color: #1E1B4B !important;
 }
 
 .theme-light .option-card:hover {
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: linear-gradient(135deg, #EEF2FF, #FEF3C7) !important;
     border-color: #7C3AED !important;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2) !important;
 }
 
 .theme-light .option-card.selected {
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(245, 158, 11, 0.05)) !important;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(251, 191, 36, 0.1)) !important;
     border-color: #7C3AED !important;
+    color: #1E1B4B !important;
 }
 
 /* 晨曦暖阳主题下的文字 */
@@ -379,57 +389,99 @@
 }
 
 .theme-light .text-\[\#7C3AED\] {
-    color: #6D28D9 !important;
+    color: #6366F1 !important;
 }
 
 /* 晨曦暖阳主题下的进度条 */
-.theme-light .progress-bar {
-    background: rgba(0, 0, 0, 0.1) !important;
+.theme-light #progress-bar {
+    background: rgba(124, 58, 237, 0.15) !important;
 }
 
 .theme-light .progress-fill {
-    background: linear-gradient(90deg, #6D28D9, #D97706) !important;
+    background: linear-gradient(90deg, #6366F1, #D97706) !important;
+}
+
+/* 晨曦暖阳主题下的按钮 */
+.theme-light .btn-primary {
+    background: linear-gradient(135deg, #6366F1, #D97706) !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4) !important;
+}
+
+.theme-light .btn-primary:hover {
+    background: linear-gradient(135deg, #4F46E5, #B45309) !important;
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5) !important;
+}
+
+.theme-light .btn-secondary {
+    background: linear-gradient(135deg, #EEF2FF, #FEFCE8) !important;
+    border-color: rgba(99, 102, 241, 0.3) !important;
+    color: #1E1B4B !important;
+}
+
+.theme-light .btn-secondary:hover {
+    background: linear-gradient(135deg, #E0E7FF, #FEF3C7) !important;
+    border-color: rgba(99, 102, 241, 0.5) !important;
+}
+
+/* 晨曦暖阳主题下的模态框 */
+.theme-light #dimension-modal > div,
+.theme-light #review-modal > div {
+    background: linear-gradient(135deg, #EEF2FF, #FEFCE8, #FDF2F8) !important;
+    color: #1E1B4B !important;
+    border: 1px solid rgba(99, 102, 241, 0.2) !important;
+}
+
+/* 晨曦暖阳主题下的雷达图 */
+.theme-light .chart-container {
+    background: linear-gradient(135deg, #EEF2FF, #FEFCE8) !important;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid rgba(99, 102, 241, 0.15) !important;
+}
+
+/* 晨曦暖阳主题下的分数卡片 */
+.theme-light .entrepreneur-score-card,
+.theme-light .love-score-card {
+    background: linear-gradient(135deg, #FEFCE8, #EEF2FF) !important;
+    border: 1px solid rgba(99, 102, 241, 0.2) !important;
 }
 
 /* 晨曦暖阳主题下的输入框 */
 .theme-light input[type="text"],
 .theme-light input[type="email"],
 .theme-light input[type="password"] {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-color: rgba(0, 0, 0, 0.2) !important;
-    color: #1E293B !important;
+    background: linear-gradient(135deg, #F8FAFC, #F1F5F9) !important;
+    border-color: rgba(99, 102, 241, 0.3) !important;
+    color: #1E1B4B !important;
 }
 
 .theme-light input::placeholder {
-    color: #94A3B8 !important;
-}
-
-/* 晨曦暖阳主题下的按钮 */
-.theme-light .btn-primary {
-    background: linear-gradient(135deg, #6D28D9, #D97706) !important;
-    color: white !important;
-}
-
-.theme-light .btn-secondary {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-color: rgba(0, 0, 0, 0.1) !important;
-    color: #1E293B !important;
-}
-
-/* 晨曦暖阳主题下的模态框 */
-.theme-light #dimension-modal > div,
-.theme-light #review-modal > div {
-    background: linear-gradient(135deg, #FFFBEB, #F5F3FF, #FDF2F8) !important;
-    color: #1E293B !important;
+    color: #93C5FD !important;
 }
 
 /* 晨曦暖阳主题下的滚动条 */
 .theme-light ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.05) !important;
+    background: linear-gradient(135deg, #EEF2FF, #FDF2F8) !important;
 }
 
 .theme-light ::-webkit-scrollbar-thumb {
-    background: rgba(109, 40, 217, 0.5) !important;
+    background: linear-gradient(135deg, #6366F1, #D97706) !important;
+    border-radius: 8px;
+}
+
+/* 晨曦暖阳主题下的分享卡片 */
+.theme-light #share-card {
+    background: linear-gradient(135deg, #EEF2FF, #FEFCE8) !important;
+    border: 1px solid rgba(99, 102, 241, 0.2) !important;
+}
+
+/* 晨曦暖阳主题下的历史记录图表 */
+.theme-light #history-chart-container {
+    background: linear-gradient(135deg, #EEF2FF, #FEFCE8) !important;
+    border-radius: 12px;
+    padding: 8px;
+    border: 1px solid rgba(99, 102, 241, 0.15) !important;
 }
 
 /* 响应式设计 */
@@ -482,6 +534,21 @@
     
     .justify-center {
         justify-content: center;
+    }
+    
+    /* 调整设置按钮位置，避免遮挡进度条 */
+    #settings-btn {
+        top: 4px !important;
+        right: 4px !important;
+        width: 10vw !important;
+        height: 10vw !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
+    }
+    
+    #settings-btn svg {
+        width: 18px !important;
+        height: 18px !important;
     }
     
     .text-center {

@@ -171,7 +171,7 @@
                             </svg>
                         </button>
                     </div>
-                    <span class="text-gray-400 text-sm">进度</span>
+                    <span class="text-gray-400 text-sm hidden sm:inline">进度</span>
                     <span class="text-white font-semibold" id="progress-text">0/10</span>
                 </div>
                 <div class="h-2 bg-white/10 rounded-full overflow-hidden">
@@ -179,9 +179,9 @@
                 </div>
             </div>
             
-            <!-- 题目类型标签 -->
+            <!-- 题目类型标签（可点击查看介绍） -->
             <div class="max-w-2xl mx-auto w-full mb-6 flex justify-end">
-                <span id="question-type-tag" class="px-4 py-2 rounded-full text-sm font-medium"></span>
+                <button id="question-type-tag" class="px-4 py-2 rounded-full text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity" title="点击查看测试类型介绍"></button>
             </div>
             
             <!-- 题目区域 -->
@@ -198,6 +198,16 @@
                     <!-- 选项区域 -->
                     <div id="options-container" class="space-y-4">
                         <!-- 选项将动态生成 -->
+                    </div>
+                    
+                    <!-- 导航按钮 -->
+                    <div class="flex justify-center gap-4 mt-8">
+                        <button id="prev-btn" class="px-6 py-3 bg-white/10 backdrop-blur-md rounded-full font-medium border border-white/20 hover:bg-white/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed" disabled>
+                            ← 上一题
+                        </button>
+                        <button id="next-btn" class="px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full font-medium hover:scale-105 transition-transform">
+                            下一题 →
+                        </button>
                     </div>
                 </div>
             </div>
@@ -492,12 +502,15 @@
                     </div>
                     
                     <!-- 底部按钮 -->
-                    <div class="flex justify-center gap-4 mt-8">
+                    <div class="flex flex-wrap justify-center gap-4 mt-8">
                         <button id="restart-test" class="px-8 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full font-medium hover:scale-105 transition-transform">
                             重新测评
                         </button>
                         <button id="view-comparison" class="px-8 py-3 bg-white/10 rounded-full font-medium border border-white/20 hover:bg-white/20 transition-all">
                             查看对比
+                        </button>
+                        <button id="back-to-home" class="px-8 py-3 bg-white/10 rounded-full font-medium border border-white/20 hover:bg-white/20 transition-all">
+                            返回首页
                         </button>
                     </div>
                 </div>
@@ -537,6 +550,57 @@
             </div>
             <div id="review-content" class="flex-1 overflow-y-auto space-y-4">
                 <!-- 答题记录 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 测试类型介绍弹窗 -->
+    <div id="test-type-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center px-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-gradient-to-br from-[#0A1628] to-[#1a1a2e] rounded-2xl p-6 max-w-md w-full border border-white/10 transform scale-95 transition-transform duration-300">
+            <div class="flex items-center justify-between mb-4">
+                <h3 id="modal-title" class="text-xl font-semibold"></h3>
+                <button id="close-test-type-modal" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
+                    <span class="text-xl">×</span>
+                </button>
+            </div>
+            <!-- 综合测试内容 -->
+            <div id="modal-content-comprehensive" class="text-gray-300 text-sm leading-relaxed">
+                <p class="mb-3">综合测试将同时评估您的创业思维和爱情认知能力。</p>
+                <p class="mb-3"><strong class="text-[#F59E0B]">🚀 创业思维</strong>：评估您在商业创新领域的核心能力，包括机会识别、风险容忍、市场洞察等维度。</p>
+                <p class="mb-3"><strong class="text-[#7C3AED]">💜 爱情认知</strong>：探索您在情感关系中的成熟度，包括情绪管理、共情能力、沟通能力等维度。</p>
+                <p>综合测试结合以上两个维度，为您提供全面的自我认知报告。</p>
+            </div>
+            <!-- 创业思维内容 -->
+            <div id="modal-content-entrepreneur" class="text-gray-300 text-sm leading-relaxed hidden">
+                <p class="mb-3">创业思维是指发现机会、创造价值并将想法付诸实践的能力。</p>
+                <p class="mb-3">本次测评将从以下八个维度评估您的创业思维：</p>
+                <ul class="list-disc list-inside space-y-1 mb-3 text-gray-400">
+                    <li><strong class="text-[#F59E0B]">机会识别</strong> - 发现商业机会的敏锐度</li>
+                    <li><strong class="text-[#F59E0B]">风险容忍</strong> - 面对不确定性的态度</li>
+                    <li><strong class="text-[#F59E0B]">市场洞察</strong> - 理解市场需求的能力</li>
+                    <li><strong class="text-[#F59E0B]">创业热情</strong> - 对创业的内在动力</li>
+                    <li><strong class="text-[#F59E0B]">自我效能</strong> - 对自身能力的信心</li>
+                    <li><strong class="text-[#F59E0B]">内在驱动</strong> - 自我激励与目标导向</li>
+                    <li><strong class="text-[#F59E0B]">创新倾向</strong> - 创造性解决问题的能力</li>
+                    <li><strong class="text-[#F59E0B]">行动执行</strong> - 将想法转化为行动</li>
+                </ul>
+                <p>了解这些维度可以帮助您更好地认识自己的创业潜力。</p>
+            </div>
+            <!-- 爱情认知内容 -->
+            <div id="modal-content-love" class="text-gray-300 text-sm leading-relaxed hidden">
+                <p class="mb-3">爱情认知是指理解和处理情感关系的能力，是建立健康亲密关系的基础。</p>
+                <p class="mb-3">本次测评将从以下八个维度评估您的爱情认知：</p>
+                <ul class="list-disc list-inside space-y-1 mb-3 text-gray-400">
+                    <li><strong class="text-[#7C3AED]">情绪管理</strong> - 识别和调节情绪的能力</li>
+                    <li><strong class="text-[#7C3AED]">共情能力</strong> - 理解他人感受的能力</li>
+                    <li><strong class="text-[#7C3AED]">安全感</strong> - 在关系中感到安全的程度</li>
+                    <li><strong class="text-[#7C3AED]">沟通能力</strong> - 有效表达与倾听的能力</li>
+                    <li><strong class="text-[#7C3AED]">边界意识</strong> - 保持个人边界的意识</li>
+                    <li><strong class="text-[#7C3AED]">冲突处理</strong> - 建设性解决分歧的能力</li>
+                    <li><strong class="text-[#7C3AED]">亲密能力</strong> - 建立深度连接的能力</li>
+                    <li><strong class="text-[#7C3AED]">信任建立</strong> - 在关系中建立信任的能力</li>
+                </ul>
+                <p>了解这些维度可以帮助您建立更健康、更满意的人际关系。</p>
             </div>
         </div>
     </div>

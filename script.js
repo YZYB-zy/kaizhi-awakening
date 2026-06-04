@@ -1,3 +1,19 @@
+// ==================== 测试类型介绍数据 ====================
+const testTypeInfo = {
+    comprehensive: {
+        title: '🎯 综合测试',
+        content: '<p class="mb-3">综合测试将同时评估您的创业思维和爱情认知能力。</p><p class="mb-3"><strong class="text-[#F59E0B]">🚀 创业思维</strong>：评估您在商业创新领域的核心能力，包括机会识别、风险容忍、市场洞察等维度。</p><p class="mb-3"><strong class="text-[#7C3AED]">💜 爱情认知</strong>：探索您在情感关系中的成熟度，包括情绪管理、共情能力、沟通能力等维度。</p><p>综合测试结合以上两个维度，为您提供全面的自我认知报告。</p>'
+    },
+    entrepreneur: {
+        title: '🚀 创业思维',
+        content: '<p class="mb-3">创业思维是指发现机会、创造价值并将想法付诸实践的能力。</p><p class="mb-3">本次测评将从以下八个维度评估您的创业思维：</p><ul class="list-disc list-inside space-y-1 mb-3 text-gray-400"><li><strong class="text-[#F59E0B]">机会识别</strong> - 发现商业机会的敏锐度</li><li><strong class="text-[#F59E0B]">风险容忍</strong> - 面对不确定性的态度</li><li><strong class="text-[#F59E0B]">市场洞察</strong> - 理解市场需求的能力</li><li><strong class="text-[#F59E0B]">创业热情</strong> - 对创业的内在动力</li><li><strong class="text-[#F59E0B]">自我效能</strong> - 对自身能力的信心</li><li><strong class="text-[#F59E0B]">内在驱动</strong> - 自我激励与目标导向</li><li><strong class="text-[#F59E0B]">创新倾向</strong> - 创造性解决问题的能力</li><li><strong class="text-[#F59E0B]">行动执行</strong> - 将想法转化为行动</li></ul><p>了解这些维度可以帮助您更好地认识自己的创业潜力。</p>'
+    },
+    love: {
+        title: '💜 爱情认知',
+        content: '<p class="mb-3">爱情认知是指理解和处理情感关系的能力，是建立健康亲密关系的基础。</p><p class="mb-3">本次测评将从以下八个维度评估您的爱情认知：</p><ul class="list-disc list-inside space-y-1 mb-3 text-gray-400"><li><strong class="text-[#7C3AED]">情绪管理</strong> - 识别和调节情绪的能力</li><li><strong class="text-[#7C3AED]">共情能力</strong> - 理解他人感受的能力</li><li><strong class="text-[#7C3AED]">安全感</strong> - 在关系中感到安全的程度</li><li><strong class="text-[#7C3AED]">沟通能力</strong> - 有效表达与倾听的能力</li><li><strong class="text-[#7C3AED]">边界意识</strong> - 保持个人边界的意识</li><li><strong class="text-[#7C3AED]">冲突处理</strong> - 建设性解决分歧的能力</li><li><strong class="text-[#7C3AED]">亲密能力</strong> - 建立深度连接的能力</li><li><strong class="text-[#7C3AED]">信任建立</strong> - 在关系中建立信任的能力</li></ul><p>了解这些维度可以帮助您建立更健康、更满意的人际关系。</p>'
+    }
+};
+
 // ==================== 小挑战数据 ====================
 
 const entrepreneurChallenges = [
@@ -166,7 +182,7 @@ const loveChallenges = [
 
 // ==================== 题库数据 ====================
 
-// 创业思维题库 (30题)
+// 创业思维题库 (30题) - 每个题目只有一个高分选项(3分)，其他为低分
 const entrepreneurQuestions = [
     // 机会识别能力
     {
@@ -175,10 +191,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'opportunity',
         options: [
-            { text: '偶尔关注，但不会特别深入', score: 3 },
-            { text: '会系统性地观察和分析，觉得这很重要', score: 2 },
-            { text: '很少关注这些，觉得浪费时间', score: 1 },
-            { text: '会留意，但觉得与我关系不大', score: 0 }
+            { text: '会系统性地观察和分析，觉得这很重要', score: 3 },
+            { text: '偶尔关注，但不会特别深入', score: 1 },
+            { text: '会留意，但觉得与我关系不大', score: 0 },
+            { text: '很少关注这些，觉得浪费时间', score: 0 }
         ]
     },
     {
@@ -187,10 +203,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'opportunity',
         options: [
-            { text: '记录下来，等有更多资源时再考虑', score: 3 },
-            { text: '立即进行可行性评估并制定行动方案', score: 2 },
-            { text: '听听他人的意见，再决定是否跟进', score: 1 },
-            { text: '先深入了解市场需求，再决定是否行动', score: 0 }
+            { text: '立即进行可行性评估并制定行动方案', score: 3 },
+            { text: '先深入了解市场需求，再决定是否行动', score: 1 },
+            { text: '记录下来，等有更多资源时再考虑', score: 0 },
+            { text: '听听他人的意见，再决定是否跟进', score: 0 }
         ]
     },
     {
@@ -199,10 +215,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'opportunity',
         options: [
-            { text: '先看是否有成功先例可参考', score: 3 },
-            { text: '从市场规模、竞争格局、盈利模式等多维度分析', score: 2 },
-            { text: '凭直觉判断，觉得可行就尝试', score: 1 },
-            { text: '重点看是否符合我的经验和资源', score: 0 }
+            { text: '从市场规模、竞争格局、盈利模式等多维度分析', score: 3 },
+            { text: '先看是否有成功先例可参考', score: 1 },
+            { text: '重点看是否符合我的经验和资源', score: 0 },
+            { text: '凭直觉判断，觉得可行就尝试', score: 0 }
         ]
     },
     // 风险容忍度
@@ -212,10 +228,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'risk',
         options: [
-            { text: '边做边看，相信船到桥头自然直', score: 3 },
-            { text: '制定详细的风险应对预案，并预留应急资源', score: 2 },
-            { text: '先小规模试试水，降低损失风险', score: 1 },
-            { text: '设定止损线，超出预期就及时退出', score: 0 }
+            { text: '制定详细的风险应对预案，并预留应急资源', score: 3 },
+            { text: '设定止损线，超出预期就及时退出', score: 1 },
+            { text: '先小规模试试水，降低损失风险', score: 0 },
+            { text: '边做边看，相信船到桥头自然直', score: 0 }
         ]
     },
     {
@@ -224,10 +240,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'risk',
         options: [
-            { text: '休息一段时间，整理好心态再开始', score: 3 },
-            { text: '深入复盘分析，将失败经验转化为宝贵财富', score: 2 },
-            { text: '考虑加入一个成熟团队学习经验', score: 1 },
-            { text: '调整方向和策略，重新出发', score: 0 }
+            { text: '深入复盘分析，将失败经验转化为宝贵财富', score: 3 },
+            { text: '调整方向和策略，重新出发', score: 1 },
+            { text: '休息一段时间，整理好心态再开始', score: 0 },
+            { text: '考虑加入一个成熟团队学习经验', score: 0 }
         ]
     },
     {
@@ -236,10 +252,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'risk',
         options: [
-            { text: '尽量规避风险，选择稳健路径', score: 3 },
-            { text: '风险与机遇并存，愿意承担合理风险', score: 2 },
-            { text: '风险太大，需要更多保障才行动', score: 1 },
-            { text: '谨慎评估，在可控范围内冒险', score: 0 }
+            { text: '风险与机遇并存，愿意承担合理风险', score: 3 },
+            { text: '谨慎评估，在可控范围内冒险', score: 1 },
+            { text: '尽量规避风险，选择稳健路径', score: 0 },
+            { text: '风险太大，需要更多保障才行动', score: 0 }
         ]
     },
     // 市场洞察力
@@ -249,10 +265,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '参考行业报告和竞品分析', score: 3 },
-            { text: '亲自与用户深度交流，观察用户行为', score: 2 },
-            { text: '基于自己的判断和经验推测', score: 1 },
-            { text: '通过问卷、数据分析等方式调研', score: 0 }
+            { text: '亲自与用户深度交流，观察用户行为', score: 3 },
+            { text: '通过问卷、数据分析等方式调研', score: 1 },
+            { text: '参考行业报告和竞品分析', score: 0 },
+            { text: '基于自己的判断和经验推测', score: 0 }
         ]
     },
     {
@@ -261,10 +277,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '保持观望，看形势如何发展', score: 3 },
-            { text: '迅速分析变化原因，挖掘新的市场机会', score: 2 },
-            { text: '等待市场稳定再做决定', score: 1 },
-            { text: '调整原有策略，适应新环境', score: 0 }
+            { text: '迅速分析变化原因，挖掘新的市场机会', score: 3 },
+            { text: '调整原有策略，适应新环境', score: 1 },
+            { text: '保持观望，看形势如何发展', score: 0 },
+            { text: '等待市场稳定再做决定', score: 0 }
         ]
     },
     {
@@ -273,10 +289,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '偶尔关注他们的营销动作', score: 3 },
-            { text: '全面分析产品、运营、商业模式和创新点', score: 2 },
-            { text: '更关注自身，不太在意竞争对手', score: 1 },
-            { text: '重点关注他们的产品和定价策略', score: 0 }
+            { text: '全面分析产品、运营、商业模式和创新点', score: 3 },
+            { text: '重点关注他们的产品和定价策略', score: 1 },
+            { text: '偶尔关注他们的营销动作', score: 0 },
+            { text: '更关注自身，不太在意竞争对手', score: 0 }
         ]
     },
     // 创业热情
@@ -286,10 +302,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'passion',
         options: [
-            { text: '获得经济回报和个人成长', score: 3 },
-            { text: '看到自己的产品真正帮助到用户', score: 2 },
-            { text: '跟随行业趋势和时代潮流', score: 1 },
-            { text: '实现个人价值和梦想的机会', score: 0 }
+            { text: '看到自己的产品真正帮助到用户', score: 3 },
+            { text: '实现个人价值和梦想的机会', score: 1 },
+            { text: '获得经济回报和个人成长', score: 0 },
+            { text: '跟随行业趋势和时代潮流', score: 0 }
         ]
     },
     {
@@ -298,10 +314,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'passion',
         options: [
-            { text: '暂时放松，调整好状态再出发', score: 3 },
-            { text: '回顾初心，与志同道合的人交流互相激励', score: 2 },
-            { text: '给自己一些物质奖励犒劳自己', score: 1 },
-            { text: '设定小目标，完成后获得成就感', score: 0 }
+            { text: '回顾初心，与志同道合的人交流互相激励', score: 3 },
+            { text: '设定小目标，完成后获得成就感', score: 1 },
+            { text: '暂时放松，调整好状态再出发', score: 0 },
+            { text: '给自己一些物质奖励犒劳自己', score: 0 }
         ]
     },
     {
@@ -310,10 +326,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'passion',
         options: [
-            { text: '有需要时再学习，比较随性', score: 3 },
-            { text: '每天坚持学习，将学习视为习惯', score: 2 },
-            { text: '觉得经验比理论更重要', score: 1 },
-            { text: '每周固定学习几小时，持续提升', score: 0 }
+            { text: '每天坚持学习，将学习视为习惯', score: 3 },
+            { text: '每周固定学习几小时，持续提升', score: 1 },
+            { text: '有需要时再学习，比较随性', score: 0 },
+            { text: '觉得经验比理论更重要', score: 0 }
         ]
     },
     // 自我效能感
@@ -323,10 +339,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '有些领域擅长，有些还需要提升', score: 3 },
-            { text: '相信通过学习和实践可以解决大部分问题', score: 2 },
-            { text: '担心能力不足，需要更多准备', score: 1 },
-            { text: '觉得能力足够，但需要团队配合', score: 0 }
+            { text: '相信通过学习和实践可以解决大部分问题', score: 3 },
+            { text: '觉得能力足够，但需要团队配合', score: 1 },
+            { text: '有些领域擅长，有些还需要提升', score: 0 },
+            { text: '担心能力不足，需要更多准备', score: 0 }
         ]
     },
     {
@@ -335,10 +351,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '寻求有经验的人帮助指导', score: 3 },
-            { text: '相信自己能学会并解决，积极寻找资源', score: 2 },
-            { text: '交给更擅长的人处理', score: 1 },
-            { text: '先研究学习，再尝试解决', score: 0 }
+            { text: '相信自己能学会并解决，积极寻找资源', score: 3 },
+            { text: '先研究学习，再尝试解决', score: 1 },
+            { text: '寻求有经验的人帮助指导', score: 0 },
+            { text: '交给更擅长的人处理', score: 0 }
         ]
     },
     {
@@ -347,10 +363,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '商业敏锐度和执行力', score: 3 },
-            { text: '持续学习能力和适应变化的韧性', score: 2 },
-            { text: '运气和时机把握', score: 1 },
-            { text: '领导力和组建团队的能力', score: 0 }
+            { text: '持续学习能力和适应变化的韧性', score: 3 },
+            { text: '领导力和组建团队的能力', score: 1 },
+            { text: '商业敏锐度和执行力', score: 0 },
+            { text: '运气和时机把握', score: 0 }
         ]
     },
     // 内在驱动力
@@ -360,10 +376,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '不确定，视情况而定', score: 3 },
-            { text: '会，内心的使命感和价值追求驱动我前进', score: 2 },
-            { text: '不确定，视情况而定', score: 1 },
-            { text: '可能，看是否有值得投入的idea', score: 0 }
+            { text: '会，内心的使命感和价值追求驱动我前进', score: 3 },
+            { text: '可能，看是否有值得投入的idea', score: 1 },
+            { text: '看市场机会再决定', score: 0 },
+            { text: '不会，需要外部激励才有动力', score: 0 }
         ]
     },
     {
@@ -372,10 +388,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '边做边看，没有太具体的规划', score: 3 },
-            { text: '设定SMART目标，定期复盘调整', score: 2 },
-            { text: '跟着感觉走，随遇而安', score: 1 },
-            { text: '有大方向，具体目标灵活调整', score: 0 }
+            { text: '设定SMART目标，定期复盘调整', score: 3 },
+            { text: '有大方向，具体目标灵活调整', score: 1 },
+            { text: '边做边看，没有太具体的规划', score: 0 },
+            { text: '跟着感觉走，随遇而安', score: 0 }
         ]
     },
     {
@@ -384,10 +400,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '适当调整目标，确保可达成', score: 3 },
-            { text: '分析原因，调整策略坚持达成', score: 2 },
-            { text: '暂时搁置，等待更好的时机', score: 1 },
-            { text: '拆分目标为更小可实现的步骤', score: 0 }
+            { text: '分析原因，调整策略坚持达成', score: 3 },
+            { text: '拆分目标为更小可实现的步骤', score: 1 },
+            { text: '适当调整目标，确保可达成', score: 0 },
+            { text: '暂时搁置，等待更好的时机', score: 0 }
         ]
     },
     // 创新倾向
@@ -397,10 +413,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'innovation',
         options: [
-            { text: '多听听专家和有经验的人建议', score: 3 },
-            { text: '跳出常规思维，寻找创新的解决方案', score: 2 },
-            { text: '按部就班，使用成熟的方法', score: 1 },
-            { text: '参考成功案例，结合实际情况改进', score: 0 }
+            { text: '跳出常规思维，寻找创新的解决方案', score: 3 },
+            { text: '参考成功案例，结合实际情况改进', score: 1 },
+            { text: '多听听专家和有经验的人建议', score: 0 },
+            { text: '按部就班，使用成熟的方法', score: 0 }
         ]
     },
     {
@@ -409,10 +425,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'innovation',
         options: [
-            { text: '参加创新思维培训课程', score: 3 },
-            { text: '跨领域学习，保持好奇心和探索欲', score: 2 },
-            { text: '在实践中不断尝试和总结', score: 1 },
-            { text: '大量阅读案例，激发创意灵感', score: 0 }
+            { text: '跨领域学习，保持好奇心和探索欲', score: 3 },
+            { text: '大量阅读案例，激发创意灵感', score: 1 },
+            { text: '参加创新思维培训课程', score: 0 },
+            { text: '在实践中不断尝试和总结', score: 0 }
         ]
     },
     {
@@ -421,10 +437,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'innovation',
         options: [
-            { text: '产品创新是核心，模式可以复制', score: 3 },
-            { text: '两者相辅相成，需要同步创新', score: 2 },
-            { text: '没有深入思考过这个问题', score: 1 },
-            { text: '商业模式创新可能比产品创新更重要', score: 0 }
+            { text: '两者相辅相成，需要同步创新', score: 3 },
+            { text: '商业模式创新可能比产品创新更重要', score: 1 },
+            { text: '产品创新是核心，模式可以复制', score: 0 },
+            { text: '没有深入思考过这个问题', score: 0 }
         ]
     },
     // 行动执行
@@ -434,10 +450,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '先完善商业计划书', score: 3 },
-            { text: '快速验证核心假设，快速迭代', score: 2 },
-            { text: '寻找合作伙伴和资金再开始', score: 1 },
-            { text: '先做市场调研和用户访谈', score: 0 }
+            { text: '快速验证核心假设，快速迭代', score: 3 },
+            { text: '先做市场调研和用户访谈', score: 1 },
+            { text: '先完善商业计划书', score: 0 },
+            { text: '寻找合作伙伴和资金再开始', score: 0 }
         ]
     },
     {
@@ -446,10 +462,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '随机应变，灵活处理', score: 3 },
-            { text: '分解目标，使用项目管理工具追踪', score: 2 },
-            { text: '相信团队成员自觉性，适度管理', score: 1 },
-            { text: '设定明确的deadline并定期检查', score: 0 }
+            { text: '分解目标，使用项目管理工具追踪', score: 3 },
+            { text: '设定明确的deadline并定期检查', score: 1 },
+            { text: '相信团队成员自觉性，适度管理', score: 0 },
+            { text: '随机应变，灵活处理', score: 0 }
         ]
     },
     {
@@ -458,10 +474,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '与相关方沟通，调整预期', score: 3 },
-            { text: '分析原因，调配资源加速推进', score: 2 },
-            { text: '优先保证质量，适当延后时间', score: 1 },
-            { text: '加班加点，确保按时完成', score: 0 }
+            { text: '分析原因，调配资源加速推进', score: 3 },
+            { text: '加班加点，确保按时完成', score: 1 },
+            { text: '与相关方沟通，调整预期', score: 0 },
+            { text: '优先保证质量，适当延后时间', score: 0 }
         ]
     },
     // 资源整合能力
@@ -471,10 +487,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '寻找投资人或申请创业扶持', score: 3 },
-            { text: '整合人脉资源，寻找志同道合的合作伙伴', score: 2 },
-            { text: '等待有足够资源再开始', score: 1 },
-            { text: '先小成本验证，逐步追加投入', score: 0 }
+            { text: '先小成本验证，逐步追加投入', score: 3 },
+            { text: '整合人脉资源，寻找志同道合的合作伙伴', score: 1 },
+            { text: '寻找投资人或申请创业扶持', score: 0 },
+            { text: '等待有足够资源再开始', score: 0 }
         ]
     },
     {
@@ -483,10 +499,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '不太擅长社交，关系维护较少', score: 3 },
-            { text: '定期维护关系，互利共赢', score: 2 },
-            { text: '顺其自然，有缘就认识', score: 1 },
-            { text: '有需要时会主动联系维护', score: 0 }
+            { text: '定期维护关系，互利共赢', score: 3 },
+            { text: '有需要时会主动联系维护', score: 1 },
+            { text: '顺其自然，有缘就认识', score: 0 },
+            { text: '不太擅长社交，关系维护较少', score: 0 }
         ]
     },
     {
@@ -495,10 +511,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '全身心投入工作，暂不考虑生活', score: 3 },
-            { text: '合理规划时间，保持工作生活平衡', score: 2 },
-            { text: '创业阶段优先工作，之后再调整', score: 1 },
-            { text: '在关键时期全力以赴，平时注意休息', score: 0 }
+            { text: '合理规划时间，保持工作生活平衡', score: 3 },
+            { text: '在关键时期全力以赴，平时注意休息', score: 1 },
+            { text: '创业阶段优先工作，之后再调整', score: 0 },
+            { text: '全身心投入工作，暂不考虑生活', score: 0 }
         ]
     },
     // 综合评估
@@ -508,10 +524,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '参考有经验人士的建议', score: 3 },
-            { text: '综合数据分析、行业洞察和团队意见', score: 2 },
-            { text: '根据直觉判断，适时决策', score: 1 },
-            { text: '自己深思熟虑后决定', score: 0 }
+            { text: '综合数据分析、行业洞察和团队意见', score: 3 },
+            { text: '自己深思熟虑后决定', score: 1 },
+            { text: '参考有经验人士的建议', score: 0 },
+            { text: '根据直觉判断，适时决策', score: 0 }
         ]
     },
     {
@@ -520,10 +536,10 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '担心竞争激烈，难以立足', score: 3 },
-            { text: '竞争推动创新，理性看待竞争格局', score: 2 },
-            { text: '希望市场更温和', score: 1 },
-            { text: '差异化竞争，找到自己的定位', score: 0 }
+            { text: '竞争推动创新，理性看待竞争格局', score: 3 },
+            { text: '差异化竞争，找到自己的定位', score: 1 },
+            { text: '担心竞争激烈，难以立足', score: 0 },
+            { text: '希望市场更温和', score: 0 }
         ]
     },
     {
@@ -532,15 +548,523 @@ const entrepreneurQuestions = [
         type: 'entrepreneurship',
         dimension: 'passion',
         options: [
-            { text: '走一步看一步，不做太远规划', score: 3 },
-            { text: '打造有社会价值的伟大企业', score: 2 },
-            { text: '积累经验，未来有更多可能', score: 1 },
-            { text: '建立可持续发展的盈利事业', score: 0 }
+            { text: '打造有社会价值的伟大企业', score: 3 },
+            { text: '建立可持续发展的盈利事业', score: 1 },
+            { text: '积累经验，未来有更多可能', score: 0 },
+            { text: '走一步看一步，不做太远规划', score: 0 }
         ]
     }
 ];
 
-// 爱情认知题库 (30题)
+// ==================== 创业思维题库 - 高级题目 (20题) ====================
+// 高质量题目：更深入、更专业、更具挑战性
+const entrepreneurQuestionsAdvanced = [
+    // 机会识别能力 - 高级题
+    {
+        id: 'e31',
+        text: '当你发现一个潜在商机时，你会如何评估其市场可行性？',
+        type: 'entrepreneurship',
+        dimension: 'opportunity',
+        options: [
+            { text: '进行详尽的市场调研，分析竞争格局、用户痛点和增长潜力', score: 3 },
+            { text: '制作简单的商业画布，评估核心要素', score: 1 },
+            { text: '凭直觉判断，觉得有机会就尝试', score: 0 },
+            { text: '找朋友聊聊，听听他们的看法', score: 0 }
+        ]
+    },
+    {
+        id: 'e32',
+        text: '在新兴技术趋势中（如AI、元宇宙），你如何识别真正有价值的创业机会？',
+        type: 'entrepreneurship',
+        dimension: 'opportunity',
+        options: [
+            { text: '深入研究技术底层逻辑，寻找与实际需求的结合点', score: 3 },
+            { text: '关注行业报告和专家观点，跟随主流趋势', score: 1 },
+            { text: '观察哪些项目获得投资，跟风进入', score: 0 },
+            { text: '等待技术成熟后再考虑', score: 0 }
+        ]
+    },
+    // 风险容忍能力 - 高级题
+    {
+        id: 'e33',
+        text: '面对一个高风险高回报的创业机会，你会如何决策？',
+        type: 'entrepreneurship',
+        dimension: 'risk',
+        options: [
+            { text: '进行风险量化分析，设置止损点和退出机制', score: 3 },
+            { text: '评估自身承受能力，谨慎投入', score: 1 },
+            { text: '风险太大，直接放弃', score: 0 },
+            { text: '相信直觉，全力以赴', score: 0 }
+        ]
+    },
+    {
+        id: 'e34',
+        text: '当项目遇到重大挫折时，你如何评估是否继续投入？',
+        type: 'entrepreneurship',
+        dimension: 'risk',
+        options: [
+            { text: '重新评估市场假设，分析失败原因，决定是否调整方向或终止', score: 3 },
+            { text: '坚持一段时间看看情况', score: 1 },
+            { text: '立刻止损，减少损失', score: 0 },
+            { text: '继续投入，相信总会成功', score: 0 }
+        ]
+    },
+    // 市场洞察能力 - 高级题
+    {
+        id: 'e35',
+        text: '你如何发现用户未被满足的深层需求？',
+        type: 'entrepreneurship',
+        dimension: 'market',
+        options: [
+            { text: '通过深度访谈和观察，挖掘用户行为背后的动机和痛点', score: 3 },
+            { text: '分析竞品，寻找差异化机会', score: 1 },
+            { text: '看行业报告和数据分析', score: 0 },
+            { text: '凭经验和直觉判断', score: 0 }
+        ]
+    },
+    {
+        id: 'e36',
+        text: '在市场饱和的领域，你如何找到差异化切入点？',
+        type: 'entrepreneurship',
+        dimension: 'market',
+        options: [
+            { text: '细分市场，找到被忽略的垂直领域或特定人群需求', score: 3 },
+            { text: '提供更好的产品质量或服务体验', score: 1 },
+            { text: '降低价格，打价格战', score: 0 },
+            { text: '模仿成功模式，做微创新', score: 0 }
+        ]
+    },
+    // 创业热情 - 高级题
+    {
+        id: 'e37',
+        text: '当创业热情消退时，你如何重新找回动力？',
+        type: 'entrepreneurship',
+        dimension: 'passion',
+        options: [
+            { text: '回顾初心，重新梳理愿景和目标，调整状态', score: 3 },
+            { text: '休息一段时间，充电后再继续', score: 1 },
+            { text: '考虑换个项目或方向', score: 0 },
+            { text: '硬着头皮继续，熬过去', score: 0 }
+        ]
+    },
+    {
+        id: 'e38',
+        text: '你如何将个人热情与商业机会结合起来？',
+        type: 'entrepreneurship',
+        dimension: 'passion',
+        options: [
+            { text: '找到热情所在领域的商业价值，创造独特价值主张', score: 3 },
+            { text: '在感兴趣的领域寻找创业机会', score: 1 },
+            { text: '先赚钱，有钱了再追求热情', score: 0 },
+            { text: '做自己喜欢的事，不管是否赚钱', score: 0 }
+        ]
+    },
+    // 自我效能 - 高级题
+    {
+        id: 'e39',
+        text: '面对超出当前能力范围的挑战，你会怎么做？',
+        type: 'entrepreneurship',
+        dimension: 'efficacy',
+        options: [
+            { text: '分析差距，制定学习计划，逐步提升能力', score: 3 },
+            { text: '寻求合作伙伴或顾问的帮助', score: 1 },
+            { text: '放弃这个挑战，选择更适合自己的', score: 0 },
+            { text: '硬着头皮上，边做边学', score: 0 }
+        ]
+    },
+    {
+        id: 'e40',
+        text: '如何建立并维持创业所需的自信心？',
+        type: 'entrepreneurship',
+        dimension: 'efficacy',
+        options: [
+            { text: '通过小胜利积累信心，同时保持谦逊和持续学习', score: 3 },
+            { text: '相信自己的判断，不轻易受他人影响', score: 1 },
+            { text: '依赖他人的鼓励和认可', score: 0 },
+            { text: '假装自信，慢慢就会真的自信', score: 0 }
+        ]
+    },
+    // 内在驱动 - 高级题
+    {
+        id: 'e41',
+        text: '在没有外部激励的情况下，你如何保持工作动力？',
+        type: 'entrepreneurship',
+        dimension: 'motivation',
+        options: [
+            { text: '设定内在目标，关注自身成长和使命驱动', score: 3 },
+            { text: '建立规律的工作习惯和节奏', score: 1 },
+            { text: '等待灵感或外部激励出现', score: 0 },
+            { text: '休息放松，等有状态再工作', score: 0 }
+        ]
+    },
+    {
+        id: 'e42',
+        text: '你如何平衡短期利益与长期愿景？',
+        type: 'entrepreneurship',
+        dimension: 'motivation',
+        options: [
+            { text: '制定清晰的战略规划，在短期生存和长期发展间找到平衡点', score: 3 },
+            { text: '优先保证生存，再考虑长远', score: 1 },
+            { text: '专注于眼前的利益', score: 0 },
+            { text: '只关注长远目标，不在乎短期', score: 0 }
+        ]
+    },
+    // 创新倾向 - 高级题
+    {
+        id: 'e43',
+        text: '你如何培养创新思维和产品创新能力？',
+        type: 'entrepreneurship',
+        dimension: 'innovation',
+        options: [
+            { text: '持续学习跨领域知识，鼓励试错和迭代', score: 3 },
+            { text: '关注行业创新案例，借鉴优秀做法', score: 1 },
+            { text: '按照现有模式，做微创新', score: 0 },
+            { text: '创新风险太大，还是稳妥为主', score: 0 }
+        ]
+    },
+    {
+        id: 'e44',
+        text: '如何在保持产品稳定性的同时推动创新？',
+        type: 'entrepreneurship',
+        dimension: 'innovation',
+        options: [
+            { text: '建立创新流程，将创新与运维分离，并行推进', score: 3 },
+            { text: '定期进行小范围试点和测试', score: 1 },
+            { text: '先保证稳定，创新可以慢慢来', score: 0 },
+            { text: '快速迭代，不怕出错', score: 0 }
+        ]
+    },
+    // 行动执行 - 高级题
+    {
+        id: 'e45',
+        text: '面对复杂的项目，你如何进行有效规划和执行？',
+        type: 'entrepreneurship',
+        dimension: 'execution',
+        options: [
+            { text: '分解目标，制定详细计划，建立里程碑和跟进机制', score: 3 },
+            { text: '列出任务清单，按优先级执行', score: 1 },
+            { text: '边做边看，走一步算一步', score: 0 },
+            { text: '先完成最重要的部分，其他再说', score: 0 }
+        ]
+    },
+    {
+        id: 'e46',
+        text: '如何确保团队高效执行并达成目标？',
+        type: 'entrepreneurship',
+        dimension: 'execution',
+        options: [
+            { text: '明确分工，建立OKR，定期复盘和反馈', score: 3 },
+            { text: '定期开会，跟进进度', score: 1 },
+            { text: '相信团队，让他们自主工作', score: 0 },
+            { text: '亲自监督，确保每一步都正确', score: 0 }
+        ]
+    },
+    // 综合能力 - 高级题
+    {
+        id: 'e47',
+        text: '你如何处理创业过程中的不确定性和模糊性？',
+        type: 'entrepreneurship',
+        dimension: 'risk',
+        options: [
+            { text: '建立灵活的决策框架，在不确定中寻找确定性因素', score: 3 },
+            { text: '收集更多信息，减少不确定性', score: 1 },
+            { text: '等待情况明朗后再做决定', score: 0 },
+            { text: '凭直觉快速决策，不怕犯错', score: 0 }
+        ]
+    },
+    {
+        id: 'e48',
+        text: '如何建立有效的商业模式并验证其可行性？',
+        type: 'entrepreneurship',
+        dimension: 'market',
+        options: [
+            { text: '设计最小可行产品(MVP)，通过用户反馈快速迭代验证', score: 3 },
+            { text: '进行市场调研，分析商业模式的关键假设', score: 1 },
+            { text: '模仿成功的商业模式', score: 0 },
+            { text: '先开发完整产品，再推向市场', score: 0 }
+        ]
+    },
+    {
+        id: 'e49',
+        text: '如何建立和维护创业所需的人脉网络？',
+        type: 'entrepreneurship',
+        dimension: 'efficacy',
+        options: [
+            { text: '真诚分享价值，建立长期互惠关系，主动付出和帮助他人', score: 3 },
+            { text: '参加行业活动，主动结识人脉', score: 1 },
+            { text: '通过社交媒体拓展人脉', score: 0 },
+            { text: '靠产品和实力自然吸引人脉', score: 0 }
+        ]
+    },
+    {
+        id: 'e50',
+        text: '你如何看待失败在创业过程中的价值？',
+        type: 'entrepreneurship',
+        dimension: 'motivation',
+        options: [
+            { text: '失败是学习和成长的机会，关键是从中提炼经验教训', score: 3 },
+            { text: '失败是成功之母，总结经验继续前进', score: 1 },
+            { text: '失败意味着方向错误，应该放弃', score: 0 },
+            { text: '尽量避免失败，追求完美', score: 0 }
+        ]
+    }
+];
+
+// ==================== 爱情认知题库 - 高级题目 (20题) ====================
+// 高质量题目：更深入、更专业、更具挑战性
+const loveQuestionsAdvanced = [
+    // 情绪管理能力 - 高级题
+    {
+        id: 'l31',
+        text: '当你的伴侣做出让你非常失望的事情时，你会如何处理自己的情绪？',
+        type: 'love',
+        dimension: 'emotion',
+        options: [
+            { text: '先冷静下来，理解自己的情绪来源，再与伴侣沟通', score: 3 },
+            { text: '表达自己的感受，给对方解释的机会', score: 1 },
+            { text: '暂时离开，等情绪平复再说', score: 0 },
+            { text: '直接指责对方，发泄不满', score: 0 }
+        ]
+    },
+    {
+        id: 'l32',
+        text: '如何在亲密关系中保持情绪的独立性？',
+        type: 'love',
+        dimension: 'emotion',
+        options: [
+            { text: '保持自我空间和个人兴趣，建立健康的情绪边界', score: 3 },
+            { text: '不过度依赖对方的情绪反馈', score: 1 },
+            { text: '尽量让自己开心，不被对方影响', score: 0 },
+            { text: '把情绪寄托在其他事情上', score: 0 }
+        ]
+    },
+    // 共情能力 - 高级题
+    {
+        id: 'l33',
+        text: '当伴侣经历困难或挫折时，你如何提供有效的支持？',
+        type: 'love',
+        dimension: 'empathy',
+        options: [
+            { text: '倾听对方的感受，给予情感支持，提供实际帮助', score: 3 },
+            { text: '安慰对方，鼓励他/她振作', score: 1 },
+            { text: '帮对方分析问题，给出解决方案', score: 0 },
+            { text: '让对方自己冷静一下', score: 0 }
+        ]
+    },
+    {
+        id: 'l34',
+        text: '如何真正理解伴侣的深层需求和感受？',
+        type: 'love',
+        dimension: 'empathy',
+        options: [
+            { text: '通过深度倾听和观察，验证自己的理解，保持好奇心', score: 3 },
+            { text: '多问问题，了解对方的想法', score: 1 },
+            { text: '凭经验猜测对方的感受', score: 0 },
+            { text: '对方会主动说的，不用刻意去了解', score: 0 }
+        ]
+    },
+    // 安全感 - 高级题
+    {
+        id: 'l35',
+        text: '如何在关系中建立安全感，同时保持适当的独立性？',
+        type: 'love',
+        dimension: 'security',
+        options: [
+            { text: '建立信任基础，保持透明沟通，尊重彼此的空间', score: 3 },
+            { text: '经常表达爱意和关心', score: 1 },
+            { text: '尽量满足对方的需求', score: 0 },
+            { text: '顺其自然，不用刻意追求安全感', score: 0 }
+        ]
+    },
+    {
+        id: 'l36',
+        text: '当安全感受到威胁时，你会如何处理？',
+        type: 'love',
+        dimension: 'security',
+        options: [
+            { text: '冷静沟通，表达感受，共同寻找解决方案', score: 3 },
+            { text: '直接询问对方，了解情况', score: 1 },
+            { text: '观察一段时间，看看情况', score: 0 },
+            { text: '自己生闷气，等着对方发现', score: 0 }
+        ]
+    },
+    // 沟通能力 - 高级题
+    {
+        id: 'l37',
+        text: '如何在不伤害对方的前提下表达不同意见？',
+        type: 'love',
+        dimension: 'communication',
+        options: [
+            { text: '用"我"语句表达感受，倾听对方观点，寻求共同理解', score: 3 },
+            { text: '委婉地表达自己的看法', score: 1 },
+            { text: '先肯定对方，再提出不同意见', score: 0 },
+            { text: '直接说出自己的想法，相信对方能理解', score: 0 }
+        ]
+    },
+    {
+        id: 'l38',
+        text: '当沟通陷入僵局时，你会如何打破僵局？',
+        type: 'love',
+        dimension: 'communication',
+        options: [
+            { text: '暂停沟通，冷静后重新开始，寻找共同目标', score: 3 },
+            { text: '主动让步，缓和气氛', score: 1 },
+            { text: '找第三方帮忙调解', score: 0 },
+            { text: '继续争论，直到说服对方', score: 0 }
+        ]
+    },
+    // 边界意识 - 高级题
+    {
+        id: 'l39',
+        text: '如何在亲密关系中建立健康的个人边界？',
+        type: 'love',
+        dimension: 'boundary',
+        options: [
+            { text: '清晰表达自己的需求和底线，尊重对方的边界', score: 3 },
+            { text: '逐渐建立，让对方慢慢适应', score: 1 },
+            { text: '凭感觉，不舒服的时候再说', score: 0 },
+            { text: '亲密关系不需要太多边界', score: 0 }
+        ]
+    },
+    {
+        id: 'l40',
+        text: '当对方越过你的边界时，你会如何处理？',
+        type: 'love',
+        dimension: 'boundary',
+        options: [
+            { text: '明确指出，重申边界，共同制定规则', score: 3 },
+            { text: '提醒对方注意', score: 1 },
+            { text: '忍一忍，下次再说', score: 0 },
+            { text: '以牙还牙，也越过对方的边界', score: 0 }
+        ]
+    },
+    // 冲突处理 - 高级题
+    {
+        id: 'l41',
+        text: '如何将冲突转化为增进关系的机会？',
+        type: 'love',
+        dimension: 'conflict',
+        options: [
+            { text: '聚焦问题解决，理解对方立场，寻找双赢方案', score: 3 },
+            { text: '冷静分析问题，找到解决方案', score: 1 },
+            { text: '先妥协，保持和平', score: 0 },
+            { text: '避免争论，转移话题', score: 0 }
+        ]
+    },
+    {
+        id: 'l42',
+        text: '如何处理关系中的陈年积怨？',
+        type: 'love',
+        dimension: 'conflict',
+        options: [
+            { text: '创造安全环境，逐步清理旧账，重建信任', score: 3 },
+            { text: '找个合适的时机，把话说开', score: 1 },
+            { text: '过去的就让它过去', score: 0 },
+            { text: '等对方先提出来再说', score: 0 }
+        ]
+    },
+    // 亲密能力 - 高级题
+    {
+        id: 'l43',
+        text: '如何在长期关系中保持亲密感？',
+        type: 'love',
+        dimension: 'intimacy',
+        options: [
+            { text: '持续投入时间和精力，创造共同体验，保持情感连接', score: 3 },
+            { text: '定期约会，保持仪式感', score: 1 },
+            { text: '顺其自然，亲密感会自然存在', score: 0 },
+            { text: '靠回忆维持亲密感', score: 0 }
+        ]
+    },
+    {
+        id: 'l44',
+        text: '如何处理亲密关系中的距离感？',
+        type: 'love',
+        dimension: 'intimacy',
+        options: [
+            { text: '坦诚沟通感受，共同寻找改善方法，逐步重建连接', score: 3 },
+            { text: '增加相处时间，多交流', score: 1 },
+            { text: '给彼此一些空间，慢慢会好的', score: 0 },
+            { text: '假装没事，等对方改变', score: 0 }
+        ]
+    },
+    // 信任建立 - 高级题
+    {
+        id: 'l45',
+        text: '如何重建被破坏的信任？',
+        type: 'love',
+        dimension: 'trust',
+        options: [
+            { text: '承认错误，承担责任，持续行动，给对方时间和空间', score: 3 },
+            { text: '道歉并保证不再犯', score: 1 },
+            { text: '用礼物或行动弥补', score: 0 },
+            { text: '时间会证明一切，不用刻意做什么', score: 0 }
+        ]
+    },
+    {
+        id: 'l46',
+        text: '如何在关系中保持适度的信任，不过度依赖也不过度怀疑？',
+        type: 'love',
+        dimension: 'trust',
+        options: [
+            { text: '基于事实做出判断，保持开放和透明的沟通', score: 3 },
+            { text: '相信对方，但保持警惕', score: 1 },
+            { text: '选择相信，除非有证据证明不值得信任', score: 0 },
+            { text: '保持怀疑，避免受伤', score: 0 }
+        ]
+    },
+    // 综合能力 - 高级题
+    {
+        id: 'l47',
+        text: '如何平衡个人成长与关系发展？',
+        type: 'love',
+        dimension: 'emotion',
+        options: [
+            { text: '支持彼此的成长，共同设定目标，保持同步发展', score: 3 },
+            { text: '鼓励对方追求自己的梦想', score: 1 },
+            { text: '先照顾好自己，再考虑关系', score: 0 },
+            { text: '以关系为重，个人成长可以放一放', score: 0 }
+        ]
+    },
+    {
+        id: 'l48',
+        text: '如何处理关系中的期望差异？',
+        type: 'love',
+        dimension: 'communication',
+        options: [
+            { text: '清晰表达期望，理解对方的期望，寻找平衡点', score: 3 },
+            { text: '沟通彼此的想法，尽量达成一致', score: 1 },
+            { text: '接受差异，求同存异', score: 0 },
+            { text: '按自己的期望来，对方会适应的', score: 0 }
+        ]
+    },
+    {
+        id: 'l49',
+        text: '如何面对关系中的权力不平衡？',
+        type: 'love',
+        dimension: 'boundary',
+        options: [
+            { text: '识别权力动态，沟通协商，建立平等的关系契约', score: 3 },
+            { text: '争取自己的权益，不被忽视', score: 1 },
+            { text: '顺其自然，慢慢会平衡的', score: 0 },
+            { text: '忍忍算了，没必要计较', score: 0 }
+        ]
+    },
+    {
+        id: 'l50',
+        text: '你认为健康的亲密关系应该是什么样的？',
+        type: 'love',
+        dimension: 'security',
+        options: [
+            { text: '相互尊重、支持成长、有效沟通、共同创造价值', score: 3 },
+            { text: '互相理解，彼此陪伴', score: 1 },
+            { text: '快乐幸福，没有争吵', score: 0 },
+            { text: '各取所需，互不干涉', score: 0 }
+        ]
+    }
+];
+
+// 爱情认知题库 (50题) - 每个题目只有一个高分选项(3分)，其他为低分
 const loveQuestions = [
     // 情绪管理能力
     {
@@ -549,10 +1073,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'emotion',
         options: [
-            { text: '转移注意力，做些喜欢的事调节心情', score: 3 },
-            { text: '先自我觉察情绪来源，再与伴侣坦诚沟通', score: 2 },
-            { text: '期待伴侣主动发现并安慰自己', score: 1 },
-            { text: '给自己一些独处时间平复情绪', score: 0 }
+            { text: '先自我觉察情绪来源，再与伴侣坦诚沟通', score: 3 },
+            { text: '给自己一些独处时间平复情绪', score: 1 },
+            { text: '转移注意力，做些喜欢的事调节心情', score: 0 },
+            { text: '期待伴侣主动发现并安慰自己', score: 0 }
         ]
     },
     {
@@ -561,10 +1085,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'emotion',
         options: [
-            { text: '感到压力，不知道如何应对', score: 3 },
-            { text: '耐心倾听，尝试理解对方的感受', score: 2 },
-            { text: '觉得对方的情绪反应有些过度', score: 1 },
-            { text: '给予安慰，但不确定是否有效', score: 0 }
+            { text: '耐心倾听，尝试理解对方的感受', score: 3 },
+            { text: '给予安慰，但不确定是否有效', score: 1 },
+            { text: '感到压力，不知道如何应对', score: 0 },
+            { text: '觉得对方的情绪反应有些过度', score: 0 }
         ]
     },
     {
@@ -573,10 +1097,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'emotion',
         options: [
-            { text: '情绪波动时选择暂时冷静', score: 3 },
-            { text: '通过冥想、运动等方式培养情绪调节能力', score: 2 },
-            { text: '情绪不稳定时倾向于倾诉给伴侣', score: 1 },
-            { text: '有意识地控制情绪表达', score: 0 }
+            { text: '通过冥想、运动等方式培养情绪调节能力', score: 3 },
+            { text: '有意识地控制情绪表达', score: 1 },
+            { text: '情绪波动时选择暂时冷静', score: 0 },
+            { text: '情绪不稳定时倾向于倾诉给伴侣', score: 0 }
         ]
     },
     // 共情能力
@@ -586,10 +1110,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'empathy',
         options: [
-            { text: '安慰几句，然后聊别的话题', score: 3 },
-            { text: '感同身受地倾听，提供情感支持', score: 2 },
-            { text: '觉得应该自己解决，不太在意', score: 1 },
-            { text: '认真倾听，并给出建议', score: 0 }
+            { text: '感同身受地倾听，提供情感支持', score: 3 },
+            { text: '认真倾听，并给出建议', score: 1 },
+            { text: '安慰几句，然后聊别的话题', score: 0 },
+            { text: '觉得应该自己解决，不太在意', score: 0 }
         ]
     },
     {
@@ -598,10 +1122,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'empathy',
         options: [
-            { text: '有时候能察觉到', score: 3 },
-            { text: '通过细微的表情和语气变化判断', score: 2 },
-            { text: '对方不说，我就不知道', score: 1 },
-            { text: '基本能感受到对方的情绪', score: 0 }
+            { text: '通过细微的表情和语气变化判断', score: 3 },
+            { text: '基本能感受到对方的情绪', score: 1 },
+            { text: '有时候能察觉到', score: 0 },
+            { text: '对方不说，我就不知道', score: 0 }
         ]
     },
     {
@@ -610,10 +1134,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'empathy',
         options: [
-            { text: '觉得有需要对方会说', score: 3 },
-            { text: '经常关注伴侣的情绪变化', score: 2 },
-            { text: '伴侣主动倾诉时会关心', score: 1 },
-            { text: '在重要时刻会主动关心', score: 0 }
+            { text: '经常关注伴侣的情绪变化', score: 3 },
+            { text: '在重要时刻会主动关心', score: 1 },
+            { text: '伴侣主动倾诉时会关心', score: 0 },
+            { text: '觉得有需要对方会说', score: 0 }
         ]
     },
     // 安全感
@@ -623,10 +1147,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '经济基础和稳定的生活', score: 3 },
-            { text: '相互信任，给彼此足够的空间', score: 2 },
-            { text: '对方无条件的包容和让步', score: 1 },
-            { text: '坦诚沟通，及时解决问题', score: 0 }
+            { text: '相互信任，给彼此足够的空间', score: 3 },
+            { text: '坦诚沟通，及时解决问题', score: 1 },
+            { text: '经济基础和稳定的生活', score: 0 },
+            { text: '对方无条件的包容和让步', score: 0 }
         ]
     },
     {
@@ -635,10 +1159,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '有些不安，会追问原因', score: 3 },
-            { text: '尊重对方需求，给予支持', score: 2 },
-            { text: '觉得不被需要，产生怀疑', score: 1 },
-            { text: '接受，但希望知道原因', score: 0 }
+            { text: '尊重对方需求，给予支持', score: 3 },
+            { text: '接受，但希望知道原因', score: 1 },
+            { text: '有些不安，会追问原因', score: 0 },
+            { text: '觉得不被需要，产生怀疑', score: 0 }
         ]
     },
     {
@@ -647,10 +1171,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '感到焦虑，想控制局面', score: 3 },
-            { text: '主动沟通，共同制定应对策略', score: 2 },
-            { text: '回避问题，希望问题自行消失', score: 1 },
-            { text: '相信时间会解决大部分问题', score: 0 }
+            { text: '主动沟通，共同制定应对策略', score: 3 },
+            { text: '相信时间会解决大部分问题', score: 1 },
+            { text: '感到焦虑，想控制局面', score: 0 },
+            { text: '回避问题，希望问题自行消失', score: 0 }
         ]
     },
     // 沟通能力
@@ -660,10 +1184,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '委婉暗示，希望对方能理解', score: 3 },
-            { text: '用"我觉得"开头，表达感受而非指责', score: 2 },
-            { text: '不说，闷在心里', score: 1 },
-            { text: '直接说出来，希望对方改正', score: 0 }
+            { text: '用"我觉得"开头，表达感受而非指责', score: 3 },
+            { text: '直接说出来，希望对方改正', score: 1 },
+            { text: '委婉暗示，希望对方能理解', score: 0 },
+            { text: '不说，闷在心里', score: 0 }
         ]
     },
     {
@@ -672,10 +1196,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '选择合适的时机沟通', score: 3 },
-            { text: '倾听对方的立场，寻找共同点', score: 2 },
-            { text: '避免冲突，保持和谐', score: 1 },
-            { text: '清晰表达自己的想法', score: 0 }
+            { text: '倾听对方的立场，寻找共同点', score: 3 },
+            { text: '清晰表达自己的想法', score: 1 },
+            { text: '选择合适的时机沟通', score: 0 },
+            { text: '避免冲突，保持和谐', score: 0 }
         ]
     },
     {
@@ -684,10 +1208,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '暂时搁置，以后再讨论', score: 3 },
-            { text: '理性讨论，寻找双方都能接受的方案', score: 2 },
-            { text: '坚持自己的观点，说服对方', score: 1 },
-            { text: '各退一步，达成妥协', score: 0 }
+            { text: '理性讨论，寻找双方都能接受的方案', score: 3 },
+            { text: '各退一步，达成妥协', score: 1 },
+            { text: '暂时搁置，以后再讨论', score: 0 },
+            { text: '坚持自己的观点，说服对方', score: 0 }
         ]
     },
     // 边界意识
@@ -697,10 +1221,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '不太重要，相爱就应该透明', score: 3 },
-            { text: '非常重要，边界清晰关系更健康', score: 2 },
-            { text: '边界会伤害感情，应该没有边界', score: 1 },
-            { text: '重要，但可以根据情况调整', score: 0 }
+            { text: '非常重要，边界清晰关系更健康', score: 3 },
+            { text: '重要，但可以根据情况调整', score: 1 },
+            { text: '不太重要，相爱就应该透明', score: 0 },
+            { text: '边界会伤害感情，应该没有边界', score: 0 }
         ]
     },
     {
@@ -709,10 +1233,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '希望知道每次交往的具体情况', score: 3 },
-            { text: '信任对方，不过度干涉', score: 2 },
-            { text: '要求伴侣减少与异性朋友的来往', score: 1 },
-            { text: '知道有交往就好，不过问细节', score: 0 }
+            { text: '信任对方，不过度干涉', score: 3 },
+            { text: '知道有交往就好，不过问细节', score: 1 },
+            { text: '希望知道每次交往的具体情况', score: 0 },
+            { text: '要求伴侣减少与异性朋友的来往', score: 0 }
         ]
     },
     {
@@ -721,10 +1245,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '觉得过去不重要，没必要提', score: 3 },
-            { text: '适度分享，尊重自己也尊重对方', score: 2 },
-            { text: '完全坦诚，没有任何保留', score: 1 },
-            { text: '愿意分享，但有些事会保留', score: 0 }
+            { text: '适度分享，尊重自己也尊重对方', score: 3 },
+            { text: '愿意分享，但有些事会保留', score: 1 },
+            { text: '觉得过去不重要，没必要提', score: 0 },
+            { text: '完全坦诚，没有任何保留', score: 0 }
         ]
     },
     // 冲突处理
@@ -734,10 +1258,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'conflict',
         options: [
-            { text: '选择冷战，等对方先道歉', score: 3 },
-            { text: '等冷静后理性沟通解决', score: 2 },
-            { text: '情绪激动，可能说出伤人的话', score: 1 },
-            { text: '当时想解释清楚再结束', score: 0 }
+            { text: '等冷静后理性沟通解决', score: 3 },
+            { text: '当时想解释清楚再结束', score: 1 },
+            { text: '选择冷战，等对方先道歉', score: 0 },
+            { text: '情绪激动，可能说出伤人的话', score: 0 }
         ]
     },
     {
@@ -746,10 +1270,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'conflict',
         options: [
-            { text: '等对方先示好', score: 3 },
-            { text: '主动反思，主动沟通和好', score: 2 },
-            { text: '觉得没什么大不了，时间会冲淡', score: 1 },
-            { text: '给对方一些时间，然后和好', score: 0 }
+            { text: '主动反思，主动沟通和好', score: 3 },
+            { text: '给对方一些时间，然后和好', score: 1 },
+            { text: '等对方先示好', score: 0 },
+            { text: '觉得没什么大不了，时间会冲淡', score: 0 }
         ]
     },
     {
@@ -758,10 +1282,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'conflict',
         options: [
-            { text: '很糟糕，争吵会伤害感情', score: 3 },
-            { text: '正常现象，解决问题能促进关系', score: 2 },
-            { text: '不应该有争吵，相爱的人不应该吵架', score: 1 },
-            { text: '可以接受，但希望能避免', score: 0 }
+            { text: '正常现象，解决问题能促进关系', score: 3 },
+            { text: '可以接受，但希望能避免', score: 1 },
+            { text: '很糟糕，争吵会伤害感情', score: 0 },
+            { text: '不应该有争吵，相爱的人不应该吵架', score: 0 }
         ]
     },
     // 亲密能力
@@ -771,10 +1295,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'intimacy',
         options: [
-            { text: '陪伴是最长情的告白', score: 3 },
-            { text: '通过言语和行动真诚表达', score: 2 },
-            { text: '觉得爱不需要说出来', score: 1 },
-            { text: '用行动表达，不太擅长言语', score: 0 }
+            { text: '通过言语和行动真诚表达', score: 3 },
+            { text: '用行动表达，不太擅长言语', score: 1 },
+            { text: '陪伴是最长情的告白', score: 0 },
+            { text: '觉得爱不需要说出来', score: 0 }
         ]
     },
     {
@@ -783,10 +1307,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'intimacy',
         options: [
-            { text: '顺其自然，不需要刻意', score: 3 },
-            { text: '会主动安排约会和惊喜', score: 2 },
-            { text: '不太擅长这些，希望对方主动', score: 1 },
-            { text: '重要日子会特别准备', score: 0 }
+            { text: '会主动安排约会和惊喜', score: 3 },
+            { text: '重要日子会特别准备', score: 1 },
+            { text: '顺其自然，不需要刻意', score: 0 },
+            { text: '不太擅长这些，希望对方主动', score: 0 }
         ]
     },
     {
@@ -795,10 +1319,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'intimacy',
         options: [
-            { text: '稳定的物质基础', score: 3 },
-            { text: '持续的情感投入和相互成长', score: 2 },
-            { text: '彼此忠诚和承诺', score: 1 },
-            { text: '相互理解和包容', score: 0 }
+            { text: '持续的情感投入和相互成长', score: 3 },
+            { text: '相互理解和包容', score: 1 },
+            { text: '稳定的物质基础', score: 0 },
+            { text: '彼此忠诚和承诺', score: 0 }
         ]
     },
     // 信任建立
@@ -808,10 +1332,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'trust',
         options: [
-            { text: '让对方看自己的手机和社交账号', score: 3 },
-            { text: '言行一致，言出必行', score: 2 },
-            { text: '时间久了自然会信任', score: 1 },
-            { text: '坦诚沟通，主动分享', score: 0 }
+            { text: '言行一致，言出必行', score: 3 },
+            { text: '坦诚沟通，主动分享', score: 1 },
+            { text: '让对方看自己的手机和社交账号', score: 0 },
+            { text: '时间久了自然会信任', score: 0 }
         ]
     },
     {
@@ -820,10 +1344,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'trust',
         options: [
-            { text: '觉得对方多疑，不想理会', score: 3 },
-            { text: '耐心倾听，给予安全感', score: 2 },
-            { text: '对伴侣的信任表示不满', score: 1 },
-            { text: '解释清楚，希望对方理解', score: 0 }
+            { text: '耐心倾听，给予安全感', score: 3 },
+            { text: '解释清楚，希望对方理解', score: 1 },
+            { text: '觉得对方多疑，不想理会', score: 0 },
+            { text: '对伴侣的信任表示不满', score: 0 }
         ]
     },
     {
@@ -832,10 +1356,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'trust',
         options: [
-            { text: '无所谓，给对方看也无所谓', score: 3 },
-            { text: '尊重隐私，但愿意主动分享', score: 2 },
-            { text: '这说明对方不信任我', score: 1 },
-            { text: '可以接受，但不觉得有必要', score: 0 }
+            { text: '尊重隐私，但愿意主动分享', score: 3 },
+            { text: '可以接受，但不觉得有必要', score: 1 },
+            { text: '无所谓，给对方看也无所谓', score: 0 },
+            { text: '这说明对方不信任我', score: 0 }
         ]
     },
     // 价值观 - 关系预期
@@ -845,10 +1369,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'intimacy',
         options: [
-            { text: '能满足彼此的情感需求', score: 3 },
-            { text: '相互支持彼此的梦想，共同成长', score: 2 },
-            { text: '能满足彼此的情感需求', score: 1 },
-            { text: '彼此包容，有矛盾能协商解决', score: 0 }
+            { text: '相互支持彼此的梦想，共同成长', score: 3 },
+            { text: '彼此包容，有矛盾能协商解决', score: 1 },
+            { text: '能满足彼此的情感需求', score: 0 },
+            { text: '生活稳定安逸就好', score: 0 }
         ]
     },
     {
@@ -857,10 +1381,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'trust',
         options: [
-            { text: '觉得困难会自然解决，暂不处理', score: 3 },
-            { text: '坦诚沟通，共同寻找解决方案', score: 2 },
-            { text: '逃避问题，等待对方先提出', score: 1 },
-            { text: '给自己和对方一些时间和空间', score: 0 }
+            { text: '坦诚沟通，共同寻找解决方案', score: 3 },
+            { text: '给自己和对方一些时间和空间', score: 1 },
+            { text: '觉得困难会自然解决，暂不处理', score: 0 },
+            { text: '逃避问题，等待对方先提出', score: 0 }
         ]
     },
     {
@@ -869,10 +1393,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'empathy',
         options: [
-            { text: '足够的物质保障', score: 3 },
-            { text: '持续的沟通和相互理解', score: 2 },
-            { text: '彼此的包容和妥协', score: 1 },
-            { text: '共同的生活目标和价值观', score: 0 }
+            { text: '持续的沟通和相互理解', score: 3 },
+            { text: '共同的生活目标和价值观', score: 1 },
+            { text: '足够的物质保障', score: 0 },
+            { text: '彼此的包容和妥协', score: 0 }
         ]
     },
     // 综合题
@@ -882,10 +1406,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '寻找关系中的问题，尝试修复', score: 3 },
-            { text: '理性沟通，好聚好散', score: 2 },
-            { text: '逃避问题，等待对方先提出', score: 1 },
-            { text: '给彼此时间冷静后再做决定', score: 0 }
+            { text: '理性沟通，好聚好散', score: 3 },
+            { text: '给彼此时间冷静后再做决定', score: 1 },
+            { text: '寻找关系中的问题，尝试修复', score: 0 },
+            { text: '逃避问题，等待对方先提出', score: 0 }
         ]
     },
     {
@@ -894,10 +1418,10 @@ const loveQuestions = [
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '调整自己的作息和习惯', score: 3 },
-            { text: '主动学习沟通技巧，提升自己', score: 2 },
-            { text: '觉得改变很难，希望对方先改变', score: 1 },
-            { text: '在重要时刻给予伴侣更多关注', score: 0 }
+            { text: '主动学习沟通技巧，提升自己', score: 3 },
+            { text: '在重要时刻给予伴侣更多关注', score: 1 },
+            { text: '调整自己的作息和习惯', score: 0 },
+            { text: '觉得改变很难，希望对方先改变', score: 0 }
         ]
     },
     {
@@ -906,13 +1430,17 @@ const loveQuestions = [
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '外部条件稳定，如经济基础', score: 3 },
-            { text: '双方的持续投入和共同成长', score: 2 },
-            { text: '良好的沟通和冲突处理能力', score: 1 },
-            { text: '相互信任和尊重', score: 0 }
+            { text: '双方的持续投入和共同成长', score: 3 },
+            { text: '相互信任和尊重', score: 1 },
+            { text: '外部条件稳定，如经济基础', score: 0 },
+            { text: '良好的沟通和冲突处理能力', score: 0 }
         ]
     }
 ];
+
+// ==================== 合并题库 ====================
+const entrepreneurQuestionsAll = [...entrepreneurQuestions, ...entrepreneurQuestionsAdvanced];
+const loveQuestionsAll = [...loveQuestions, ...loveQuestionsAdvanced];
 
 // ==================== 全局变量 ====================
 let currentQuestions = [];
@@ -1562,32 +2090,69 @@ function stratifiedSampleByDimension(questions, targetCount, dimensions) {
     const selected = [];
     const availableDims = dimensions.filter(dim => dimensionGroups[dim] && dimensionGroups[dim].length > 0);
     
+    // 如果目标数量小于等于维度数量，直接从每个维度随机选一题
+    if (targetCount <= availableDims.length) {
+        const shuffledDims = shuffleArray([...availableDims]);
+        for (let i = 0; i < targetCount; i++) {
+            const dim = shuffledDims[i];
+            const pool = dimensionGroups[dim];
+            const randomIndex = Math.floor(Math.random() * pool.length);
+            selected.push(pool[randomIndex]);
+        }
+        return shuffleArray(selected);
+    }
+    
     // 确保每个有题目的维度至少抽一题
+    const selectedSet = new Set();
     availableDims.forEach(dim => {
         const pool = dimensionGroups[dim];
         if (pool.length > 0) {
             const randomIndex = Math.floor(Math.random() * pool.length);
-            selected.push(pool[randomIndex]);
+            const selectedQ = pool[randomIndex];
+            selected.push(selectedQ);
+            selectedSet.add(selectedQ.id);
         }
     });
     
-    // 如果选择的题目数量少于目标，并且还有维度有剩余题目，继续抽取
-    while (selected.length < targetCount) {
-        // 从未选满的维度中继续抽取
-        const dimsWithMore = availableDims.filter(dim => {
-            const pool = dimensionGroups[dim];
-            // 检查该维度是否还有未选的题目
-            return pool.some(q => !selected.includes(q));
-        });
+    // 计算还需要抽取的题目数量
+    const remainingCount = targetCount - selected.length;
+    
+    // 获取所有未被选中的题目
+    const unselectedQuestions = questions.filter(q => !selectedSet.has(q.id));
+    
+    // 从剩余题目中随机抽取（确保每个维度最多抽2题，避免某维度题目过多）
+    const maxPerDimension = 2;
+    const dimCountMap = {};
+    availableDims.forEach(dim => dimCountMap[dim] = 1); // 已选1题
+    
+    for (let i = 0; i < remainingCount && unselectedQuestions.length > 0; i++) {
+        // 筛选出还能继续抽取的维度
+        const availableForMore = availableDims.filter(dim => dimCountMap[dim] < maxPerDimension);
         
-        if (dimsWithMore.length === 0) break;
+        if (availableForMore.length === 0) break;
         
-        const dim = dimsWithMore[Math.floor(Math.random() * dimsWithMore.length)];
-        const pool = dimensionGroups[dim];
-        const unselected = pool.filter(q => !selected.includes(q));
-        if (unselected.length > 0) {
-            const randomIndex = Math.floor(Math.random() * unselected.length);
-            selected.push(unselected[randomIndex]);
+        // 随机选择一个维度
+        const selectedDim = availableForMore[Math.floor(Math.random() * availableForMore.length)];
+        
+        // 从该维度未选中的题目中随机选一题
+        const pool = dimensionGroups[selectedDim];
+        const unselectedInDim = pool.filter(q => !selectedSet.has(q.id));
+        
+        if (unselectedInDim.length > 0) {
+            const randomIndex = Math.floor(Math.random() * unselectedInDim.length);
+            const selectedQ = unselectedInDim[randomIndex];
+            selected.push(selectedQ);
+            selectedSet.add(selectedQ.id);
+            dimCountMap[selectedDim]++;
+        }
+    }
+    
+    // 如果还没达到目标数量，从所有未选中题目中随机补充
+    if (selected.length < targetCount) {
+        const remainingQuestions = questions.filter(q => !selectedSet.has(q.id));
+        const shuffledRemaining = shuffleArray(remainingQuestions);
+        for (let i = 0; i < targetCount - selected.length && i < shuffledRemaining.length; i++) {
+            selected.push(shuffledRemaining[i]);
         }
     }
     
@@ -1620,15 +2185,15 @@ function startTest() {
     
     // 根据选择类型抽取题目（分层抽样确保维度覆盖）
     if (selectedType === 'comprehensive') {
-        // 综合测试：创业8题 + 爱情5题（确保每个维度至少1题）
-        entrepreneurSample = stratifiedSampleByDimension(entrepreneurQuestions, 8, entrepreneurDimensions);
-        loveSample = stratifiedSampleByDimension(loveQuestions, 5, loveDimensions);
+        // 综合测试：创业8题 + 爱情8题 = 16题（确保每个维度至少1题）
+        entrepreneurSample = stratifiedSampleByDimension(entrepreneurQuestionsAll, 8, entrepreneurDimensions);
+        loveSample = stratifiedSampleByDimension(loveQuestionsAll, 8, loveDimensions);
     } else if (selectedType === 'entrepreneur') {
-        // 纯创业思维：10题（确保每个维度至少1题）
-        entrepreneurSample = stratifiedSampleByDimension(entrepreneurQuestions, 10, entrepreneurDimensions);
+        // 纯创业思维：16题（确保每个维度至少1题）
+        entrepreneurSample = stratifiedSampleByDimension(entrepreneurQuestionsAll, 16, entrepreneurDimensions);
     } else if (selectedType === 'love') {
-        // 纯爱情认知：10题（确保每个维度至少1题）
-        loveSample = stratifiedSampleByDimension(loveQuestions, 10, loveDimensions);
+        // 纯爱情认知：16题（确保每个维度至少1题）
+        loveSample = stratifiedSampleByDimension(loveQuestionsAll, 16, loveDimensions);
     }
     
     // 合并并打乱顺序
@@ -1667,15 +2232,33 @@ function loadQuestion(index) {
     // 更新题目编号
     document.getElementById('question-number').textContent = index + 1;
     
+    // 更新上一题按钮状态
+    const prevBtn = document.getElementById('prev-btn');
+    if (index === 0) {
+        prevBtn.disabled = true;
+        prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        prevBtn.classList.remove('hover:bg-white/20');
+    } else {
+        prevBtn.disabled = false;
+        prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        prevBtn.classList.add('hover:bg-white/20');
+    }
+    
     // 更新题目类型标签
     const typeTag = document.getElementById('question-type-tag');
     if (question.type === 'entrepreneurship') {
         typeTag.textContent = '🚀 创业思维';
-        typeTag.className = 'px-4 py-2 rounded-full text-sm font-medium type-entrepreneur';
+        typeTag.className = 'px-4 py-2 rounded-full text-sm font-medium type-entrepreneur cursor-pointer hover:opacity-80 transition-opacity';
     } else {
         typeTag.textContent = '💜 爱情认知';
-        typeTag.className = 'px-4 py-2 rounded-full text-sm font-medium type-love';
+        typeTag.className = 'px-4 py-2 rounded-full text-sm font-medium type-love cursor-pointer hover:opacity-80 transition-opacity';
     }
+    
+    // 添加点击事件查看测试类型介绍
+    typeTag.onclick = function() {
+        console.log('点击了测试类型标签');
+        showTestTypeModal(currentTestType);
+    };
     
     // 更新题目内容
     document.getElementById('question-text').textContent = question.text;
@@ -1687,48 +2270,66 @@ function loadQuestion(index) {
     // 随机打乱选项顺序
     const shuffledOptions = shuffleArray([...question.options]);
     
-    shuffledOptions.forEach((option, optIndex) => {
-        const optionCard = document.createElement('div');
-        optionCard.className = 'option-card flex items-center';
-        optionCard.innerHTML = `
-            <span class="option-label">${String.fromCharCode(65 + optIndex)}</span>
-            <span class="flex-1">${option.text}</span>
-        `;
-        
-        optionCard.addEventListener('click', () => {
-            // 记录答案
-            answers[index] = {
-                questionId: question.id,
-                questionText: question.text,
-                optionIndex: optIndex,
-                optionText: option.text,
-                score: option.score,
-                type: question.type,
-                dimension: question.dimension
-            };
+    // 如果已有答案，显示选中状态
+        const savedAnswer = answers[index];
+        shuffledOptions.forEach((option, optIndex) => {
+            const optionCard = document.createElement('div');
+            optionCard.className = 'option-card flex items-center';
+            if (savedAnswer && savedAnswer.optionText === option.text) {
+                optionCard.classList.add('selected');
+            }
+            optionCard.innerHTML = `
+                <span class="option-label">${String.fromCharCode(65 + optIndex)}</span>
+                <span class="flex-1">${option.text}</span>
+            `;
             
-            // 添加选中效果
-            document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
-            optionCard.classList.add('selected');
+            optionCard.addEventListener('click', () => {
+                // 记录答案
+                answers[currentQuestionIndex] = {
+                    questionId: question.id,
+                    questionText: question.text,
+                    optionIndex: optIndex,
+                    optionText: option.text,
+                    score: option.score,
+                    type: question.type,
+                    dimension: question.dimension
+                };
+                
+                // 添加选中效果
+                document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+                optionCard.classList.add('selected');
+                
+                // 添加振动效果
+                optionCard.classList.add('animate-shake');
+                setTimeout(() => optionCard.classList.remove('animate-shake'), 300);
+            });
             
-            // 添加振动效果
-            optionCard.classList.add('animate-shake');
-            setTimeout(() => optionCard.classList.remove('animate-shake'), 300);
-            
-            // 延迟后自动跳转下一题
-            setTimeout(() => {
-                if (index < currentQuestions.length - 1) {
-                    loadQuestion(index + 1);
-                } else {
-                    // 完成测试，计算结果
-                    calculateResults();
-                }
-            }, 500);
+            optionsContainer.appendChild(optionCard);
         });
-        
-        optionsContainer.appendChild(optionCard);
-    });
 }
+
+// ==================== 上一题按钮事件 ====================
+document.getElementById('prev-btn').addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+        loadQuestion(currentQuestionIndex - 1);
+    }
+});
+
+// ==================== 下一题按钮事件 ====================
+document.getElementById('next-btn').addEventListener('click', () => {
+    // 检查是否已答题
+    if (!answers[currentQuestionIndex]) {
+        alert('请选择选项后再继续下一题');
+        return;
+    }
+    
+    if (currentQuestionIndex < currentQuestions.length - 1) {
+        loadQuestion(currentQuestionIndex + 1);
+    } else {
+        // 完成测试，计算结果
+        calculateResults();
+    }
+});
 
 // ==================== 计算结果 ====================
 function calculateResults() {
@@ -1784,7 +2385,7 @@ function calculateResults() {
         timestamp: new Date().toISOString(),
         entrepreneurScore: entrepreneurPercentage,
         loveScore: lovePercentage,
-        isAwakened: entrepreneurPercentage >= 80 && lovePercentage >= 80,
+        isAwakened: entrepreneurPercentage >= 85 && lovePercentage >= 85,
         dimensionScores,
         answers
     };
@@ -1802,6 +2403,8 @@ function calculateResults() {
 
 // ==================== 显示结果 ====================
 function showResult(result) {
+    // 保存当前结果到全局变量，以便切换主题时能重新渲染
+    window.currentResult = result;
     showPage('result');
     
     // 模块一：核心结果卡片
@@ -1812,7 +2415,7 @@ function showResult(result) {
     // 根据测试类型显示不同的开智状态
     if (currentTestType === 'entrepreneur') {
         // 创业思维模式
-        if (result.entrepreneurScore >= 80) {
+        if (result.entrepreneurScore >= 85) {
             resultIcon.textContent = '◇';
             resultIcon.className = 'text-8xl mb-4 result-icon-bounce text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#EF4444]';
             resultTitle.textContent = '已开智';
@@ -1827,7 +2430,7 @@ function showResult(result) {
         }
     } else if (currentTestType === 'love') {
         // 爱情认知模式
-        if (result.loveScore >= 80) {
+        if (result.loveScore >= 85) {
             resultIcon.textContent = '◇';
             resultIcon.className = 'text-8xl mb-4 result-icon-bounce text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#EC4899]';
             resultTitle.textContent = '已开智';
@@ -2012,9 +2615,9 @@ function showResult(result) {
     
     // 更新分享按钮状态
     const isAwakenedForShare = currentTestType === 'entrepreneur' 
-        ? result.entrepreneurScore >= 80 
+        ? result.entrepreneurScore >= 85 
         : currentTestType === 'love' 
-            ? result.loveScore >= 80 
+            ? result.loveScore >= 85 
             : result.isAwakened;
     
     document.getElementById('share-badge').className = isAwakenedForShare ? 'badge-awakened' : 'badge-awakening';
@@ -2084,6 +2687,14 @@ function initRadarChart(scores, selectedQuestions = null) {
     const ctx = document.getElementById('radar-chart').getContext('2d');
     
     let labels, data;
+    
+    // 检查是否是晨曦暖阳主题
+    const isLightTheme = document.body.classList.contains('theme-light');
+    
+    // 创建紫金渐变背景
+    const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
+    gradient.addColorStop(0, isLightTheme ? 'rgba(124, 58, 237, 0.15)' : 'rgba(124, 58, 237, 0.25)');
+    gradient.addColorStop(1, isLightTheme ? 'rgba(245, 158, 11, 0.1)' : 'rgba(245, 158, 11, 0.15)');
     
     // 维度映射
     const dimensionLabels = {
@@ -2203,6 +2814,31 @@ function initRadarChart(scores, selectedQuestions = null) {
         radarChart.destroy();
     }
     
+    // 根据主题设置颜色 - 紫金渐变配色
+    const chartColors = isLightTheme 
+        ? {
+            borderColor: 'rgba(124, 58, 237, 0.95)',
+            pointBackgroundColor: '#D97706',
+            pointBorderColor: '#7C3AED',
+            pointHoverBackgroundColor: '#F59E0B',
+            pointHoverBorderColor: '#7C3AED',
+            ticksColor: '#7C3AED',
+            gridColor: 'rgba(124, 58, 237, 0.2)',
+            angleLinesColor: 'rgba(245, 158, 11, 0.3)',
+            pointLabelsColor: '#5B21B6'
+        } 
+        : {
+            borderColor: 'rgba(124, 58, 237, 0.9)',
+            pointBackgroundColor: 'rgba(245, 158, 11, 1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(124, 58, 237, 1)',
+            ticksColor: 'rgba(255, 255, 255, 0.6)',
+            gridColor: 'rgba(124, 58, 237, 0.2)',
+            angleLinesColor: 'rgba(124, 58, 237, 0.2)',
+            pointLabelsColor: 'rgba(255, 255, 255, 0.9)'
+        };
+    
     radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
@@ -2210,13 +2846,13 @@ function initRadarChart(scores, selectedQuestions = null) {
             datasets: [{
                 label: '能力值',
                 data,
-                backgroundColor: 'rgba(124, 58, 237, 0.2)',
-                borderColor: 'rgba(124, 58, 237, 0.8)',
+                backgroundColor: gradient,
+                borderColor: chartColors.borderColor,
                 borderWidth: 2,
-                pointBackgroundColor: 'rgba(245, 158, 11, 1)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(124, 58, 237, 1)'
+                pointBackgroundColor: chartColors.pointBackgroundColor,
+                pointBorderColor: chartColors.pointBorderColor,
+                pointHoverBackgroundColor: chartColors.pointHoverBackgroundColor,
+                pointHoverBorderColor: chartColors.pointHoverBorderColor
             }]
         },
         options: {
@@ -2228,17 +2864,17 @@ function initRadarChart(scores, selectedQuestions = null) {
                     max: 100,
                     ticks: {
                         stepSize: 20,
-                        color: 'rgba(255, 255, 255, 0.5)',
+                        color: chartColors.ticksColor,
                         backdropColor: 'transparent'
                     },
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
+                        color: chartColors.gridColor
                     },
                     angleLines: {
-                        color: 'rgba(255, 255, 255, 0.1)'
+                        color: chartColors.angleLinesColor
                     },
                     pointLabels: {
-                        color: 'rgba(255, 255, 255, 0.8)',
+                        color: chartColors.pointLabelsColor,
                         font: {
                             size: 11
                         }
@@ -2378,6 +3014,42 @@ function initHistoryChart(history) {
     // 取最近5条记录
     const recentHistory = history.slice(0, 5).reverse();
     
+    // 检查是否是晨曦暖阳主题
+    const isLightTheme = document.body.classList.contains('theme-light');
+    
+    // 创建紫金渐变背景
+    const gradient1 = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+    const gradient2 = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+    
+    if (isLightTheme) {
+        gradient1.addColorStop(0, 'rgba(245, 158, 11, 0.2)');
+        gradient1.addColorStop(1, 'rgba(245, 158, 11, 0)');
+        gradient2.addColorStop(0, 'rgba(124, 58, 237, 0.2)');
+        gradient2.addColorStop(1, 'rgba(124, 58, 237, 0)');
+    } else {
+        gradient1.addColorStop(0, 'rgba(245, 158, 11, 0.25)');
+        gradient1.addColorStop(1, 'rgba(245, 158, 11, 0)');
+        gradient2.addColorStop(0, 'rgba(124, 58, 237, 0.25)');
+        gradient2.addColorStop(1, 'rgba(124, 58, 237, 0)');
+    }
+    
+    // 根据主题设置颜色 - 紫金渐变配色
+    const chartColors = isLightTheme 
+        ? {
+            entrepreneurColor: '#D97706',
+            loveColor: '#7C3AED',
+            gridColor: 'rgba(124, 58, 237, 0.18)',
+            ticksColor: '#7C3AED',
+            legendColor: '#5B21B6'
+        } 
+        : {
+            entrepreneurColor: '#F59E0B',
+            loveColor: '#7C3AED',
+            gridColor: 'rgba(124, 58, 237, 0.2)',
+            ticksColor: 'rgba(255, 255, 255, 0.6)',
+            legendColor: 'rgba(255, 255, 255, 0.8)'
+        };
+    
     historyChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -2386,18 +3058,20 @@ function initHistoryChart(history) {
                 {
                     label: '创业思维',
                     data: recentHistory.map(h => h.entrepreneurScore),
-                    borderColor: '#F59E0B',
-                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    borderColor: chartColors.entrepreneurColor,
+                    backgroundColor: gradient1,
                     fill: true,
-                    tension: 0.4
+                    tension: 0.4,
+                    borderWidth: 2
                 },
                 {
                     label: '爱情认知',
                     data: recentHistory.map(h => h.loveScore),
-                    borderColor: '#7C3AED',
-                    backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                    borderColor: chartColors.loveColor,
+                    backgroundColor: gradient2,
                     fill: true,
-                    tension: 0.4
+                    tension: 0.4,
+                    borderWidth: 2
                 }
             ]
         },
@@ -2407,20 +3081,20 @@ function initHistoryChart(history) {
             scales: {
                 x: {
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
+                        color: chartColors.gridColor
                     },
                     ticks: {
-                        color: 'rgba(255, 255, 255, 0.5)'
+                        color: chartColors.ticksColor
                     }
                 },
                 y: {
                     min: 0,
                     max: 100,
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
+                        color: chartColors.gridColor
                     },
                     ticks: {
-                        color: 'rgba(255, 255, 255, 0.5)'
+                        color: chartColors.ticksColor
                     }
                 }
             },
@@ -2428,7 +3102,7 @@ function initHistoryChart(history) {
                 legend: {
                     position: 'bottom',
                     labels: {
-                        color: 'rgba(255, 255, 255, 0.7)'
+                        color: chartColors.legendColor
                     }
                 }
             }
@@ -2445,6 +3119,15 @@ function toggleTheme() {
     } else {
         document.body.classList.add('theme-light');
     }
+    
+    // 如果当前在结果页面，重新渲染图表
+    const resultPage = document.getElementById('result-page');
+    if (resultPage && resultPage.classList.contains('active')) {
+        // 重新计算并显示结果以更新图表颜色
+        if (window.currentResult) {
+            showResult(window.currentResult);
+        }
+    }
 }
 
 // ==================== 音乐控制 ====================
@@ -2452,19 +3135,28 @@ function toggleTheme() {
 let audioPlayer = null;
 let bgmFiles = ['bgm1.mp3', 'bgm2.mp3', 'bgm3.mp3', 'bgm4.mp3', 'bgm5.mp3'];
 let currentBgmIndex = 0;
-let musicAvailable = false; // 标记音乐文件是否可用
+let musicAvailable = null; // 标记音乐文件是否可用 (null=未检测, true=可用, false=不可用)
 
 // 检测音乐文件是否存在
 async function checkMusicAvailability() {
+    // 如果已经检测过，直接返回结果
+    if (musicAvailable !== null && musicAvailable !== undefined) {
+        return musicAvailable;
+    }
+    
     for (const file of bgmFiles) {
         try {
-            const response = await fetch(`bgm/${file}`, { method: 'HEAD' });
+            const response = await fetch(`bgm/${file}`, { 
+                method: 'HEAD',
+                cache: 'no-store'
+            });
             if (response.ok) {
                 musicAvailable = true;
                 return true;
             }
         } catch (e) {
-            // 文件不存在，继续检查下一个
+            // 文件不存在或请求被取消，继续检查下一个
+            console.log('音乐文件检查失败:', file, e.message);
         }
     }
     musicAvailable = false;
@@ -2693,6 +3385,9 @@ function init() {
     // 绑定事件监听
     document.getElementById('start-test').addEventListener('click', startTest);
     document.getElementById('restart-test').addEventListener('click', startTest);
+    document.getElementById('back-to-home').addEventListener('click', () => {
+        showPage('home');
+    });
     document.getElementById('learn-more').addEventListener('click', () => {
         // 修复：平滑滚动到信息卡片区域
         const cards = document.querySelectorAll('.info-card');
@@ -2733,6 +3428,14 @@ function init() {
         if (confirm('确定要退出测评吗？当前进度将会丢失。')) {
             // 直接回到首页，确保页面状态正确
             showPage('home');
+        }
+    });
+    
+    // 关闭测试类型介绍弹窗
+    document.getElementById('close-test-type-modal').addEventListener('click', closeTestTypeModal);
+    document.getElementById('test-type-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeTestTypeModal();
         }
     });
     
@@ -2787,6 +3490,45 @@ function init() {
             settingsPanel.classList.add('translate-x-full');
         }
     });
+}
+
+// 显示测试类型介绍弹窗
+function showTestTypeModal(type) {
+    const modal = document.getElementById('test-type-modal');
+    const title = document.getElementById('modal-title');
+    
+    // 隐藏所有内容区域
+    document.getElementById('modal-content-comprehensive').classList.add('hidden');
+    document.getElementById('modal-content-entrepreneur').classList.add('hidden');
+    document.getElementById('modal-content-love').classList.add('hidden');
+    
+    // 根据类型设置标题和显示对应内容
+    if (type === 'entrepreneur') {
+        title.textContent = '🚀 创业思维';
+        document.getElementById('modal-content-entrepreneur').classList.remove('hidden');
+    } else if (type === 'love') {
+        title.textContent = '💜 爱情认知';
+        document.getElementById('modal-content-love').classList.remove('hidden');
+    } else {
+        title.textContent = '🎯 综合测试';
+        document.getElementById('modal-content-comprehensive').classList.remove('hidden');
+    }
+    
+    // 显示弹窗
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modal.classList.add('opacity-100');
+    modal.querySelector('div').classList.remove('scale-95');
+    modal.querySelector('div').classList.add('scale-100');
+}
+
+// 关闭测试类型介绍弹窗
+function closeTestTypeModal() {
+    const modal = document.getElementById('test-type-modal');
+    
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modal.classList.remove('opacity-100');
+    modal.querySelector('div').classList.add('scale-95');
+    modal.querySelector('div').classList.remove('scale-100');
 }
 
 // 页面加载完成后初始化
