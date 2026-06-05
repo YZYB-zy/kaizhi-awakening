@@ -187,342 +187,342 @@ const entrepreneurQuestions = [
     // 机会识别能力
     {
         id: 'e1',
-        text: '在日常生活中，你会主动观察市场趋势和用户需求的变化吗？',
+        text: '你走在街上，看到一家排长队的店铺，你的第一反应是...',
         type: 'entrepreneurship',
         dimension: 'opportunity',
         options: [
-            { text: '会系统性地观察和分析，觉得这很重要', score: 3 },
-            { text: '偶尔关注，但不会特别深入', score: 2 },
-            { text: '会留意，但觉得与我关系不大', score: 1 },
-            { text: '很少关注这些，觉得浪费时间', score: 0 }]
+            { text: '思考：他们做对了什么？这个模式能复制吗？', score: 3 },
+            { text: '好奇：这家店有什么特别之处？', score: 2 },
+            { text: '观察：排队的人是什么类型？', score: 1 },
+            { text: '无视：只是凑热闹罢了', score: 0 }]
     },
     {
         id: 'e2',
-        text: '当你发现一个潜在商机时，你通常会怎么做？',
+        text: '有人说"机会只留给有准备的人"，你认为...',
         type: 'entrepreneurship',
         dimension: 'opportunity',
         options: [
-            { text: '立即进行可行性评估并制定行动方案', score: 3 },
-            { text: '先深入了解市场需求，再决定是否行动', score: 2 },
-            { text: '记录下来，等有更多资源时再考虑', score: 1 },
-            { text: '听听他人的意见，再决定是否跟进', score: 0 }]
+            { text: '机会需要被创造，而不是等待', score: 3 },
+            { text: '准备是基础，但行动更关键', score: 2 },
+            { text: '运气和时机也很重要', score: 1 },
+            { text: '有些机会确实需要等待', score: 0 }]
     },
     {
         id: 'e3',
-        text: '面对一个全新的市场机会，你会如何评估其价值？',
+        text: '当你发现一个"蓝海市场"，但所有人都说"不可能"，你会...',
         type: 'entrepreneurship',
         dimension: 'opportunity',
         options: [
-            { text: '从市场规模、竞争格局、盈利模式等多维度分析', score: 3 },
-            { text: '先看是否有成功先例可参考', score: 2 },
-            { text: '重点看是否符合我的经验和资源', score: 1 },
-            { text: '凭直觉判断，觉得可行就尝试', score: 0 }]
+            { text: '深入验证，如果逻辑成立就去做', score: 3 },
+            { text: '先小范围测试，用数据说话', score: 2 },
+            { text: '听听反对意见，也许有道理', score: 1 },
+            { text: '既然大家都说不，可能真的不行', score: 0 }]
     },
     // 风险容忍度
     {
         id: 'e4',
-        text: '当你决定做一个有风险但潜力巨大的项目时，你会如何准备？',
+        text: '如果人生是一场赌局，你手中的筹码是...',
         type: 'entrepreneurship',
         dimension: 'risk',
         options: [
-            { text: '制定详细的风险应对预案，并预留应急资源', score: 3 },
-            { text: '设定止损线，超出预期就及时退出', score: 2 },
-            { text: '先小规模试试水，降低损失风险', score: 1 },
-            { text: '边做边看，相信船到桥头自然直', score: 0 }]
+            { text: '我会增加筹码，因为人生值得冒险', score: 3 },
+            { text: '我会谨慎下注，但绝不弃牌', score: 2 },
+            { text: '我会观望局势，等待最佳时机', score: 1 },
+            { text: '我会保护现有筹码，稳中求进', score: 0 }]
     },
     {
         id: 'e5',
-        text: '如果你的第一个创业项目失败了，你会如何应对？',
+        text: '"失败是成功之母"这句话，对你意味着...',
         type: 'entrepreneurship',
         dimension: 'risk',
         options: [
-            { text: '深入复盘分析，将失败经验转化为宝贵财富', score: 3 },
-            { text: '调整方向和策略，重新出发', score: 2 },
-            { text: '休息一段时间，整理好心态再开始', score: 1 },
-            { text: '考虑加入一个成熟团队学习经验', score: 0 }]
+            { text: '失败是学费，每次都让我更强大', score: 3 },
+            { text: '失败有价值，但要控制成本', score: 2 },
+            { text: '失败可以接受，但要尽量避免', score: 1 },
+            { text: '失败代价太大，需要谨慎', score: 0 }]
     },
     {
         id: 'e6',
-        text: '你如何看待创业过程中的不确定性和风险？',
+        text: '面对"稳赚不赔"和"高风险高回报"，你倾向于...',
         type: 'entrepreneurship',
         dimension: 'risk',
         options: [
-            { text: '风险与机遇并存，愿意承担合理风险', score: 3 },
-            { text: '谨慎评估，在可控范围内冒险', score: 2 },
-            { text: '尽量规避风险，选择稳健路径', score: 1 },
-            { text: '风险太大，需要更多保障才行动', score: 0 }]
+            { text: '评估风险收益比，选择最优解', score: 3 },
+            { text: '看情况，有时需要冒险', score: 2 },
+            { text: '倾向于稳妥，但也会考虑机会', score: 1 },
+            { text: '选择确定性，避免后悔', score: 0 }]
     },
     // 市场洞察力
     {
         id: 'e7',
-        text: '你通常通过什么方式了解目标用户的需求和痛点？',
+        text: '当所有人都在追逐同一个风口，你认为...',
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '亲自与用户深度交流，观察用户行为', score: 3 },
-            { text: '通过问卷、数据分析等方式调研', score: 2 },
-            { text: '参考行业报告和竞品分析', score: 1 },
-            { text: '基于自己的判断和经验推测', score: 0 }]
+            { text: '风口意味着机会，但也要看差异化', score: 3 },
+            { text: '跟随趋势，但要有自己的判断', score: 2 },
+            { text: '可能已经晚了，需要谨慎', score: 1 },
+            { text: '人多的地方不要去', score: 0 }]
     },
     {
         id: 'e8',
-        text: '当市场环境发生重大变化时，你会如何应对？',
+        text: '用户说"我想要A"，但你觉得他们真正需要的是"B"，你会...',
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '迅速分析变化原因，挖掘新的市场机会', score: 3 },
-            { text: '调整原有策略，适应新环境', score: 2 },
-            { text: '保持观望，看形势如何发展', score: 1 },
-            { text: '等待市场稳定再做决定', score: 0 }]
+            { text: '深入理解需求本质，提供真正有价值的解决方案', score: 3 },
+            { text: '先给A，再引导发现B', score: 2 },
+            { text: '尊重用户选择，给A', score: 1 },
+            { text: '用户永远是对的', score: 0 }]
     },
     {
         id: 'e9',
-        text: '你对竞争对手的分析通常关注哪些方面？',
+        text: '关于竞争对手，你认为...',
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '全面分析产品、运营、商业模式和创新点', score: 3 },
-            { text: '重点关注他们的产品和定价策略', score: 2 },
-            { text: '偶尔关注他们的营销动作', score: 1 },
-            { text: '更关注自身，不太在意竞争对手', score: 0 }]
+            { text: '竞争是镜子，照出自己的不足和优势', score: 3 },
+            { text: '关注但不过度，专注自己的路', score: 2 },
+            { text: '学习他们的优点，避免他们的错误', score: 1 },
+            { text: '做好自己，不用太在意别人', score: 0 }]
     },
     // 创业热情
     {
         id: 'e10',
-        text: '什么因素最能激发你的创业动力？',
+        text: '如果明天就是你生命的最后一天，回顾创业这件事，你会...',
         type: 'entrepreneurship',
         dimension: 'passion',
         options: [
-            { text: '看到自己的产品真正帮助到用户', score: 3 },
-            { text: '实现个人价值和梦想的机会', score: 2 },
-            { text: '获得经济回报和个人成长', score: 1 },
-            { text: '跟随行业趋势和时代潮流', score: 0 }]
+            { text: '无悔，因为我在追求有意义的事', score: 3 },
+            { text: '庆幸尝试过，无论结果如何', score: 2 },
+            { text: '希望有更多时间去完成', score: 1 },
+            { text: '也许应该选择更安稳的路', score: 0 }]
     },
     {
         id: 'e11',
-        text: '当创业遇到瓶颈期时，你会如何保持热情？',
+        text: '深夜加班时，你内心最真实的想法是...',
         type: 'entrepreneurship',
         dimension: 'passion',
         options: [
-            { text: '回顾初心，与志同道合的人交流互相激励', score: 3 },
-            { text: '设定小目标，完成后获得成就感', score: 2 },
-            { text: '暂时放松，调整好状态再出发', score: 1 },
-            { text: '给自己一些物质奖励犒劳自己', score: 0 }]
+            { text: '这是我的选择，我在创造价值', score: 3 },
+            { text: '辛苦但值得，未来会更好', score: 2 },
+            { text: '希望早点完成，好好休息', score: 1 },
+            { text: '为什么我要这么累？', score: 0 }]
     },
     {
         id: 'e12',
-        text: '你会主动投入多少时间学习创业相关知识？',
+        text: '关于"热爱"和"赚钱"的关系，你认为...',
         type: 'entrepreneurship',
         dimension: 'passion',
         options: [
-            { text: '每天坚持学习，将学习视为习惯', score: 3 },
-            { text: '每周固定学习几小时，持续提升', score: 2 },
-            { text: '有需要时再学习，比较随性', score: 1 },
-            { text: '觉得经验比理论更重要', score: 0 }]
+            { text: '热爱是最好的商业模式，钱会随之而来', score: 3 },
+            { text: '先有热爱，再想办法变现', score: 2 },
+            { text: '赚钱和热爱可以分开', score: 1 },
+            { text: '赚钱是基础，热爱是奢侈品', score: 0 }]
     },
     // 自我效能感
     {
         id: 'e13',
-        text: '面对创业中的各种挑战，你通常对自己的能力如何评价？',
+        text: '面对一个从未接触过的领域，你对自己说...',
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '相信通过学习和实践可以解决大部分问题', score: 3 },
-            { text: '觉得能力足够，但需要团队配合', score: 2 },
-            { text: '有些领域擅长，有些还需要提升', score: 1 },
-            { text: '担心能力不足，需要更多准备', score: 0 }]
+            { text: '我可以学会任何需要的东西', score: 3 },
+            { text: '给我时间，我能搞定', score: 2 },
+            { text: '需要找专业人士帮忙', score: 1 },
+            { text: '这可能超出了我的能力范围', score: 0 }]
     },
     {
         id: 'e14',
-        text: '当遇到一个从未处理过的问题时，你会怎么做？',
+        text: '当别人质疑你的能力时，你内心最真实的反应是...',
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '相信自己能学会并解决，积极寻找资源', score: 3 },
-            { text: '先研究学习，再尝试解决', score: 2 },
-            { text: '寻求有经验的人帮助指导', score: 1 },
-            { text: '交给更擅长的人处理', score: 0 }]
+            { text: '用行动和结果证明自己', score: 3 },
+            { text: '接受质疑，但不会动摇信心', score: 2 },
+            { text: '反思是否有道理，有则改之', score: 1 },
+            { text: '也许他们说得对', score: 0 }]
     },
     {
         id: 'e15',
-        text: '你认为成功的创业者最需要具备什么素质？',
+        text: '关于"天赋"和"努力"，你更相信...',
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '持续学习能力和适应变化的韧性', score: 3 },
-            { text: '领导力和组建团队的能力', score: 2 },
-            { text: '商业敏锐度和执行力', score: 1 },
-            { text: '运气和时机把握', score: 0 }]
+            { text: '刻意练习可以弥补天赋差距', score: 3 },
+            { text: '努力比天赋更重要', score: 2 },
+            { text: '天赋决定上限，努力决定下限', score: 1 },
+            { text: '有些事确实需要天赋', score: 0 }]
     },
     // 内在驱动力
     {
         id: 'e16',
-        text: '如果没有外部压力和回报，你仍然会想要创业吗？',
+        text: '如果没有人知道你的成就，你还会继续做这件事吗？',
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '会，内心的使命感和价值追求驱动我前进', score: 3 },
-            { text: '可能，看是否有值得投入的idea', score: 2 },
-            { text: '看市场机会再决定', score: 1 },
-            { text: '不会，需要外部激励才有动力', score: 0 }]
+            { text: '会，因为这件事本身有意义', score: 3 },
+            { text: '会，因为我在这个过程中成长', score: 2 },
+            { text: '可能会，但动力会减少', score: 1 },
+            { text: '不会，认可和反馈很重要', score: 0 }]
     },
     {
         id: 'e17',
-        text: '你通常如何设定和追踪自己的创业目标？',
+        text: '你更像是哪种类型的探索者？',
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '设定SMART目标，定期复盘调整', score: 3 },
-            { text: '有大方向，具体目标灵活调整', score: 2 },
-            { text: '边做边看，没有太具体的规划', score: 1 },
-            { text: '跟着感觉走，随遇而安', score: 0 }]
+            { text: '开拓者：开辟新路，不惧未知', score: 3 },
+            { text: '攀登者：设定目标，逐步征服', score: 2 },
+            { text: '航海者：顺应风向，灵活调整', score: 1 },
+            { text: '守望者：等待时机，稳中求进', score: 0 }]
     },
     {
         id: 'e18',
-        text: '当你设定的目标遇到阻碍无法达成时，你会如何调整？',
+        text: '当目标遥不可及时，你会...',
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '分析原因，调整策略坚持达成', score: 3 },
-            { text: '拆分目标为更小可实现的步骤', score: 2 },
-            { text: '适当调整目标，确保可达成', score: 1 },
-            { text: '暂时搁置，等待更好的时机', score: 0 }]
+            { text: '拆解目标，让每一步都可见', score: 3 },
+            { text: '调整策略，但不放弃目标', score: 2 },
+            { text: '重新评估目标的可行性', score: 1 },
+            { text: '可能需要换一个更现实的目标', score: 0 }]
     },
     // 创新倾向
     {
         id: 'e19',
-        text: '当面对一个复杂问题时，你更倾向于采用什么方式解决？',
+        text: '"我们一直这样做"这句话，对你意味着...',
         type: 'entrepreneurship',
         dimension: 'innovation',
         options: [
-            { text: '跳出常规思维，寻找创新的解决方案', score: 3 },
-            { text: '参考成功案例，结合实际情况改进', score: 2 },
-            { text: '多听听专家和有经验的人建议', score: 1 },
-            { text: '按部就班，使用成熟的方法', score: 0 }]
+            { text: '这正是需要被质疑的地方', score: 3 },
+            { text: '也许有更好的方式', score: 2 },
+            { text: '存在即合理，但可以优化', score: 1 },
+            { text: '经验值得尊重', score: 0 }]
     },
     {
         id: 'e20',
-        text: '你如何培养自己的创新能力？',
+        text: '关于"打破规则"，你认为...',
         type: 'entrepreneurship',
         dimension: 'innovation',
         options: [
-            { text: '跨领域学习，保持好奇心和探索欲', score: 3 },
-            { text: '大量阅读案例，激发创意灵感', score: 2 },
-            { text: '参加创新思维培训课程', score: 1 },
-            { text: '在实践中不断尝试和总结', score: 0 }]
+            { text: '创新往往始于打破常规', score: 3 },
+            { text: '理解规则，再决定是否打破', score: 2 },
+            { text: '在规则内创新更稳妥', score: 1 },
+            { text: '规则是保护，不是束缚', score: 0 }]
     },
     {
         id: 'e21',
-        text: '你如何看待产品创新和商业模式创新的关系？',
+        text: '当你的想法被说"太疯狂"时，你内心想的是...',
         type: 'entrepreneurship',
         dimension: 'innovation',
         options: [
-            { text: '两者相辅相成，需要同步创新', score: 3 },
-            { text: '商业模式创新可能比产品创新更重要', score: 2 },
-            { text: '产品创新是核心，模式可以复制', score: 1 },
-            { text: '没有深入思考过这个问题', score: 0 }]
+            { text: '也许这正是它的价值所在', score: 3 },
+            { text: '疯狂的想法需要更扎实的论证', score: 2 },
+            { text: '可能需要调整表达方式', score: 1 },
+            { text: '也许确实需要更务实一些', score: 0 }]
     },
     // 行动执行
     {
         id: 'e22',
-        text: '当你有了一个好的创业想法，你会如何开始行动？',
+        text: '"完美是优秀的敌人"这句话，你如何看待？',
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '快速验证核心假设，快速迭代', score: 3 },
-            { text: '先做市场调研和用户访谈', score: 2 },
-            { text: '先完善商业计划书', score: 1 },
-            { text: '寻找合作伙伴和资金再开始', score: 0 }]
+            { text: '先完成，再完美，迭代是关键', score: 3 },
+            { text: '追求卓越，但接受不完美', score: 2 },
+            { text: '质量很重要，但速度也要兼顾', score: 1 },
+            { text: '宁可慢，也要做好', score: 0 }]
     },
     {
         id: 'e23',
-        text: '在执行过程中，你如何确保任务高效完成？',
+        text: '当计划赶不上变化时，你会...',
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '分解目标，使用项目管理工具追踪', score: 3 },
-            { text: '设定明确的deadline并定期检查', score: 2 },
-            { text: '相信团队成员自觉性，适度管理', score: 1 },
-            { text: '随机应变，灵活处理', score: 0 }]
+            { text: '拥抱变化，调整方向继续前进', score: 3 },
+            { text: '快速响应，重新制定计划', score: 2 },
+            { text: '尽量保持原计划，微调细节', score: 1 },
+            { text: '停下来重新规划', score: 0 }]
     },
     {
         id: 'e24',
-        text: '当项目进度落后于计划时，你会采取什么措施？',
+        text: '关于"说"和"做"，你更倾向于...',
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '分析原因，调配资源加速推进', score: 3 },
-            { text: '加班加点，确保按时完成', score: 2 },
-            { text: '与相关方沟通，调整预期', score: 1 },
-            { text: '优先保证质量，适当延后时间', score: 0 }]
+            { text: '先做再说，用结果说话', score: 3 },
+            { text: '边做边说，同步进行', score: 2 },
+            { text: '先说后做，明确目标', score: 1 },
+            { text: '想清楚再行动', score: 0 }]
     },
     // 资源整合能力
     {
         id: 'e25',
-        text: '当你需要启动一个项目但资源有限时，你会如何获取资源？',
+        text: '当你两手空空却想做大事时，你会...',
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '先小成本验证，逐步追加投入', score: 3 },
-            { text: '整合人脉资源，寻找志同道合的合作伙伴', score: 2 },
-            { text: '寻找投资人或申请创业扶持', score: 1 },
-            { text: '等待有足够资源再开始', score: 0 }]
+            { text: '用愿景和能力吸引资源', score: 3 },
+            { text: '从小做起，逐步积累', score: 2 },
+            { text: '先积累资源再行动', score: 1 },
+            { text: '等待合适的时机', score: 0 }]
     },
     {
         id: 'e26',
-        text: '你如何维护和发展自己的创业人脉网络？',
+        text: '关于人脉，你认为...',
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '定期维护关系，互利共赢', score: 3 },
-            { text: '有需要时会主动联系维护', score: 2 },
-            { text: '顺其自然，有缘就认识', score: 1 },
-            { text: '不太擅长社交，关系维护较少', score: 0 }]
+            { text: '价值交换是基础，先让自己有价值', score: 3 },
+            { text: '真诚待人，关系自然会来', score: 2 },
+            { text: '需要主动经营和维护', score: 1 },
+            { text: '顺其自然，不必强求', score: 0 }]
     },
     {
         id: 'e27',
-        text: '你如何平衡工作和生活，保持可持续发展？',
+        text: '工作与生活的平衡，对你来说...',
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '合理规划时间，保持工作生活平衡', score: 3 },
-            { text: '在关键时期全力以赴，平时注意休息', score: 2 },
-            { text: '创业阶段优先工作，之后再调整', score: 1 },
-            { text: '全身心投入工作，暂不考虑生活', score: 0 }]
+            { text: '热爱工作，它就是生活的一部分', score: 3 },
+            { text: '阶段性倾斜，长期保持平衡', score: 2 },
+            { text: '努力平衡，但有时会失衡', score: 1 },
+            { text: '工作是工作，生活是生活', score: 0 }]
     },
     // 综合评估
     {
         id: 'e28',
-        text: '你如何做出重要的商业决策？',
+        text: '做重要决定时，你更依赖...',
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '综合数据分析、行业洞察和团队意见', score: 3 },
-            { text: '自己深思熟虑后决定', score: 2 },
-            { text: '参考有经验人士的建议', score: 1 },
-            { text: '根据直觉判断，适时决策', score: 0 }]
+            { text: '数据和直觉的结合', score: 3 },
+            { text: '理性分析，逻辑推理', score: 2 },
+            { text: '他人的建议和经验', score: 1 },
+            { text: '内心的感觉', score: 0 }]
     },
     {
         id: 'e29',
-        text: '你如何看待竞争对手和市场中的激烈竞争？',
+        text: '关于"时机"，你认为...',
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '竞争推动创新，理性看待竞争格局', score: 3 },
-            { text: '差异化竞争，找到自己的定位', score: 2 },
-            { text: '担心竞争激烈，难以立足', score: 1 },
-            { text: '希望市场更温和', score: 0 }]
+            { text: '最好的时机是现在', score: 3 },
+            { text: '时机很重要，但行动更关键', score: 2 },
+            { text: '等待合适的时机出手', score: 1 },
+            { text: '时机决定成败', score: 0 }]
     },
     {
         id: 'e30',
-        text: '你对自己创业之路的长期规划是什么？',
+        text: '十年后，你希望自己成为什么样的人？',
         type: 'entrepreneurship',
         dimension: 'passion',
         options: [
-            { text: '打造有社会价值的伟大企业', score: 3 },
-            { text: '建立可持续发展的盈利事业', score: 2 },
-            { text: '积累经验，未来有更多可能', score: 1 },
-            { text: '走一步看一步，不做太远规划', score: 0 }]
+            { text: '创造了真正价值的人', score: 3 },
+            { text: '实现了财务和时间自由的人', score: 2 },
+            { text: '在某个领域有建树的人', score: 1 },
+            { text: '生活安稳幸福的人', score: 0 }]
     }
 ];
 
@@ -532,231 +532,231 @@ const entrepreneurQuestionsAdvanced = [
     // 机会识别能力 - 高级题
     {
         id: 'e31',
-        text: '当你发现一个潜在商机时，你会如何评估其市场可行性？',
+        text: '有人告诉你一个"稳赚不赔"的项目，你内心第一个声音是...',
         type: 'entrepreneurship',
         dimension: 'opportunity',
         options: [
-            { text: '进行详尽的市场调研，分析竞争格局、用户痛点和增长潜力', score: 3 },
-            { text: '制作简单的商业画布，评估核心要素', score: 2 },
-            { text: '凭直觉判断，觉得有机会就尝试', score: 1 },
-            { text: '找朋友聊聊，听听他们的看法', score: 0 }]
+            { text: '世界上没有稳赚的事，但可以研究它的逻辑', score: 3 },
+            { text: '先了解清楚，再做判断', score: 2 },
+            { text: '听起来不错，可以试试', score: 1 },
+            { text: '太好了，终于等到机会了', score: 0 }]
     },
     {
         id: 'e32',
-        text: '在新兴技术趋势中（如AI、元宇宙），你如何识别真正有价值的创业机会？',
+        text: '当所有人都在谈论同一个"风口"时，你想到的是...',
         type: 'entrepreneurship',
         dimension: 'opportunity',
         options: [
-            { text: '深入研究技术底层逻辑，寻找与实际需求的结合点', score: 3 },
-            { text: '关注行业报告和专家观点，跟随主流趋势', score: 2 },
-            { text: '观察哪些项目获得投资，跟风进入', score: 1 },
-            { text: '等待技术成熟后再考虑', score: 0 }]
+            { text: '风口已过，我应该找下一个机会', score: 3 },
+            { text: '也许还有细分机会可以切入', score: 2 },
+            { text: '跟随趋势，不会错', score: 1 },
+            { text: '错过太可惜，要赶紧上车', score: 0 }]
     },
     // 风险容忍能力 - 高级题
     {
         id: 'e33',
-        text: '面对一个高风险高回报的创业机会，你会如何决策？',
+        text: '你更愿意做哪种选择？',
         type: 'entrepreneurship',
         dimension: 'risk',
         options: [
-            { text: '进行风险量化分析，设置止损点和退出机制', score: 3 },
-            { text: '评估自身承受能力，谨慎投入', score: 2 },
-            { text: '风险太大，直接放弃', score: 1 },
-            { text: '相信直觉，全力以赴', score: 0 }]
+            { text: '50%概率赚100万，50%概率亏50万', score: 3 },
+            { text: '100%概率赚20万', score: 2 },
+            { text: '80%概率赚10万，20%概率不赚不亏', score: 1 },
+            { text: '100%概率赚5万', score: 0 }]
     },
     {
         id: 'e34',
-        text: '当项目遇到重大挫折时，你如何评估是否继续投入？',
+        text: '关于"all in"，你认为...',
         type: 'entrepreneurship',
         dimension: 'risk',
         options: [
-            { text: '重新评估市场假设，分析失败原因，决定是否调整方向或终止', score: 3 },
-            { text: '坚持一段时间看看情况', score: 2 },
-            { text: '立刻止损，减少损失', score: 1 },
-            { text: '继续投入，相信总会成功', score: 0 }]
+            { text: 'all in是策略，但要有退路和止损线', score: 3 },
+            { text: '关键时刻需要all in', score: 2 },
+            { text: 'all in风险太大，不值得', score: 1 },
+            { text: 'all in是赌徒心态，不可取', score: 0 }]
     },
     // 市场洞察能力 - 高级题
     {
         id: 'e35',
-        text: '你如何发现用户未被满足的深层需求？',
+        text: '当你发现用户"嘴上说想要A，行为上却选择B"时，你会...',
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '通过深度访谈和观察，挖掘用户行为背后的动机和痛点', score: 3 },
-            { text: '分析竞品，寻找差异化机会', score: 2 },
-            { text: '看行业报告和数据分析', score: 1 },
-            { text: '凭经验和直觉判断', score: 0 }]
+            { text: '行为比语言更真实，研究B背后的原因', score: 3 },
+            { text: '可能他们还没意识到自己真正需要什么', score: 2 },
+            { text: '用户说的和做的不一致，很正常', score: 1 },
+            { text: '相信用户说的话，给A', score: 0 }]
     },
     {
         id: 'e36',
-        text: '在市场饱和的领域，你如何找到差异化切入点？',
+        text: '在红海市场中，你认为...',
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '细分市场，找到被忽略的垂直领域或特定人群需求', score: 3 },
-            { text: '提供更好的产品质量或服务体验', score: 2 },
-            { text: '降低价格，打价格战', score: 1 },
-            { text: '模仿成功模式，做微创新', score: 0 }]
+            { text: '红海证明需求存在，关键是差异化', score: 3 },
+            { text: '可以尝试细分市场', score: 2 },
+            { text: '竞争太激烈，不如找蓝海', score: 1 },
+            { text: '红海没有机会，应该避开', score: 0 }]
     },
     // 创业热情 - 高级题
     {
         id: 'e37',
-        text: '当创业热情消退时，你如何重新找回动力？',
+        text: '如果创业十年仍然没有成功，你会...',
         type: 'entrepreneurship',
         dimension: 'passion',
         options: [
-            { text: '回顾初心，重新梳理愿景和目标，调整状态', score: 3 },
-            { text: '休息一段时间，充电后再继续', score: 2 },
-            { text: '考虑换个项目或方向', score: 1 },
-            { text: '硬着头皮继续，熬过去', score: 0 }]
+            { text: '反思调整，也许成功就在下一个转角', score: 3 },
+            { text: '这个过程本身就是收获', score: 2 },
+            { text: '可能需要考虑其他选择', score: 1 },
+            { text: '应该早点放弃', score: 0 }]
     },
     {
         id: 'e38',
-        text: '你如何将个人热情与商业机会结合起来？',
+        text: '"做自己热爱的事"和"做能赚钱的事"，你会...',
         type: 'entrepreneurship',
         dimension: 'passion',
         options: [
-            { text: '找到热情所在领域的商业价值，创造独特价值主张', score: 3 },
-            { text: '在感兴趣的领域寻找创业机会', score: 2 },
-            { text: '先赚钱，有钱了再追求热情', score: 1 },
-            { text: '做自己喜欢的事，不管是否赚钱', score: 0 }]
+            { text: '找到两者的交集', score: 3 },
+            { text: '先做能赚钱的事，再追求热爱', score: 2 },
+            { text: '热爱最重要，钱可以慢慢赚', score: 1 },
+            { text: '赚钱是第一位的', score: 0 }]
     },
     // 自我效能 - 高级题
     {
         id: 'e39',
-        text: '面对超出当前能力范围的挑战，你会怎么做？',
+        text: '当别人说"你不可能做到"时，你内心想的是...',
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '分析差距，制定学习计划，逐步提升能力', score: 3 },
-            { text: '寻求合作伙伴或顾问的帮助', score: 2 },
-            { text: '放弃这个挑战，选择更适合自己的', score: 1 },
-            { text: '硬着头皮上，边做边学', score: 0 }]
+            { text: '让我来证明他们错了', score: 3 },
+            { text: '也许他们有道理，但我要试试', score: 2 },
+            { text: '需要更努力才行', score: 1 },
+            { text: '可能真的做不到', score: 0 }]
     },
     {
         id: 'e40',
-        text: '如何建立并维持创业所需的自信心？',
+        text: '关于"能力边界"，你认为...',
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '通过小胜利积累信心，同时保持谦逊和持续学习', score: 3 },
-            { text: '相信自己的判断，不轻易受他人影响', score: 2 },
-            { text: '依赖他人的鼓励和认可', score: 1 },
-            { text: '假装自信，慢慢就会真的自信', score: 0 }]
+            { text: '边界是用来突破的', score: 3 },
+            { text: '了解边界，在边界内做到最好', score: 2 },
+            { text: '承认边界，专注自己的强项', score: 1 },
+            { text: '边界是客观存在的，要接受', score: 0 }]
     },
     // 内在驱动 - 高级题
     {
         id: 'e41',
-        text: '在没有外部激励的情况下，你如何保持工作动力？',
+        text: '如果创业不能让你富有，你还会继续吗？',
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '设定内在目标，关注自身成长和使命驱动', score: 3 },
-            { text: '建立规律的工作习惯和节奏', score: 2 },
-            { text: '等待灵感或外部激励出现', score: 1 },
-            { text: '休息放松，等有状态再工作', score: 0 }]
+            { text: '会，因为创业本身让我成长', score: 3 },
+            { text: '可能会，看其他收获', score: 2 },
+            { text: '不太会，财务回报很重要', score: 1 },
+            { text: '不会，赚钱是主要目的', score: 0 }]
     },
     {
         id: 'e42',
-        text: '你如何平衡短期利益与长期愿景？',
+        text: '你更像是...',
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '制定清晰的战略规划，在短期生存和长期发展间找到平衡点', score: 3 },
-            { text: '优先保证生存，再考虑长远', score: 2 },
-            { text: '专注于眼前的利益', score: 1 },
-            { text: '只关注长远目标，不在乎短期', score: 0 }]
+            { text: '马拉松选手：长期坚持，稳步前进', score: 3 },
+            { text: '短跑选手：抓住机会，快速冲刺', score: 2 },
+            { text: '接力选手：团队协作，传递接力棒', score: 1 },
+            { text: '观众：观望局势，等待时机', score: 0 }]
     },
     // 创新倾向 - 高级题
     {
         id: 'e43',
-        text: '你如何培养创新思维和产品创新能力？',
+        text: '"如果它没坏，就不要修"这句话，你怎么看？',
         type: 'entrepreneurship',
         dimension: 'innovation',
         options: [
-            { text: '持续学习跨领域知识，鼓励试错和迭代', score: 3 },
-            { text: '关注行业创新案例，借鉴优秀做法', score: 2 },
-            { text: '按照现有模式，做微创新', score: 1 },
-            { text: '创新风险太大，还是稳妥为主', score: 0 }]
+            { text: '没坏也可以更好，创新永无止境', score: 3 },
+            { text: '可以优化，但不必大改', score: 2 },
+            { text: '稳定运行更重要', score: 1 },
+            { text: '同意，不要冒险', score: 0 }]
     },
     {
         id: 'e44',
-        text: '如何在保持产品稳定性的同时推动创新？',
+        text: '当你的创新想法被团队否定时，你会...',
         type: 'entrepreneurship',
         dimension: 'innovation',
         options: [
-            { text: '建立创新流程，将创新与运维分离，并行推进', score: 3 },
-            { text: '定期进行小范围试点和测试', score: 2 },
-            { text: '先保证稳定，创新可以慢慢来', score: 1 },
-            { text: '快速迭代，不怕出错', score: 0 }]
+            { text: '用数据和原型证明可行性', score: 3 },
+            { text: '反思是否有不足，改进后再提', score: 2 },
+            { text: '尊重团队决定', score: 1 },
+            { text: '放弃这个想法', score: 0 }]
     },
     // 行动执行 - 高级题
     {
         id: 'e45',
-        text: '面对复杂的项目，你如何进行有效规划和执行？',
+        text: '"想清楚再做"还是"边做边想"，你更倾向于...',
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '分解目标，制定详细计划，建立里程碑和跟进机制', score: 3 },
-            { text: '列出任务清单，按优先级执行', score: 2 },
-            { text: '边做边看，走一步算一步', score: 1 },
-            { text: '先完成最重要的部分，其他再说', score: 0 }]
+            { text: '先行动，在行动中思考和调整', score: 3 },
+            { text: '想清楚大方向，细节边做边想', score: 2 },
+            { text: '尽量想清楚再行动', score: 1 },
+            { text: '必须想清楚每一步', score: 0 }]
     },
     {
         id: 'e46',
-        text: '如何确保团队高效执行并达成目标？',
+        text: '关于"速度"和"质量"，你认为...',
         type: 'entrepreneurship',
         dimension: 'execution',
         options: [
-            { text: '明确分工，建立OKR，定期复盘和反馈', score: 3 },
-            { text: '定期开会，跟进进度', score: 2 },
-            { text: '相信团队，让他们自主工作', score: 1 },
-            { text: '亲自监督，确保每一步都正确', score: 0 }]
+            { text: '先求速度，再优化质量', score: 3 },
+            { text: '在速度和质量间找平衡', score: 2 },
+            { text: '质量是生命，速度其次', score: 1 },
+            { text: '宁可慢，也要完美', score: 0 }]
     },
     // 综合能力 - 高级题
     {
         id: 'e47',
-        text: '你如何处理创业过程中的不确定性和模糊性？',
+        text: '面对高度不确定性，你更像是...',
         type: 'entrepreneurship',
         dimension: 'risk',
         options: [
-            { text: '建立灵活的决策框架，在不确定中寻找确定性因素', score: 3 },
-            { text: '收集更多信息，减少不确定性', score: 2 },
-            { text: '等待情况明朗后再做决定', score: 1 },
-            { text: '凭直觉快速决策，不怕犯错', score: 0 }]
+            { text: '冲浪者：在不确定性中寻找机会', score: 3 },
+            { text: '登山者：规划路线，稳步前进', score: 2 },
+            { text: '航海者：观察风向，顺势而为', score: 1 },
+            { text: '守塔人：等待风平浪静', score: 0 }]
     },
     {
         id: 'e48',
-        text: '如何建立有效的商业模式并验证其可行性？',
+        text: '关于"模仿"和"创新"，你认为...',
         type: 'entrepreneurship',
         dimension: 'market',
         options: [
-            { text: '设计最小可行产品(MVP)，通过用户反馈快速迭代验证', score: 3 },
-            { text: '进行市场调研，分析商业模式的关键假设', score: 2 },
-            { text: '模仿成功的商业模式', score: 1 },
-            { text: '先开发完整产品，再推向市场', score: 0 }]
+            { text: '模仿是学习，创新是超越', score: 3 },
+            { text: '先模仿成功模式，再微创新', score: 2 },
+            { text: '创新风险大，模仿更安全', score: 1 },
+            { text: '完全原创才是真正的创新', score: 0 }]
     },
     {
         id: 'e49',
-        text: '如何建立和维护创业所需的人脉网络？',
+        text: '当资源有限时，你会...',
         type: 'entrepreneurship',
         dimension: 'efficacy',
         options: [
-            { text: '真诚分享价值，建立长期互惠关系，主动付出和帮助他人', score: 3 },
-            { text: '参加行业活动，主动结识人脉', score: 2 },
-            { text: '通过社交媒体拓展人脉', score: 1 },
-            { text: '靠产品和实力自然吸引人脉', score: 0 }]
+            { text: '用创意弥补资源不足', score: 3 },
+            { text: '聚焦核心，做最重要的事', score: 2 },
+            { text: '等待资源到位再行动', score: 1 },
+            { text: '减少目标，量力而行', score: 0 }]
     },
     {
         id: 'e50',
-        text: '你如何看待失败在创业过程中的价值？',
+        text: '如果可以给十年前的自己一个建议，你会说...',
         type: 'entrepreneurship',
         dimension: 'motivation',
         options: [
-            { text: '失败是学习和成长的机会，关键是从中提炼经验教训', score: 3 },
-            { text: '失败是成功之母，总结经验继续前进', score: 2 },
-            { text: '失败意味着方向错误，应该放弃', score: 1 },
-            { text: '尽量避免失败，追求完美', score: 0 }]
+            { text: '大胆尝试，失败是成长的养料', score: 3 },
+            { text: '坚持自己的路，不要被他人左右', score: 2 },
+            { text: '多做准备，减少弯路', score: 1 },
+            { text: '选择更稳妥的道路', score: 0 }]
     }
 ];
 
@@ -766,231 +766,231 @@ const loveQuestionsAdvanced = [
     // 情绪管理能力 - 高级题
     {
         id: 'l31',
-        text: '当你的伴侣做出让你非常失望的事情时，你会如何处理自己的情绪？',
+        text: '当伴侣说"我没事"但表情明显不对时，你会...',
         type: 'love',
         dimension: 'emotion',
         options: [
-            { text: '先冷静下来，理解自己的情绪来源，再与伴侣沟通', score: 3 },
-            { text: '表达自己的感受，给对方解释的机会', score: 2 },
-            { text: '暂时离开，等情绪平复再说', score: 1 },
-            { text: '直接指责对方，发泄不满', score: 0 }]
+            { text: '相信自己的直觉，温柔地追问', score: 3 },
+            { text: '尊重对方，等他想说再说', score: 2 },
+            { text: '也许真的没事，不用多想', score: 1 },
+            { text: '既然说没事，那就不管了', score: 0 }]
     },
     {
         id: 'l32',
-        text: '如何在亲密关系中保持情绪的独立性？',
+        text: '关于"情绪"，你认为...',
         type: 'love',
         dimension: 'emotion',
         options: [
-            { text: '保持自我空间和个人兴趣，建立健康的情绪边界', score: 3 },
-            { text: '不过度依赖对方的情绪反馈', score: 2 },
-            { text: '尽量让自己开心，不被对方影响', score: 1 },
-            { text: '把情绪寄托在其他事情上', score: 0 }]
+            { text: '情绪是信号，理解它比控制它更重要', score: 3 },
+            { text: '负面情绪需要被管理', score: 2 },
+            { text: '情绪稳定是成熟的表现', score: 1 },
+            { text: '情绪会带来麻烦，应该压抑', score: 0 }]
     },
     // 共情能力 - 高级题
     {
         id: 'l33',
-        text: '当伴侣经历困难或挫折时，你如何提供有效的支持？',
+        text: '当伴侣向你倾诉烦恼时，你倾向于...',
         type: 'love',
         dimension: 'empathy',
         options: [
-            { text: '倾听对方的感受，给予情感支持，提供实际帮助', score: 3 },
-            { text: '安慰对方，鼓励他/她振作', score: 2 },
-            { text: '帮对方分析问题，给出解决方案', score: 1 },
-            { text: '让对方自己冷静一下', score: 0 }]
+            { text: '先倾听，理解他的感受，再问需要什么支持', score: 3 },
+            { text: '给出建议，帮他解决问题', score: 2 },
+            { text: '安慰他，让他别太难过', score: 1 },
+            { text: '转移话题，让他开心起来', score: 0 }]
     },
     {
         id: 'l34',
-        text: '如何真正理解伴侣的深层需求和感受？',
+        text: '关于"理解"和"被理解"，你认为...',
         type: 'love',
         dimension: 'empathy',
         options: [
-            { text: '通过深度倾听和观察，验证自己的理解，保持好奇心', score: 3 },
-            { text: '多问问题，了解对方的想法', score: 2 },
-            { text: '凭经验猜测对方的感受', score: 1 },
-            { text: '对方会主动说的，不用刻意去了解', score: 0 }]
+            { text: '理解是相互的，需要主动去感受对方', score: 3 },
+            { text: '被理解是幸福的，理解他人是能力', score: 2 },
+            { text: '理解需要时间，慢慢来', score: 1 },
+            { text: '真正理解一个人是不可能的', score: 0 }]
     },
     // 安全感 - 高级题
     {
         id: 'l35',
-        text: '如何在关系中建立安全感，同时保持适当的独立性？',
+        text: '安全感对你来说，更像是...',
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '建立信任基础，保持透明沟通，尊重彼此的空间', score: 3 },
-            { text: '经常表达爱意和关心', score: 2 },
-            { text: '尽量满足对方的需求', score: 1 },
-            { text: '顺其自然，不用刻意追求安全感', score: 0 }]
+            { text: '内心的笃定，来自对自己的信任', score: 3 },
+            { text: '对方的承诺和行动', score: 2 },
+            { text: '稳定的生活和关系', score: 1 },
+            { text: '掌控一切的感觉', score: 0 }]
     },
     {
         id: 'l36',
-        text: '当安全感受到威胁时，你会如何处理？',
+        text: '当伴侣没有及时回复消息时，你内心最真实的想法是...',
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '冷静沟通，表达感受，共同寻找解决方案', score: 3 },
-            { text: '直接询问对方，了解情况', score: 2 },
-            { text: '观察一段时间，看看情况', score: 1 },
-            { text: '自己生闷气，等着对方发现', score: 0 }]
+            { text: '他可能在忙，等他回复', score: 3 },
+            { text: '有点担心，但不会胡思乱想', score: 2 },
+            { text: '是不是出什么事了？', score: 1 },
+            { text: '他是不是不在乎我了？', score: 0 }]
     },
     // 沟通能力 - 高级题
     {
         id: 'l37',
-        text: '如何在不伤害对方的前提下表达不同意见？',
+        text: '"你应该知道我在想什么"这句话，你怎么看？',
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '用"我"语句表达感受，倾听对方观点，寻求共同理解', score: 3 },
-            { text: '委婉地表达自己的看法', score: 2 },
-            { text: '先肯定对方，再提出不同意见', score: 1 },
-            { text: '直接说出自己的想法，相信对方能理解', score: 0 }]
+            { text: '没有人会读心术，需要表达出来', score: 3 },
+            { text: '默契需要时间培养', score: 2 },
+            { text: '真正爱我的人应该懂我', score: 1 },
+            { text: '说出来就没意思了', score: 0 }]
     },
     {
         id: 'l38',
-        text: '当沟通陷入僵局时，你会如何打破僵局？',
+        text: '当沟通变成争吵时，你倾向于...',
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '暂停沟通，冷静后重新开始，寻找共同目标', score: 3 },
-            { text: '主动让步，缓和气氛', score: 2 },
-            { text: '找第三方帮忙调解', score: 1 },
-            { text: '继续争论，直到说服对方', score: 0 }]
+            { text: '暂停，等情绪平复后再谈', score: 3 },
+            { text: '把话说完，不逃避问题', score: 2 },
+            { text: '让步，不想吵了', score: 1 },
+            { text: '一定要争出个对错', score: 0 }]
     },
     // 边界意识 - 高级题
     {
         id: 'l39',
-        text: '如何在亲密关系中建立健康的个人边界？',
+        text: '关于"个人空间"和"亲密无间"，你认为...',
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '清晰表达自己的需求和底线，尊重对方的边界', score: 3 },
-            { text: '逐渐建立，让对方慢慢适应', score: 2 },
-            { text: '凭感觉，不舒服的时候再说', score: 1 },
-            { text: '亲密关系不需要太多边界', score: 0 }]
+            { text: '亲密需要边界来保护', score: 3 },
+            { text: '适度的空间让关系更健康', score: 2 },
+            { text: '真正相爱不需要边界', score: 1 },
+            { text: '边界会让人疏远', score: 0 }]
     },
     {
         id: 'l40',
-        text: '当对方越过你的边界时，你会如何处理？',
+        text: '当伴侣要求看你的手机时，你会...',
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '明确指出，重申边界，共同制定规则', score: 3 },
-            { text: '提醒对方注意', score: 2 },
-            { text: '忍一忍，下次再说', score: 1 },
-            { text: '以牙还牙，也越过对方的边界', score: 0 }]
+            { text: '坦诚沟通，了解他为什么想看', score: 3 },
+            { text: '给他看，没什么好隐瞒的', score: 2 },
+            { text: '犹豫，但还是会给', score: 1 },
+            { text: '拒绝，这是我的隐私', score: 0 }]
     },
     // 冲突处理 - 高级题
     {
         id: 'l41',
-        text: '如何将冲突转化为增进关系的机会？',
+        text: '关于"吵架"，你认为...',
         type: 'love',
         dimension: 'conflict',
         options: [
-            { text: '聚焦问题解决，理解对方立场，寻找双赢方案', score: 3 },
-            { text: '冷静分析问题，找到解决方案', score: 2 },
-            { text: '先妥协，保持和平', score: 1 },
-            { text: '避免争论，转移话题', score: 0 }]
+            { text: '吵架是沟通的一种，关键是怎么吵', score: 3 },
+            { text: '吵架伤感情，应该避免', score: 2 },
+            { text: '吵架说明不合适', score: 1 },
+            { text: '吵架是对方的问题', score: 0 }]
     },
     {
         id: 'l42',
-        text: '如何处理关系中的陈年积怨？',
+        text: '当冲突发生后，你更倾向于...',
         type: 'love',
         dimension: 'conflict',
         options: [
-            { text: '创造安全环境，逐步清理旧账，重建信任', score: 3 },
-            { text: '找个合适的时机，把话说开', score: 2 },
-            { text: '过去的就让它过去', score: 1 },
-            { text: '等对方先提出来再说', score: 0 }]
+            { text: '主动修复，不让问题过夜', score: 3 },
+            { text: '等对方先低头', score: 2 },
+            { text: '冷静几天再说', score: 1 },
+            { text: '假装什么都没发生', score: 0 }]
     },
     // 亲密能力 - 高级题
     {
         id: 'l43',
-        text: '如何在长期关系中保持亲密感？',
+        text: '当爱变成习惯，激情消退，你认为...',
         type: 'love',
         dimension: 'intimacy',
         options: [
-            { text: '持续投入时间和精力，创造共同体验，保持情感连接', score: 3 },
-            { text: '定期约会，保持仪式感', score: 2 },
-            { text: '顺其自然，亲密感会自然存在', score: 1 },
-            { text: '靠回忆维持亲密感', score: 0 }]
+            { text: '这是爱的升华，习惯是最深的陪伴', score: 3 },
+            { text: '需要努力重新点燃激情', score: 2 },
+            { text: '这是自然规律，接受它', score: 1 },
+            { text: '可能不爱了', score: 0 }]
     },
     {
         id: 'l44',
-        text: '如何处理亲密关系中的距离感？',
+        text: '关于"亲密"和"独立"，你认为...',
         type: 'love',
         dimension: 'intimacy',
         options: [
-            { text: '坦诚沟通感受，共同寻找改善方法，逐步重建连接', score: 3 },
-            { text: '增加相处时间，多交流', score: 2 },
-            { text: '给彼此一些空间，慢慢会好的', score: 1 },
-            { text: '假装没事，等对方改变', score: 0 }]
+            { text: '真正的亲密是两个独立个体的连接', score: 3 },
+            { text: '亲密需要牺牲一部分独立', score: 2 },
+            { text: '独立会让人疏远', score: 1 },
+            { text: '亲密就是融为一体', score: 0 }]
     },
     // 信任建立 - 高级题
     {
         id: 'l45',
-        text: '如何重建被破坏的信任？',
+        text: '关于"信任"，你认为...',
         type: 'love',
         dimension: 'trust',
         options: [
-            { text: '承认错误，承担责任，持续行动，给对方时间和空间', score: 3 },
-            { text: '道歉并保证不再犯', score: 2 },
-            { text: '用礼物或行动弥补', score: 1 },
-            { text: '时间会证明一切，不用刻意做什么', score: 0 }]
+            { text: '信任是选择，也是需要维护的', score: 3 },
+            { text: '信任需要时间建立', score: 2 },
+            { text: '信任是理所当然的', score: 1 },
+            { text: '信任是危险的，需要保护自己', score: 0 }]
     },
     {
         id: 'l46',
-        text: '如何在关系中保持适度的信任，不过度依赖也不过度怀疑？',
+        text: '当信任被打破后，你会...',
         type: 'love',
         dimension: 'trust',
         options: [
-            { text: '基于事实做出判断，保持开放和透明的沟通', score: 3 },
-            { text: '相信对方，但保持警惕', score: 2 },
-            { text: '选择相信，除非有证据证明不值得信任', score: 1 },
-            { text: '保持怀疑，避免受伤', score: 0 }]
+            { text: '评估情况，看是否值得重建', score: 3 },
+            { text: '给对方机会弥补', score: 2 },
+            { text: '很难再信任了', score: 1 },
+            { text: '彻底放弃这段关系', score: 0 }]
     },
     // 综合能力 - 高级题
     {
         id: 'l47',
-        text: '如何平衡个人成长与关系发展？',
+        text: '关于"爱"和"被爱"，你更看重...',
         type: 'love',
         dimension: 'emotion',
         options: [
-            { text: '支持彼此的成长，共同设定目标，保持同步发展', score: 3 },
-            { text: '鼓励对方追求自己的梦想', score: 2 },
-            { text: '先照顾好自己，再考虑关系', score: 1 },
-            { text: '以关系为重，个人成长可以放一放', score: 0 }]
+            { text: '两者同样重要，是流动的能量', score: 3 },
+            { text: '被爱更幸福', score: 2 },
+            { text: '爱人更充实', score: 1 },
+            { text: '只要有人爱我就好', score: 0 }]
     },
     {
         id: 'l48',
-        text: '如何处理关系中的期望差异？',
+        text: '当伴侣和你的价值观有冲突时，你会...',
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '清晰表达期望，理解对方的期望，寻找平衡点', score: 3 },
-            { text: '沟通彼此的想法，尽量达成一致', score: 2 },
-            { text: '接受差异，求同存异', score: 1 },
-            { text: '按自己的期望来，对方会适应的', score: 0 }]
+            { text: '尊重差异，寻找共同点', score: 3 },
+            { text: '尝试说服对方', score: 2 },
+            { text: '避免谈论这个话题', score: 1 },
+            { text: '可能我们不合适', score: 0 }]
     },
     {
         id: 'l49',
-        text: '如何面对关系中的权力不平衡？',
+        text: '关于"改变"和"接受"，你认为...',
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '识别权力动态，沟通协商，建立平等的关系契约', score: 3 },
-            { text: '争取自己的权益，不被忽视', score: 2 },
-            { text: '顺其自然，慢慢会平衡的', score: 1 },
-            { text: '忍忍算了，没必要计较', score: 0 }]
+            { text: '爱是接受本来的样子，同时支持成长', score: 3 },
+            { text: '爱需要为对方改变', score: 2 },
+            { text: '不应该为任何人改变', score: 1 },
+            { text: '对方应该为我改变', score: 0 }]
     },
     {
         id: 'l50',
-        text: '你认为健康的亲密关系应该是什么样的？',
+        text: '如果可以重新选择，你还会选择现在的伴侣吗？',
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '相互尊重、支持成长、有效沟通、共同创造价值', score: 3 },
-            { text: '互相理解，彼此陪伴', score: 2 },
-            { text: '快乐幸福，没有争吵', score: 1 },
-            { text: '各取所需，互不干涉', score: 0 }]
+            { text: '会，因为我们一起成长', score: 3 },
+            { text: '会，因为习惯了', score: 2 },
+            { text: '不确定', score: 1 },
+            { text: '不会', score: 0 }]
     }
 ];
 
@@ -999,342 +999,342 @@ const loveQuestions = [
     // 情绪管理能力
     {
         id: 'l1',
-        text: '当你在亲密关系中感到情绪低落时，你通常会如何处理？',
+        text: '当你心情不好时，你希望伴侣...',
         type: 'love',
         dimension: 'emotion',
         options: [
-            { text: '先自我觉察情绪来源，再与伴侣坦诚沟通', score: 3 },
-            { text: '给自己一些独处时间平复情绪', score: 2 },
-            { text: '转移注意力，做些喜欢的事调节心情', score: 1 },
-            { text: '期待伴侣主动发现并安慰自己', score: 0 }]
+            { text: '给我空间，也让我知道他在', score: 3 },
+            { text: '问我怎么了，听我倾诉', score: 2 },
+            { text: '逗我开心，转移注意力', score: 1 },
+            { text: '不要管我，让我自己消化', score: 0 }]
     },
     {
         id: 'l2',
-        text: '面对伴侣的负面情绪时，你的反应通常是？',
+        text: '关于"情绪"，你认为...',
         type: 'love',
         dimension: 'emotion',
         options: [
-            { text: '耐心倾听，尝试理解对方的感受', score: 3 },
-            { text: '给予安慰，但不确定是否有效', score: 2 },
-            { text: '感到压力，不知道如何应对', score: 1 },
-            { text: '觉得对方的情绪反应有些过度', score: 0 }]
+            { text: '情绪是桥梁，连接彼此的内心', score: 3 },
+            { text: '情绪需要被看见和理解', score: 2 },
+            { text: '情绪稳定是成熟的表现', score: 1 },
+            { text: '情绪会带来麻烦', score: 0 }]
     },
     {
         id: 'l3',
-        text: '你如何在亲密关系中保持情绪的稳定性？',
+        text: '当伴侣情绪低落时，你倾向于...',
         type: 'love',
         dimension: 'emotion',
         options: [
-            { text: '通过冥想、运动等方式培养情绪调节能力', score: 3 },
-            { text: '有意识地控制情绪表达', score: 2 },
-            { text: '情绪波动时选择暂时冷静', score: 1 },
-            { text: '情绪不稳定时倾向于倾诉给伴侣', score: 0 }]
+            { text: '陪伴他，让他知道我懂他', score: 3 },
+            { text: '问他怎么了，帮他想办法', score: 2 },
+            { text: '给他空间，等他自己好起来', score: 1 },
+            { text: '不知道该怎么办', score: 0 }]
     },
     // 共情能力
     {
         id: 'l4',
-        text: '当伴侣分享工作上的烦恼时，你通常会怎么做？',
+        text: '当伴侣说"你不懂我"时，你内心想的是...',
         type: 'love',
         dimension: 'empathy',
         options: [
-            { text: '感同身受地倾听，提供情感支持', score: 3 },
-            { text: '认真倾听，并给出建议', score: 2 },
-            { text: '安慰几句，然后聊别的话题', score: 1 },
-            { text: '觉得应该自己解决，不太在意', score: 0 }]
+            { text: '也许我真的没理解，让我再试试', score: 3 },
+            { text: '我需要更用心地去感受', score: 2 },
+            { text: '我已经很努力了', score: 1 },
+            { text: '是你没说清楚', score: 0 }]
     },
     {
         id: 'l5',
-        text: '你能准确感知伴侣未说出口的情绪和需求吗？',
+        text: '关于"理解"，你认为...',
         type: 'love',
         dimension: 'empathy',
         options: [
-            { text: '通过细微的表情和语气变化判断', score: 3 },
-            { text: '基本能感受到对方的情绪', score: 2 },
-            { text: '有时候能察觉到', score: 1 },
-            { text: '对方不说，我就不知道', score: 0 }]
+            { text: '理解是用心感受，不是用脑分析', score: 3 },
+            { text: '理解需要时间和耐心', score: 2 },
+            { text: '理解就是知道对方在想什么', score: 1 },
+            { text: '没有人能真正理解另一个人', score: 0 }]
     },
     {
         id: 'l6',
-        text: '在日常生活中，你会主动关心伴侣的感受吗？',
+        text: '你更看重伴侣的...',
         type: 'love',
         dimension: 'empathy',
         options: [
-            { text: '经常关注伴侣的情绪变化', score: 3 },
-            { text: '在重要时刻会主动关心', score: 2 },
-            { text: '伴侣主动倾诉时会关心', score: 1 },
-            { text: '觉得有需要对方会说', score: 0 }]
+            { text: '共情能力：能感受我的感受', score: 3 },
+            { text: '倾听能力：愿意听我说', score: 2 },
+            { text: '解决问题能力：能帮我', score: 1 },
+            { text: '陪伴：在身边就好', score: 0 }]
     },
     // 安全感
     {
         id: 'l7',
-        text: '你认为建立安全感的核心要素是什么？',
+        text: '安全感对你来说，像是...',
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '相互信任，给彼此足够的空间', score: 3 },
-            { text: '坦诚沟通，及时解决问题', score: 2 },
-            { text: '经济基础和稳定的生活', score: 1 },
-            { text: '对方无条件的包容和让步', score: 0 }]
+            { text: '一个港湾，让我敢于远航', score: 3 },
+            { text: '一种确定，知道他不会离开', score: 2 },
+            { text: '一种控制，知道一切在掌握中', score: 1 },
+            { text: '一种依赖，需要对方给予', score: 0 }]
     },
     {
         id: 'l8',
-        text: '当伴侣需要暂时独处时，你会如何回应？',
+        text: '当伴侣需要独处时，你会...',
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '尊重对方需求，给予支持', score: 3 },
-            { text: '接受，但希望知道原因', score: 2 },
-            { text: '有些不安，会追问原因', score: 1 },
-            { text: '觉得不被需要，产生怀疑', score: 0 }]
+            { text: '尊重他，这是他的需要', score: 3 },
+            { text: '有点失落，但会接受', score: 2 },
+            { text: '担心是不是我做错了什么', score: 1 },
+            { text: '觉得他不爱我了', score: 0 }]
     },
     {
         id: 'l9',
-        text: '面对关系中的不确定因素，你通常会？',
+        text: '关于"不确定"，你认为...',
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '主动沟通，共同制定应对策略', score: 3 },
-            { text: '相信时间会解决大部分问题', score: 2 },
-            { text: '感到焦虑，想控制局面', score: 1 },
-            { text: '回避问题，希望问题自行消失', score: 0 }]
+            { text: '不确定是常态，信任是选择', score: 3 },
+            { text: '需要更多确定感才能安心', score: 2 },
+            { text: '不确定让我焦虑', score: 1 },
+            { text: '不确定就是不安全', score: 0 }]
     },
     // 沟通能力
     {
         id: 'l10',
-        text: '当你想表达不满时，你通常会采用什么方式？',
+        text: '"你应该知道我想要什么"这句话，你怎么看？',
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '用"我觉得"开头，表达感受而非指责', score: 3 },
-            { text: '直接说出来，希望对方改正', score: 2 },
-            { text: '委婉暗示，希望对方能理解', score: 1 },
-            { text: '不说，闷在心里', score: 0 }]
+            { text: '没有人会读心术，需要表达', score: 3 },
+            { text: '默契需要时间培养', score: 2 },
+            { text: '真正爱我的人应该懂我', score: 1 },
+            { text: '说出来就没意思了', score: 0 }]
     },
     {
         id: 'l11',
-        text: '你认为良好沟通的关键是什么？',
+        text: '当沟通变成争吵时，你会...',
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '倾听对方的立场，寻找共同点', score: 3 },
-            { text: '清晰表达自己的想法', score: 2 },
-            { text: '选择合适的时机沟通', score: 1 },
-            { text: '避免冲突，保持和谐', score: 0 }]
+            { text: '暂停，等冷静后再谈', score: 3 },
+            { text: '继续说，把问题解决', score: 2 },
+            { text: '让步，不想吵了', score: 1 },
+            { text: '一定要争出对错', score: 0 }]
     },
     {
         id: 'l12',
-        text: '当你们对某件事有分歧时，你会如何处理？',
+        text: '关于"说"和"听"，你更擅长...',
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '理性讨论，寻找双方都能接受的方案', score: 3 },
-            { text: '各退一步，达成妥协', score: 2 },
-            { text: '暂时搁置，以后再讨论', score: 1 },
-            { text: '坚持自己的观点，说服对方', score: 0 }]
+            { text: '倾听，让对方感到被理解', score: 3 },
+            { text: '表达，让对方知道我的想法', score: 2 },
+            { text: '都说一些，保持平衡', score: 1 },
+            { text: '都不太擅长', score: 0 }]
     },
     // 边界意识
     {
         id: 'l13',
-        text: '你认为亲密关系中保持个人边界重要吗？',
+        text: '关于"亲密无间"，你认为...',
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '非常重要，边界清晰关系更健康', score: 3 },
-            { text: '重要，但可以根据情况调整', score: 2 },
-            { text: '不太重要，相爱就应该透明', score: 1 },
-            { text: '边界会伤害感情，应该没有边界', score: 0 }]
+            { text: '亲密需要边界来保护', score: 3 },
+            { text: '适度的空间让关系更健康', score: 2 },
+            { text: '真正相爱不需要边界', score: 1 },
+            { text: '边界会让人疏远', score: 0 }]
     },
     {
         id: 'l14',
-        text: '你会如何处理伴侣与异性朋友的交往？',
+        text: '当伴侣和异性朋友相处时，你会...',
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '信任对方，不过度干涉', score: 3 },
-            { text: '知道有交往就好，不过问细节', score: 2 },
-            { text: '希望知道每次交往的具体情况', score: 1 },
-            { text: '要求伴侣减少与异性朋友的来往', score: 0 }]
+            { text: '信任他，这是他的社交', score: 3 },
+            { text: '有点在意，但不会说什么', score: 2 },
+            { text: '希望他知道分寸', score: 1 },
+            { text: '要求他减少来往', score: 0 }]
     },
     {
         id: 'l15',
-        text: '你会和伴侣分享自己的过去和秘密吗？',
+        text: '关于"隐私"和"透明"，你认为...',
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '适度分享，尊重自己也尊重对方', score: 3 },
-            { text: '愿意分享，但有些事会保留', score: 2 },
-            { text: '觉得过去不重要，没必要提', score: 1 },
-            { text: '完全坦诚，没有任何保留', score: 0 }]
+            { text: '信任不需要透明，尊重需要隐私', score: 3 },
+            { text: '适度透明，但保留空间', score: 2 },
+            { text: '相爱就应该没有秘密', score: 1 },
+            { text: '隐私说明有问题', score: 0 }]
     },
     // 冲突处理
     {
         id: 'l16',
-        text: '发生争执时，你通常会怎么做？',
+        text: '关于"吵架"，你认为...',
         type: 'love',
         dimension: 'conflict',
         options: [
-            { text: '等冷静后理性沟通解决', score: 3 },
-            { text: '当时想解释清楚再结束', score: 2 },
-            { text: '选择冷战，等对方先道歉', score: 1 },
-            { text: '情绪激动，可能说出伤人的话', score: 0 }]
+            { text: '吵架是了解彼此的机会', score: 3 },
+            { text: '吵架伤感情，应该避免', score: 2 },
+            { text: '吵架说明不合适', score: 1 },
+            { text: '吵架是对方的问题', score: 0 }]
     },
     {
         id: 'l17',
-        text: '当争吵后，你会如何修复关系？',
+        text: '争吵后，你更倾向于...',
         type: 'love',
         dimension: 'conflict',
         options: [
-            { text: '主动反思，主动沟通和好', score: 3 },
-            { text: '给对方一些时间，然后和好', score: 2 },
-            { text: '等对方先示好', score: 1 },
-            { text: '觉得没什么大不了，时间会冲淡', score: 0 }]
+            { text: '主动修复，不让问题过夜', score: 3 },
+            { text: '等对方先低头', score: 2 },
+            { text: '冷静几天再说', score: 1 },
+            { text: '假装什么都没发生', score: 0 }]
     },
     {
         id: 'l18',
-        text: '你如何看待亲密关系中的争吵？',
+        text: '当冲突无法解决时，你会...',
         type: 'love',
         dimension: 'conflict',
         options: [
-            { text: '正常现象，解决问题能促进关系', score: 3 },
-            { text: '可以接受，但希望能避免', score: 2 },
-            { text: '很糟糕，争吵会伤害感情', score: 1 },
-            { text: '不应该有争吵，相爱的人不应该吵架', score: 0 }]
+            { text: '接受差异，求同存异', score: 3 },
+            { text: '继续尝试沟通', score: 2 },
+            { text: '暂时搁置', score: 1 },
+            { text: '考虑放弃', score: 0 }]
     },
     // 亲密能力
     {
         id: 'l19',
-        text: '你如何表达对伴侣的爱意？',
+        text: '关于"爱"，你认为...',
         type: 'love',
         dimension: 'intimacy',
         options: [
-            { text: '通过言语和行动真诚表达', score: 3 },
-            { text: '用行动表达，不太擅长言语', score: 2 },
-            { text: '陪伴是最长情的告白', score: 1 },
-            { text: '觉得爱不需要说出来', score: 0 }]
+            { text: '爱是动词，需要行动表达', score: 3 },
+            { text: '爱是感觉，需要被感受', score: 2 },
+            { text: '爱是承诺，需要被遵守', score: 1 },
+            { text: '爱是本能，不需要学习', score: 0 }]
     },
     {
         id: 'l20',
-        text: '你会主动创造亲密的时刻吗？',
+        text: '当爱变成习惯，激情消退，你认为...',
         type: 'love',
         dimension: 'intimacy',
         options: [
-            { text: '会主动安排约会和惊喜', score: 3 },
-            { text: '重要日子会特别准备', score: 2 },
-            { text: '顺其自然，不需要刻意', score: 1 },
-            { text: '不太擅长这些，希望对方主动', score: 0 }]
+            { text: '这是爱的升华，习惯是最深的陪伴', score: 3 },
+            { text: '需要努力重新点燃激情', score: 2 },
+            { text: '这是自然规律，接受它', score: 1 },
+            { text: '可能不爱了', score: 0 }]
     },
     {
         id: 'l21',
-        text: '你认为维系亲密关系最重要的是什么？',
+        text: '关于"付出"和"索取"，你认为...',
         type: 'love',
         dimension: 'intimacy',
         options: [
-            { text: '持续的情感投入和相互成长', score: 3 },
-            { text: '相互理解和包容', score: 2 },
-            { text: '稳定的物质基础', score: 1 },
-            { text: '彼此忠诚和承诺', score: 0 }]
+            { text: '爱是流动的，付出和接受同样重要', score: 3 },
+            { text: '付出更多的一方更爱', score: 2 },
+            { text: '应该平衡，不能一方付出太多', score: 1 },
+            { text: '被爱更幸福', score: 0 }]
     },
     // 信任建立
     {
         id: 'l22',
-        text: '你如何建立和维护伴侣对你的信任？',
+        text: '关于"信任"，你认为...',
         type: 'love',
         dimension: 'trust',
         options: [
-            { text: '言行一致，言出必行', score: 3 },
-            { text: '坦诚沟通，主动分享', score: 2 },
-            { text: '让对方看自己的手机和社交账号', score: 1 },
-            { text: '时间久了自然会信任', score: 0 }]
+            { text: '信任是选择，也是需要维护的', score: 3 },
+            { text: '信任需要时间建立', score: 2 },
+            { text: '信任是理所当然的', score: 1 },
+            { text: '信任是危险的', score: 0 }]
     },
     {
         id: 'l23',
-        text: '当伴侣表现出不安全感时，你会怎么做？',
+        text: '当伴侣让你感到不安全时，你会...',
         type: 'love',
         dimension: 'trust',
         options: [
-            { text: '耐心倾听，给予安全感', score: 3 },
-            { text: '解释清楚，希望对方理解', score: 2 },
-            { text: '觉得对方多疑，不想理会', score: 1 },
-            { text: '对伴侣的信任表示不满', score: 0 }]
+            { text: '坦诚表达感受，寻求理解', score: 3 },
+            { text: '观察他的行为', score: 2 },
+            { text: '压抑自己的不安', score: 1 },
+            { text: '质疑他的忠诚', score: 0 }]
     },
     {
         id: 'l24',
-        text: '你如何看待伴侣查看你的手机或社交账号？',
+        text: '关于"背叛"，你认为...',
         type: 'love',
         dimension: 'trust',
         options: [
-            { text: '尊重隐私，但愿意主动分享', score: 3 },
-            { text: '可以接受，但不觉得有必要', score: 2 },
-            { text: '无所谓，给对方看也无所谓', score: 1 },
-            { text: '这说明对方不信任我', score: 0 }]
+            { text: '可以原谅，但需要重建信任', score: 3 },
+            { text: '看情况，有些可以原谅', score: 2 },
+            { text: '一次不忠，百次不用', score: 1 },
+            { text: '绝对不能原谅', score: 0 }]
     },
     // 价值观 - 关系预期
     {
         id: 'l25',
-        text: '你对理想亲密关系的期待是什么样的？',
+        text: '你理想中的爱情是...',
         type: 'love',
         dimension: 'intimacy',
         options: [
-            { text: '相互支持彼此的梦想，共同成长', score: 3 },
-            { text: '彼此包容，有矛盾能协商解决', score: 2 },
-            { text: '能满足彼此的情感需求', score: 1 },
-            { text: '生活稳定安逸就好', score: 0 }]
+            { text: '两个独立的人选择在一起', score: 3 },
+            { text: '彼此依赖，互相需要', score: 2 },
+            { text: '一个人完整另一个人', score: 1 },
+            { text: '找到对的人，从此幸福', score: 0 }]
     },
     {
         id: 'l26',
-        text: '当关系发展遇到困难时，你会如何面对？',
+        text: '关于"改变"和"接受"，你认为...',
         type: 'love',
         dimension: 'trust',
         options: [
-            { text: '坦诚沟通，共同寻找解决方案', score: 3 },
-            { text: '给自己和对方一些时间和空间', score: 2 },
-            { text: '觉得困难会自然解决，暂不处理', score: 1 },
-            { text: '逃避问题，等待对方先提出', score: 0 }]
+            { text: '爱是接受本来的样子，支持成长', score: 3 },
+            { text: '爱需要为对方改变', score: 2 },
+            { text: '不应该为任何人改变', score: 1 },
+            { text: '对方应该为我改变', score: 0 }]
     },
     {
         id: 'l27',
-        text: '你认为维护长期关系最重要的是什么？',
+        text: '关于"灵魂伴侣"，你认为...',
         type: 'love',
         dimension: 'empathy',
         options: [
-            { text: '持续的沟通和相互理解', score: 3 },
-            { text: '共同的生活目标和价值观', score: 2 },
-            { text: '足够的物质保障', score: 1 },
-            { text: '彼此的包容和妥协', score: 0 }]
+            { text: '灵魂伴侣是培养出来的，不是找到的', score: 3 },
+            { text: '存在，但很难遇到', score: 2 },
+            { text: '是一个美好的幻想', score: 1 },
+            { text: '不存在', score: 0 }]
     },
     // 综合题
     {
         id: 'l28',
-        text: '当关系无法继续时，你会如何处理？',
+        text: '当关系走到尽头，你会...',
         type: 'love',
         dimension: 'boundary',
         options: [
-            { text: '理性沟通，好聚好散', score: 3 },
-            { text: '给彼此时间冷静后再做决定', score: 2 },
-            { text: '寻找关系中的问题，尝试修复', score: 1 },
-            { text: '逃避问题，等待对方先提出', score: 0 }]
+            { text: '感恩相遇，好好告别', score: 3 },
+            { text: '尝试挽回，直到确定无法继续', score: 2 },
+            { text: '很难接受，需要很长时间', score: 1 },
+            { text: '不想面对，逃避现实', score: 0 }]
     },
     {
         id: 'l29',
-        text: '你会为维系关系做出哪些改变和努力？',
+        text: '关于"爱情"和"自我"，你认为...',
         type: 'love',
         dimension: 'communication',
         options: [
-            { text: '主动学习沟通技巧，提升自己', score: 3 },
-            { text: '在重要时刻给予伴侣更多关注', score: 2 },
-            { text: '调整自己的作息和习惯', score: 1 },
-            { text: '觉得改变很难，希望对方先改变', score: 0 }]
+            { text: '好的爱情让我成为更好的自己', score: 3 },
+            { text: '爱情需要牺牲一部分自我', score: 2 },
+            { text: '自我比爱情更重要', score: 1 },
+            { text: '爱情里没有自我', score: 0 }]
     },
     {
         id: 'l30',
-        text: '你认为什么因素能让亲密关系保持长久？',
+        text: '如果可以重新选择，你还会爱现在的伴侣吗？',
         type: 'love',
         dimension: 'security',
         options: [
-            { text: '双方的持续投入和共同成长', score: 3 },
-            { text: '相互信任和尊重', score: 2 },
-            { text: '外部条件稳定，如经济基础', score: 1 },
-            { text: '良好的沟通和冲突处理能力', score: 0 }]
+            { text: '会，因为这段关系让我成长', score: 3 },
+            { text: '会，因为习惯了', score: 2 },
+            { text: '不确定', score: 1 },
+            { text: '不会', score: 0 }]
     }
 ];
 
