@@ -2297,7 +2297,7 @@ function calculateResults() {
         timestamp: new Date().toISOString(),
         entrepreneurScore: entrepreneurPercentage,
         loveScore: lovePercentage,
-        isAwakened: entrepreneurPercentage >= 85 && lovePercentage >= 85,
+        isAwakened: entrepreneurPercentage >= 65 && lovePercentage >= 65,
         dimensionScores,
         answers
     };
@@ -2327,7 +2327,7 @@ function showResult(result) {
     // 根据测试类型显示不同的开智状态
     if (currentTestType === 'entrepreneur') {
         // 创业思维模式
-        if (result.entrepreneurScore >= 85) {
+        if (result.entrepreneurScore >= 65) {
             resultIcon.textContent = '◇';
             resultIcon.className = 'text-8xl mb-4 result-icon-bounce text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#EF4444]';
             resultTitle.textContent = '已开智';
@@ -2335,14 +2335,14 @@ function showResult(result) {
             resultSubtitle.textContent = '恭喜！你的创业思维已达到较高水平';
         } else {
             resultIcon.textContent = '⊙';
-            resultIcon.className = 'text-8xl mb-4 result-icon-bounce text-gray-400';
+            resultIcon.className = 'text-8xl mb-4 result-icon-bounce text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#EF4444]';
             resultTitle.textContent = '未开智';
-            resultTitle.className = 'text-3xl font-serif font-bold curtain-reveal text-gray-300';
+            resultTitle.className = 'text-3xl font-serif font-bold curtain-reveal text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#EF4444]';
             resultSubtitle.textContent = '继续努力！创业思维觉醒正在路上';
         }
     } else if (currentTestType === 'love') {
         // 爱情认知模式
-        if (result.loveScore >= 85) {
+        if (result.loveScore >= 65) {
             resultIcon.textContent = '◇';
             resultIcon.className = 'text-8xl mb-4 result-icon-bounce text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#EC4899]';
             resultTitle.textContent = '已开智';
@@ -2350,9 +2350,9 @@ function showResult(result) {
             resultSubtitle.textContent = '恭喜！你的爱情认知已达到较高水平';
         } else {
             resultIcon.textContent = '⊙';
-            resultIcon.className = 'text-8xl mb-4 result-icon-bounce text-gray-400';
+            resultIcon.className = 'text-8xl mb-4 result-icon-bounce text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#EC4899]';
             resultTitle.textContent = '未开智';
-            resultTitle.className = 'text-3xl font-serif font-bold curtain-reveal text-gray-300';
+            resultTitle.className = 'text-3xl font-serif font-bold curtain-reveal text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#EC4899]';
             resultSubtitle.textContent = '继续努力！爱情认知觉醒正在路上';
         }
     } else {
@@ -2365,9 +2365,9 @@ function showResult(result) {
             resultSubtitle.textContent = '恭喜！你的创业思维与爱情认知均已达到较高水平';
         } else {
             resultIcon.textContent = '⊙';
-            resultIcon.className = 'text-8xl mb-4 result-icon-bounce text-gray-400';
+            resultIcon.className = 'text-8xl mb-4 result-icon-bounce text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#F59E0B]';
             resultTitle.textContent = '未开智';
-            resultTitle.className = 'text-3xl font-serif font-bold curtain-reveal text-gray-300';
+            resultTitle.className = 'text-3xl font-serif font-bold curtain-reveal text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#F59E0B]';
             resultSubtitle.textContent = '继续努力！觉醒正在路上';
         }
     }
@@ -2527,9 +2527,9 @@ function showResult(result) {
     
     // 更新分享按钮状态
     const isAwakenedForShare = currentTestType === 'entrepreneur' 
-        ? result.entrepreneurScore >= 85 
+        ? result.entrepreneurScore >= 65 
         : currentTestType === 'love' 
-            ? result.loveScore >= 85 
+            ? result.loveScore >= 65 
             : result.isAwakened;
     
     document.getElementById('share-badge').className = isAwakenedForShare ? 'badge-awakened' : 'badge-awakening';
@@ -3293,6 +3293,15 @@ function generateChallenge() {
 function init() {
     // 初始化粒子背景
     initParticles();
+    
+    // 开智说明弹窗关闭事件
+    document.getElementById('awakening-info-close').addEventListener('click', () => {
+        const modal = document.getElementById('awakening-info-modal');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    });
     
     // 绑定事件监听
     document.getElementById('start-test').addEventListener('click', startTest);
