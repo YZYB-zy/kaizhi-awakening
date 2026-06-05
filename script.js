@@ -2854,7 +2854,7 @@ function updateShareCard(result) {
 
 // ==================== 下载分享卡片 ====================
 function downloadShareCard() {
-    const shareCard = document.getElementById('share-card');
+    const shareCard = document.getElementById('share-content');
     
     html2canvas(shareCard, {
         backgroundColor: '#0A1628',
@@ -2911,11 +2911,11 @@ function loadHistory() {
 // ==================== 初始化历史趋势图 ====================
 function initHistoryChart(history) {
     if (history.length < 2) {
-        document.getElementById('history-chart-container').style.display = 'none';
+        document.getElementById('history-content').style.display = 'none';
         return;
     }
     
-    document.getElementById('history-chart-container').style.display = 'block';
+    document.getElementById('history-content').style.display = 'block';
     
     const ctx = document.getElementById('history-chart').getContext('2d');
     
@@ -3310,6 +3310,36 @@ function init() {
         modalContent.classList.remove('scale-100');
         modalContent.classList.add('scale-95');
         modal.classList.add('opacity-0', 'pointer-events-none');
+    });
+    
+    // 折叠/展开功能
+    const toggleModules = [
+        { toggle: 'toggle-profile', content: 'profile-content' },
+        { toggle: 'toggle-stage', content: 'stage-content' },
+        { toggle: 'toggle-entrepreneur-advice', content: 'entrepreneur-advice' },
+        { toggle: 'toggle-entrepreneur-change', content: 'entrepreneur-change' },
+        { toggle: 'toggle-love-advice', content: 'love-advice' },
+        { toggle: 'toggle-love-change', content: 'love-change' },
+        { toggle: 'toggle-books', content: 'books-content' },
+        { toggle: 'toggle-share', content: 'share-content' }
+    ];
+    
+    toggleModules.forEach(({ toggle, content }) => {
+        const toggleEl = document.getElementById(toggle);
+        const contentEl = document.getElementById(content);
+        
+        if (toggleEl && contentEl) {
+            toggleEl.addEventListener('click', () => {
+                const isHidden = contentEl.classList.contains('hidden');
+                if (isHidden) {
+                    contentEl.classList.remove('hidden');
+                    toggleEl.querySelector('.toggle-icon').textContent = '▼';
+                } else {
+                    contentEl.classList.add('hidden');
+                    toggleEl.querySelector('.toggle-icon').textContent = '▲';
+                }
+            });
+        }
     });
     
     // 绑定事件监听

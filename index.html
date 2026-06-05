@@ -373,10 +373,16 @@
 
                 <!-- 模块三：人格画像 -->
                 <div class="bg-gradient-to-br from-[#7C3AED]/20 to-[#F59E0B]/20 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
-                        <span>👤</span> 人格画像
+                    <h3 id="toggle-profile" class="text-xl font-semibold mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                        <span class="flex items-center gap-2">
+                            <span>👤</span> 人格画像
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400">点击查看详细内容</span>
+                            <span class="toggle-icon">▲</span>
+                        </span>
                     </h3>
-                    <div class="text-center">
+                    <div id="profile-content" class="text-center hidden">
                         <h2 id="profile-title" class="text-3xl font-serif font-bold bg-gradient-to-r from-[#F59E0B] to-[#7C3AED] bg-clip-text text-transparent mb-4"></h2>
                         <p id="profile-description" class="text-gray-300 leading-relaxed max-w-2xl mx-auto"></p>
                     </div>
@@ -384,10 +390,16 @@
 
                 <!-- 模块四：当前阶段 -->
                 <div class="bg-white/5 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
-                        <span>📍</span> 当前阶段
+                    <h3 id="toggle-stage" class="text-xl font-semibold mb-6 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                        <span class="flex items-center gap-2">
+                            <span>📍</span> 当前阶段
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400">点击查看详细内容</span>
+                            <span class="toggle-icon">▲</span>
+                        </span>
                     </h3>
-                    <div class="flex items-center gap-8">
+                    <div id="stage-content" class="flex items-center gap-8 hidden">
                         <div class="flex-1">
                             <div class="h-3 bg-white/10 rounded-full overflow-hidden">
                                 <div id="stage-progress" class="h-full bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full transition-all duration-1000"></div>
@@ -413,20 +425,32 @@
                 <div class="grid md:grid-cols-2 gap-6 mb-8">
                     <!-- 创业思维建议 -->
                     <div class="bg-gradient-to-br from-[#F59E0B]/10 to-transparent backdrop-blur-md rounded-3xl p-6 border border-[#F59E0B]/20 entrepreneur-advice-section">
-                        <h3 class="text-lg font-semibold text-[#F59E0B] mb-4 flex items-center gap-2">
-                            <span>🚀</span> 创业思维提升
+                        <h3 id="toggle-entrepreneur-advice" class="text-lg font-semibold text-[#F59E0B] mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                            <span class="flex items-center gap-2">
+                                <span>🚀</span> 创业思维提升
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <span class="text-xs text-gray-400">点击查看详细内容</span>
+                                <span class="toggle-icon">▲</span>
+                            </span>
                         </h3>
-                        <ul id="entrepreneur-advice" class="space-y-3">
+                        <ul id="entrepreneur-advice" class="space-y-3 hidden">
                             <!-- 建议列表 -->
                         </ul>
                     </div>
                     
                     <!-- 创业思维改变 -->
                     <div class="bg-gradient-to-br from-[#F59E0B]/5 to-transparent backdrop-blur-md rounded-3xl p-6 border border-[#F59E0B]/15 entrepreneur-change-section">
-                        <h3 class="text-lg font-semibold text-[#F59E0B] mb-4 flex items-center gap-2">
-                            <span>🔄</span> 创业思维改变
+                        <h3 id="toggle-entrepreneur-change" class="text-lg font-semibold text-[#F59E0B] mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                            <span class="flex items-center gap-2">
+                                <span>🔄</span> 创业思维改变
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <span class="text-xs text-gray-400">点击查看详细内容</span>
+                                <span class="toggle-icon">▲</span>
+                            </span>
                         </h3>
-                        <ul id="entrepreneur-change" class="space-y-3">
+                        <ul id="entrepreneur-change" class="space-y-3 hidden">
                             <!-- 改变建议列表 -->
                         </ul>
                     </div>
@@ -436,20 +460,32 @@
                 <div class="grid md:grid-cols-2 gap-6 mb-8">
                     <!-- 爱情认知建议 -->
                     <div class="bg-gradient-to-br from-[#7C3AED]/10 to-transparent backdrop-blur-md rounded-3xl p-6 border border-[#7C3AED]/20 love-advice-section">
-                        <h3 class="text-lg font-semibold text-[#7C3AED] mb-4 flex items-center gap-2">
-                            <span>💜</span> 爱情认知提升
+                        <h3 id="toggle-love-advice" class="text-lg font-semibold text-[#7C3AED] mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                            <span class="flex items-center gap-2">
+                                <span>💜</span> 爱情认知提升
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <span class="text-xs text-gray-400">点击查看详细内容</span>
+                                <span class="toggle-icon">▲</span>
+                            </span>
                         </h3>
-                        <ul id="love-advice" class="space-y-3">
+                        <ul id="love-advice" class="space-y-3 hidden">
                             <!-- 建议列表 -->
                         </ul>
                     </div>
                     
                     <!-- 爱情认知改变 -->
                     <div class="bg-gradient-to-br from-[#7C3AED]/5 to-transparent backdrop-blur-md rounded-3xl p-6 border border-[#7C3AED]/15 love-change-section">
-                        <h3 class="text-lg font-semibold text-[#7C3AED] mb-4 flex items-center gap-2">
-                            <span>🔄</span> 爱情认知改变
+                        <h3 id="toggle-love-change" class="text-lg font-semibold text-[#7C3AED] mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                            <span class="flex items-center gap-2">
+                                <span>🔄</span> 爱情认知改变
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <span class="text-xs text-gray-400">点击查看详细内容</span>
+                                <span class="toggle-icon">▲</span>
+                            </span>
                         </h3>
-                        <ul id="love-change" class="space-y-3">
+                        <ul id="love-change" class="space-y-3 hidden">
                             <!-- 改变建议列表 -->
                         </ul>
                     </div>
@@ -457,10 +493,16 @@
 
                 <!-- 模块六：推荐阅读 -->
                 <div class="bg-white/5 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
-                        <span>📚</span> 推荐阅读
+                    <h3 id="toggle-books" class="text-xl font-semibold mb-6 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                        <span class="flex items-center gap-2">
+                            <span>📚</span> 推荐阅读
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400">点击查看详细内容</span>
+                            <span class="toggle-icon">▲</span>
+                        </span>
                     </h3>
-                    <div class="books-container grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div id="books-content" class="books-container grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
                         <div id="book-1" class="book-card bg-white/5 rounded-2xl p-4 border border-white/10 hover:border-[#F59E0B]/30 transition-all duration-300 hover:scale-105">
                             <div class="w-full aspect-[3/4] bg-gradient-to-br from-[#F59E0B]/20 to-[#F59E0B]/5 rounded-xl mb-3 flex items-center justify-center">📖</div>
                             <h4 class="text-sm font-medium text-white mb-1"></h4>
@@ -486,12 +528,18 @@
 
                 <!-- 模块七：分享卡片 -->
                 <div class="bg-gradient-to-br from-[#7C3AED]/10 to-[#F59E0B]/10 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
-                        <span>🎨</span> 分享你的开智结果
+                    <h3 id="toggle-share" class="text-xl font-semibold mb-6 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                        <span class="flex items-center gap-2">
+                            <span>🎨</span> 分享你的开智结果
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400">点击查看详细内容</span>
+                            <span class="toggle-icon">▲</span>
+                        </span>
                     </h3>
                     
                     <!-- 分享卡片预览 -->
-                    <div id="share-card" class="bg-gradient-to-br from-[#0A1628] to-[#1a1a2e] rounded-2xl p-6 border border-white/10 relative overflow-hidden">
+                    <div id="share-content" class="bg-gradient-to-br from-[#0A1628] to-[#1a1a2e] rounded-2xl p-6 border border-white/10 relative overflow-hidden hidden">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-[#7C3AED]/20 rounded-full blur-3xl"></div>
                         <div class="absolute bottom-0 left-0 w-32 h-32 bg-[#F59E0B]/20 rounded-full blur-3xl"></div>
                         
@@ -576,7 +624,7 @@
                     </h3>
                     
                     <!-- 趋势图 -->
-                    <div id="history-chart-container" class="h-48 mb-6">
+                    <div id="history-content" class="h-48 mb-6">
                         <canvas id="history-chart"></canvas>
                     </div>
                     
