@@ -3303,6 +3303,15 @@ function init() {
         }, 300);
     });
     
+    // 信息卡片弹窗关闭事件
+    document.getElementById('info-cards-close').addEventListener('click', () => {
+        const modal = document.getElementById('info-cards-modal');
+        const modalContent = modal.querySelector('.relative');
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-95');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+    });
+    
     // 绑定事件监听
     document.getElementById('start-test').addEventListener('click', startTest);
     document.getElementById('restart-test').addEventListener('click', startTest);
@@ -3310,11 +3319,11 @@ function init() {
         showPage('home');
     });
     document.getElementById('learn-more').addEventListener('click', () => {
-        // 修复：平滑滚动到信息卡片区域
-        const cards = document.querySelectorAll('.info-card');
-        if (cards.length > 0) {
-            cards[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        // 打开信息卡片弹窗
+        const modal = document.getElementById('info-cards-modal');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.querySelector('.relative').classList.remove('scale-95');
+        modal.querySelector('.relative').classList.add('scale-100');
     });
     
     // 设置面板
