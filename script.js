@@ -3063,20 +3063,34 @@ function showResult(result) {
         questionsToShow = [entrepreneurShuffled[0], loveShuffled[0]];
     }
     
-    // 隐藏所有按钮
-    suggestButtons.forEach(btn => {
-        btn.style.display = 'none';
-    });
-    
-    // 显示随机选择的问题
-    suggestButtons.forEach(btn => {
-        if (questionsToShow.includes(btn.textContent)) {
+    // 动态设置按钮文本
+    suggestButtons.forEach((btn, index) => {
+        if (index < questionsToShow.length) {
+            btn.textContent = questionsToShow[index];
+            const question = questionsToShow[index];
+            if (currentTestType === 'entrepreneur') {
+                btn.dataset.category = 'entrepreneur';
+            } else if (currentTestType === 'love') {
+                btn.dataset.category = 'love';
+            } else {
+                // 综合模式，根据问题内容判断类别
+                const loveKeywords = ['情商', '恋爱', '爱情', '安全', '信任', '分手', '新鲜', '共情', '亲密', '边界', '冲突', '情绪', '表达', '依恋', '约会'];
+                btn.dataset.category = loveKeywords.some(kw => question.includes(kw)) ? 'love' : 'entrepreneur';
+            }
             btn.style.display = 'inline-flex';
+        } else {
+            btn.style.display = 'none';
         }
     });
     
+    // 隐藏答案和无法识别的提示区域，恢复到初始状态
+    const faqAnswerContainer = document.getElementById('faq-answer-container');
+    const faqNotFound = document.getElementById('faq-not-found');
+    faqAnswerContainer.classList.add('hidden');
+    faqNotFound.classList.add('hidden');
+    faqInput.value = '';
+    
     // 设置随机的placeholder提示文本
-    const faqInput = document.getElementById('faq-input');
     const entrepreneurPrompts = [
         '输入您的问题，如：如何识别商机？',
         '输入您的问题，如：如何提高执行力？',
@@ -3110,6 +3124,16 @@ function showResult(result) {
     
     const randomIndex = Math.floor(Math.random() * prompts.length);
     faqInput.placeholder = prompts[randomIndex];
+    
+    // 设置无法识别问题的提示文本
+    const faqNotFoundHint = document.getElementById('faq-not-found-hint');
+    if (currentTestType === 'entrepreneur') {
+        faqNotFoundHint.textContent = '请尝试提问关于创业思维相关的问题';
+    } else if (currentTestType === 'love') {
+        faqNotFoundHint.textContent = '请尝试提问关于爱情认知相关的问题';
+    } else {
+        faqNotFoundHint.textContent = '请尝试提问关于爱情认知或创业思维相关的问题';
+    }
 }
 
 // ==================== 分数动画 ====================
@@ -4000,6 +4024,22 @@ function init() {
     document.getElementById('start-test').addEventListener('click', startTest);
     document.getElementById('restart-test').addEventListener('click', startTest);
     document.getElementById('back-to-home').addEventListener('click', () => {
+        // 重置简单答疑到初始状态
+        const faqInput = document.getElementById('faq-input');
+        const faqAnswerContainer = document.getElementById('faq-answer-container');
+        const faqNotFound = document.getElementById('faq-not-found');
+        const suggestButtons = document.querySelectorAll('.faq-suggest-btn');
+        
+        faqInput.value = '';
+        faqInput.placeholder = '输入您的问题，如：如何提高情商？如何识别商机？';
+        faqAnswerContainer.classList.add('hidden');
+        faqNotFound.classList.add('hidden');
+        
+        // 恢复热门问题按钮到初始状态
+        suggestButtons.forEach(btn => {
+            btn.style.display = 'inline-flex';
+        });
+        
         showPage('home');
     });
     document.getElementById('learn-more').addEventListener('click', () => {
