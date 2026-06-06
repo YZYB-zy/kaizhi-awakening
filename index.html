@@ -16,13 +16,13 @@
     <div id="awakening-info-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-300">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
         <div class="relative bg-gradient-to-br from-[#1a1a2e] to-[#16213e] rounded-2xl p-6 max-w-md w-full border border-white/20 shadow-2xl transform scale-100">
-            <h3 class="text-xl font-semibold mb-4 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#F59E0B]">关于"开智"与"未开智"的说明</h3>
+            <h3 class="text-xl font-semibold mb-4 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#06B6D4] to-[#10B981]">关于"开智"与"未开智"的说明</h3>
             <div class="text-gray-300 text-sm leading-relaxed space-y-3">
                 <p>本测评中的<span class="text-[#F59E0B] font-medium">"开智"</span>指<span class="text-white">开启智慧、启发思维</span>；</p>
                 <p><span class="text-[#F59E0B] font-medium">"未开智"</span>仅表示<span class="text-white">当前测评维度尚未达到预设参考值</span>，如同"尚未解锁的技能"，绝非骂人或贬低智商。</p>
                 <p class="text-center text-white/80 pt-2">请平常心看待，目的是帮助您发现可提升的方向。</p>
             </div>
-            <button id="awakening-info-close" class="mt-6 w-full py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full font-medium hover:scale-105 transition-transform">
+            <button id="awakening-info-close" class="mt-6 w-full py-3 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full font-medium hover:scale-105 transition-transform">
                 我已了解
             </button>
         </div>
@@ -33,7 +33,7 @@
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
         <div class="relative bg-gradient-to-br from-[#1a1a2e] to-[#16213e] rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl transform scale-95 transition-transform duration-300">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#F59E0B]">测评说明</h3>
+                <h3 class="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#06B6D4] to-[#10B981]">测评说明</h3>
                 <button id="info-cards-close" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
                     <span class="text-xl">×</span>
                 </button>
@@ -100,6 +100,19 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
     </button>
+    
+    <!-- 设置按钮指引 -->
+    <div id="settings-guide" class="fixed top-4 right-20 z-40 flex items-center gap-2 animate-pulse">
+        <div class="bg-white/10 backdrop-blur-md rounded-full px-3 py-2 text-sm text-gray-300">
+            <span class="flex items-center gap-1">
+                <span class="text-[#06B6D4]">⚙️</span>
+                <span>点击设置主题与音乐</span>
+            </span>
+        </div>
+        <svg class="w-4 h-4 text-[#06B6D4]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M5.884 17.352a.5.5 0 00.895.377l4.914-5.132 4.914 5.132a.5.5 0 00.895-.377V6.648a.5.5 0 00-.895-.377l-4.914 5.132-4.914-5.132A.5.5 0 005 6.648v10.704z"/>
+        </svg>
+    </div>
 
     <!-- 设置面板 -->
     <div id="settings-panel" class="fixed top-20 right-4 w-64 bg-white/10 backdrop-blur-lg rounded-2xl p-4 z-50 transform translate-x-full transition-transform duration-300">
@@ -110,7 +123,7 @@
             <label class="block text-sm mb-2">主题</label>
             <div class="flex gap-2">
                 <button id="theme-dark" class="flex-1 py-2 px-3 rounded-lg bg-gradient-to-r from-[#0A1628] to-[#1a1a2e] border border-white/20 text-white text-sm">暗夜星空</button>
-                <button id="theme-light" class="flex-1 py-2 px-3 rounded-lg bg-gradient-to-r from-[#F59E0B] to-[#7C3AED] border border-white/20 text-white text-sm">晨曦暖阳</button>
+                <button id="theme-light" class="flex-1 py-2 px-3 rounded-lg bg-gradient-to-r from-[#06B6D4] to-[#10B981] border border-white/20 text-white text-sm">晨曦暖阳</button>
             </div>
         </div>
         
@@ -138,7 +151,7 @@
                 <div class="inline-block mb-6">
                     <span class="text-6xl">◈</span>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-serif font-bold bg-gradient-to-r from-[#F59E0B] via-[#7C3AED] to-[#F59E0B] bg-clip-text text-transparent mb-4">
+                <h1 class="text-4xl md:text-6xl font-serif font-bold bg-gradient-to-r from-[#06B6D4] via-[#10B981] to-[#06B6D4] bg-clip-text text-transparent mb-4">
                     开智觉醒
                 </h1>
                 <h2 class="text-xl md:text-2xl font-light text-gray-300 mb-2">自我认知之镜</h2>
@@ -149,25 +162,37 @@
             
             <!-- 测试类型选择区域 -->
             <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.15s;">
+                <!-- 测评模式选择指引 -->
+                <div id="test-type-guide" class="flex items-center justify-center gap-2 mb-4 animate-pulse">
+                    <svg class="w-4 h-4 text-[#10B981] rotate-180" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5.884 17.352a.5.5 0 00.895.377l4.914-5.132 4.914 5.132a.5.5 0 00.895-.377V6.648a.5.5 0 00-.895-.377l-4.914 5.132-4.914-5.132A.5.5 0 005 6.648v10.704z"/>
+                    </svg>
+                    <div class="bg-white/10 backdrop-blur-md rounded-full px-3 py-2 text-sm text-gray-300">
+                        <span class="flex items-center gap-1">
+                            <span class="text-[#10B981]">🎯</span>
+                            <span>选择测评类型后开始</span>
+                        </span>
+                    </div>
+                </div>
                 <p class="text-center text-gray-400 mb-4">选择测评类型</p>
                 <div class="flex flex-wrap justify-center gap-3">
-                    <button id="select-comprehensive" class="test-type-btn group relative px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full font-medium transition-all duration-300 hover:scale-105 active" data-type="comprehensive">
+                    <button id="select-comprehensive" class="test-type-btn group relative px-6 py-3 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full font-medium transition-all duration-300 hover:scale-105 active" data-type="comprehensive">
                         <span class="relative z-10">🎯 综合测试</span>
                     </button>
-                    <button id="select-entrepreneur" class="test-type-btn group relative px-6 py-3 bg-white/10 backdrop-blur-md rounded-full font-medium border border-[#F59E0B]/30 hover:border-[#F59E0B] transition-all duration-300 hover:scale-105" data-type="entrepreneur">
-                        <span class="relative z-10 text-[#F59E0B]">🚀 创业思维</span>
+                    <button id="select-entrepreneur" class="test-type-btn group relative px-6 py-3 bg-white/10 backdrop-blur-md rounded-full font-medium border border-[#06B6D4]/30 hover:border-[#06B6D4] transition-all duration-300 hover:scale-105" data-type="entrepreneur">
+                        <span class="relative z-10 text-white">🚀 创业思维</span>
                     </button>
-                    <button id="select-love" class="test-type-btn group relative px-6 py-3 bg-white/10 backdrop-blur-md rounded-full font-medium border border-[#7C3AED]/30 hover:border-[#7C3AED] transition-all duration-300 hover:scale-105" data-type="love">
-                        <span class="relative z-10 text-[#7C3AED]">💜 爱情认知</span>
+                    <button id="select-love" class="test-type-btn group relative px-6 py-3 bg-white/10 backdrop-blur-md rounded-full font-medium border border-[#10B981]/30 hover:border-[#10B981] transition-all duration-300 hover:scale-105" data-type="love">
+                        <span class="relative z-10 text-white">💜 爱情认知</span>
                     </button>
                 </div>
             </div>
             
             <!-- 按钮区域 -->
             <div class="flex flex-col sm:flex-row gap-4 mb-16 animate-fade-in-up" style="animation-delay: 0.2s;">
-                <button id="start-test" class="group relative px-12 py-4 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(124,58,237,0.5)]">
+                <button id="start-test" class="group relative px-12 py-4 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]">
                     <span class="relative z-10">开始测评</span>
-                    <div class="absolute inset-0 bg-gradient-to-r from-[#F59E0B] to-[#7C3AED] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#10B981] to-[#06B6D4] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
                 <button id="learn-more" class="px-12 py-4 bg-white/10 backdrop-blur-md rounded-full font-semibold text-lg border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                     了解测评
@@ -253,7 +278,7 @@
                     <span class="text-white font-semibold" id="progress-text">0/10</span>
                 </div>
                 <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="h-full bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full transition-all duration-500"></div>
+                    <div id="progress-bar" class="h-full bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full transition-all duration-500"></div>
                 </div>
                 
                 <!-- 测试提示 -->
@@ -289,7 +314,7 @@
                         <button id="prev-btn" class="px-6 py-3 bg-white/10 backdrop-blur-md rounded-full font-medium border border-white/20 hover:bg-white/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed" disabled>
                             ← 上一题
                         </button>
-                        <button id="next-btn" class="px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full font-medium hover:scale-105 transition-transform">
+                        <button id="next-btn" class="px-6 py-3 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full font-medium hover:scale-105 transition-transform">
                             下一题 →
                         </button>
                     </div>
@@ -303,20 +328,20 @@
         <div class="min-h-screen px-4 py-8">
             <div class="max-w-4xl mx-auto">
                 <!-- 模块一：核心结果卡片 -->
-                <div id="core-result" class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
+                <div id="core-result" class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-5 mb-6 border border-white/10">
                     <div class="text-center">
-                        <div class="text-8xl mb-4 animate-bounce" id="result-icon">◈</div>
-                        <h2 id="result-title" class="text-3xl font-serif font-bold mb-4"></h2>
-                        <p id="result-subtitle" class="text-gray-400 mb-8"></p>
+                        <div class="text-5xl mb-3 result-icon-bounce" id="result-icon">◈</div>
+                        <h2 id="result-title" class="text-2xl font-serif font-bold mb-2"></h2>
+                        <p id="result-subtitle" class="text-gray-400 text-sm mb-4"></p>
                         
                         <!-- 双进度环 -->
-                        <div class="flex justify-center gap-12 mb-8">
+                        <div class="flex justify-center gap-8 mb-4">
                             <!-- 创业思维得分 -->
                             <div class="text-center entrepreneur-score-card">
-                                <div class="relative w-32 h-32 mx-auto">
+                                <div class="relative w-24 h-24 mx-auto">
                                     <svg class="w-full h-full transform -rotate-90">
-                                        <circle cx="64" cy="64" r="56" stroke="rgba(245,158,11,0.2)" stroke-width="8" fill="none"/>
-                                        <circle id="entrepreneur-ring" cx="64" cy="64" r="56" stroke="url(#gradient-entrepreneur)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                                        <circle cx="48" cy="48" r="42" stroke="rgba(245,158,11,0.2)" stroke-width="6" fill="none"/>
+                                        <circle id="entrepreneur-ring" cx="48" cy="48" r="42" stroke="url(#gradient-entrepreneur)" stroke-width="6" fill="none" stroke-linecap="round"/>
                                     </svg>
                                     <svg class="absolute inset-0 w-full h-full">
                                         <defs>
@@ -327,19 +352,19 @@
                                         </defs>
                                     </svg>
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <span id="entrepreneur-score" class="text-3xl font-bold text-[#F59E0B]">0</span>
+                                        <span id="entrepreneur-score" class="text-2xl font-bold text-[#F59E0B]">0</span>
                                     </div>
                                 </div>
-                                <p class="mt-2 text-gray-400 text-sm">创业思维</p>
-                                <p id="entrepreneur-level" class="text-[#F59E0B] text-sm font-medium"></p>
+                                <p class="mt-1 text-gray-400 text-xs">创业思维</p>
+                                <p id="entrepreneur-level" class="text-[#F59E0B] text-xs font-medium"></p>
                             </div>
                             
                             <!-- 爱情认知得分 -->
                             <div class="text-center love-score-card">
-                                <div class="relative w-32 h-32 mx-auto">
+                                <div class="relative w-24 h-24 mx-auto">
                                     <svg class="w-full h-full transform -rotate-90">
-                                        <circle cx="64" cy="64" r="56" stroke="rgba(124,58,237,0.2)" stroke-width="8" fill="none"/>
-                                        <circle id="love-ring" cx="64" cy="64" r="56" stroke="url(#gradient-love)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                                        <circle cx="48" cy="48" r="42" stroke="rgba(124,58,237,0.2)" stroke-width="6" fill="none"/>
+                                        <circle id="love-ring" cx="48" cy="48" r="42" stroke="url(#gradient-love)" stroke-width="6" fill="none" stroke-linecap="round"/>
                                     </svg>
                                     <svg class="absolute inset-0 w-full h-full">
                                         <defs>
@@ -350,30 +375,30 @@
                                         </defs>
                                     </svg>
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <span id="love-score" class="text-3xl font-bold text-[#7C3AED]">0</span>
+                                        <span id="love-score" class="text-2xl font-bold text-[#7C3AED]">0</span>
                                     </div>
                                 </div>
-                                <p class="mt-2 text-gray-400 text-sm">爱情认知</p>
-                                <p id="love-level" class="text-[#7C3AED] text-sm font-medium"></p>
+                                <p class="mt-1 text-gray-400 text-xs">爱情认知</p>
+                                <p id="love-level" class="text-[#7C3AED] text-xs font-medium"></p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 模块二：六维雷达图 -->
-                <div class="bg-white/5 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                <div class="bg-white/5 backdrop-blur-md rounded-3xl p-5 mb-6 border border-white/10">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
                         <span>📊</span> 能力雷达图
                     </h3>
-                    <div class="relative aspect-square max-w-md mx-auto">
+                    <div class="relative aspect-square max-w-sm mx-auto">
                         <canvas id="radar-chart"></canvas>
                     </div>
-                    <p class="text-center text-gray-500 text-sm mt-4">点击维度查看详细解读</p>
+                    <p class="text-center text-xs mt-3 text-[#F59E0B]">点按维度小圆点查看详细解读</p>
                 </div>
 
                 <!-- 模块三：人格画像 -->
-                <div class="bg-gradient-to-br from-[#7C3AED]/20 to-[#F59E0B]/20 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 id="toggle-profile" class="text-xl font-semibold mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                <div class="bg-gradient-to-br from-[#7C3AED]/20 to-[#F59E0B]/20 backdrop-blur-md rounded-3xl p-5 mb-6 border border-white/10">
+                    <h3 id="toggle-profile" class="text-lg font-semibold mb-3 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
                         <span class="flex items-center gap-2">
                             <span> </span> 人格画像
                         </span>
@@ -383,14 +408,65 @@
                         </span>
                     </h3>
                     <div id="profile-content" class="text-center hidden">
-                        <h2 id="profile-title" class="text-3xl font-serif font-bold bg-gradient-to-r from-[#F59E0B] to-[#7C3AED] bg-clip-text text-transparent mb-4"></h2>
-                        <p id="profile-description" class="text-gray-300 leading-relaxed max-w-2xl mx-auto"></p>
+                        <h2 id="profile-title" class="text-2xl font-serif font-bold bg-gradient-to-r from-[#06B6D4] to-[#10B981] bg-clip-text text-transparent mb-3"></h2>
+                        <p id="profile-description" class="text-gray-300 leading-relaxed max-w-2xl mx-auto text-sm"></p>
+                    </div>
+                </div>
+
+                <!-- 简单答疑 -->
+                <div id="faq-section" class="bg-gradient-to-br from-[#06B6D4]/10 to-[#10B981]/10 backdrop-blur-md rounded-3xl p-5 mb-6 border border-[#06B6D4]/20">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <span>💬</span> 简单答疑
+                    </h3>
+                    
+                    <!-- 问题输入区域 -->
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="faq-input" 
+                            placeholder="输入您的问题，如：如何提高情商？如何识别商机？" 
+                            class="w-full px-4 py-3 bg-white/10 rounded-xl border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-[#06B6D4] pr-12"
+                        >
+                        <button id="faq-submit" class="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-lg font-medium text-sm hover:scale-105 transition-transform">
+                            提问
+                        </button>
+                    </div>
+                    
+                    <!-- 关键词提示 -->
+                    <div id="faq-suggestions" class="mt-3 flex flex-wrap gap-2">
+                        <span class="text-xs text-gray-400">热门问题：</span>
+                        <button class="faq-suggest-btn px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300 hover:bg-white/20 transition-all" data-category="love">如何提高情商？</button>
+                        <button class="faq-suggest-btn px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300 hover:bg-white/20 transition-all" data-category="love">如何处理恋爱冲突？</button>
+                        <button class="faq-suggest-btn px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300 hover:bg-white/20 transition-all" data-category="entrepreneur">如何识别商业机会？</button>
+                        <button class="faq-suggest-btn px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300 hover:bg-white/20 transition-all" data-category="entrepreneur">如何提高执行力？</button>
+                    </div>
+                    
+                    <!-- 答案展示区域 -->
+                    <div id="faq-answer-container" class="mt-4 hidden">
+                        <div class="bg-white/5 rounded-xl p-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#10B981] flex items-center justify-center flex-shrink-0 text-sm">
+                                    🤖
+                                </div>
+                                <div class="flex-1">
+                                    <p id="faq-answer" class="text-gray-300 leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 无法识别提示 -->
+                    <div id="faq-not-found" class="mt-4 hidden">
+                        <div class="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-center">
+                            <p class="text-red-400 text-sm">😔 抱歉，我无法识别您的问题。</p>
+                            <p class="text-gray-500 text-xs mt-1">请尝试提问关于爱情认知或创业思维相关的问题</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 模块四：当前阶段 -->
-                <div class="bg-white/5 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 id="toggle-stage" class="text-xl font-semibold mb-6 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                <div class="bg-white/5 backdrop-blur-md rounded-3xl p-5 mb-6 border border-white/10">
+                    <h3 id="toggle-stage" class="text-lg font-semibold mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
                         <span class="flex items-center gap-2">
                             <span> </span> 当前阶段
                         </span>
@@ -399,12 +475,12 @@
                             <span class="toggle-icon">▲</span>
                         </span>
                     </h3>
-                    <div id="stage-content" class="flex items-center gap-8 hidden">
+                    <div id="stage-content" class="flex items-center gap-6 hidden">
                         <div class="flex-1">
-                            <div class="h-3 bg-white/10 rounded-full overflow-hidden">
-                                <div id="stage-progress" class="h-full bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full transition-all duration-1000"></div>
+                            <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                <div id="stage-progress" class="h-full bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full transition-all duration-1000"></div>
                             </div>
-                            <div class="flex justify-between mt-2 text-sm text-gray-400">
+                            <div class="flex justify-between mt-2 text-xs text-gray-400">
                                 <span>萌芽期</span>
                                 <span>成长期</span>
                                 <span>成熟期</span>
@@ -412,20 +488,20 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <span id="stage-name" class="text-2xl font-bold text-[#F59E0B]"></span>
+                            <span id="stage-name" class="text-xl font-bold text-[#F59E0B]"></span>
                         </div>
                     </div>
-                    <p id="stage-description" class="mt-6 text-gray-300"></p>
-                    <div id="stage-advice" class="mt-4 space-y-2">
+                    <p id="stage-description" class="mt-4 text-gray-300 text-sm"></p>
+                    <div id="stage-advice" class="mt-3 space-y-1.5">
                         <!-- 行动建议 -->
                     </div>
                 </div>
 
                 <!-- 模块五：成长提升建议 -->
-                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
                     <!-- 创业思维建议 -->
-                    <div class="bg-gradient-to-br from-[#F59E0B]/10 to-transparent backdrop-blur-md rounded-3xl p-6 border border-[#F59E0B]/20 entrepreneur-advice-section">
-                        <h3 id="toggle-entrepreneur-advice" class="text-lg font-semibold text-[#F59E0B] mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                    <div class="bg-gradient-to-br from-[#F59E0B]/10 to-transparent backdrop-blur-md rounded-2xl p-4 border border-[#F59E0B]/20 entrepreneur-advice-section">
+                        <h3 id="toggle-entrepreneur-advice" class="text-base font-semibold text-[#F59E0B] mb-3 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
                             <span class="flex items-center gap-2">
                                 <span>🚀</span> 创业思维提升
                             </span>
@@ -434,14 +510,14 @@
                                 <span class="toggle-icon">▲</span>
                             </span>
                         </h3>
-                        <ul id="entrepreneur-advice" class="space-y-3 hidden">
+                        <ul id="entrepreneur-advice" class="space-y-2 hidden text-sm">
                             <!-- 建议列表 -->
                         </ul>
                     </div>
                     
                     <!-- 创业思维改变 -->
-                    <div class="bg-gradient-to-br from-[#F59E0B]/5 to-transparent backdrop-blur-md rounded-3xl p-6 border border-[#F59E0B]/15 entrepreneur-change-section">
-                        <h3 id="toggle-entrepreneur-change" class="text-lg font-semibold text-[#F59E0B] mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                    <div class="bg-gradient-to-br from-[#F59E0B]/5 to-transparent backdrop-blur-md rounded-2xl p-4 border border-[#F59E0B]/15 entrepreneur-change-section">
+                        <h3 id="toggle-entrepreneur-change" class="text-base font-semibold text-[#F59E0B] mb-3 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
                             <span class="flex items-center gap-2">
                                 <span>🔄</span> 创业思维改变
                             </span>
@@ -450,17 +526,17 @@
                                 <span class="toggle-icon">▲</span>
                             </span>
                         </h3>
-                        <ul id="entrepreneur-change" class="space-y-3 hidden">
+                        <ul id="entrepreneur-change" class="space-y-2 hidden text-sm">
                             <!-- 改变建议列表 -->
                         </ul>
                     </div>
                 </div>
                 
                 <!-- 模块五B：爱情认知建议 -->
-                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
                     <!-- 爱情认知建议 -->
-                    <div class="bg-gradient-to-br from-[#7C3AED]/10 to-transparent backdrop-blur-md rounded-3xl p-6 border border-[#7C3AED]/20 love-advice-section">
-                        <h3 id="toggle-love-advice" class="text-lg font-semibold text-[#7C3AED] mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                    <div class="bg-gradient-to-br from-[#7C3AED]/10 to-transparent backdrop-blur-md rounded-2xl p-4 border border-[#7C3AED]/20 love-advice-section">
+                        <h3 id="toggle-love-advice" class="text-base font-semibold text-[#7C3AED] mb-3 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
                             <span class="flex items-center gap-2">
                                 <span>💜</span> 爱情认知提升
                             </span>
@@ -469,14 +545,14 @@
                                 <span class="toggle-icon">▲</span>
                             </span>
                         </h3>
-                        <ul id="love-advice" class="space-y-3 hidden">
+                        <ul id="love-advice" class="space-y-2 hidden text-sm">
                             <!-- 建议列表 -->
                         </ul>
                     </div>
                     
                     <!-- 爱情认知改变 -->
-                    <div class="bg-gradient-to-br from-[#7C3AED]/5 to-transparent backdrop-blur-md rounded-3xl p-6 border border-[#7C3AED]/15 love-change-section">
-                        <h3 id="toggle-love-change" class="text-lg font-semibold text-[#7C3AED] mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                    <div class="bg-gradient-to-br from-[#7C3AED]/5 to-transparent backdrop-blur-md rounded-2xl p-4 border border-[#7C3AED]/15 love-change-section">
+                        <h3 id="toggle-love-change" class="text-base font-semibold text-[#7C3AED] mb-3 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
                             <span class="flex items-center gap-2">
                                 <span>🔄</span> 爱情认知改变
                             </span>
@@ -485,15 +561,15 @@
                                 <span class="toggle-icon">▲</span>
                             </span>
                         </h3>
-                        <ul id="love-change" class="space-y-3 hidden">
+                        <ul id="love-change" class="space-y-2 hidden text-sm">
                             <!-- 改变建议列表 -->
                         </ul>
                     </div>
                 </div>
 
                 <!-- 模块六：推荐阅读 -->
-                <div class="bg-white/5 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 id="toggle-books" class="text-xl font-semibold mb-6 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                <div class="bg-white/5 backdrop-blur-md rounded-3xl p-5 mb-6 border border-white/10">
+                    <h3 id="toggle-books" class="text-lg font-semibold mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
                         <span class="flex items-center gap-2">
                             <span>📚</span> 推荐阅读
                         </span>
@@ -502,33 +578,33 @@
                             <span class="toggle-icon">▲</span>
                         </span>
                     </h3>
-                    <div id="books-content" class="books-container grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
-                        <div id="book-1" class="book-card bg-white/5 rounded-2xl p-4 border border-white/10 hover:border-[#F59E0B]/30 transition-all duration-300 hover:scale-105">
-                            <div class="w-full aspect-[3/4] bg-gradient-to-br from-[#F59E0B]/20 to-[#F59E0B]/5 rounded-xl mb-3 flex items-center justify-center">📖</div>
-                            <h4 class="text-sm font-medium text-white mb-1"></h4>
+                    <div id="books-content" class="books-container grid grid-cols-2 md:grid-cols-4 gap-3 hidden">
+                        <div id="book-1" class="book-card bg-white/5 rounded-xl p-3 border border-white/10 hover:border-[#F59E0B]/30 transition-all duration-300 hover:scale-105">
+                            <div class="w-full aspect-[3/4] bg-gradient-to-br from-[#F59E0B]/20 to-[#F59E0B]/5 rounded-lg mb-2 flex items-center justify-center">📖</div>
+                            <h4 class="text-xs font-medium text-white mb-1"></h4>
                             <p class="text-xs text-gray-400"></p>
                         </div>
-                        <div id="book-2" class="book-card bg-white/5 rounded-2xl p-4 border border-white/10 hover:border-[#F59E0B]/30 transition-all duration-300 hover:scale-105">
-                            <div class="w-full aspect-[3/4] bg-gradient-to-br from-[#F59E0B]/20 to-[#F59E0B]/5 rounded-xl mb-3 flex items-center justify-center">📕</div>
-                            <h4 class="text-sm font-medium text-white mb-1"></h4>
+                        <div id="book-2" class="book-card bg-white/5 rounded-xl p-3 border border-white/10 hover:border-[#F59E0B]/30 transition-all duration-300 hover:scale-105">
+                            <div class="w-full aspect-[3/4] bg-gradient-to-br from-[#F59E0B]/20 to-[#F59E0B]/5 rounded-lg mb-2 flex items-center justify-center">📕</div>
+                            <h4 class="text-xs font-medium text-white mb-1"></h4>
                             <p class="text-xs text-gray-400"></p>
                         </div>
-                        <div id="book-3" class="book-card bg-white/5 rounded-2xl p-4 border border-white/10 hover:border-[#7C3AED]/30 transition-all duration-300 hover:scale-105">
-                            <div class="w-full aspect-[3/4] bg-gradient-to-br from-[#7C3AED]/20 to-[#7C3AED]/5 rounded-xl mb-3 flex items-center justify-center">💝</div>
-                            <h4 class="text-sm font-medium text-white mb-1"></h4>
+                        <div id="book-3" class="book-card bg-white/5 rounded-xl p-3 border border-white/10 hover:border-[#7C3AED]/30 transition-all duration-300 hover:scale-105">
+                            <div class="w-full aspect-[3/4] bg-gradient-to-br from-[#7C3AED]/20 to-[#7C3AED]/5 rounded-lg mb-2 flex items-center justify-center">💝</div>
+                            <h4 class="text-xs font-medium text-white mb-1"></h4>
                             <p class="text-xs text-gray-400"></p>
                         </div>
-                        <div id="book-4" class="book-card bg-white/5 rounded-2xl p-4 border border-white/10 hover:border-[#7C3AED]/30 transition-all duration-300 hover:scale-105">
-                            <div class="w-full aspect-[3/4] bg-gradient-to-br from-[#7C3AED]/20 to-[#7C3AED]/5 rounded-xl mb-3 flex items-center justify-center">💖</div>
-                            <h4 class="text-sm font-medium text-white mb-1"></h4>
+                        <div id="book-4" class="book-card bg-white/5 rounded-xl p-3 border border-white/10 hover:border-[#7C3AED]/30 transition-all duration-300 hover:scale-105">
+                            <div class="w-full aspect-[3/4] bg-gradient-to-br from-[#7C3AED]/20 to-[#7C3AED]/5 rounded-lg mb-2 flex items-center justify-center">💖</div>
+                            <h4 class="text-xs font-medium text-white mb-1"></h4>
                             <p class="text-xs text-gray-400"></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- 模块七：分享卡片 -->
-                <div class="bg-gradient-to-br from-[#7C3AED]/10 to-[#F59E0B]/10 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 id="toggle-share" class="text-xl font-semibold mb-6 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
+                <div class="bg-gradient-to-br from-[#7C3AED]/10 to-[#F59E0B]/10 backdrop-blur-md rounded-3xl p-5 mb-6 border border-white/10">
+                    <h3 id="toggle-share" class="text-lg font-semibold mb-4 flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
                         <span class="flex items-center gap-2">
                             <span>🎨</span> 分享你的开智结果
                         </span>
@@ -539,35 +615,35 @@
                     </h3>
                     
                     <!-- 分享卡片预览 -->
-                    <div id="share-content" class="bg-gradient-to-br from-[#0A1628] to-[#1a1a2e] rounded-2xl p-6 border border-white/10 relative overflow-hidden hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-[#7C3AED]/20 rounded-full blur-3xl"></div>
-                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-[#F59E0B]/20 rounded-full blur-3xl"></div>
+                    <div id="share-content" class="bg-gradient-to-br from-[#0A1628] to-[#1a1a2e] rounded-xl p-4 border border-white/10 relative overflow-hidden hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-[#7C3AED]/20 rounded-full blur-2xl"></div>
+                        <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#F59E0B]/20 rounded-full blur-2xl"></div>
                         
                         <div class="relative z-10">
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] flex items-center justify-center text-xl">?</div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] flex items-center justify-center text-lg">?</div>
                                     <div>
-                                        <p id="share-username" class="font-semibold text-white">匿名</p>
-                                        <p class="text-gray-400 text-sm">开智觉醒测评</p>
+                                        <p id="share-username" class="font-semibold text-white text-sm">匿名</p>
+                                        <p class="text-gray-400 text-xs">开智觉醒测评</p>
                                     </div>
                                 </div>
-                                <div id="share-badge" class="px-4 py-2 rounded-full text-sm font-medium"></div>
+                                <div id="share-badge" class="px-3 py-1 rounded-full text-xs font-medium"></div>
                             </div>
                             
-                            <div class="text-center py-6">
-                                <div id="share-icon" class="text-6xl mb-2">◈</div>
-                                <p id="share-title" class="text-xl font-serif font-bold text-white"></p>
-                                <p id="share-profile" class="text-[#F59E0B] font-medium mt-2"></p>
+                            <div class="text-center py-4">
+                                <div id="share-icon" class="text-4xl mb-1">◈</div>
+                                <p id="share-title" class="text-lg font-serif font-bold text-white"></p>
+                                <p id="share-profile" class="text-[#F59E0B] font-medium text-sm mt-1"></p>
                             </div>
                             
-                            <div class="flex justify-center gap-8">
+                            <div class="flex justify-center gap-6">
                                 <div class="text-center share-entrepreneur-score">
-                                    <p id="share-entrepreneur" class="text-2xl font-bold text-[#F59E0B]">0</p>
+                                    <p id="share-entrepreneur" class="text-xl font-bold text-[#F59E0B]">0</p>
                                     <p class="text-gray-400 text-xs">创业思维</p>
                                 </div>
                                 <div class="text-center share-love-score">
-                                    <p id="share-love" class="text-2xl font-bold text-[#7C3AED]">0</p>
+                                    <p id="share-love" class="text-xl font-bold text-[#7C3AED]">0</p>
                                     <p class="text-gray-400 text-xs">爱情认知</p>
                                 </div>
                             </div>
@@ -575,73 +651,73 @@
                     </div>
                     
                     <!-- 分享操作 -->
-                    <div class="mt-6 flex flex-col sm:flex-row gap-4">
-                        <input type="text" id="username-input" placeholder="输入你的昵称（可选）" class="flex-1 px-4 py-3 bg-white/10 rounded-xl border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED]">
-                        <button id="download-card" class="px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-xl font-medium hover:scale-105 transition-transform">
+                    <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="username-input" placeholder="输入你的昵称（可选）" class="flex-1 px-3 py-2 bg-white/10 rounded-lg border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED] text-sm">
+                        <button id="download-card" class="px-4 py-2 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-lg font-medium text-sm hover:scale-105 transition-transform">
                             下载图片
                         </button>
-                        <button id="copy-link" class="px-6 py-3 bg-white/10 rounded-xl font-medium border border-white/20 hover:bg-white/20 transition-all">
+                        <button id="copy-link" class="px-4 py-2 bg-white/10 rounded-lg font-medium text-sm border border-white/20 hover:bg-white/20 transition-all">
                             复制链接
                         </button>
                     </div>
                 </div>
 
                 <!-- 模块八：小挑战 -->
-                <div id="challenge-section" class="bg-gradient-to-br from-[#7C3AED]/10 to-[#F59E0B]/10 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                <div id="challenge-section" class="bg-gradient-to-br from-[#7C3AED]/10 to-[#F59E0B]/10 backdrop-blur-md rounded-3xl p-5 mb-6 border border-white/10">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
                         <span>⚡</span> 随机小挑战
                     </h3>
-                    <div id="challenge-content" class="text-center py-6">
-                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] flex items-center justify-center text-4xl">
+                    <div id="challenge-content" class="text-center py-4">
+                        <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] flex items-center justify-center text-3xl">
                             🎲
                         </div>
-                        <p class="text-gray-400 mb-4">点击按钮，开启你的成长之旅</p>
-                        <button id="generate-challenge" class="px-8 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full font-medium hover:scale-105 transition-transform">
+                        <p class="text-gray-400 text-sm mb-3">点击按钮，开启你的成长之旅</p>
+                        <button id="generate-challenge" class="px-6 py-2 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full font-medium text-sm hover:scale-105 transition-transform">
                             生成挑战
                         </button>
                     </div>
                     <div id="challenge-display" class="hidden">
-                        <div class="bg-white/5 rounded-2xl p-6 mb-4">
-                            <div class="flex items-center gap-3 mb-4">
-                                <span id="challenge-type" class="px-3 py-1 rounded-full text-sm font-medium"></span>
-                                <span id="challenge-difficulty" class="px-3 py-1 rounded-full text-sm font-medium"></span>
+                        <div class="bg-white/5 rounded-xl p-4 mb-3">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span id="challenge-type" class="px-2 py-1 rounded-full text-xs font-medium"></span>
+                                <span id="challenge-difficulty" class="px-2 py-1 rounded-full text-xs font-medium"></span>
                             </div>
-                            <h4 id="challenge-title" class="text-xl font-semibold mb-3"></h4>
-                            <p id="challenge-description" class="text-gray-400 mb-4"></p>
-                            <div class="flex items-center gap-2 text-sm text-gray-500">
+                            <h4 id="challenge-title" class="text-lg font-semibold mb-2"></h4>
+                            <p id="challenge-description" class="text-gray-400 text-sm mb-3"></p>
+                            <div class="flex items-center gap-2 text-xs text-gray-500">
                                 <span>⏱️</span>
                                 <span id="challenge-time"></span>
                             </div>
                         </div>
-                        <p id="challenge-status" class="text-center text-gray-500 text-sm"></p>
+                        <p id="challenge-status" class="text-center text-gray-500 text-xs"></p>
                     </div>
                 </div>
 
                 <!-- 模块九：重新测试与对比 -->
-                <div class="bg-white/5 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-                    <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                <div class="bg-white/5 backdrop-blur-md rounded-3xl p-5 mb-6 border border-white/10">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
                         <span>📈</span> 历史记录
                     </h3>
                     
                     <!-- 趋势图 -->
-                    <div id="history-content" class="h-48 mb-6">
+                    <div id="history-content" class="h-32 mb-4">
                         <canvas id="history-chart"></canvas>
                     </div>
                     
                     <!-- 历史记录列表 -->
-                    <div id="history-list" class="space-y-3 max-h-40 overflow-y-auto">
+                    <div id="history-list" class="space-y-2 max-h-32 overflow-y-auto">
                         <!-- 历史记录将动态生成 -->
                     </div>
                     
                     <!-- 底部按钮 -->
-                    <div class="flex flex-wrap justify-center gap-4 mt-8">
-                        <button id="restart-test" class="px-8 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full font-medium hover:scale-105 transition-transform">
+                    <div class="flex flex-wrap justify-center gap-3 mt-4">
+                        <button id="restart-test" class="px-6 py-2 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full font-medium text-sm hover:scale-105 transition-transform">
                             重新测评
                         </button>
-                        <button id="view-comparison" class="px-8 py-3 bg-white/10 rounded-full font-medium border border-white/20 hover:bg-white/20 transition-all">
+                        <button id="view-comparison" class="px-6 py-2 bg-white/10 rounded-full font-medium text-sm border border-white/20 hover:bg-white/20 transition-all">
                             查看对比
                         </button>
-                        <button id="back-to-home" class="px-8 py-3 bg-white/10 rounded-full font-medium border border-white/20 hover:bg-white/20 transition-all">
+                        <button id="back-to-home" class="px-6 py-2 bg-white/10 rounded-full font-medium text-sm border border-white/20 hover:bg-white/20 transition-all">
                             返回首页
                         </button>
                     </div>
