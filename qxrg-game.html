@@ -119,6 +119,9 @@
 #event-card {
     transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
     touch-action: none;
     will-change: transform, box-shadow;
 }
@@ -473,34 +476,35 @@ button:active {
 @media (max-width: 768px) {
     #event-card {
         max-width: 100%;
-        padding: 1rem;
+        padding: 0.75rem;
     }
     
     #card-image {
-        height: 120px;
+        height: 100px;
     }
     
     #card-title {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
     
     #card-description {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     
-    #slot-a, #slot-b {
-        width: 42vw;
-        height: 20vh;
-        padding: 0.5rem;
+    #slot-a, #slot-b, #slot-c, #slot-d {
+        width: 38vw;
+        height: 16vh;
+        max-height: 80px;
+        padding: 0.35rem;
     }
     
-    #slot-a-text, #slot-b-text {
-        font-size: 0.75rem;
+    #slot-a-text, #slot-b-text, #slot-c-text, #slot-d-text {
+        font-size: 0.7rem;
     }
     
     #logic-eye, #empathy-eye {
-        width: 70px;
-        height: 70px;
+        width: 60px;
+        height: 60px;
         font-size: 1.5rem;
     }
 }
@@ -578,20 +582,20 @@ button:active {
 /* 确保四个选项大小一致 - 桌面端 */
 @media (min-width: 640px) {
     #slot-a, #slot-b, #slot-c, #slot-d {
-        width: 176px !important;
-        height: 128px !important;
-        min-width: 176px !important;
-        min-height: 128px !important;
+        width: 160px !important;
+        height: 112px !important;
+        min-width: 160px !important;
+        min-height: 112px !important;
     }
 }
 
 /* 手机端选项大小 */
 @media (max-width: 639px) {
     #slot-a, #slot-b, #slot-c, #slot-d {
-        width: 160px !important;
-        height: 96px !important;
-        min-width: 160px !important;
-        min-height: 96px !important;
+        width: 136px !important;
+        height: 80px !important;
+        min-width: 136px !important;
+        min-height: 80px !important;
     }
 }
 
@@ -833,76 +837,67 @@ button#back-to-home-btn {
         
         <!-- 游戏主页面 -->
         <div id="game-main-page" class="flex-1 flex flex-col p-2 sm:p-3 hidden">
-            <!-- 首页按钮 -->
-            <div class="mb-2">
-                <button id="home-btn-main" class="px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-lg text-sm border border-white/20 hover:bg-white/20 transition-all duration-300">
-                    🏠 返回首页
-                </button>
-            </div>
             <!-- 顶部资源栏 -->
-            <div class="flex justify-between items-center mb-2 px-3 py-2 bg-white/5 backdrop-blur-md rounded-xl">
-                <!-- 资源条 -->
-                <div class="flex items-center gap-4 ml-1">
+            <div class="mb-2 px-3 py-2 bg-white/5 backdrop-blur-md rounded-xl">
+                <!-- 资源条 - 第一行 -->
+                <div class="flex items-center gap-3 sm:gap-4 justify-center sm:justify-start flex-wrap mb-1.5">
                     <!-- 精力 -->
-                    <div class="flex flex-col gap-1">
+                    <div class="flex flex-col gap-0">
                         <div class="flex items-center gap-1">
-                            <span class="text-xl">⚡</span>
-                            <div class="w-12 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <span class="text-lg sm:text-xl">⚡</span>
+                            <div class="w-10 sm:w-12 h-2 bg-gray-700 rounded-full overflow-hidden">
                                 <div id="energy-bar" class="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full transition-all duration-300" style="width: 100%"></div>
                             </div>
                             <span id="energy-text" class="text-xs font-medium">10</span>
                         </div>
                         <!-- 时间压力 -->
-                        <div id="time-pressure-indicator" class="hidden ml-5">
+                        <div id="time-pressure-indicator" class="hidden ml-4 sm:ml-5">
                             <span class="text-xs text-red-400">⏱️ 时间压力</span>
                         </div>
                     </div>
                     <!-- 逻辑值 -->
                     <div class="flex items-center gap-1">
-                        <span class="text-xl">🧠</span>
-                        <div class="w-12 h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <span class="text-lg sm:text-xl">🧠</span>
+                        <div class="w-10 sm:w-12 h-2 bg-gray-700 rounded-full overflow-hidden">
                             <div id="logic-bar" class="h-full bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full transition-all duration-300" style="width: 80%"></div>
                         </div>
                         <span id="logic-text" class="text-xs font-medium">8</span>
                     </div>
                     <!-- 共情值 -->
                     <div class="flex items-center gap-1">
-                        <span class="text-xl">❤️</span>
-                        <div class="w-12 h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <span class="text-lg sm:text-xl">❤️</span>
+                        <div class="w-10 sm:w-12 h-2 bg-gray-700 rounded-full overflow-hidden">
                             <div id="empathy-bar" class="h-full bg-gradient-to-r from-pink-400 to-rose-500 rounded-full transition-all duration-300" style="width: 80%"></div>
                         </div>
                         <span id="empathy-text" class="text-xs font-medium">8</span>
                     </div>
                 </div>
                 
-                <!-- 情绪与同伴 -->
-                <div class="flex items-center gap-2 md:gap-4 flex-wrap">
+                <!-- 情绪与按钮 - 第二行 -->
+                <div class="flex items-center justify-between gap-2 flex-wrap">
                     <!-- 情绪状态 -->
-                    <div class="flex items-center gap-2">
-                        <span id="mood-emoji" class="text-xl md:text-2xl">😊</span>
-                        <div class="flex flex-col gap-0">
-                            <div class="flex gap-1 text-xs md:text-sm">
-                                <span id="calm-text" class="text-green-400">冷静7</span>
-                                <span class="text-gray-500">/</span>
-                                <span id="anxiety-text" class="text-red-400">焦虑3</span>
-                            </div>
+                    <div class="flex items-center gap-1.5 sm:gap-2">
+                        <span id="mood-emoji" class="text-lg sm:text-2xl">😊</span>
+                        <div class="flex gap-1 text-xs sm:text-sm">
+                            <span id="calm-text" class="text-green-400">冷静7</span>
+                            <span class="text-gray-500">/</span>
+                            <span id="anxiety-text" class="text-red-400">焦虑3</span>
                         </div>
                     </div>
-                    <!-- 游戏说明按钮 -->
-                    <div id="game-guide-brief" class="flex items-center gap-1">
-                        <button id="show-guide-btn" class="px-3 py-1.5 bg-white/10 rounded-lg text-xs md:text-sm text-cyan-400 hover:bg-white/20 transition-all" title="游戏说明">
+                    <!-- 游戏说明按钮 + 虚拟同伴 -->
+                    <div class="flex items-center gap-2">
+                        <button id="show-guide-btn" class="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-white/10 rounded-lg text-xs sm:text-sm text-cyan-400 hover:bg-white/20 transition-all whitespace-nowrap" title="游戏说明">
                             游戏说明
                         </button>
-                    </div>
-                    <!-- 虚拟同伴 -->
-                    <div id="companion-container" class="flex items-center gap-2 hidden">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center text-xl">
-                            👤
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-400">信任度</div>
-                            <div class="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
-                                <div id="trust-bar" class="h-full bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full transition-all duration-300" style="width: 30%"></div>
+                        <div id="companion-container" class="flex items-center gap-2 hidden">
+                            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center text-lg sm:text-xl">
+                                👤
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400">信任度</div>
+                                <div class="w-12 sm:w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                    <div id="trust-bar" class="h-full bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full transition-all duration-300" style="width: 30%"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -910,13 +905,22 @@ button#back-to-home-btn {
             </div>
             
             <!-- 游戏进度 -->
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <span id="card-index" class="text-base font-semibold">1</span>
-                <span class="text-gray-400">/</span>
-                <span id="total-cards" class="text-gray-400">10</span>
-                <div class="flex-1 max-w-xs h-1 bg-gray-700 rounded-full overflow-hidden ml-3">
-                    <div id="game-progress-bar" class="h-full bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full transition-all duration-500" style="width: 10%"></div>
+            <div class="flex items-start justify-between gap-2 mb-2">
+                <!-- 左侧：返回按钮 -->
+                <button id="home-btn-main" class="px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-lg text-sm border border-white/20 hover:bg-white/20 transition-all duration-300">
+                    🏠 返回首页
+                </button>
+                <!-- 中间：进度条 -->
+                <div class="flex items-center gap-2 flex-1 justify-center">
+                    <span id="card-index" class="text-base font-semibold">1</span>
+                    <span class="text-gray-400">/</span>
+                    <span id="total-cards" class="text-gray-400">10</span>
+                    <div class="flex-1 max-w-xs h-1 bg-gray-700 rounded-full overflow-hidden ml-3">
+                        <div id="game-progress-bar" class="h-full bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full transition-all duration-500" style="width: 10%"></div>
+                    </div>
                 </div>
+                <!-- 右侧占位 -->
+                <div class="w-24"></div>
             </div>
             
             <!-- 洞察之眼 -->
@@ -954,22 +958,22 @@ button#back-to-home-btn {
             
             <!-- 事件卡牌区域 -->
             <div class="flex-1 flex items-center justify-center py-4">
-                <div id="card-area" class="relative w-full max-w-md">
+                <div id="card-area" class="relative w-full max-w-sm">
                     <!-- 卡牌 -->
-                    <div id="event-card" class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-2xl p-4 border border-white/10 shadow-2xl cursor-grab active:cursor-grabbing transition-all duration-200 select-none">
+                    <div id="event-card" class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-xl p-2 sm:p-3 border border-white/10 shadow-2xl cursor-grab active:cursor-grabbing transition-all duration-200 select-none">
                         <!-- 卡牌图片 -->
-                        <div id="card-image" class="w-full h-36 sm:h-40 mb-3 bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl flex items-center justify-center overflow-hidden">
-                            <span class="text-5xl">🎴</span>
+                        <div id="card-image" class="w-full h-20 sm:h-28 mb-1.5 sm:mb-2 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
+                            <span class="text-3xl sm:text-4xl">🎴</span>
                         </div>
                         
                         <!-- 卡牌内容 -->
                         <div id="card-content" class="text-center">
-                            <h3 id="card-title" class="text-lg font-semibold mb-2 text-white">场景标题</h3>
-                            <p id="card-description" class="text-gray-300 mb-3 text-sm leading-relaxed">场景描述将出现在这里...</p>
+                            <h3 id="card-title" class="text-sm sm:text-base font-semibold mb-0.5 sm:mb-1.5 text-white">场景标题</h3>
+                            <p id="card-description" class="text-gray-300 mb-1.5 sm:mb-2 text-xs leading-relaxed">场景描述将出现在这里...</p>
                         </div>
                         
                         <!-- 卡牌状态指示器 -->
-                        <div id="card-status" class="text-center text-xs text-gray-400 mt-3">
+                        <div id="card-status" class="text-center text-xs text-gray-400 mt-2">
                             立即行动 - 消耗1精力
                         </div>
                     </div>
@@ -1544,10 +1548,10 @@ button#back-to-home-btn {
             if (!card) return;
 
             card.addEventListener('mousedown', handleDragStart);
-            card.addEventListener('touchstart', handleDragStart, { passive: true });
+            card.addEventListener('touchstart', handleDragStart, { passive: false });
             
             document.addEventListener('mousemove', handleDragMove);
-            document.addEventListener('touchmove', handleDragMove, { passive: true });
+            document.addEventListener('touchmove', handleDragMove, { passive: false });
             
             document.addEventListener('mouseup', handleDragEnd);
             document.addEventListener('touchend', handleDragEnd);
@@ -1557,6 +1561,10 @@ button#back-to-home-btn {
 
         // 开始拖动
         function handleDragStart(e) {
+            // 阻止手机端长按弹出复制菜单
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             const touch = e.touches ? e.touches[0] : e;
             dragStartX = touch.clientX;
             dragStartY = touch.clientY;
@@ -1603,6 +1611,11 @@ button#back-to-home-btn {
         // 拖动中
         function handleDragMove(e) {
             if (!isLongPress && !isDragging) return;
+            
+            // 阻止拖动时页面滚动和默认行为
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             
             const touch = e.touches ? e.touches[0] : e;
             const deltaX = touch.clientX - dragStartX;
@@ -1796,8 +1809,10 @@ button#back-to-home-btn {
             
             if (insightType === 'logic') {
                 gameState.resources.logic = Math.max(1, gameState.resources.logic - 0.5);
+                gameState.resourceUsed.logic += 0.5;
             } else {
                 gameState.resources.empathy = Math.max(1, gameState.resources.empathy - 0.5);
+                gameState.resourceUsed.empathy += 0.5;
             }
             
             gameState.insightUsed[gameState.currentCardIndex] = true;
