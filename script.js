@@ -4175,16 +4175,9 @@ function init() {
     // 关闭测评类型选择弹窗
     const closeModalBtn = document.getElementById('close-modal');
     if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', function() {
-            const modal = document.getElementById('test-type-modal');
-            const modalContent = modal.querySelector('.relative');
-            if (modal) {
-                modalContent.classList.remove('scale-100');
-                modalContent.classList.add('scale-95');
-                setTimeout(() => {
-                    modal.classList.add('opacity-0', 'pointer-events-none');
-                }, 300);
-            }
+        closeModalBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // 阻止事件冒泡
+            closeTestTypeModal();
         });
     }
     
@@ -4193,7 +4186,8 @@ function init() {
     modalOptions.forEach(id => {
         const btn = document.getElementById(id);
         if (btn) {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation(); // 阻止事件冒泡
                 const type = this.dataset.type;
                 selectedTestType = type;
                 
@@ -4201,15 +4195,7 @@ function init() {
                 updateTestModalBtnText(type);
                 
                 // 关闭弹窗
-                const modal = document.getElementById('test-type-modal');
-                const modalContent = modal.querySelector('.relative');
-                if (modal) {
-                    modalContent.classList.remove('scale-100');
-                    modalContent.classList.add('scale-95');
-                    setTimeout(() => {
-                        modal.classList.add('opacity-0', 'pointer-events-none');
-                    }, 300);
-                }
+                closeTestTypeModal();
             });
         }
     });
@@ -4340,11 +4326,17 @@ function showTestTypeModal(type) {
 // 关闭测试类型介绍弹窗
 function closeTestTypeModal() {
     const modal = document.getElementById('test-type-modal');
+    const modalContent = modal.querySelector('div');
     
-    modal.classList.add('opacity-0', 'pointer-events-none');
-    modal.classList.remove('opacity-100');
-    modal.querySelector('div').classList.add('scale-95');
-    modal.querySelector('div').classList.remove('scale-100');
+    // 添加缩小动画
+    modalContent.classList.remove('scale-100');
+    modalContent.classList.add('scale-95');
+    
+    // 延迟后隐藏弹窗
+    setTimeout(() => {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        modalContent.classList.remove('scale-95');
+    }, 300);
 }
 
 // ==================== 简单答疑功能 ====================
