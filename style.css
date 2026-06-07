@@ -837,3 +837,42 @@ input:focus {
         transform: rotate(360deg);
     }
 }
+
+/* 自定义元素样式覆盖 */
+
+/* Element 1: 点按维度小圆点 */
+.text-\[\#F59E0B\].text-xs.mt-3 {
+    font-size: 15px !important;
+}
+
+/* Element 10: 结果副标题 */
+#result-subtitle {
+    font-size: 15px !important;
+}
+
+/* Element 11: 创业思维等级 */
+#entrepreneur-level {
+    font-size: 13px !important;
+}
+
+/* Element 2, 5, 6, 7, 8, 9: 点击查看详细内容文本 */
+#toggle-profile > span.flex > span.text-xs,
+#toggle-stage > span.flex > span.text-xs,
+#toggle-entrepreneur-advice > span.flex > span.text-xs,
+#toggle-entrepreneur-change > span.flex > span.text-xs,
+#toggle-love-advice > span.flex > span.text-xs,
+#toggle-love-change > span.flex > span.text-xs,
+#toggle-books > span.flex > span.text-xs,
+#toggle-share > span.flex > span.text-xs {
+    color: #3adfdc !important;
+    font-size: 13px !important;
+}
+
+/* Element 3, 4: 折叠图标 */
+#toggle-entrepreneur-advice > span.flex > span.toggle-icon,
+#toggle-entrepreneur-change > span.flex > span.toggle-icon,
+#toggle-love-advice > span.flex > span.toggle-icon,
+#toggle-love-change > span.flex > span.toggle-icon {
+    font-size: 18px !important;
+    color: #ffffff !important;
+}
