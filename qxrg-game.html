@@ -1,0 +1,2745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全新人格卡牌测试 - 性格卡牌师</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+/* 全新人格卡牌测试样式 */
+
+/* 动画定义 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(6, 182, 212, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes cardEnter {
+    0% {
+        transform: translateY(100px) scale(0.8);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(-10px) scale(1.02);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes cardExit {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-20px) scale(0.95);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+.card-enter {
+    animation: cardEnter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.card-exit {
+    animation: cardExit 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: glow 1.5s ease-in-out infinite;
+}
+
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* 卡片拖拽效果 */
+#event-card {
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    user-select: none;
+    touch-action: none;
+    will-change: transform, box-shadow;
+}
+
+#event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+#event-card.long-press {
+    transform: scale(1.08);
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.6), 0 0 60px rgba(6, 182, 212, 0.3);
+    border-color: rgba(6, 182, 212, 0.8) !important;
+}
+
+#event-card.dragging {
+    opacity: 0.92;
+    transform: scale(0.36) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 25px rgba(6, 182, 212, 0.35);
+    z-index: 1000;
+    cursor: grabbing;
+    transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.15s ease;
+    border-radius: 12px;
+}
+
+#event-card.dragging #card-image {
+    transform: scale(0.85);
+    transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+#event-card.dragging #card-content {
+    transform: scale(0.85);
+    transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+#event-card.dragging #card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#event-card.dragging #card-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#event-card.dragging #card-status {
+    display: none;
+}
+
+/* 卡牌归还动画 - 缩小后恢复 */
+#event-card.returning {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease, left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 决策槽高亮效果 */
+.slot-highlight {
+    transform: scale(1.02);
+    border-color: rgba(6, 182, 212, 0.6) !important;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.slot-hovering {
+    transform: scale(1.05);
+    border-color: rgba(34, 211, 238, 0.9) !important;
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.slot-success {
+    animation: slotSuccess 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slotSuccess {
+    0% { transform: scale(1.05); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* 洞察之眼高亮 */
+.insight-highlight {
+    transform: scale(1.08);
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.insight-success {
+    animation: insightSuccess 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes insightSuccess {
+    0% { transform: scale(1.08); }
+    50% { transform: scale(1.3); box-shadow: 0 0 50px rgba(6, 182, 212, 0.8); }
+    100% { transform: scale(1); box-shadow: 0 0 20px rgba(6, 182, 212, 0.3); }
+}
+
+.insight-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* 增加洞察之眼的点击/放置区域 */
+#logic-eye, #empathy-eye {
+    position: relative;
+}
+
+#logic-eye::before, #empathy-eye::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    z-index: 10;
+}
+
+/* 卡牌虚影 */
+.card-ghost {
+    position: absolute;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* 粒子特效 */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: particleFloat 1s ease-out forwards;
+}
+
+/* Combo特效 */
+.combo-effect {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    font-weight: bold;
+    color: #fbbf24;
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
+    animation: fadeIn 0.3s ease-out;
+    z-index: 100;
+}
+
+/* 卡牌拖拽轨迹 */
+.drag-trail {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #06b6d4, #8b5cf6);
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* 情绪影响的拖拽手感 */
+.anxiety-high #event-card {
+    animation: shake 0.1s ease-in-out infinite;
+}
+
+.calm-high #event-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 情绪状态效果 */
+.anxiety-shake {
+    animation: anxietyShake 2s ease-in-out infinite !important;
+}
+
+@keyframes anxietyShake {
+    0%, 100% { transform: translateX(0); }
+    5%, 35%, 65%, 95% { transform: translateX(-1px); }
+    20%, 50%, 80% { transform: translateX(1px); }
+}
+
+.calm-glow {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3), 0 0 40px rgba(34, 197, 94, 0.15) !important;
+    border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+/* 恐慌模式背景 */
+.mood-panic {
+    transition: background 1s ease;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(220, 38, 38, 0.08) 100%) !important;
+}
+
+.mood-tense {
+    transition: background 1s ease;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(245, 158, 11, 0.05) 100%) !important;
+}
+
+.mood-zen {
+    transition: background 1s ease;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(34, 197, 94, 0.06) 100%) !important;
+}
+
+.mood-chill {
+    transition: background 1s ease;
+}
+
+@keyframes moodSlotShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+/* 结果徽章 */
+#result-badge {
+    background: linear-gradient(135deg, #06b6d4, #8b5cf6, #d946ef, #f59e0b);
+    background-size: 400% 400%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 通知弹窗 */
+#notification-popup {
+    backdrop-filter: blur(8px);
+}
+
+/* 游戏主页面模糊过渡 */
+#game-main-page {
+    transition: filter 0.3s ease;
+}
+
+/* 倒计时器 */
+#countdown-timer {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* 资源条动画 */
+#energy-bar, #logic-bar, #empathy-bar, #trust-bar {
+    transition: width 0.5s ease-out;
+}
+
+/* 决策槽禁用状态 */
+#slot-a.disabled, #slot-b.disabled, #slot-c.disabled, #slot-d.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(50%);
+}
+
+#logic-eye.disabled, #empathy-eye.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+/* 洞察之眼容器禁用状态 - 整个图标区域变灰 */
+#logic-eye-container.disabled, #empathy-eye-container.disabled {
+    opacity: 0.4;
+    filter: grayscale(100%);
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+#logic-eye-container.disabled #logic-eye,
+#empathy-eye-container.disabled #empathy-eye {
+    pointer-events: none;
+}
+
+/* 卡牌图片占位 */
+#card-image {
+    background: linear-gradient(135deg, #1f2937, #374151, #1f2937);
+    background-size: 200% 200%;
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* 气泡评论动画 */
+#companion-bubble {
+    transition: all 0.3s ease;
+}
+
+#companion-bubble.bounce {
+    animation: bounce 0.5s ease-out;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* 休息槽 */
+#rest-slot {
+    transition: all 0.3s ease;
+}
+
+#rest-slot:hover {
+    transform: scale(1.05);
+}
+
+/* 进度条动画 */
+#game-progress-bar {
+    transition: width 0.5s ease-out;
+}
+
+/* 按钮悬停效果 */
+button {
+    transition: all 0.3s ease;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #06b6d4, #8b5cf6);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #0891b2, #7c3aed);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    #event-card {
+        max-width: 100%;
+        padding: 1rem;
+    }
+    
+    #card-image {
+        height: 120px;
+    }
+    
+    #card-title {
+        font-size: 1rem;
+    }
+    
+    #card-description {
+        font-size: 0.85rem;
+    }
+    
+    #slot-a, #slot-b {
+        width: 42vw;
+        height: 20vh;
+        padding: 0.5rem;
+    }
+    
+    #slot-a-text, #slot-b-text {
+        font-size: 0.75rem;
+    }
+    
+    #logic-eye, #empathy-eye {
+        width: 70px;
+        height: 70px;
+        font-size: 1.5rem;
+    }
+}
+
+/* 卡牌描述过渡效果 */
+#card-description {
+    transition: opacity 0.2s ease;
+}
+
+/* 卡牌翻转效果 */
+.card-flip {
+    transform: rotateY(180deg);
+    transition: transform 0.6s ease;
+}
+
+.card-flip-back {
+    transform: rotateY(0deg);
+    transition: transform 0.6s ease;
+}
+
+/* 金色拖尾效果 */
+.gold-trail {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fbbf24, #f59e0b);
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.8);
+    pointer-events: none;
+    animation: particleFloat 0.8s ease-out forwards;
+}
+
+/* 火焰特效 */
+.fire-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(245, 158, 11, 0.2), transparent);
+    pointer-events: none;
+    animation: fireGlow 0.5s ease-in-out;
+    z-index: 50;
+}
+
+@keyframes fireGlow {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* 成功放置动画 */
+.slot-success {
+    animation: slotPop 0.4s ease-out;
+}
+
+@keyframes slotPop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 确保四个选项大小一致 - 桌面端 */
+@media (min-width: 640px) {
+    #slot-a, #slot-b, #slot-c, #slot-d {
+        width: 176px !important;
+        height: 128px !important;
+        min-width: 176px !important;
+        min-height: 128px !important;
+    }
+}
+
+/* 手机端选项大小 */
+@media (max-width: 639px) {
+    #slot-a, #slot-b, #slot-c, #slot-d {
+        width: 160px !important;
+        height: 96px !important;
+        min-width: 160px !important;
+        min-height: 96px !important;
+    }
+}
+
+/* 拖动时选项高亮效果 */
+#slot-a.highlight, #slot-b.highlight, #slot-c.highlight, #slot-d.highlight {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.4), 0 0 30px rgba(34, 211, 238, 0.2);
+    border-color: rgba(34, 211, 238, 0.6);
+}
+
+#slot-b.highlight {
+    box-shadow: 0 0 15px rgba(216, 180, 254, 0.4), 0 0 30px rgba(216, 180, 254, 0.2);
+    border-color: rgba(216, 180, 254, 0.6);
+}
+
+#slot-c.highlight {
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.4), 0 0 30px rgba(74, 222, 128, 0.2);
+    border-color: rgba(74, 222, 128, 0.6);
+}
+
+#slot-d.highlight {
+    box-shadow: 0 0 15px rgba(251, 146, 60, 0.4), 0 0 30px rgba(251, 146, 60, 0.2);
+    border-color: rgba(251, 146, 60, 0.6);
+}
+
+/* 卡牌悬停在选项上方时再次放大 */
+#slot-a.highlight.hovering, #slot-b.highlight.hovering, #slot-c.highlight.hovering, #slot-d.highlight.hovering {
+    transform: scale(1.12);
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.8), 0 0 60px rgba(34, 211, 238, 0.4);
+    border-color: rgba(34, 211, 238, 1);
+}
+
+#slot-b.highlight.hovering {
+    box-shadow: 0 0 30px rgba(216, 180, 254, 0.8), 0 0 60px rgba(216, 180, 254, 0.4);
+    border-color: rgba(216, 180, 254, 1);
+}
+
+#slot-c.highlight.hovering {
+    box-shadow: 0 0 30px rgba(74, 222, 128, 0.8), 0 0 60px rgba(74, 222, 128, 0.4);
+    border-color: rgba(74, 222, 128, 1);
+}
+
+#slot-d.highlight.hovering {
+    box-shadow: 0 0 30px rgba(251, 146, 60, 0.8), 0 0 60px rgba(251, 146, 60, 0.4);
+    border-color: rgba(251, 146, 60, 1);
+}
+
+/* 通知选项选中发光效果 */
+.notification-option-selected {
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.6), 0 0 30px rgba(34, 211, 238, 0.3);
+    animation: notificationGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes notificationGlow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(34, 211, 238, 0.6), 0 0 30px rgba(34, 211, 238, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(34, 211, 238, 0.8), 0 0 50px rgba(34, 211, 238, 0.5);
+    }
+}
+
+/* 卡牌滑入动画 */
+.card-enter {
+    animation: cardSlideIn 0.5s ease-out;
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 卡牌消失动画 */
+.card-exit {
+    animation: cardSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes cardSlideOut {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8) translateY(-40px);
+    }
+}
+
+/* 卡牌滑入动画 */
+.card-enter {
+    animation: cardSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 卡牌长按效果 */
+#event-card.long-press {
+    transform: scale(1.08);
+    border-color: rgba(6, 182, 212, 0.8) !important;
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.6), 0 0 60px rgba(6, 182, 212, 0.3);
+}
+
+/* 卡牌拖动中 */
+#event-card.dragging {
+    opacity: 0.9;
+    transform: scale(0.36);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    cursor: grabbing;
+}
+
+/* 选项高亮效果 */
+.slot-highlight {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+}
+
+/* 选项悬停放大效果 */
+.slot-hovering {
+    transform: scale(1.15);
+}
+
+/* 洞察之眼高亮 */
+.insight-highlight {
+    transform: scale(1.15);
+    box-shadow: 0 0 30px currentColor, 0 0 60px currentColor;
+}
+
+/* 成功放置动画 */
+.slot-success {
+    animation: slotPop 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slotPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* 洞察之眼成功动画 */
+.insight-success {
+    animation: insightPulse 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes insightPulse {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.3); }
+    60% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+/* 选项槽默认发光颜色 */
+#slot-a.slot-highlight { color: rgba(6, 182, 212, 0.8); }
+#slot-b.slot-highlight { color: rgba(168, 85, 247, 0.8); }
+#slot-c.slot-highlight { color: rgba(34, 197, 94, 0.8); }
+#slot-d.slot-highlight { color: rgba(251, 146, 60, 0.8); }
+
+/* 洞察之眼颜色 */
+#logic-eye.insight-highlight { color: rgba(6, 182, 212, 0.8); }
+#empathy-eye.insight-highlight { color: rgba(236, 72, 153, 0.8); }
+
+/* 禁用状态 */
+.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(50%);
+}
+
+/* Element 1: 标题样式 */
+div#start-page > div.text-center > h1.text-4xl {
+    color: #4a9cbf !important;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif !important;
+}
+
+/* Element 2: 开始游戏按钮 */
+button#start-game-btn {
+    color: #ffffff !important;
+    background-color: #531abc !important;
+    background-image: none !important;
+}
+
+/* Element 3: 返回首页按钮 */
+button#back-to-home-btn {
+    margin-bottom: 16px !important;
+    width: 168px !important;
+    height: 60px !important;
+}
+
+/* 洞察弹窗样式 - 根据类型设置不同颜色 */
+
+/* 游戏说明弹窗标题 */
+#guide-popup h3.text-xl {
+    color: #e23636 !important;
+    -webkit-text-fill-color: #e23636 !important;
+    background: none !important;
+}
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white">
+    <!-- 游戏主容器 -->
+    <div id="game-container" class="min-h-screen flex flex-col">
+        <!-- 开始页面 -->
+        <div id="start-page" class="flex-1 flex flex-col items-center justify-center p-4">
+            <div class="text-center mb-8 animate-fade-in">
+                <div class="text-6xl mb-4">🎴</div>
+                <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-4">
+                    全新人格 卡牌测试
+                </h1>
+                <p class="text-xl text-gray-300 mb-2">性格卡牌师</p>
+                <p class="text-gray-400 max-w-md mx-auto">
+                    通过拖拽卡牌，探索你真实的性格类型
+                </p>
+            </div>
+            
+            <div class="space-y-4 animate-fade-in" style="animation-delay: 0.3s">
+                <button id="start-game-btn" class="px-12 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl font-semibold text-lg hover:scale-105 transition-all duration-300 hover:shadow-lg">
+                    开始游戏
+                </button>
+                <button id="back-to-home-btn" class="px-8 py-3 bg-white/10 backdrop-blur-md rounded-xl font-medium border border-white/20 hover:bg-white/20 transition-all duration-300">
+                    返回首页
+                </button>
+            </div>
+        </div>
+        
+        <!-- 游戏主页面 -->
+        <div id="game-main-page" class="flex-1 flex flex-col p-2 sm:p-3 hidden">
+            <!-- 首页按钮 -->
+            <div class="mb-2">
+                <button id="home-btn-main" class="px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-lg text-sm border border-white/20 hover:bg-white/20 transition-all duration-300">
+                    🏠 返回首页
+                </button>
+            </div>
+            <!-- 顶部资源栏 -->
+            <div class="flex justify-between items-center mb-2 px-3 py-2 bg-white/5 backdrop-blur-md rounded-xl">
+                <!-- 资源条 -->
+                <div class="flex items-center gap-4 ml-1">
+                    <!-- 精力 -->
+                    <div class="flex flex-col gap-1">
+                        <div class="flex items-center gap-1">
+                            <span class="text-xl">⚡</span>
+                            <div class="w-12 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div id="energy-bar" class="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full transition-all duration-300" style="width: 100%"></div>
+                            </div>
+                            <span id="energy-text" class="text-xs font-medium">10</span>
+                        </div>
+                        <!-- 时间压力 -->
+                        <div id="time-pressure-indicator" class="hidden ml-5">
+                            <span class="text-xs text-red-400">⏱️ 时间压力</span>
+                        </div>
+                    </div>
+                    <!-- 逻辑值 -->
+                    <div class="flex items-center gap-1">
+                        <span class="text-xl">🧠</span>
+                        <div class="w-12 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div id="logic-bar" class="h-full bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full transition-all duration-300" style="width: 80%"></div>
+                        </div>
+                        <span id="logic-text" class="text-xs font-medium">8</span>
+                    </div>
+                    <!-- 共情值 -->
+                    <div class="flex items-center gap-1">
+                        <span class="text-xl">❤️</span>
+                        <div class="w-12 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div id="empathy-bar" class="h-full bg-gradient-to-r from-pink-400 to-rose-500 rounded-full transition-all duration-300" style="width: 80%"></div>
+                        </div>
+                        <span id="empathy-text" class="text-xs font-medium">8</span>
+                    </div>
+                </div>
+                
+                <!-- 情绪与同伴 -->
+                <div class="flex items-center gap-2 md:gap-4 flex-wrap">
+                    <!-- 情绪状态 -->
+                    <div class="flex items-center gap-2">
+                        <span id="mood-emoji" class="text-xl md:text-2xl">😊</span>
+                        <div class="flex flex-col gap-0">
+                            <div class="flex gap-1 text-xs md:text-sm">
+                                <span id="calm-text" class="text-green-400">冷静7</span>
+                                <span class="text-gray-500">/</span>
+                                <span id="anxiety-text" class="text-red-400">焦虑3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 游戏说明按钮 -->
+                    <div id="game-guide-brief" class="flex items-center gap-1">
+                        <button id="show-guide-btn" class="px-3 py-1.5 bg-white/10 rounded-lg text-xs md:text-sm text-cyan-400 hover:bg-white/20 transition-all" title="游戏说明">
+                            游戏说明
+                        </button>
+                    </div>
+                    <!-- 虚拟同伴 -->
+                    <div id="companion-container" class="flex items-center gap-2 hidden">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center text-xl">
+                            👤
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-400">信任度</div>
+                            <div class="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div id="trust-bar" class="h-full bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full transition-all duration-300" style="width: 30%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 游戏进度 -->
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <span id="card-index" class="text-base font-semibold">1</span>
+                <span class="text-gray-400">/</span>
+                <span id="total-cards" class="text-gray-400">10</span>
+                <div class="flex-1 max-w-xs h-1 bg-gray-700 rounded-full overflow-hidden ml-3">
+                    <div id="game-progress-bar" class="h-full bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full transition-all duration-500" style="width: 10%"></div>
+                </div>
+            </div>
+            
+            <!-- 洞察之眼 -->
+            <div class="flex justify-center mb-2">
+                <div id="insight-eye" class="flex items-center gap-3 md:gap-2">
+                    <!-- 逻辑之眼 -->
+                    <div id="logic-eye-container" class="text-center">
+                        <div id="logic-eye" class="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/50 flex items-center justify-center cursor-pointer transition-all duration-300">
+                            <span class="text-2xl md:text-3xl">🧠</span>
+                        </div>
+                        <div id="logic-eye-label" class="mt-1.5 text-xs text-cyan-400">逻辑洞察</div>
+                        <div id="logic-eye-cost" class="text-xs text-gray-500 mt-0.5">-1 逻辑</div>
+                    </div>
+                    <!-- 共情之眼 -->
+                    <div id="empathy-eye-container" class="text-center">
+                        <div id="empathy-eye" class="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 border-2 border-pink-400/50 flex items-center justify-center cursor-pointer transition-all duration-300">
+                            <span class="text-2xl md:text-3xl">❤️</span>
+                        </div>
+                        <div id="empathy-eye-label" class="mt-1.5 text-xs text-pink-400">共情洞察</div>
+                        <div id="empathy-eye-cost" class="text-xs text-gray-500 mt-0.5">-1 共情</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 操作提示 -->
+            <div class="text-center mb-2 px-2">
+                <p class="text-xs text-gray-500">💡 长按卡牌后拖拽到选项或洞察之眼</p>
+            </div>
+            
+            <!-- 虚拟同伴气泡评论 -->
+            <div id="companion-bubble" class="fixed top-24 left-3 max-w-[180px] bg-white/10 backdrop-blur-md rounded-xl p-2 border border-white/20 hidden animate-fade-in">
+                <div class="text-xs text-gray-400 mb-1">👤 路人</div>
+                <p id="companion-comment" class="text-xs"></p>
+            </div>
+            
+            <!-- 事件卡牌区域 -->
+            <div class="flex-1 flex items-center justify-center py-4">
+                <div id="card-area" class="relative w-full max-w-md">
+                    <!-- 卡牌 -->
+                    <div id="event-card" class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-2xl p-4 border border-white/10 shadow-2xl cursor-grab active:cursor-grabbing transition-all duration-200 select-none">
+                        <!-- 卡牌图片 -->
+                        <div id="card-image" class="w-full h-36 sm:h-40 mb-3 bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl flex items-center justify-center overflow-hidden">
+                            <span class="text-5xl">🎴</span>
+                        </div>
+                        
+                        <!-- 卡牌内容 -->
+                        <div id="card-content" class="text-center">
+                            <h3 id="card-title" class="text-lg font-semibold mb-2 text-white">场景标题</h3>
+                            <p id="card-description" class="text-gray-300 mb-3 text-sm leading-relaxed">场景描述将出现在这里...</p>
+                        </div>
+                        
+                        <!-- 卡牌状态指示器 -->
+                        <div id="card-status" class="text-center text-xs text-gray-400 mt-3">
+                            立即行动 - 消耗1精力
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 决策槽区域 -->
+            <div class="flex justify-center gap-4 pb-4 flex-wrap">
+                <!-- 第一行：选项A和B -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <!-- 决策槽A -->
+                    <div id="slot-a" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-cyan-500/15 to-blue-500/10 border-2 border-cyan-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
+                        <span id="slot-a-text" class="text-center text-xs px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                    </div>
+                    
+                    <!-- 决策槽B -->
+                    <div id="slot-b" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-purple-500/15 to-pink-500/10 border-2 border-purple-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
+                        <span id="slot-b-text" class="text-center text-xs px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                    </div>
+                </div>
+                
+                <!-- 第二行：选项C和D -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <!-- 决策槽C -->
+                    <div id="slot-c" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-green-500/15 to-emerald-500/10 border-2 border-green-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
+                        <span id="slot-c-text" class="text-center text-xs px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                    </div>
+                    
+                    <!-- 决策槽D -->
+                    <div id="slot-d" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-orange-500/15 to-amber-500/10 border-2 border-orange-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
+                        <span id="slot-d-text" class="text-center text-xs px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 结果页面 -->
+        <div id="result-page" class="flex-1 flex flex-col items-center justify-center p-4 hidden">
+            <div class="max-w-2xl w-full text-center animate-fade-in">
+                <!-- 全新人格结果 -->
+                <div class="mb-8">
+                    <!-- 徽章 -->
+                    <div id="result-badge-container" class="flex justify-center mb-4">
+                        <div id="result-badge" class="w-40 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center text-2xl font-bold shadow-lg shadow-cyan-500/30" style="border-radius: 50px;">
+                            INTJ
+                        </div>
+                    </div>
+                    <h2 id="result-type-name" class="text-3xl font-bold mb-2">建筑师型</h2>
+                    <p id="result-description" class="text-gray-300 max-w-lg mx-auto mb-4"></p>
+                    
+                    <!-- 详细性格描述 -->
+                    <div id="result-detail-description" class="bg-white/5 backdrop-blur-md rounded-xl p-4 text-left text-sm text-gray-300 max-w-lg mx-auto mb-4">
+                    </div>
+                </div>
+                
+                <!-- 维度百分比 -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-white/5 backdrop-blur-md rounded-xl p-4">
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-yellow-400">E</span>
+                            <span id="ei-percentage" class="text-sm font-medium">50%</span>
+                            <span class="text-purple-400">I</span>
+                        </div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div id="e-i-bar" class="h-full bg-gradient-to-r from-yellow-400 to-purple-500 rounded-full transition-all duration-300" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-md rounded-xl p-4">
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-green-400">S</span>
+                            <span id="sn-percentage" class="text-sm font-medium">50%</span>
+                            <span class="text-blue-400">N</span>
+                        </div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div id="s-n-bar" class="h-full bg-gradient-to-r from-green-400 to-blue-500 rounded-full transition-all duration-300" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-md rounded-xl p-4">
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-blue-400">T</span>
+                            <span id="tf-percentage" class="text-sm font-medium">50%</span>
+                            <span class="text-pink-400">F</span>
+                        </div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div id="t-f-bar" class="h-full bg-gradient-to-r from-blue-400 to-pink-500 rounded-full transition-all duration-300" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-md rounded-xl p-4">
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-cyan-400">J</span>
+                            <span id="jp-percentage" class="text-sm font-medium">50%</span>
+                            <span class="text-orange-400">P</span>
+                        </div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div id="j-p-bar" class="h-full bg-gradient-to-r from-cyan-400 to-orange-500 rounded-full transition-all duration-300" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 资源使用总结 -->
+                <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 mb-8">
+                    <h3 class="text-lg font-semibold mb-4">📊 资源使用总结</h3>
+                    <div id="resource-summary-content" class="text-left text-sm text-gray-300 space-y-3">
+                    </div>
+                </div>
+                
+                <!-- 人格建议 -->
+                <div id="personality-advice" class="bg-white/5 backdrop-blur-md rounded-xl p-6 mb-8">
+                    <h3 class="text-lg font-semibold mb-4">💡 给你的建议</h3>
+                    <div id="advice-content" class="text-left text-sm text-gray-300 space-y-4">
+                    </div>
+                </div>
+                
+                <!-- 通知选择分析 -->
+                <div id="notification-analysis"></div>
+                
+                <!-- 按钮区域 -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button id="home-btn-result" class="px-8 py-3 bg-white/10 backdrop-blur-md rounded-xl font-medium border border-white/20 hover:bg-white/20 transition-all duration-300">
+                        🏠 返回首页
+                    </button>
+                    <button id="restart-game-btn" class="px-8 py-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl font-semibold transition-all duration-300 hover:scale-105">
+                        重新开始
+                    </button>
+                    <button id="copy-result-btn" class="px-8 py-3 bg-white/10 backdrop-blur-md rounded-xl font-medium border border-white/20 hover:bg-white/20 transition-all duration-300">
+                        复制结果
+                    </button>
+                    <button id="share-card-btn" class="px-8 py-3 bg-white/10 backdrop-blur-md rounded-xl font-medium border border-white/20 hover:bg-white/20 transition-all duration-300">
+                        生成分享卡片
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 通知/干扰弹窗 -->
+    <div id="notification-popup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden flex items-center justify-center p-4">
+        <div class="bg-gradient-to-br from-gray-800/90 to-gray-900/90 rounded-2xl p-8 max-w-lg w-full border border-white/10 shadow-2xl animate-fade-in">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="text-4xl">📱</span>
+                <h3 class="text-xl font-semibold text-white">新通知</h3>
+                <button id="close-notification" class="ml-auto text-gray-400 hover:text-white text-lg">✕</button>
+            </div>
+            <div id="notification-text" class="text-gray-300 text-base mb-6"></div>
+            <button id="dismiss-notification" class="w-full py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                确定
+            </button>
+        </div>
+    </div>
+    
+    <!-- 倒计时器 -->
+    <div id="countdown-container" class="fixed top-20 left-4 md:left-8 pointer-events-none hidden z-50">
+        <div id="countdown-timer" class="text-4xl md:text-5xl font-bold text-white/50">
+            8
+        </div>
+        <div id="countdown-reason" class="text-xs text-red-400 mt-1">时间压力</div>
+        <div id="shake-reason" class="text-xs text-orange-400 mt-1"></div>
+    </div>
+    
+    <!-- 休息卡片 -->
+    <div id="rest-popup" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden flex items-center justify-center">
+        <div class="bg-gradient-to-br from-gray-800/90 to-gray-900/90 rounded-2xl p-6 max-w-md border border-white/10 shadow-2xl text-center animate-fade-in">
+            <div class="text-5xl mb-4">😴</div>
+            <h3 class="text-xl font-semibold mb-2">需要休息一下</h3>
+            <p class="text-gray-300 mb-6">资源耗尽了，让我们稍作休息</p>
+            <div id="rest-slot" class="w-48 h-32 mx-auto bg-gradient-to-br from-cyan-500/15 to-blue-500/10 border-2 border-cyan-400/50 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105 hover:border-cyan-400">
+                <span class="text-center px-4">点击这里休息</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 粒子特效容器 -->
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-30"></div>
+    
+    <!-- 游戏说明弹窗 -->
+    <div id="guide-popup" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div id="guide-popup-content" class="bg-gradient-to-br from-gray-800/95 to-gray-900/95 rounded-xl p-4 w-full max-w-xs border border-white/30 shadow-2xl" style="max-height: 80vh;">
+            <h3 class="text-base font-bold mb-3 text-center" style="color: #ff4747;">🎴 游戏说明</h3>
+            
+            <!-- 简单说明（默认显示） -->
+            <div id="guide-simple" class="space-y-2 text-xs text-gray-300">
+                <div class="p-2 bg-white/5 rounded-lg">
+                    <div class="font-semibold text-sm text-white mb-1">📱 拖拽操作</div>
+                    <div class="text-gray-400 text-xs">长按卡牌0.5秒激活拖动，拖到选项槽选择</div>
+                </div>
+                <div class="p-2 bg-cyan-500/10 rounded-lg">
+                    <div class="font-semibold text-sm text-cyan-400 mb-1">🧠 逻辑洞察</div>
+                    <div class="text-gray-300 text-xs">消耗1点逻辑值，获取理性分析解读</div>
+                </div>
+                <div class="p-2 bg-pink-500/10 rounded-lg">
+                    <div class="font-semibold text-sm text-pink-400 mb-1">❤️ 共情洞察</div>
+                    <div class="text-gray-300 text-xs">消耗1点共情值，获取情感体验解读</div>
+                </div>
+                <div class="p-2 bg-yellow-500/10 rounded-lg">
+                    <div class="font-semibold text-sm text-yellow-400 mb-1">⚡ 精力管理</div>
+                    <div class="text-gray-300 text-xs">选择消耗精力，每5题恢复一次</div>
+                </div>
+                <div class="p-2 bg-white/5 rounded-lg">
+                    <div class="font-semibold text-sm text-white mb-1">🎯 16种人格</div>
+                    <div class="text-gray-400 text-xs">E/I · S/N · T/F · J/P 四维度测试</div>
+                </div>
+                <div class="p-2 bg-purple-500/10 rounded-lg">
+                    <div class="font-semibold text-sm text-purple-400 mb-1">💎 资源平衡</div>
+                    <div class="text-gray-300 text-xs">每张卡牌洞察只能用一次</div>
+                </div>
+                <div class="p-2 bg-green-500/10 rounded-lg">
+                    <div class="font-semibold text-sm text-green-400 mb-1">🎲 科学设计</div>
+                    <div class="text-gray-300 text-xs">题目均衡分布，请按第一反应作答</div>
+                </div>
+            </div>
+            
+            <!-- 详细说明（默认隐藏） -->
+            <div id="guide-detail" class="space-y-3 text-sm text-gray-300 hidden overflow-y-auto" style="max-height: 55vh;">
+                <div class="p-3 bg-white/5 rounded-xl border border-white/10">
+                    <div class="font-bold text-base text-white mb-1">📱 拖拽操作</div>
+                    <div class="text-gray-400 leading-relaxed">长按卡牌约0.5秒激活拖动模式，然后将卡牌拖动到下方的选项槽中进行选择。你也可以将卡牌拖动到上方的"洞察之眼"获取详细分析。</div>
+                </div>
+                <div class="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/30">
+                    <div class="font-bold text-base text-cyan-400 mb-1">🧠 逻辑洞察</div>
+                    <div class="text-gray-300 leading-relaxed">拖动卡牌到"🧠 逻辑洞察"可消耗1点逻辑值，获取从理性分析角度对当前问题的深度解读，帮助你做出更客观的选择。</div>
+                </div>
+                <div class="p-3 bg-pink-500/10 rounded-xl border border-pink-500/30">
+                    <div class="font-bold text-base text-pink-400 mb-1">❤️ 共情洞察</div>
+                    <div class="text-gray-300 leading-relaxed">拖动卡牌到"❤️ 共情洞察"可消耗1点共情值，获取从情感体验角度对当前问题的深度解读，帮助你做出更贴合内心的选择。</div>
+                </div>
+                <div class="p-3 bg-yellow-500/10 rounded-xl border border-yellow-500/30">
+                    <div class="font-bold text-base text-yellow-400 mb-1">⚡ 精力管理系统</div>
+                    <div class="text-gray-300 leading-relaxed">精力是你做出选择的基础能量。每次直接选择选项会消耗精力值。当精力较低时，建议使用洞察功能获取额外信息后再做选择。每完成5道题后，系统会自动为你恢复部分精力。</div>
+                </div>
+                <div class="p-3 bg-white/5 rounded-xl border border-white/10">
+                    <div class="font-bold text-base text-white mb-1">🎯 16种人格类型</div>
+                    <div class="text-gray-400 leading-relaxed">本测试基于经典的四维人格理论，通过32道精心设计的题目，全面评估你在以下四个维度上的倾向：外向(E)/内向(I)、感觉(S)/直觉(N)、思考(T)/情感(F)、判断(J)/知觉(P)。最终根据各维度的得分计算得出你的独特人格类型。</div>
+                </div>
+                <div class="p-3 bg-purple-500/10 rounded-xl border border-purple-500/30">
+                    <div class="font-bold text-base text-purple-400 mb-1">💎 资源平衡机制</div>
+                    <div class="text-gray-300 leading-relaxed">逻辑值和共情值会在使用洞察时消耗。我们精心设计了资源平衡系统，确保你在使用洞察辅助决策的同时，仍能顺利完成全部测试。每张卡牌的洞察功能只能使用一次。</div>
+                </div>
+                <div class="p-3 bg-green-500/10 rounded-xl border border-green-500/30">
+                    <div class="font-bold text-base text-green-400 mb-1">🎲 科学设计原则</div>
+                    <div class="text-gray-300 leading-relaxed">每道题目都经过精心设计，确保题目分布均衡，答案选项互不偏袒。测试结果反映的是你在不同情境下的真实倾向，而非刻意的选择策略。请根据第一反应作答，结果会更加准确。</div>
+                </div>
+                <div class="p-3 bg-orange-500/10 rounded-xl border border-orange-500/30">
+                    <div class="font-bold text-base text-orange-400 mb-1">📖 使用建议</div>
+                    <div class="text-gray-300 leading-relaxed">• 不必思考太久，相信直觉<br>• 每道题没有"正确"答案<br>• 设想在真实情境中你会怎么做<br>• 两次测试结果可能略有不同，这是正常的</div>
+                </div>
+            </div>
+            
+            <!-- 按钮区域 -->
+            <div class="mt-3 space-y-2">
+                <button id="toggle-guide-detail" class="w-full py-2.5 bg-white/10 rounded-lg font-semibold text-sm hover:bg-white/20 transition-all" style="color: #fd4949;">
+                    📖 查看详细说明
+                </button>
+                <button id="close-guide-btn" class="w-full py-2.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg font-semibold text-sm hover:scale-105 transition-transform">
+                    我知道了
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 游戏状态
+        const gameState = {
+            currentPage: 'start',
+            currentCardIndex: 0,
+            cards: [],
+            resources: { energy: 10, maxEnergy: 10, logic: 5, maxLogic: 10, empathy: 5, maxEmpathy: 10 },
+            mood: { calm: 5, anxiety: 5 },
+            _anxietyBubbleActive: false,
+            _calmBubbleActive: false,
+            trust: 5,
+            maxTrust: 10,
+            qxrgScores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 },
+            totalScore: 0,
+            guideShown: false,
+            insightUsed: {},
+            resourceUsed: { energy: 0, logic: 0, empathy: 0 }
+        };
+
+        // 卡牌数据 - 每题涉及多个维度，资源值随答案变化
+        // 基于全新人格心理学理论，每道题精心设计以平衡16种人格的分布
+        const qxrgCards = [
+            // ===== E/I 维度 (外向/内向) - 8题 =====
+            { id: 1, title: "团队讨论", desc: "在一次重要的团队会议上，每个人都需要对关键决策发表意见。会议室里安静了几秒，所有人都在等待第一个发言的人。你注意到有几个同事似乎有想法但不敢开口。这时你会怎么做？", optionA: "率先打破沉默，清晰表达自己的观点，为讨论定下基调", optionB: "先观察每个人的表情和肢体语言，在心里梳理思路，等有人发言后再补充", optionC: "鼓励看起来有想法的同事先发言，然后在他们的基础上展开讨论", optionD: "用提问的方式引导大家思考，逐步引出各自的意见", aType: "E", bType: "I", cType: "F", dType: "T", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "心理学研究发现，外向型人格(E)倾向于在社交互动中获取能量，他们通过表达来整理思维；内向型人格(I)则更习惯在内心加工信息后再表达。荣格认为这不是社交能力的差异，而是能量来源的不同。", empathyInsight: "从情感需求角度看：每个人在群体中都有被倾听的渴望。有些人需要说话来感受存在感，有些人则通过被邀请发言来感受被重视。理解不同的表达风格，才能建立真正的团队信任。" },
+            { id: 2, title: "周末计划", desc: "漫长的一周终于结束了，你拥有了完全属于自己的两天时间。最近工作压力很大，你感到身心都需要调整。打开手机，看到几个朋友发来的聚会邀请，也想起那本买了很久还没看的书。你会如何安排这个周末？", optionA: "接受朋友邀请，组织一次小型聚会，和大家一起放松", optionB: "婉拒邀请，在家安静地看书、听音乐，享受独处时光", optionC: "约一两个最亲近的朋友单独见面，进行深度交流", optionD: "先去参加聚会，但提前离开，给自己留出独处充电的时间", aType: "E", bType: "I", cType: "F", dType: "P", aRes: {energy:-2, logic:0, empathy:+1}, bRes: {energy:+2, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:-1, logic:0, empathy:0}, logicInsight: "从精力管理角度看：外向者通过社交充电，独处反而消耗精力；内向者则相反。心理学研究建议根据自身类型安排恢复性活动，而非盲目模仿他人的放松方式。", empathyInsight: "社会心理学研究表明，真正的幸福感来自于按照自己的价值观生活，而非迎合社会期望。有些人需要人群来感受活力，有些人需要独处来回归自我——两者都是健康的。" },
+            { id: 3, title: "社交场合", desc: "你受邀参加一个行业交流酒会，会场里大约有50人，大多数是陌生人。你看到有人在三五成群地交谈，也有人独自站在角落。你手中端着一杯饮料，环顾四周，思考着如何度过接下来的两小时。", optionA: "主动走向人群，自我介绍并加入正在进行的对话", optionB: "找到一个舒适的角落，观察整个场合并等待有人主动来交谈", optionC: "找到另一个独自站着的人，主动上前进行一对一交流", optionD: "先在场边观察，找到看起来志同道合的人后再有目标地接近", aType: "E", bType: "I", cType: "E", dType: "I", aRes: {energy:-2, logic:0, empathy:+1}, bRes: {energy:+1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "社会心理学中的'接近效应'表明，主动发起社交的人更容易建立广泛的人脉网络，但深度关系往往来自有选择性的交流。不同的社交策略适用于不同的目标和场合。", empathyInsight: "在陌生社交环境中感到紧张是完全正常的——这被称为'社交评价焦虑'。重要的是找到让自己舒适的方式，无论是一对一交流还是小组互动，真诚比技巧更重要。" },
+            { id: 4, title: "午休时光", desc: "午休时间到了，你有一个小时的休息时间。同事们正在讨论去哪里吃饭，有人提议一起去公司附近新开的餐厅，也有人说想在工位快速解决然后休息。你今天上午的工作效率很高，心情也不错。", optionA: "加入同事们一起去新餐厅，边吃边聊，享受热闹的午餐氛围", optionB: "独自去常去的安静小馆，一边吃饭一边整理下午的工作思路", optionC: "和关系最好的同事两人一起去，深入聊聊最近的工作和生活", optionD: "快速吃完后去公司楼下的花园散步，享受独处的宁静时光", aType: "E", bType: "I", cType: "F", dType: "I", aRes: {energy:-1, logic:0, empathy:+1}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:+1, logic:0, empathy:0}, logicInsight: "午餐时间的社交选择反映了你的能量管理偏好。研究显示，在工作中适度社交可以提升团队凝聚力，但过度社交可能导致下午精力不足。关键是根据当天状态灵活调整。", empathyInsight: "人际关系中的'微时刻'——如共进午餐——是建立信任的基石。不必每次都参加集体活动，但偶尔的参与会让同事感受到你的善意和团队精神。" },
+
+            // ===== S/N 维度 (感觉/直觉) - 8题 =====
+            { id: 5, title: "新项目启动", desc: "公司交给你一个全新的项目，目标是在三个月内开发一款创新产品。目前只有大致的方向，具体的需求和方案都需要你来制定。你的办公桌上堆满了行业报告、用户反馈和竞品分析资料。时间紧迫，你需要在今天内确定初步方案。", optionA: "先系统梳理所有已有的数据和资料，基于事实和案例来设计方案", optionB: "先构想产品最终的样子和用户体验，从愿景出发反向推导实现路径", optionC: "去和实际用户交流，收集第一手的反馈和需求再来做决定", optionD: "思考这个产品可能带来的行业变革和未来趋势，从更宏观的角度定位", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "全新人格理论中，感觉型(S)偏好具体、实际的信息，依赖五感收集的数据；直觉型(N)偏好抽象、概念性的信息，关注模式和可能性。优秀的产品设计往往需要两者的结合。", empathyInsight: "每个人都有自己理解世界的方式。感觉型的人通过具体体验获得安全感，直觉型的人通过想象可能性获得动力。理解自己的认知偏好，能帮你更有效地学习和工作。" },
+            { id: 6, title: "技术难题", desc: "项目中遇到了一个棘手的技术难题，传统的解决方案都行不通。团队已经讨论了两轮，提出了几种不同的思路。时间在流逝，压力在增加。你需要决定接下来的攻关方向。", optionA: "查阅类似案例和技术文档，找到可借鉴的实际解决方案", optionB: "跳出框架思考，尝试用一种全新的理论方法来解决问题", optionC: "搭建实验环境，通过反复测试和调整来找到最优方案", optionD: "从问题的本质出发，重新定义问题本身，寻找突破口", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "认知心理学区分了两种问题解决策略：算法式（逐步尝试）和启发式（凭经验直觉）。感觉型偏好前者，直觉型偏好后者。高效的问题解决者能在两种模式间灵活切换。", empathyInsight: "面对困难时，不同的人需要不同的支持。有些人需要具体的指导和案例，有些人需要被鼓励大胆尝试。了解自己的认知风格，能帮你在压力下找到最适合自己的应对方式。" },
+            { id: 7, title: "阅读偏好", desc: "你走进一家书店，有整整两个小时可以自由浏览。书架上有各种类型的书：实用技能、哲学思想、人物传记、科幻小说、历史研究、商业管理……你的目光扫过一排排书脊，思考着哪本能给你最大的收获。", optionA: "选择一本实用的技能提升书籍，能直接应用到工作或生活中", optionB: "选择一本探讨深层思想和理论的书籍，拓展思维边界", optionC: "选择一本基于真实案例和数据分析的行业研究书籍", optionD: "选择一本富有想象力的科幻或哲学作品，激发新的思考", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:0, logic:+1, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:0, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "阅读偏好反映了信息获取的倾向。感觉型偏好具体、可操作的内容；直觉型偏好抽象、有启发性的内容。研究显示，跨类型阅读能有效拓展认知广度。", empathyInsight: "书籍是心灵的窗户——你选择的书反映了你当下的内心需求。有时需要实用指导，有时需要思想启发，这都是成长的一部分。" },
+            { id: 8, title: "产品设计", desc: "你需要为公司的核心产品设计一个新功能。用户反馈显示现有功能不够完善，但具体怎么改，不同用户有不同意见。产品经理希望你提出一个创新的设计方案，同时也要考虑开发成本和上线时间。", optionA: "基于用户行为数据和反馈报告，逐步优化现有功能", optionB: "大胆想象一个全新的交互方式，重新定义用户体验", optionC: "研究市场上同类产品的最佳实践，在此基础上改进", optionD: "从未来趋势出发，设计一个具有前瞻性的功能架构", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "设计思维(Design Thinking)强调在具体和抽象之间切换：既要基于用户反馈（感觉），也要敢于想象可能性（直觉）。最成功的设计往往是两者的平衡。", empathyInsight: "设计的本质是为人服务。数据能告诉你用户做了什么，但只有深入理解用户的情感和动机，才能知道他们真正需要什么。" },
+
+            // ===== T/F 维度 (思考/情感) - 8题 =====
+            { id: 9, title: "人事决策", desc: "你是团队主管，需要评估一位员工的去留。这位员工工作很努力，经常加班，但业绩数据确实不理想，连续两个季度未达标。其他团队成员对此也有议论。你知道他家里有经济压力，而且他本人对工作很有热情。明天就是最后决定期限。", optionA: "基于业绩数据和客观标准做出决定，公平对待所有人", optionB: "考虑他的个人情况和努力态度，再给他一次改进机会", optionC: "综合分析数据和他面临的客观困难，制定一个明确的改进计划", optionD: "和他深入沟通，了解真实困难，共同决定去留", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "管理学研究表明，纯粹的绩效导向可能导致短视；纯粹的人情管理可能导致不公平。最佳实践是建立清晰的绩效改进计划(PIP)，既有客观标准也有人文关怀。", empathyInsight: "每个人都在与自己的困难作斗争。一个公平的决定应该是透明的、有同情心的、给人改进机会的。领导力不仅在于做正确的事，更在于以正确的方式做事。" },
+            { id: 10, title: "朋友求助", desc: "深夜，一位好朋友打来电话，声音听起来很低落。他最近和伴侣发生了严重的争吵，情绪崩溃，不知道该怎么做。他既想倾诉，又想要建议。你明天早上还有一个重要的报告要交。", optionA: "帮他理性分析问题的来龙去脉，列出可行的解决方案", optionB: "先耐心倾听，给予情感上的支持和安慰，让他感到被理解", optionC: "听完后帮他梳理双方的观点和诉求，找到折中的解决方案", optionD: "先安抚情绪，等对方冷静下来后再一起讨论解决办法", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "心理咨询的基本原则是：先处理情绪，再处理问题。当一个人处于情绪激动状态时，逻辑分析往往难以被接受。有效的帮助需要共情先行，理性后行。", empathyInsight: "有时候人们打电话不是为了寻求解决方案，而只是希望有人能听到他们的声音。'我理解你的感受'比'你应该这样做'更有力量。" },
+            { id: 11, title: "方案评审", desc: "你需要评审两个竞标方案。方案A数据详实、逻辑严密、风险可控，但创意平平；方案B创意十足、愿景宏大，但缺乏数据支撑，风险较高。团队成员各执一词，争论激烈。最终决定权在你手上。", optionA: "基于客观指标和风险评估矩阵，选择数据更可靠的方案", optionB: "考虑团队对方案的热情和投入度，选择大家更认同的方案", optionC: "让两个团队补充完善各自的方案，再进行第二轮比较", optionD: "综合两个方案的优点，提出融合性的第三种方案", aType: "T", bType: "F", cType: "J", dType: "P", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:-1, logic:+1, empathy:+1}, logicInsight: "决策理论中的'理性决策模型'强调基于数据和逻辑做判断，而'直觉决策模型'承认经验和情感的价值。现实中，最佳决策往往结合了两者——用数据缩小范围，用直觉做最终选择。", empathyInsight: "团队决策不仅是选方案，更是在管理人。尊重每个团队成员的贡献，让他们感到被倾听，比选择'最优方案'更有利于长期团队健康。" },
+            { id: 12, title: "年终评优", desc: "年终到了，你需要推荐一位团队成员为年度优秀员工。候选人A全年业绩第一，但性格孤僻，与团队合作较少；候选人B业绩排名第三，但乐于助人，经常帮助新人，团队口碑极好。你的推荐将影响晋升和奖金。", optionA: "严格按照业绩排名推荐，这是最公平客观的标准", optionB: "综合考虑团队贡献和协作精神，推荐对团队氛围贡献更大的", optionC: "制定一个综合评分体系，将业绩和团队贡献都纳入考量", optionD: "让团队成员匿名投票，由大家共同决定", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:0, logic:+1, empathy:-1}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "组织行为学研究表明，单一维度的评价体系（如只看业绩）会导致'指标暴政'，忽视协作、创新等难以量化的贡献。360度评价能更全面地反映一个人的价值。", empathyInsight: "评价一个人的价值不应只看数字。那些默默帮助同事、提升团队士气的人，他们的贡献虽然不体现在KPI上，却是一个团队不可或缺的黏合剂。" },
+
+            // ===== J/P 维度 (判断/感知) - 8题 =====
+            { id: 13, title: "旅行计划", desc: "你计划下个月出国旅行一周。这是你期待已久的假期，你想充分利用每一分钟。打开旅行App，各种攻略和游记扑面而来：热门景点、特色美食、交通路线、住宿推荐……信息量大得让人有点不知所措。", optionA: "制定详细的行程表，每天几点去哪里都安排得清清楚楚", optionB: "只订好机票和第一晚酒店，其他的到了再说，随性而行", optionC: "规划好主要景点和交通，但每天的安排留出弹性空间", optionD: "不做具体计划，带上一本指南书，每天根据心情决定去哪里", aType: "J", bType: "P", cType: "J", dType: "P", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "心理学研究发现，判断型(J)偏好结构和确定性，这能减少焦虑但可能错过意外发现；感知型(P)偏好灵活和开放，这能增加新奇体验但可能带来压力。最佳旅行策略因人而异。", empathyInsight: "旅行的意义不在于打卡了多少景点，而在于你收获了怎样的体验和感悟。有些人需要计划来获得安全感，有些人需要自由来感受快乐——尊重自己的节奏最重要。" },
+            { id: 14, title: "截止日期", desc: "一个重要项目的截止日期就在三天后，但核心模块还有30%未完成。客户已经发了两次催促邮件，你的压力很大。团队的进度参差不齐，有人建议延期，有人认为加班能赶上。你需要快速做出决定。", optionA: "立即制定详细的冲刺计划，按小时分配任务，确保按时交付", optionB: "评估哪些功能是必须的，哪些可以后续迭代，灵活调整范围", optionC: "先完成最关键的部分，确保核心功能可用，其他的做降级处理", optionD: "和客户坦诚沟通当前情况，协商一个更合理的交付时间", aType: "J", bType: "P", cType: "T", dType: "F", aRes: {energy:-2, logic:+1, empathy:-1}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "项目管理中的'铁三角'（范围、时间、成本）告诉我们三者不可兼得。面对截止日期压力，调整范围比牺牲质量或透支团队更可持续。", empathyInsight: "截止日期的压力不仅影响工作质量，更影响团队的心理健康。坦诚沟通、合理调整预期，比硬撑着交付一个有问题的产品更负责任。" },
+            { id: 15, title: "日常安排", desc: "新的一周开始了，你的待办清单上至少有15件事。有重要的、紧急的、琐碎的、长期的。你坐在办公桌前，思考如何高效地度过这一周。手机又震动了一下——新的消息又来了。", optionA: "列出详细的周计划，把每项任务分配到具体的时间段", optionB: "只确定本周最重要的3件事，其他的灵活安排", optionC: "按优先级排序，每天处理最重要的任务，不纠结于具体时间", optionD: "保持开放心态，根据每天的实际情况灵活调整", aType: "J", bType: "P", cType: "J", dType: "P", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "时间管理中的'艾森豪威尔矩阵'建议区分重要/紧急。判断型偏好计划驱动，感知型偏好事件驱动。两者结合——重要的事计划好，紧急的事灵活处理——往往最有效。", empathyInsight: "不要被待办清单奴役。记住你是一个活生生的人，不是效率机器。留出一些空白时间给自己，给意外，给生活本身。" },
+            { id: 16, title: "搬家整理", desc: "你准备搬家，面对满屋子的物品：衣服、书籍、杂物、纪念品……有些东西已经很久没用过了，但每件似乎都有它的故事。新家比现在的小一些，你不可能把所有东西都带走。", optionA: "按类别系统整理，列出清单，决定每件物品的去留", optionB: "边收拾边决定，保留那些让自己心动的，舍弃其余的", optionC: "先打包必需品和常用品，剩下的慢慢处理", optionD: "随性整理，重要的东西自然会被留下", aType: "J", bType: "F", cType: "J", dType: "P", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "整理专家近藤麻理惠提出的'心动整理法'结合了判断型和情感型的优点：有明确的整理流程，但以情感作为判断标准。这说明最好的方法往往融合多种风格。", empathyInsight: "每一件物品都承载着一段记忆。告别它们不是否定过去，而是为未来腾出空间。允许自己保留那些真正重要的，也允许自己放手那些已经不再需要的。" },
+
+            // ===== 混合维度题目 - 16题，确保各维度平衡 =====
+            { id: 17, title: "紧急任务", desc: "周五下午5点，你正准备收拾东西下班。突然收到老板的消息：一个重要客户临时要求在下周一早上看到方案。这意味着一整个周末都要泡汤了。同事们大多已经走了，办公室里只剩下你和另外两个人。", optionA: "立刻行动起来，列出需要完成的事项，开始加班赶工", optionB: "先冷静分析客户需求，制定一个两天的工作计划再开始执行", optionC: "联系还在的同事一起分担，团队协作效率更高", optionD: "和老板沟通，确认是否真的需要整个周末，尝试协商范围", aType: "J", bType: "T", cType: "E", dType: "F", aRes: {energy:-2, logic:0, empathy:0}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "面对突发任务，不同性格的人有不同的应对策略。判断型偏好立即行动，思考型偏好先分析。高效应对的关键是根据任务性质选择策略，而非固守一种模式。", empathyInsight: "紧急任务考验的不仅是能力，更是心态。不要让紧迫感压垮你，也不要让完美主义拖累你。在压力下保持冷静和善意，是对自己最好的保护。" },
+            { id: 18, title: "团队建设", desc: "公司组织了团队建设活动，你可以参与活动形式的决策。选项有户外拓展（攀岩、漂流）、室内工作坊（创意手工、烹饪比赛）、公益活动（去敬老院或动物收容所）以及自由安排（大家投票选择）。你倾向于推荐哪个？", optionA: "户外拓展——挑战自我，在极限中建立信任和默契", optionB: "室内工作坊——在轻松的环境中深度交流，了解彼此", optionC: "公益活动——做有意义的事，同时增进团队凝聚力", optionD: "自由选择——让大家根据兴趣分组，各取所需", aType: "E", bType: "I", cType: "F", dType: "P", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:0, empathy:0}, logicInsight: "团队建设活动的选择反映了领导风格。外向型领导偏好高能量活动，情感型领导关注团队和谐。最有效的团建是让不同性格的人都能找到舒适区。", empathyInsight: "团建的本质不是活动本身，而是人与人之间的连接。最好的团建是每个人都能在其中找到价值感和归属感的活动。" },
+            { id: 19, title: "用户反馈", desc: "产品上线后收到了一批用户反馈，评价两极分化：一部分用户称赞功能强大，另一部分抱怨操作复杂。产品经理要求你在下周给出改进方案。你打开用户反馈文档，几十条评论各有各的道理。", optionA: "优先解决反馈最多、最具体的问题，按紧急程度排序处理", optionB: "从用户体验的整体感受出发，重新思考产品的设计理念", optionC: "分析用户行为数据，找出实际使用中的痛点和流失点", optionD: "联系几位典型用户深入访谈，了解他们背后的真实需求", aType: "S", bType: "N", cType: "T", dType: "F", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "用户反馈分析需要结合定量和定性方法。数据告诉你'发生了什么'，访谈告诉你'为什么发生'。产品改进既要解决具体问题（S），也要洞察深层需求（N）。", empathyInsight: "每一条用户反馈背后都是一个真实的人的使用体验。他们花时间写反馈是因为在乎你的产品。认真对待每一个声音，这是对用户最大的尊重。" },
+            { id: 20, title: "职业选择", desc: "你同时收到了两份工作offer。A公司是大厂，薪资优厚、福利完善、发展稳定，但工作内容比较固定，创新空间有限。B公司是创业公司，薪资一般但有期权，工作内容充满挑战，但不确定性很大。你的选择将影响未来3-5年的职业轨迹。", optionA: "选择稳定的大厂，优厚的待遇和清晰的晋升路径更有保障", optionB: "选择创业公司，挑战和成长空间更让人兴奋", optionC: "列出两份工作的详细对比表，从薪资、发展、风险等多维度打分决定", optionD: "跟随内心的感觉，想象5年后回望哪个选择不会后悔", aType: "J", bType: "P", cType: "T", dType: "F", aRes: {energy:0, logic:0, empathy:0}, bRes: {energy:0, logic:0, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "职业决策理论建议考虑三个维度：能力匹配、兴趣匹配和价值观匹配。没有绝对的好选择，只有更适合你的选择。判断型偏好可预测性，感知型偏好可能性。", empathyInsight: "职业生涯是一段漫长的旅程，不是一次性的选择。无论选择哪条路，重要的是你在这个过程中学到什么、成为什么样的人。相信自己有适应和成长的能力。" },
+            { id: 21, title: "冲突处理", desc: "你和一位同事在工作方法上产生了严重分歧。他认为应该按照公司既定的流程一步步来，你觉得当前情况特殊，应该灵活处理。双方各执一词，气氛越来越紧张，其他同事也开始注意到了。", optionA: "坚持自己的观点，用事实和数据证明灵活处理的合理性", optionB: "先缓和气氛，理解对方的顾虑，寻找双方都能接受的折中方案", optionC: "分析两种方案的利弊，用客观标准来决定哪种更合适", optionD: "暂时搁置争议，各自按自己的方式先推进，用结果说话", aType: "T", bType: "F", cType: "T", dType: "P", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:0}, logicInsight: "冲突管理理论将冲突处理分为五种模式：竞争、合作、妥协、回避和顺应。不同情境需要不同策略。T型偏好竞争或合作，F型偏好顺应或妥协。没有一种模式永远正确。", empathyInsight: "工作中的分歧不是战争。对方不是敌人，而是一个有不同视角的合作伙伴。保持尊重和善意，即使立场不同，也能找到共同前行的方式。" },
+            { id: 22, title: "信息管理", desc: "你的收件箱里有47封未读邮件，微信上有128条未读消息，还有5个群在同时讨论不同的话题。有些是重要的工作信息，有些是闲聊，有些是通知。你感到信息过载，需要整理出一个处理策略。", optionA: "逐条处理，看到一条回一条，保持沟通的即时性", optionB: "设定固定时间批量处理，其他时间专注做自己的事", optionC: "按发送者和主题分类，优先处理来自上级和客户的消息", optionD: "使用工具自动分类和过滤，只关注高优先级的信息", aType: "P", bType: "J", cType: "S", dType: "T", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:-1}, logicInsight: "信息过载是现代工作的常态。研究表明，频繁切换任务会降低40%的生产力。建立信息处理系统比单纯提高处理速度更有效。", empathyInsight: "在信息洪流中，不要忘记每条消息背后都是一个人。虽然不可能秒回所有消息，但定期回复和表达关注，能让对方感受到被重视。" },
+            { id: 23, title: "学习方式", desc: "公司要求所有员工在三个月内掌握一项新技术。你可以选择线上课程、线下培训、跟项目实战或自学文档。你有一定基础但不是特别扎实，平时工作也比较忙，只能利用业余时间学习。", optionA: "报名系统的线上课程，按课程大纲循序渐进地学习", optionB: "直接跟一个相关项目，在实践中学，遇到问题再查资料", optionC: "先搭建一个个人小项目，通过做中学来掌握技术", optionD: "广泛阅读相关文档和教程，构建自己的知识体系", aType: "J", bType: "P", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "学习理论区分了'系统学习'和'问题驱动学习'。系统学习（J型偏好）构建完整知识框架，问题驱动（P型偏好）更快见效。最佳策略是根据学习阶段灵活切换。", empathyInsight: "学习新技术的过程可能让人感到焦虑和挫败。给自己时间和耐心，庆祝每一个小进步。每个人学习的节奏不同，找到适合自己的节奏最重要。" },
+            { id: 24, title: "快速决策", desc: "你在一家餐厅，服务员告诉你只剩最后一份招牌菜，而旁边一桌的客人也在考虑点这道菜。你需要立刻做出决定。同时，你的手机响了，是一个重要客户的电话。时间紧迫，你必须在几秒内做出多个决定。", optionA: "果断下单招牌菜，然后立即接听客户电话", optionB: "让给旁边的客人，选择其他菜品，然后回拨客户电话", optionC: "快速评估：招牌菜值不值得抢？客户电话是否紧急？", optionD: "先接电话了解情况，菜品的事可以之后再处理", aType: "J", bType: "F", cType: "T", dType: "P", aRes: {energy:-1, logic:0, empathy:-1}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:0, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:0}, logicInsight: "决策心理学发现，人在压力下的决策往往依赖直觉而非理性分析。判断型更倾向快速决定，感知型更倾向保持开放。训练自己在压力下保持冷静可以提升决策质量。", empathyInsight: "生活中的小决定看似微不足道，但累积起来反映了你的价值观。对别人多一份礼让，对自己多一份从容，生活会变得更温暖。" },
+            { id: 25, title: "会议发言", desc: "在部门月度会议上，经理问大家对新的工作流程有什么意见。你已经默默观察了一个月，确实发现了一些可以改进的地方。但你注意到会议室里气氛比较正式，几位资深同事似乎对新流程很满意。", optionA: "主动举手，清晰表达自己的观察和改进建议", optionB: "先听听其他人的发言，如果没人提再决定是否说出来", optionC: "会后单独找经理沟通，用书面的方式提交建议", optionD: "先和旁边的同事小声讨论，确认自己的想法是否合理", aType: "E", bType: "I", cType: "J", dType: "F", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:0, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "组织行为学中的'发言行为'研究发现，员工选择在会议上发言受到多种因素影响：心理安全感、权力距离、个性特征等。创造安全的发言环境是管理者的责任。", empathyInsight: "每个人的声音都值得被听到。如果你选择在会议中发言，那是因为你关心团队；如果你选择私下沟通，那是因为你尊重场合。两种方式都是参与。" },
+            { id: 26, title: "创意激发", desc: "项目陷入了瓶颈，团队已经连续讨论了三个小时却没有任何突破。白板上画满了各种草图，但都不够好。咖啡已经喝了三轮，大家的眼神开始涣散。老板说再给你们30分钟，必须拿出一个可行方案。", optionA: "组织一场快速头脑风暴，让大家天马行空地抛出任何想法", optionB: "让每个人安静地独立思考10分钟，然后再汇总讨论", optionC: "从现有的方案中挑出最好的，集中精力优化它", optionD: "暂时放下这个问题，换个轻松的话题聊5分钟再回来", aType: "E", bType: "I", cType: "S", dType: "N", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "创造力研究表明，头脑风暴适合发散思维（E/N偏好），独立深思适合聚合思维（I/S偏好）。最佳创意流程是发散和聚合交替进行。", empathyInsight: "创造力不是压榨出来的。当团队陷入瓶颈时，有时候最好的方法就是暂停一下。给大脑一点空间，灵感往往在最放松的时刻悄然而至。" },
+            { id: 27, title: "团队管理", desc: "你带领的团队中有一位成员进度明显落后。他的代码质量不错，但速度总比别人慢。其他成员开始有微词，认为这影响了整体进度。你需要在下一次一对一会议中和他沟通这个问题。", optionA: "直接指出进度问题，设定明确的改进目标和期限", optionB: "先了解他是否遇到了什么困难，表达关心和支持", optionC: "分析他的工作数据，找出效率低下的具体原因", optionD: "和他一起制定一个循序渐进的改进计划", aType: "T", bType: "F", cType: "T", dType: "J", aRes: {energy:0, logic:+1, empathy:-1}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "绩效管理的最佳实践是'直接但尊重'。明确的反馈（T偏好）需要配合情感支持（F偏好），而具体的行动计划（J偏好）能提供清晰的改进路径。", empathyInsight: "每个人都有可能经历低谷。作为领导者，你的角色不仅是评估绩效，更是帮助团队成员成长。一次善意的对话可能改变一个人的职业生涯。" },
+            { id: 28, title: "旅行决策", desc: "朋友临时提议周末一起去周边城市玩两天。你之前没有这个计划，但这个提议听起来很诱人。不过你也有一些顾虑：周末本来安排了家务，天气预报说可能有雨，而且还没查过那个城市有什么好玩的。", optionA: "快速查一下攻略和天气，如果条件允许就出发", optionB: "欣然接受，不做太多准备，来一场说走就走的旅行", optionC: "婉拒提议，按原计划过周末，下次提前规划再去", optionD: "建议推迟一周，这样可以好好规划，确保旅行体验更好", aType: "P", bType: "P", cType: "J", dType: "J", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:0, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "即时决策反映了你的生活态度。感知型享受意外之喜，判断型偏好可控性。研究显示，适度的即兴行为能提升幸福感，但关键决策仍需理性规划。", empathyInsight: "生活不只有计划和安排，还需要一些意外的惊喜。说走就走的旅行可能成为最珍贵的回忆，而按部就班的计划也能带来踏实的满足感。" },
+            { id: 29, title: "社交聚会", desc: "朋友组织了一次聚会，大约有15个人参加，大部分你认识但有几个新面孔。聚会在朋友家里举行，有桌游、K歌和自由聊天等选择。你到达时，聚会已经开始了半小时，气氛正热闹。", optionA: "热情地加入正在玩游戏的人群，快速融入氛围", optionB: "先和熟悉的朋友打招呼，在舒适的小圈子里安顿下来", optionC: "主动去认识那几个新面孔，让他们感到被欢迎", optionD: "在聚会上帮忙做点事情（端饮料、整理桌面），自然地融入", aType: "E", bType: "I", cType: "F", dType: "S", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "社交聚会的参与方式反映了个人的社交策略。外向型通过广泛互动获取能量，内向型通过深度交流建立连接。没有优劣之分，关键是找到自己的舒适方式。", empathyInsight: "聚会中最温暖的人不一定是说话最多的，而是那些让每个人都感到被欢迎的人。一个小小的善意举动——帮人拿杯饮料、真诚地听对方说话——比任何社交技巧都重要。" },
+            { id: 30, title: "问题排查", desc: "线上系统突然出现了故障，用户无法正常使用。你不知道问题出在哪里，但影响面正在扩大。运维、开发、产品都在等你的判断。你需要快速定位问题并给出解决方案。", optionA: "按标准排查流程，逐一检查可能出问题的环节", optionB: "根据经验和直觉，先排查最可能的原因", optionC: "先查看系统日志和数据监控，用数据定位问题", optionD: "召集相关人员快速讨论，利用集体智慧定位问题", aType: "S", bType: "N", cType: "T", dType: "E", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "故障排查有两种基本策略：系统化排查（S型偏好）和启发式排查（N型偏好）。紧急情况下，结合两者——用直觉快速缩小范围，用系统化方法验证——最高效。", empathyInsight: "系统故障时团队压力都很大。保持冷静不仅是为了解决问题，更是为了给团队信心。承认不确定性的同时展示解决决心，是最好的领导力。" },
+            { id: 31, title: "人际关系", desc: "你注意到两位关系不错的同事最近似乎有了矛盾。他们在会议上开始避免直接交流，午餐也不再一起吃。作为团队的一员，你觉得这种氛围影响了整个团队。你不知道具体发生了什么，也不确定自己是否应该介入。", optionA: "分别找两人客观了解情况，基于事实帮他们梳理问题", optionB: "创造一个轻松的机会（如一起吃饭），让他们自然修复关系", optionC: "先观察一段时间，如果他们自己不能解决再考虑介入", optionD: "和团队一起营造积极的氛围，间接改善他们的关系", aType: "T", bType: "F", cType: "P", dType: "E", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:0, logic:0, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "人际冲突的第三方介入需要技巧。研究表明，非正式、低压力的调解比正式干预更有效。尊重当事人的自主性，同时提供支持性的环境。", empathyInsight: "看到朋友之间有隔阂，我们都会感到难过。有时候最好的帮助不是直接介入，而是创造一个温暖的环境，让关系自然修复。善意和耐心是最好的调解工具。" },
+            { id: 32, title: "自我反思", desc: "年底了，你在写年度总结。回顾这一年的经历：有成功的项目，也有失败的努力；有温暖的时刻，也有孤独的夜晚；有明确的前进，也有迷茫的徘徊。你需要给自己这一年的成长打一个分数。", optionA: "列出具体的目标和完成情况，基于客观数据给自己打分", optionB: "回顾这一年的感受和体验，基于内心的成长给自己评价", optionC: "收集他人的反馈和评价，综合多方面的视角来看自己", optionD: "思考这一年的经历让你成为了怎样的人，从更深的角度反思", aType: "T", bType: "F", cType: "E", dType: "N", aRes: {energy:0, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:0, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "自我反思的质量取决于反思的维度。基于数据的反思（T）更客观，基于感受的反思（F）更深刻。多维度的反思能给你更完整的自我认知。", empathyInsight: "不管这一年过得怎样，你已经尽力了。成功值得庆祝，失败值得感谢，迷茫值得接纳。每一段经历都塑造了今天的你，而今天的你已经足够好了。" }
+        ];
+
+        // 人格类型数据 - 基于全新人格心理学理论，包含详细描述和3类建议
+        const qxrgTypes = {
+            'INTJ': { 
+                name: '建筑师型 (INTJ)', 
+                desc: '富有想象力的战略家，一切皆在计划之中',
+                detail: '你是天生的战略家，拥有卓越的全局视野和长远规划能力。你善于从复杂的信息中发现规律，构建系统性的解决方案。你独立自主，追求知识和智慧，对事物有着深刻的洞察力。\n\n在你的世界里，一切都可以被优化和改进。你不满足于表面的解释，总是追问"为什么"，直到触及问题的本质。你享受独自思考的时光，在安静中构建自己的思想体系。\n\n你的优势在于战略思维、独立判断和坚定的执行力。你不太容易被情绪左右，更相信逻辑和数据。你对自己和他人都有很高的标准，这让你在专业领域表现出色。\n\n心理学研究表明，INTJ型约占人口的2%，是16种人格中最稀有的类型之一。你的认知功能组合是Ni-Te-Fi-Se，以内向直觉为主导，辅以外向思考。',
+                advice: [
+                    { category: '职业发展', text: '选择能让你发挥战略思维优势的领域，如科研、工程、战略规划等。不要满足于执行层面的工作，主动寻求能参与决策的机会。建立个人知识管理体系，持续深耕你的专业领域。' },
+                    { category: '人际关系', text: '学会用他人能接受的方式表达你的想法。不是所有人都能跟上你的思维速度，耐心解释和温和沟通比直接给出结论更有效。定期花时间与亲近的人进行深度交流，情感连接需要维护。' },
+                    { category: '自我成长', text: '接受不完美——不是每件事都需要做到极致。学会在"足够好"和"完美"之间找到平衡。适当放松对自己的要求，留出时间来享受生活中的小确幸。冥想和独处是你的充电方式，但也尝试偶尔走出舒适区。' }
+                ]
+            },
+            'INTP': { 
+                name: '逻辑学家型 (INTP)', 
+                desc: '富有创造力的发明家，对知识有着永不满足的渴望',
+                detail: '你是思想世界的探索者，对知识有着无尽的好奇心。你善于分析、质疑和创新，喜欢探索各种可能性。你的思维敏捷而深刻，能发现别人忽略的逻辑漏洞和潜在模式。\n\n你热衷于理解事物运作的原理，从物理学到哲学，从编程到心理学——任何能激发你思考的领域都让你着迷。你享受独自钻研的时光，在思维的海洋中自由遨游。\n\n你的优势在于创新思维、逻辑分析和解决问题的能力。你不太在意社会常规，更关注自己的想法是否正确、有趣。有时候你会沉浸在自己的思考中而忽略外部世界，但正是这种专注让你能产生突破性的想法。\n\nINTP型约占人口的3%，认知功能组合为Ti-Ne-Si-Fe。以内向思考为主导，辅以外向直觉，这让你能从一个想法跳跃到另一个想法，构建复杂的理论体系。',
+                advice: [
+                    { category: '职业发展', text: '寻找能让你自由探索和创新的工作环境，如研究、开发、分析类岗位。与执行力强的伙伴合作，他们能帮你的想法落地。设定明确的截止日期，避免在一个问题上过度钻研而忽视进度。' },
+                    { category: '人际关系', text: '主动表达你的关心，即使只是简单的一句问候。别人无法读心，你需要用言语和行动来表达情感。学会在社交场合中适当参与，哪怕只是分享你最近在思考的有趣问题。' },
+                    { category: '自我成长', text: '将你的想法付诸实践——一个被实现的80分方案比一个完美的理论更有价值。建立时间管理习惯，使用外部工具来弥补你对时间感知的不足。尝试不同的表达方式（写作、演讲、教学），把你的思想分享给世界。' }
+                ]
+            },
+            'ENTJ': { 
+                name: '指挥官型 (ENTJ)', 
+                desc: '大胆、富有想象力且意志坚强的领导者，天生擅长掌控全局',
+                detail: '你是天生的领导者，自信果断，善于组织和指挥。你拥有强大的决策能力和执行力，能迅速分析形势并采取行动。你追求效率和结果，不畏挑战，敢于承担责任。\n\n在你的带领下，团队总能找到前进的方向。你擅长制定战略目标并激励他人一起实现。你不怕做出艰难的决定，因为你相信自己的判断力——而这种自信往往是有根据的。\n\n你的优势在于领导力、战略规划和高效执行。你有着强烈的成就动机，总是追求更高的目标。你欣赏能力和效率，对自己和团队都有很高的期望。\n\nENTJ型约占人口的2%，认知功能组合为Te-Ni-Se-Fi。以外向思考为主导，辅以内向直觉，这让你既能高效组织执行，又能洞察长远趋势。',
+                advice: [
+                    { category: '职业发展', text: '大胆追求领导岗位，你的天赋在于带领团队实现宏大目标。培养倾听和授权的能力——最好的领导不是自己做所有事，而是激发每个人的潜能。持续学习新领域的知识，拓宽你的战略视野。' },
+                    { category: '人际关系', text: '在追求效率的同时，别忘了关注他人的感受。有时候一句真诚的赞美比一个高效的方案更能激励团队。学会放慢节奏，给别人思考和表达的空间。不是每个人都像你一样快速果断。' },
+                    { category: '自我成长', text: '学会接受不同的观点和工作方式——你的方法不一定总是最优的。定期反思自己的决策和领导方式，寻求可信赖的人的反馈。在工作和生活之间建立健康的边界，你的价值不仅仅在于成就。' }
+                ]
+            },
+            'ENTP': { 
+                name: '辩论家型 (ENTP)', 
+                desc: '聪明好奇的思考者，无法抗拒智力挑战',
+                detail: '你是思想领域的探险家，喜欢辩论和探讨新想法。你机智敏捷，善于发现问题和提出创新解决方案。你热衷于智力上的刺激和挑战，总能看到事物的多面性。\n\n你享受头脑交锋的快感——不是为了赢，而是为了探索真理。你天生擅长从不同角度审视问题，这种能力让你成为出色的创意来源和问题解决者。\n\n你的优势在于创新思维、适应能力和沟通表达。你能快速理解复杂概念并用自己的方式重新诠释。你充满热情和感染力，能带动周围的人一起探索新可能。\n\nENTP型约占人口的3%，认知功能组合为Ne-Ti-Fe-Si。以外向直觉为主导，辅以内向思考，这让你能不断产生新想法并用逻辑来检验它们。',
+                advice: [
+                    { category: '职业发展', text: '选择能提供持续智力刺激和多样性的职业，如创业、咨询、创意行业等。与执行力强的伙伴合作，他们能帮你把好想法变成现实。学会在产生新想法和执行现有计划之间找到平衡。' },
+                    { category: '人际关系', text: '在辩论中注意对方的感受——不是所有人都享受思想交锋，有些人可能会觉得被冒犯。学会聆听而不是等待反驳的机会。对他人的观点表示尊重，即使你不同意。' },
+                    { category: '自我成长', text: '培养专注力，选择一个最重要的项目深入下去而非同时启动十个。学会接受约束和限制——有时候限制反而能激发最好的创意。定期进行"数字排毒"，给大脑安静思考的空间。' }
+                ]
+            },
+            'INFJ': { 
+                name: '提倡者型 (INFJ)', 
+                desc: '安静而神秘，同时鼓舞人心且充满感染力',
+                detail: '你是理想主义者，富有洞察力和创造力。你善于理解他人，具有很强的直觉能力。你追求意义和深度，希望为世界带来积极的改变。\n\n你有一种近乎神奇的能力，能感知他人的情绪和动机。你不仅关心人们说了什么，更在意他们为什么这么说。这种深度共情让你成为出色的倾听者和建议者。\n\n你的优势在于洞察力、创造力和坚定的价值观。你对自己认定的目标会全力以赴，不轻易妥协。你需要独处的时间来整理思绪和恢复能量。\n\nINFJ型约占人口的1.5%，是最稀有的人格类型之一。认知功能组合为Ni-Fe-Ti-Se，以内向直觉为主导，辅以外向情感，这让你既能洞察深层意义，又能深刻理解他人。',
+                advice: [
+                    { category: '职业发展', text: '寻找能让你的价值观和才能相结合的工作，如教育、心理咨询、写作、非营利组织等。学会设定边界，保护自己的精力不被过度消耗。将你的洞察力转化为实际的行动计划。' },
+                    { category: '人际关系', text: '学会表达自己的需求——你不能总是照顾别人而忽略自己。寻找能理解你深度和复杂性的朋友，质量远比数量重要。允许自己偶尔"关闭共情模式"，你需要充电的时间。' },
+                    { category: '自我成长', text: '相信自己的直觉——它往往是正确的，但也要用事实来验证。将你的理想分解为具体的小步骤，一步一步去实现。学会接受世界的复杂性，不是所有问题都需要你来解决。' }
+                ]
+            },
+            'INFP': { 
+                name: '调停者型 (INFP)', 
+                desc: '诗意、善良的利他主义者，总是热情地帮助他人',
+                detail: '你是温和的理想主义者，内心丰富，追求内心的和谐与真实。你善于理解他人的感受，富有同情心，是很好的倾听者和支持者。\n\n你的内心世界丰富多彩，充满了价值观、梦想和对美好事物的向往。你对人性有着深刻的洞察，能感受到别人可能忽略的情感细微之处。\n\n你的优势在于创造力、共情能力和坚定的价值观。你对自己认为重要的事情会投入极大的热情。你需要时间和空间来探索自己的内心世界。\n\nINFP型约占人口的4%，认知功能组合为Fi-Ne-Si-Te。以内向情感为主导，辅以外向直觉，这让你拥有强烈的价值观和丰富的想象力。',
+                advice: [
+                    { category: '职业发展', text: '选择能表达你价值观和创造力的工作，如写作、艺术、心理咨询、教育等。找到能将你的理想主义转化为实际成果的方法。与务实的人合作，他们能帮你的梦想找到落地的路径。' },
+                    { category: '人际关系', text: '学会表达自己的需求——你的感受同样重要。不必总是取悦他人，真正的朋友会尊重你的边界。在关系中保持真实，不要为了和谐而隐藏真实的自己。' },
+                    { category: '自我成长', text: '将你的创意想法付诸实践，哪怕只是一小步。学会接受建设性批评，把它看作成长的机会而非对自我的否定。建立日常习惯来保持平衡，特别是当情绪波动时。' }
+                ]
+            },
+            'ENFJ': { 
+                name: '主人公型 (ENFJ)', 
+                desc: '富有魅力且鼓舞人心的领导者，能带动他人共同前进',
+                detail: '你是天生的教育家和领导者，善于激励和引导他人。你富有同情心，善于理解他人的需求，能够团结团队朝着共同目标前进。\n\n你有一种自然的魅力，能让人们愿意追随你。你不仅关心团队的绩效，更关心每个人的成长和幸福。你善于发现他人的潜能并帮助他们发挥出来。\n\n你的优势在于领导力、沟通能力和共情能力。你能在复杂的人际关系中找到平衡点，让每个人都被听到、被重视。\n\nENFJ型约占人口的2.5%，认知功能组合为Fe-Ni-Se-Ti。以外向情感为主导，辅以内向直觉，这让你既能敏锐感知他人需求，又能洞察深层意义。',
+                advice: [
+                    { category: '职业发展', text: '追求能让你帮助他人成长的工作，如教育、管理、人力资源、咨询等。学会将你的愿景分解为可执行的计划。在关注他人发展的同时，也别忘了自己的职业目标。' },
+                    { category: '人际关系', text: '关注自己的需求——你不能从空杯子里倒水。学会接受别人的帮助，你不必总是那个给予者。在关系中保持真诚，不要为了取悦所有人而耗尽自己。' },
+                    { category: '自我成长', text: '学会放手，让团队成员自己成长和犯错。定期独处反思，确保你在追求的是自己的目标而非别人的期望。相信你的直觉——你对人的判断通常很准确。' }
+                ]
+            },
+            'ENFP': { 
+                name: '竞选者型 (ENFP)', 
+                desc: '热情、有创造力、社交自由的探索者，总能看到生活中的可能性',
+                detail: '你是充满热情的自由灵魂，善于发现新机会和可能性。你富有创造力，善于与人交往，能够激发他人的热情和动力。\n\n你对生活充满好奇心，总是能看到事物的积极面。你善于在不同的人和想法之间建立联系，这种能力让你成为出色的创意者和连接者。\n\n你的优势在于创造力、社交能力和适应能力。你充满感染力的热情能带动周围的人一起探索新可能。你珍视自由和真实性，不喜欢被条条框框束缚。\n\nENFP型约占人口的7%，认知功能组合为Ne-Fi-Te-Si。以外向直觉为主导，辅以内向情感，这让你能不断发现新可能性并用价值观来引导选择。',
+                advice: [
+                    { category: '职业发展', text: '选择能提供多样性和创造空间的工作，如创业、媒体、设计、营销等。与组织能力强的人合作，他们能帮你把想法变成现实。学会在自由和结构之间找到平衡。' },
+                    { category: '人际关系', text: '学会深度倾听——不只是等待说话的机会，而是真正理解对方。在关系中保持承诺和一致性，不要因为新的兴趣而忽视已有的关系。对他人的反馈保持开放，即使是批评。' },
+                    { category: '自我成长', text: '培养完成一件事的能力——完成比完美更重要。建立一些日常习惯来保持稳定性，即使你觉得它们有些无聊。定期反思你的目标和价值观，确保你的精力投向真正重要的事。' }
+                ]
+            },
+            'ISTJ': { 
+                name: '物流师型 (ISTJ)', 
+                desc: '注重事实、务实且注重秩序的人，值得信赖的责任担当者',
+                detail: '你是可靠的执行者，注重细节和秩序。你善于组织和管理，是很好的问题解决者。你重视责任和承诺，值得信赖。\n\n你做事一丝不苟，喜欢按照既定的流程和标准来完成任务。你不追求花哨，但你的成果总是经得起检验。你是团队中最稳定的力量。\n\n你的优势在于可靠性、组织能力和务实精神。你能在混乱中找到秩序，在不确定中创造稳定。你的承诺一旦做出就会全力以赴。\n\nISTJ型约占人口的12%，是最常见的人格类型之一。认知功能组合为Si-Te-Fi-Ne，以内向感觉为主导，辅以外向思考，这让你能高效组织事实和数据。',
+                advice: [
+                    { category: '职业发展', text: '发挥你在组织、管理和执行方面的天赋，如财务、行政管理、工程等领域。学会展示你的成果——你的贡献值得被看到。适当接受新的工作方法，不是所有传统都是最优的。' },
+                    { category: '人际关系', text: '学会表达你的关心——你的行动已经说明了一切，但有时候言语也很重要。给自己和他人一些放松的时间，不必总是那么严肃。在亲密关系中主动分享你的感受和想法。' },
+                    { category: '自我成长', text: '学会灵活变通——计划很重要，但生活总有意外。给自己留出一些"计划外"的时间来放松和探索。尝试新事物，即使它们不在你的舒适区内。' }
+                ]
+            },
+            'ISFJ': { 
+                name: '守卫者型 (ISFJ)', 
+                desc: '非常专注、热心、温暖的守护者，默默守护着身边的人',
+                detail: '你是温暖的守护者，善于照顾他人，注重传统和责任。你富有同情心，善于倾听，是很好的朋友和支持者。\n\n你用行动来表达关心——记住每个人的喜好，在他们需要的时候默默出现。你不追求聚光灯，但你的存在让周围的人感到安全和被爱。\n\n你的优势在于关怀能力、可靠性和务实精神。你有一双善于发现他人需求的眼睛和一双愿意提供帮助的手。\n\nISFJ型约占人口的13%，认知功能组合为Si-Fe-Ti-Ne。以内向感觉为主导，辅以外向情感，这让你既注重细节又善于照顾他人感受。',
+                advice: [
+                    { category: '职业发展', text: '选择能让你帮助他人的职业，如医疗、教育、社会服务等。学会为自己的贡献争取认可——你的默默付出值得被看到。在照顾他人的同时，也关注自己的职业成长。' },
+                    { category: '人际关系', text: '学会说"不"——你不可能满足所有人的需求。表达你自己的感受和需求，真正关心你的人会理解。给自己留出独处和充电的时间，这是你维持关怀能力的基础。' },
+                    { category: '自我成长', text: '关注自己的需求——你也是一个需要被照顾的人。尝试走出舒适区，接受一些适度的挑战。相信自己的直觉和判断，你的感受和想法同样重要。' }
+                ]
+            },
+            'ESTJ': { 
+                name: '总经理型 (ESTJ)', 
+                desc: '出色的管理者，在组织和管理方面无与伦比',
+                detail: '你是务实的组织者，善于管理和执行。你注重效率和秩序，是很好的管理者和领导者。你重视传统和稳定，做事雷厉风行。\n\n你相信制度和流程的力量，善于建立高效的工作体系。你不会被情绪干扰，总是以结果为导向做出决策。你对自己和他人都有明确的期望。\n\n你的优势在于管理能力、决断力和责任心。你能在复杂的环境中建立秩序，带领团队高效运转。\n\nESTJ型约占人口的9%，认知功能组合为Te-Si-Ne-Fi。以外向思考为主导，辅以内向感觉，这让你既能高效组织执行，又能借鉴过往经验。',
+                advice: [
+                    { category: '职业发展', text: '追求管理和领导岗位，你的组织才能在这些位置上能发挥最大价值。学会灵活处理特殊情况——规则很重要，但有时需要酌情处理。培养创新思维，不要完全依赖已有的方法。' },
+                    { category: '人际关系', text: '学会倾听——团队成员的意见可能带来更好的方案。在反馈中增加正面肯定的比重，不只是指出问题。理解和尊重不同的工作方式，高效不只有一种定义。' },
+                    { category: '自我成长', text: '学会放松——工作不是生活的全部，花时间享受家人和朋友的陪伴。尝试在没有计划的情况下度过一天，你可能会发现意外的乐趣。开放心态接受新的观点和方法。' }
+                ]
+            },
+            'ESFJ': { 
+                name: '执政官型 (ESFJ)', 
+                desc: '极有同情心、爱社交的热心助人者，总把他人放在第一位',
+                detail: '你是热情的社交者，善于与人交往，注重和谐。你富有同情心，善于照顾他人，是很好的团队成员和组织者。\n\n你喜欢让每个人都感到被欢迎和被重视。你善于察觉他人的情绪变化，并主动提供帮助。你是团队中的"社交胶水"，让每个人都感到归属感。\n\n你的优势在于社交能力、组织能力和共情能力。你善于创造温暖、包容的环境，让每个人都能发挥最好的一面。\n\nESFJ型约占人口的12%，认知功能组合为Fe-Si-Ne-Ti。以外向情感为主导，辅以内向感觉，这让你既善于照顾他人又注重实际细节。',
+                advice: [
+                    { category: '职业发展', text: '选择能发挥你人际交往优势的工作，如客户服务、教育、医疗、公关等。学会为自己的成就感到骄傲——你的贡献值得认可。在帮助他人达成目标的同时，明确自己的职业方向。' },
+                    { category: '人际关系', text: '学会设置个人边界——你不需要对每个人的幸福负责。花时间独处，了解自己真正的需求和感受。接受冲突是关系的一部分，有时候直面问题比维持表面和谐更健康。' },
+                    { category: '自我成长', text: '学会独处——在安静中你能更好地了解自己。尝试独立完成一些事情，不总是依赖团队。接受改变——不是所有传统都需要坚守，有些改变能带来更好的生活。' }
+                ]
+            },
+            'ISTP': { 
+                name: '鉴赏家型 (ISTP)', 
+                desc: '大胆而实际的实验者，擅长动手解决问题',
+                detail: '你是务实的问题解决者，善于分析和动手。你灵活机智，善于应对突发情况，喜欢探索和实践。\n\n你不太喜欢理论探讨，更喜欢亲自动手去尝试。你对事物如何运作有着天然的好奇心，喜欢拆解和重组。你是危机时刻最冷静的那个人。\n\n你的优势在于动手能力、分析能力和应变能力。你善于在高压环境中保持冷静，找到最直接的解决方案。\n\nISTP型约占人口的5%，认知功能组合为Ti-Se-Ni-Fe。以内向思考为主导，辅以外向感觉，这让你能精准分析并灵活应对当下环境。',
+                advice: [
+                    { category: '职业发展', text: '选择需要动手能力和分析思维的职业，如工程、技术、手工艺等。学会在行动前做一些规划——不是所有问题都需要立即动手。培养沟通能力，让你的技术见解能被更多人理解。' },
+                    { category: '人际关系', text: '学会表达你的情感——行动固然重要，但言语也能传递关心。在关系中多一些耐心和投入，不要总是保持距离。接受他人的情感表达，即使你觉得不必要。' },
+                    { category: '自我成长', text: '尝试设定一些长期目标——短期效率固然重要，但长远规划能带来更大的成就感。学会接受不确定性，不是所有事情都能被完全理解和掌控。培养一项需要持续投入的兴趣或技能。' }
+                ]
+            },
+            'ISFP': { 
+                name: '探险家型 (ISFP)', 
+                desc: '灵活有魅力的艺术家，随时准备探索和体验新事物',
+                detail: '你是温柔的艺术家，善于感受和表达美。你注重当下，善于享受生活，是很好的伴侣和朋友。\n\n你用感官来体验世界——美的画面、动听的音乐、温暖的触感都能深深打动你。你不太喜欢被规则束缚，更喜欢按照自己的节奏生活。\n\n你的优势在于审美能力、适应能力和真诚。你对美和和谐有着天生的敏感，能在平凡中发现不平凡。\n\nISFP型约占人口的6%，认知功能组合为Fi-Se-Ni-Te。以内向情感为主导，辅以外向感觉，这让你拥有强烈的审美感和对当下体验的敏锐度。',
+                advice: [
+                    { category: '职业发展', text: '追求能发挥你创造力和审美感的工作，如设计、艺术、手工艺、护理等。学会将你的天赋转化为市场需要的技能。与组织能力强的人合作，他们能帮你处理你不擅长的行政事务。' },
+                    { category: '人际关系', text: '学会用言语表达你的感受——你的内心丰富，让别人了解你会加深关系。在关系中保持沟通，不要总是用沉默来应对冲突。接受他人的关心和帮助，你不需要总是独立面对一切。' },
+                    { category: '自我成长', text: '尝试制定一些简单的计划和目标——它们能帮你的创造力找到方向。学会接受建设性反馈，它是成长的催化剂。培养自律习惯，特别是对于那些不太有趣但必要的事情。' }
+                ]
+            },
+            'ESTP': { 
+                name: '企业家型 (ESTP)', 
+                desc: '聪明、精力充沛且善于感知的行动者，总能抓住当下的机会',
+                detail: '你是精力充沛的行动者，善于把握机会。你勇敢果断，善于应对挑战，是很好的问题解决者和领导者。\n\n你活在当下，对周围的环境有着敏锐的感知。你不喜欢过度分析，更倾向于直接行动、快速试错。你是危机中最可靠的那个人。\n\n你的优势在于应变能力、行动力和社交能力。你能在瞬息万变的环境中迅速做出判断并采取行动。\n\nESTP型约占人口的4%，认知功能组合为Se-Ti-Fe-Ni。以外向感觉为主导，辅以内向思考，这让你能敏锐感知环境并快速做出逻辑判断。',
+                advice: [
+                    { category: '职业发展', text: '选择充满变化和挑战的工作，如销售、创业、应急管理等。学会在做决定前多思考一步——冲动有时会带来不必要的风险。培养长期规划能力来平衡你的短期行动力。' },
+                    { category: '人际关系', text: '学会考虑他人的感受——你的直率有时可能无意中伤害别人。在关系中多一些耐心和深度，不只是停留在表面的互动。对他人的情感需求多一些敏感度。' },
+                    { category: '自我成长', text: '学会三思而后行——给自己一点时间评估后果再行动。培养耐心，有些收获需要时间来积累。设定一些长期目标，让你的行动力和精力投向有持久价值的方向。' }
+                ]
+            },
+            'ESFP': { 
+                name: '表演者型 (ESFP)', 
+                desc: '自发的、精力充沛的表演者，生活永远不会枯燥',
+                detail: '你是热情的表演者，善于与人交往，享受生活。你富有魅力，善于娱乐他人，是很好的团队成员和朋友。\n\n你天生就是人群中的焦点，能用你的热情和幽默感染周围的人。你喜欢让每个人都开心，善于创造欢乐的氛围。\n\n你的优势在于社交能力、适应能力和乐观精神。你能在社交场合中如鱼得水，让每个人都感到愉快和被接纳。\n\nESFP型约占人口的8%，认知功能组合为Se-Fi-Te-Ni。以外向感觉为主导，辅以内向情感，这让你能充分体验当下并用价值观来引导行为。',
+                advice: [
+                    { category: '职业发展', text: '选择能发挥你社交天赋的工作，如表演、销售、服务行业、活动策划等。学会发展专业技能来支撑你的社交优势。在追求新鲜感的同时，保持对长期目标的关注。' },
+                    { category: '人际关系', text: '学会深度倾听——不只是分享自己的故事，也给别人表达的空间。在关系中保持一致性，不要因为追求新鲜感而忽视已有的关系。对他人的需求保持敏感，不是所有人都像你一样外向。' },
+                    { category: '自我成长', text: '学会独处——在安静中你能更好地了解自己。培养长期规划的习惯，平衡当下的快乐和未来的目标。尝试深度阅读或学习，拓展你获取满足感的方式。' }
+                ]
+            }
+        };
+
+        // 拖动相关变量
+        let isDragging = false;
+        let isLongPress = false;
+        let longPressTimer = null;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let cardStartX = 0;
+        let cardStartY = 0;
+        let currentHoveredSlot = null;
+        let currentHoveredInsight = null;
+
+        // 初始化游戏
+        function initGame() {
+            gameState.currentPage = 'game';
+            gameState.currentCardIndex = 0;
+            gameState.resources = { energy: 10, maxEnergy: 10, logic: 5, maxLogic: 10, empathy: 5, maxEmpathy: 10 };
+            gameState.qxrgScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+            gameState.totalScore = 0;
+            gameState.insightUsed = {};
+            gameState.resourceUsed = { energy: 0, logic: 0, empathy: 0 };
+            
+            // 随机排列但确保题目分布均衡：每8道题包含所有4个维度的题目
+            // 先将题目按维度分组，再交替抽取，确保各维度均匀分布
+            const grouped = { EI: [], SN: [], TF: [], JP: [], MIX: [] };
+            qxrgCards.forEach(card => {
+                const types = [card.aType, card.bType, card.cType, card.dType];
+                if (types.some(t => t === 'E' || t === 'I') && !types.some(t => ['S','N','T','F','J','P'].includes(t) && !['E','I'].includes(t))) {
+                    // 纯EI维度
+                    if (grouped.EI.length < 8) grouped.EI.push(card);
+                    else grouped.MIX.push(card);
+                } else if (types.some(t => t === 'S' || t === 'N') && !types.some(t => ['E','I','T','F','J','P'].includes(t) && !['S','N'].includes(t))) {
+                    if (grouped.SN.length < 8) grouped.SN.push(card);
+                    else grouped.MIX.push(card);
+                } else if (types.some(t => t === 'T' || t === 'F') && !types.some(t => ['E','I','S','N','J','P'].includes(t) && !['T','F'].includes(t))) {
+                    if (grouped.TF.length < 8) grouped.TF.push(card);
+                    else grouped.MIX.push(card);
+                } else if (types.some(t => t === 'J' || t === 'P') && !types.some(t => ['E','I','S','N','T','F'].includes(t) && !['J','P'].includes(t))) {
+                    if (grouped.JP.length < 8) grouped.JP.push(card);
+                    else grouped.MIX.push(card);
+                } else {
+                    grouped.MIX.push(card);
+                }
+            });
+            
+            // 交替排列确保维度均匀分布
+            const sortedCards = [];
+            const maxLen = Math.max(grouped.EI.length, grouped.SN.length, grouped.TF.length, grouped.JP.length, grouped.MIX.length);
+            for (let i = 0; i < maxLen; i++) {
+                if (i < grouped.EI.length) sortedCards.push(grouped.EI[i]);
+                if (i < grouped.SN.length) sortedCards.push(grouped.SN[i]);
+                if (i < grouped.TF.length) sortedCards.push(grouped.TF[i]);
+                if (i < grouped.JP.length) sortedCards.push(grouped.JP[i]);
+                if (i < grouped.MIX.length) sortedCards.push(grouped.MIX[i]);
+            }
+            gameState.cards = sortedCards;
+            
+            // 初始化情绪显示
+            gameState.mood = { calm: 5, anxiety: 5 };
+            gameState._anxietyBubbleActive = false;
+            gameState._calmBubbleActive = false;
+            
+            updateResourceBars();
+            updateMoodDisplay();
+            updateProgress();
+            showCurrentCard();
+            setupDragEvents();
+            
+            // 自动弹出游戏说明并模糊游戏页面
+            setTimeout(() => {
+                const guidePopup = document.getElementById('guide-popup');
+                const gameMainPage = document.getElementById('game-main-page');
+                if (guidePopup) {
+                    guidePopup.classList.remove('hidden');
+                }
+                if (gameMainPage) {
+                    gameMainPage.style.filter = 'blur(8px)';
+                }
+            }, 300);
+        }
+
+        // 设置拖动事件
+        function setupDragEvents() {
+            const card = document.getElementById('event-card');
+            if (!card) return;
+
+            card.addEventListener('mousedown', handleDragStart);
+            card.addEventListener('touchstart', handleDragStart, { passive: true });
+            
+            document.addEventListener('mousemove', handleDragMove);
+            document.addEventListener('touchmove', handleDragMove, { passive: true });
+            
+            document.addEventListener('mouseup', handleDragEnd);
+            document.addEventListener('touchend', handleDragEnd);
+            document.addEventListener('mouseleave', handleDragEnd);
+            document.addEventListener('touchcancel', handleDragEnd);
+        }
+
+        // 开始拖动
+        function handleDragStart(e) {
+            const touch = e.touches ? e.touches[0] : e;
+            dragStartX = touch.clientX;
+            dragStartY = touch.clientY;
+            
+            const card = document.getElementById('event-card');
+            if (card) {
+                const rect = card.getBoundingClientRect();
+                cardStartX = rect.left;
+                cardStartY = rect.top;
+            }
+
+            longPressTimer = setTimeout(() => {
+                activateLongPress();
+            }, 500);
+        }
+
+        // 长按激活
+        function activateLongPress() {
+            isLongPress = true;
+            
+            const card = document.getElementById('event-card');
+            if (card) {
+                card.classList.add('long-press');
+            }
+            
+            const slots = ['slot-a', 'slot-b', 'slot-c', 'slot-d'];
+            slots.forEach(slotId => {
+                const slot = document.getElementById(slotId);
+                if (slot) {
+                    slot.classList.add('slot-highlight');
+                }
+            });
+            
+            const logicEye = document.getElementById('logic-eye');
+            const empathyEye = document.getElementById('empathy-eye');
+            if (logicEye && gameState.resources.logic >= 1 && !gameState.insightUsed[gameState.currentCardIndex]) {
+                logicEye.classList.add('insight-highlight');
+            }
+            if (empathyEye && gameState.resources.empathy >= 1 && !gameState.insightUsed[gameState.currentCardIndex]) {
+                empathyEye.classList.add('insight-highlight');
+            }
+        }
+
+        // 拖动中
+        function handleDragMove(e) {
+            if (!isLongPress && !isDragging) return;
+            
+            const touch = e.touches ? e.touches[0] : e;
+            const deltaX = touch.clientX - dragStartX;
+            const deltaY = touch.clientY - dragStartY;
+            
+            if (!isDragging && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)) {
+                isDragging = true;
+                
+                if (longPressTimer) {
+                    clearTimeout(longPressTimer);
+                    activateLongPress();
+                }
+                
+                const card = document.getElementById('event-card');
+                if (card) {
+                    // 先记录原始尺寸
+                    const rect = card.getBoundingClientRect();
+                    card.dataset.originalWidth = rect.width;
+                    card.dataset.originalHeight = rect.height;
+                    
+                    card.classList.add('dragging');
+                    card.classList.remove('long-press');
+                    card.style.position = 'fixed';
+                    card.style.left = cardStartX + 'px';
+                    card.style.top = cardStartY + 'px';
+                }
+            }
+            
+            if (isDragging) {
+                const card = document.getElementById('event-card');
+                if (card) {
+                    card.style.left = (cardStartX + deltaX) + 'px';
+                    card.style.top = (cardStartY + deltaY) + 'px';
+                }
+                
+                checkHover(touch.clientX, touch.clientY);
+            }
+        }
+
+        // 检测悬停
+        function checkHover(x, y) {
+            const slots = ['slot-a', 'slot-b', 'slot-c', 'slot-d'];
+            let hoveredSlot = null;
+            
+            for (const slotId of slots) {
+                const slot = document.getElementById(slotId);
+                if (slot) {
+                    const rect = slot.getBoundingClientRect();
+                    if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+                        hoveredSlot = slotId;
+                        break;
+                    }
+                }
+            }
+            
+            let hoveredInsight = null;
+            const logicEye = document.getElementById('logic-eye');
+            const empathyEye = document.getElementById('empathy-eye');
+            
+            if (logicEye) {
+                const rect = logicEye.getBoundingClientRect();
+                if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+                    hoveredInsight = 'logic';
+                }
+            }
+            
+            if (!hoveredInsight && empathyEye) {
+                const rect = empathyEye.getBoundingClientRect();
+                if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+                    hoveredInsight = 'empathy';
+                }
+            }
+            
+            if (currentHoveredSlot !== hoveredSlot) {
+                if (currentHoveredSlot) {
+                    const prevSlot = document.getElementById(currentHoveredSlot);
+                    if (prevSlot) {
+                        prevSlot.classList.remove('slot-hovering');
+                    }
+                }
+                
+                if (hoveredSlot) {
+                    const newSlot = document.getElementById(hoveredSlot);
+                    if (newSlot) {
+                        newSlot.classList.add('slot-hovering');
+                    }
+                }
+                
+                currentHoveredSlot = hoveredSlot;
+            }
+            
+            currentHoveredInsight = hoveredInsight;
+        }
+
+        // 拖动结束
+        function handleDragEnd() {
+            if (longPressTimer) {
+                clearTimeout(longPressTimer);
+                longPressTimer = null;
+            }
+            
+            const card = document.getElementById('event-card');
+            if (!card) return;
+            
+            // 记录是否已经做了放置操作
+            const didDrop = isDragging && (currentHoveredSlot || currentHoveredInsight);
+            
+            if (isDragging && !didDrop) {
+                // 没有放到目标位置，卡牌归还原位，带丝滑动画
+                card.classList.add('returning');
+                card.classList.remove('dragging', 'long-press');
+                card.style.position = 'fixed';
+                // 保持当前位置不动，然后动画回到原位
+                setTimeout(() => {
+                    card.style.left = cardStartX + 'px';
+                    card.style.top = cardStartY + 'px';
+                }, 10);
+                // 动画结束后清除
+                setTimeout(() => {
+                    card.classList.remove('returning');
+                    card.style.position = '';
+                    card.style.left = '';
+                    card.style.top = '';
+                    card.style.transform = '';
+                    card.style.opacity = '';
+                }, 400);
+            } else {
+                card.classList.remove('long-press', 'dragging', 'returning');
+                card.style.position = '';
+                card.style.left = '';
+                card.style.top = '';
+                card.style.transform = '';
+                card.style.opacity = '';
+            }
+            
+            const slots = ['slot-a', 'slot-b', 'slot-c', 'slot-d'];
+            slots.forEach(slotId => {
+                const slot = document.getElementById(slotId);
+                if (slot) {
+                    slot.classList.remove('slot-highlight', 'slot-hovering');
+                }
+            });
+            
+            const logicEye = document.getElementById('logic-eye');
+            const empathyEye = document.getElementById('empathy-eye');
+            if (logicEye) logicEye.classList.remove('insight-highlight');
+            if (empathyEye) empathyEye.classList.remove('insight-highlight');
+            
+            if (isDragging && currentHoveredSlot) {
+                dropToSlot(currentHoveredSlot);
+            } else if (isDragging && currentHoveredInsight) {
+                useInsight(currentHoveredInsight);
+            }
+            
+            isDragging = false;
+            isLongPress = false;
+            currentHoveredSlot = null;
+            currentHoveredInsight = null;
+        }
+
+        // 放置到选项槽
+        function dropToSlot(slotId) {
+            const slot = document.getElementById(slotId);
+            if (slot) {
+                slot.classList.add('slot-success');
+                setTimeout(() => slot.classList.remove('slot-success'), 400);
+            }
+            
+            const slotType = slotId.split('-')[1].toUpperCase();
+            selectOption(slotType);
+        }
+
+        // 使用洞察
+        function useInsight(insightType) {
+            const card = gameState.cards[gameState.currentCardIndex];
+            if (!card) return;
+            
+            if (gameState.insightUsed[gameState.currentCardIndex]) {
+                showNotification('每张卡牌只能使用一次洞察', 'warning');
+                return;
+            }
+            
+            if (insightType === 'logic' && gameState.resources.logic < 1) {
+                showNotification('逻辑值不足', 'warning');
+                return;
+            }
+            if (insightType === 'empathy' && gameState.resources.empathy < 1) {
+                showNotification('共情值不足', 'warning');
+                return;
+            }
+            
+            if (insightType === 'logic') {
+                gameState.resources.logic = Math.max(1, gameState.resources.logic - 0.5);
+            } else {
+                gameState.resources.empathy = Math.max(1, gameState.resources.empathy - 0.5);
+            }
+            
+            gameState.insightUsed[gameState.currentCardIndex] = true;
+            updateResourceBars();
+            
+            const eye = document.getElementById(insightType === 'logic' ? 'logic-eye' : 'empathy-eye');
+            if (eye) {
+                eye.classList.add('insight-success');
+                setTimeout(() => eye.classList.remove('insight-success'), 600);
+            }
+            
+            const insightContent = insightType === 'logic' ? card.logicInsight : card.empathyInsight;
+            const insightTitle = insightType === 'logic' ? '🧠 逻辑洞察' : '❤️ 共情洞察';
+            const insightColor = insightType === 'logic' ? 'from-cyan-500 to-blue-500' : 'from-pink-500 to-rose-500';
+            
+            showInsightModal(insightTitle, insightContent, insightColor);
+            
+            if (gameState.insightUsed[gameState.currentCardIndex]) {
+                disableInsightEyes();
+            }
+        }
+
+        // 显示洞察弹窗
+        function showInsightModal(title, content, gradientClass) {
+            // 模糊游戏主页面
+            const gameMain = document.getElementById('game-main-page');
+            if (gameMain) gameMain.style.filter = 'blur(8px)';
+            
+            // 确定是逻辑洞察还是共情洞察
+            const isLogic = title.includes('逻辑');
+            
+            // 设置颜色
+            const titleColor = isLogic ? '#66cdf0' : '#ea62a3';
+            const btnBgColor = isLogic ? '#58c5f3' : '#e26fc9';
+            const glowColor = isLogic 
+                ? 'rgba(88, 197, 243, 0.6), 0 0 30px rgba(102, 205, 240, 0.3), 0 0 60px rgba(88, 197, 243, 0.15)'
+                : 'rgba(226, 111, 201, 0.6), 0 0 30px rgba(234, 98, 163, 0.3), 0 0 60px rgba(226, 111, 201, 0.15)';
+            
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4';
+            modal.id = 'insight-modal-overlay';
+            modal.innerHTML = `
+                <div class="bg-gradient-to-br from-gray-800/90 to-gray-900/90 rounded-2xl p-6 max-w-md w-full border-2 border-white/20 shadow-2xl animate-fade-in" style="box-shadow: 0 0 20px ${glowColor};">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold" style="color: ${titleColor};">${title}</h3>
+                        <button id="close-insight-modal" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
+                            ✕
+                        </button>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">${content}</p>
+                    <button id="insight-ok-btn" class="mt-6 w-full py-3 rounded-xl font-medium hover:scale-105 transition-transform" style="background-color: ${btnBgColor}; box-shadow: 0 0 15px ${glowColor};">
+                        我知道了
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            const closeBtn = modal.querySelector('#close-insight-modal');
+            const okBtn = modal.querySelector('#insight-ok-btn');
+            
+            const closeModal = () => {
+                modal.remove();
+                // 恢复模糊
+                if (gameMain) gameMain.style.filter = '';
+            };
+            
+            closeBtn.addEventListener('click', closeModal);
+            okBtn.addEventListener('click', closeModal);
+        }
+
+        // 禁用洞察之眼
+        function disableInsightEyes() {
+            const logicEye = document.getElementById('logic-eye');
+            const empathyEye = document.getElementById('empathy-eye');
+            if (logicEye) logicEye.classList.add('disabled');
+            if (empathyEye) empathyEye.classList.add('disabled');
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl text-white font-medium shadow-lg z-50 animate-fade-in ${
+                type === 'warning' ? 'bg-red-500' : 'bg-green-500'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 2000);
+        }
+
+        // 显示当前卡牌
+        function showCurrentCard() {
+            const card = gameState.cards[gameState.currentCardIndex];
+            if (!card) {
+                showResult();
+                return;
+            }
+
+            const cardTitle = document.getElementById('card-title');
+            const cardDesc = document.getElementById('card-description');
+            const slotAText = document.getElementById('slot-a-text');
+            const slotBText = document.getElementById('slot-b-text');
+            const slotCText = document.getElementById('slot-c-text');
+            const slotDText = document.getElementById('slot-d-text');
+
+            if (cardTitle) cardTitle.textContent = card.title;
+            if (cardDesc) cardDesc.textContent = card.desc;
+            if (slotAText) slotAText.textContent = card.optionA;
+            if (slotBText) slotBText.textContent = card.optionB;
+            if (slotCText) slotCText.textContent = card.optionC;
+            if (slotDText) slotDText.textContent = card.optionD;
+
+            updateProgress();
+
+            const eventCard = document.getElementById('event-card');
+            if (eventCard) {
+                eventCard.classList.add('card-enter');
+                setTimeout(() => eventCard.classList.remove('card-enter'), 400);
+            }
+            
+            const logicEye = document.getElementById('logic-eye');
+            const empathyEye = document.getElementById('empathy-eye');
+            
+            if (logicEye) logicEye.classList.remove('disabled');
+            if (empathyEye) empathyEye.classList.remove('disabled');
+            
+            if (gameState.insightUsed[gameState.currentCardIndex]) {
+                disableInsightEyes();
+            }
+        }
+
+        // 更新进度
+        function updateProgress() {
+            const cardIndex = document.getElementById('card-index');
+            const totalCards = document.getElementById('total-cards');
+            const progressBar = document.getElementById('game-progress-bar');
+            
+            const total = gameState.cards.length;
+            const current = gameState.currentCardIndex + 1;
+            
+            if (cardIndex) cardIndex.textContent = current;
+            if (totalCards) totalCards.textContent = total;
+            if (progressBar) progressBar.style.width = `${(current / total) * 100}%`;
+        }
+
+        // 更新资源条
+        function updateResourceBars() {
+            const energyBar = document.getElementById('energy-bar');
+            const logicBar = document.getElementById('logic-bar');
+            const empathyBar = document.getElementById('empathy-bar');
+            const energyText = document.getElementById('energy-text');
+            const logicText = document.getElementById('logic-text');
+            const empathyText = document.getElementById('empathy-text');
+
+            if (energyBar) energyBar.style.width = `${(gameState.resources.energy / gameState.resources.maxEnergy) * 100}%`;
+            if (logicBar) logicBar.style.width = `${(gameState.resources.logic / gameState.resources.maxLogic) * 100}%`;
+            if (empathyBar) empathyBar.style.width = `${(gameState.resources.empathy / gameState.resources.maxEmpathy) * 100}%`;
+            
+            if (energyText) energyText.textContent = Math.round(gameState.resources.energy);
+            if (logicText) logicText.textContent = Math.round(gameState.resources.logic);
+            if (empathyText) empathyText.textContent = Math.round(gameState.resources.empathy);
+        }
+
+        // 资源恢复函数
+        function restoreResources() {
+            const cardIndex = gameState.currentCardIndex;
+            
+            if (cardIndex % 5 === 0 && cardIndex > 0) {
+                gameState.resources.energy = Math.min(gameState.resources.maxEnergy, gameState.resources.energy + 2);
+                gameState.resources.logic = Math.min(gameState.resources.maxLogic, gameState.resources.logic + 1);
+                gameState.resources.empathy = Math.min(gameState.resources.maxEmpathy, gameState.resources.empathy + 1);
+                updateResourceBars();
+            }
+        }
+
+        // 选择选项 - 根据答案调整各维度分数和资源值
+        function selectOption(slotType) {
+            const card = gameState.cards[gameState.currentCardIndex];
+            if (!card) return;
+
+            let selectedType = '';
+            let resEffect = null;
+            switch(slotType) {
+                case 'A': selectedType = card.aType; resEffect = card.aRes; break;
+                case 'B': selectedType = card.bType; resEffect = card.bRes; break;
+                case 'C': selectedType = card.cType; resEffect = card.cRes; break;
+                case 'D': selectedType = card.dType; resEffect = card.dRes; break;
+            }
+
+            // 检查精力值是否为0 - 有趣玩法：可以继续选择但触发特殊效果
+            const energyDepleted = gameState.resources.energy <= 0;
+            if (energyDepleted) {
+                // 精力耗尽特殊效果
+                triggerEnergyDepletedEffect(card, selectedType);
+            }
+
+            // 累加人格维度分数（不受精力值影响，确保答案准确性）
+            gameState.qxrgScores[selectedType]++;
+            gameState.totalScore++;
+
+            // 根据答案选项调整资源值（精力、逻辑、共情）
+            if (resEffect) {
+                if (resEffect.energy) {
+                    gameState.resources.energy = Math.max(0, Math.min(gameState.resources.maxEnergy, gameState.resources.energy + resEffect.energy));
+                    if (resEffect.energy < 0) gameState.resourceUsed.energy += Math.abs(resEffect.energy);
+                }
+                if (resEffect.logic) {
+                    gameState.resources.logic = Math.max(0, Math.min(gameState.resources.maxLogic, gameState.resources.logic + resEffect.logic));
+                    if (resEffect.logic < 0) gameState.resourceUsed.logic += Math.abs(resEffect.logic);
+                }
+                if (resEffect.empathy) {
+                    gameState.resources.empathy = Math.max(0, Math.min(gameState.resources.maxEmpathy, gameState.resources.empathy + resEffect.empathy));
+                    if (resEffect.empathy < 0) gameState.resourceUsed.empathy += Math.abs(resEffect.empathy);
+                }
+            }
+
+            // 更新冷静/焦虑值
+            updateMood(slotType, resEffect);
+
+            updateResourceBars();
+
+            gameState.currentCardIndex++;
+            
+            restoreResources();
+            
+            const eventCard = document.getElementById('event-card');
+            if (eventCard) {
+                eventCard.classList.add('card-exit');
+                setTimeout(() => {
+                    eventCard.classList.remove('card-exit');
+                    showCurrentCard();
+                }, 300);
+            } else {
+                showCurrentCard();
+            }
+        }
+
+        // 精力耗尽时的特殊效果 - 有趣但不影响最终答案
+        function triggerEnergyDepletedEffect(card, selectedType) {
+            // 屏幕边缘泛红脉冲
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 pointer-events-none z-40';
+            overlay.style.cssText = `
+                background: radial-gradient(ellipse at center, transparent 40%, rgba(220, 38, 38, 0.3) 100%);
+                animation: energyDepletedPulse 1.2s ease-in-out 3;
+            `;
+            document.body.appendChild(overlay);
+            setTimeout(() => overlay.remove(), 3600);
+
+            // 添加脉冲动画（如果不存在）
+            if (!document.getElementById('energy-depleted-style')) {
+                const style = document.createElement('style');
+                style.id = 'energy-depleted-style';
+                style.textContent = `
+                    @keyframes energyDepletedPulse {
+                        0%, 100% { opacity: 0.4; }
+                        50% { opacity: 1; }
+                    }
+                    @keyframes energyDepletedShake {
+                        0%, 100% { transform: translateX(0); }
+                        10%, 50%, 90% { transform: translateX(-3px); }
+                        30%, 70% { transform: translateX(3px); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // 卡牌抖动
+            const cardEl = document.getElementById('event-card');
+            if (cardEl) {
+                cardEl.style.animation = 'energyDepletedShake 0.6s ease-in-out';
+                setTimeout(() => { cardEl.style.animation = ''; }, 600);
+            }
+
+            // 有趣的提示文字
+            const phrases = [
+                '💤 你太累了...但你咬紧牙关继续前行！',
+                '🫠 精力已经见底，但你的意志力接管了一切...',
+                '😵 眼睛都快睁不开了，但直觉带你做出了选择！',
+                '🥱 哈欠连天中...有时候不需要思考，跟着心走吧！',
+                '💀 燃尽了！你用自己的灵魂做出了这个决定...',
+                '🌙 疲惫中的选择往往最真实，因为它来自本能。',
+                '⚡ 你的身体说"不"，但你的心灵说"继续"！'
+            ];
+            const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+
+            // 显示提示
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 30%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(220, 38, 38, 0.9);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 16px;
+                font-weight: bold;
+                font-size: 14px;
+                z-index: 50;
+                animation: fadeIn 0.3s ease-out, fadeOut 0.5s 2.5s ease-in forwards;
+                text-align: center;
+                box-shadow: 0 4px 30px rgba(220, 38, 38, 0.5);
+                max-width: 80vw;
+            `;
+            toast.textContent = phrase;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3200);
+
+            // 添加fadeOut动画（如果不存在）
+            if (!document.getElementById('toast-fadeout-style')) {
+                const toastStyle = document.createElement('style');
+                toastStyle.id = 'toast-fadeout-style';
+                toastStyle.textContent = `
+                    @keyframes fadeOut {
+                        to { opacity: 0; transform: translate(-50%, -50%) translateY(-20px); }
+                    }
+                `;
+                document.head.appendChild(toastStyle);
+            }
+        }
+
+        // 更新冷静/焦虑值
+        function updateMood(slotType, resEffect) {
+            // 根据选项类型和资源效果调整情绪
+            let calmChange = 0;
+            let anxietyChange = 0;
+
+            // T型(思考)选项增加冷静，F型(情感)选项可能增加焦虑或冷静
+            const card = gameState.cards[gameState.currentCardIndex];
+            let selectedType = '';
+            switch(slotType) {
+                case 'A': selectedType = card.aType; break;
+                case 'B': selectedType = card.bType; break;
+                case 'C': selectedType = card.cType; break;
+                case 'D': selectedType = card.dType; break;
+            }
+
+            // 基于选择的人格维度调整情绪
+            if (selectedType === 'T') {
+                calmChange += 1;
+                anxietyChange -= 0.5;
+            } else if (selectedType === 'F') {
+                anxietyChange += 0.5;
+            } else if (selectedType === 'J') {
+                calmChange += 0.5;
+            } else if (selectedType === 'P') {
+                anxietyChange += 0.5;
+            } else if (selectedType === 'E') {
+                anxietyChange -= 0.3;
+            } else if (selectedType === 'I') {
+                calmChange += 0.3;
+            } else if (selectedType === 'S') {
+                calmChange += 0.3;
+            } else if (selectedType === 'N') {
+                anxietyChange += 0.3;
+            }
+
+            // 根据资源消耗调整
+            if (resEffect) {
+                if (resEffect.energy && resEffect.energy < 0) {
+                    anxietyChange += 0.3;
+                }
+                if (resEffect.empathy && resEffect.empathy < 0) {
+                    anxietyChange += 0.2;
+                }
+                if (resEffect.empathy && resEffect.empathy > 0) {
+                    calmChange += 0.2;
+                }
+            }
+
+            // 应用变化，保持总和为10
+            gameState.mood.calm = Math.max(0, Math.min(10, gameState.mood.calm + calmChange));
+            gameState.mood.anxiety = Math.max(0, Math.min(10, gameState.mood.anxiety + anxietyChange));
+            
+            // 确保总和不超过10
+            const total = gameState.mood.calm + gameState.mood.anxiety;
+            if (total > 10) {
+                const excess = total - 10;
+                gameState.mood.calm = Math.max(0, gameState.mood.calm - excess / 2);
+                gameState.mood.anxiety = Math.max(0, gameState.mood.anxiety - excess / 2);
+            }
+
+            updateMoodDisplay();
+        }
+
+        // 更新情绪显示
+        function updateMoodDisplay() {
+            const calmText = document.getElementById('calm-text');
+            const anxietyText = document.getElementById('anxiety-text');
+            const moodEmoji = document.getElementById('mood-emoji');
+
+            const calm = Math.round(gameState.mood.calm);
+            const anxiety = Math.round(gameState.mood.anxiety);
+
+            if (calmText) calmText.textContent = `冷静${calm}`;
+            if (anxietyText) anxietyText.textContent = `焦虑${anxiety}`;
+
+            // 根据焦虑值切换表情和特殊效果
+            if (moodEmoji) {
+                if (anxiety >= 8) {
+                    moodEmoji.textContent = '😰';
+                } else if (anxiety >= 6) {
+                    moodEmoji.textContent = '😟';
+                } else if (anxiety >= 4) {
+                    moodEmoji.textContent = '😐';
+                } else if (anxiety >= 2) {
+                    moodEmoji.textContent = '😊';
+                } else {
+                    moodEmoji.textContent = '😌';
+                }
+            }
+
+            // 根据焦虑值触发游戏趣味效果
+            triggerMoodEffects(calm, anxiety);
+        }
+
+        // 根据情绪状态触发趣味效果
+        function triggerMoodEffects(calm, anxiety) {
+            const gameContainer = document.getElementById('game-main-page');
+            const card = document.getElementById('event-card');
+            const slots = ['slot-a', 'slot-b', 'slot-c', 'slot-d'];
+
+            // 清除之前的情绪class
+            if (gameContainer) {
+                gameContainer.classList.remove('mood-panic', 'mood-tense', 'mood-chill', 'mood-zen');
+            }
+            if (card) {
+                card.classList.remove('anxiety-shake', 'calm-glow');
+            }
+
+            // 焦虑值 >= 8: 恐慌模式 - 背景微微泛红，卡牌抖动
+            if (anxiety >= 8) {
+                if (gameContainer) gameContainer.classList.add('mood-panic');
+                if (card) card.classList.add('anxiety-shake');
+                // 每隔一段时间弹出一个焦虑气泡
+                if (!gameState._anxietyBubbleActive) {
+                    gameState._anxietyBubbleActive = true;
+                    showAnxietyBubble();
+                }
+            }
+            // 焦虑值 6-7: 紧张模式
+            else if (anxiety >= 6) {
+                if (gameContainer) gameContainer.classList.add('mood-tense');
+                gameState._anxietyBubbleActive = false;
+            }
+            // 冷静值 >= 8: 禅意模式 - 微微发光
+            else if (calm >= 8) {
+                if (gameContainer) gameContainer.classList.add('mood-zen');
+                if (card) card.classList.add('calm-glow');
+                gameState._anxietyBubbleActive = false;
+                // 冷静时偶尔弹出鼓励气泡
+                if (!gameState._calmBubbleActive) {
+                    gameState._calmBubbleActive = true;
+                    showCalmBubble();
+                }
+            }
+            // 冷静值 6-7: 轻松模式
+            else if (calm >= 6) {
+                if (gameContainer) gameContainer.classList.add('mood-chill');
+                gameState._anxietyBubbleActive = false;
+                gameState._calmBubbleActive = false;
+            }
+            else {
+                gameState._anxietyBubbleActive = false;
+                gameState._calmBubbleActive = false;
+            }
+
+            // 决策槽在焦虑高时微微抖动
+            if (anxiety >= 7) {
+                slots.forEach(slotId => {
+                    const slot = document.getElementById(slotId);
+                    if (slot) {
+                        slot.style.animation = 'moodSlotShake 0.5s ease-in-out infinite';
+                        slot.style.animationDelay = Math.random() * 0.3 + 's';
+                    }
+                });
+            } else {
+                slots.forEach(slotId => {
+                    const slot = document.getElementById(slotId);
+                    if (slot) {
+                        slot.style.animation = '';
+                        slot.style.animationDelay = '';
+                    }
+                });
+            }
+        }
+
+        // 焦虑气泡
+        function showAnxietyBubble() {
+            if (gameState.currentPage !== 'game' || gameState.mood.anxiety < 8) {
+                gameState._anxietyBubbleActive = false;
+                return;
+            }
+            const bubbles = [
+                '😰 心跳加速...选哪个好？',
+                '💦 手心在出汗...',
+                '😵 脑子一片混乱！',
+                '🫣 好想逃...但必须做决定',
+                '😨 万一选错了怎么办？',
+                '🫨 冷静...深呼吸...'
+            ];
+            const bubble = document.createElement('div');
+            bubble.style.cssText = `
+                position: fixed;
+                top: ${20 + Math.random() * 30}%;
+                left: ${10 + Math.random() * 70}%;
+                background: rgba(239, 68, 68, 0.15);
+                backdrop-filter: blur(8px);
+                color: #fca5a5;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 12px;
+                z-index: 30;
+                animation: fadeIn 0.5s ease-out, fadeOut 0.5s 2s ease-in forwards;
+                border: 1px solid rgba(239, 68, 68, 0.3);
+                pointer-events: none;
+            `;
+            bubble.textContent = bubbles[Math.floor(Math.random() * bubbles.length)];
+            document.body.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 2600);
+            // 6-10秒后再显示
+            setTimeout(() => showAnxietyBubble(), 6000 + Math.random() * 4000);
+        }
+
+        // 冷静气泡
+        function showCalmBubble() {
+            if (gameState.currentPage !== 'game' || gameState.mood.calm < 8) {
+                gameState._calmBubbleActive = false;
+                return;
+            }
+            const bubbles = [
+                '😌 心如止水...',
+                '🧘 深呼吸，慢慢来',
+                '💆 放轻松，跟着感觉走',
+                '🌿 内心的平静是最好的指南',
+                '✨ 一切都会好的',
+                '🎋 从容面对，优雅选择'
+            ];
+            const bubble = document.createElement('div');
+            bubble.style.cssText = `
+                position: fixed;
+                top: ${20 + Math.random() * 30}%;
+                left: ${10 + Math.random() * 70}%;
+                background: rgba(34, 197, 94, 0.15);
+                backdrop-filter: blur(8px);
+                color: #86efac;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 12px;
+                z-index: 30;
+                animation: fadeIn 0.5s ease-out, fadeOut 0.5s 2.5s ease-in forwards;
+                border: 1px solid rgba(34, 197, 94, 0.3);
+                pointer-events: none;
+            `;
+            bubble.textContent = bubbles[Math.floor(Math.random() * bubbles.length)];
+            document.body.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 3100);
+            // 8-12秒后再显示
+            setTimeout(() => showCalmBubble(), 8000 + Math.random() * 4000);
+        }
+
+        // 计算人格类型 - 基于加权平衡算法确保16种人格均衡分布
+        function calculateqxrg() {
+            const scores = gameState.qxrgScores;
+            
+            // 对每个维度应用标准化处理，使分数更均衡地分布
+            // 使用比例而非绝对分数，避免某一维度过度偏向
+            const totalEI = Math.max(1, scores.E + scores.I);
+            const totalSN = Math.max(1, scores.S + scores.N);
+            const totalTF = Math.max(1, scores.T + scores.F);
+            const totalJP = Math.max(1, scores.J + scores.P);
+            
+            const eRatio = scores.E / totalEI;
+            const sRatio = scores.S / totalSN;
+            const tRatio = scores.T / totalTF;
+            const jRatio = scores.J / totalJP;
+            
+            // 使用0.5作为阈值，加上小幅随机偏移避免平局时的偏向
+            // 这确保题目设计合理时，每种人格都有机会出现
+            const type = 
+                (eRatio >= 0.5 ? 'E' : 'I') +
+                (sRatio >= 0.5 ? 'S' : 'N') +
+                (tRatio >= 0.5 ? 'T' : 'F') +
+                (jRatio >= 0.5 ? 'J' : 'P');
+            
+            // 百分比：显示各维度的偏向程度
+            return {
+                type: type,
+                percentages: {
+                    EI: eRatio * 100,
+                    SN: sRatio * 100,
+                    TF: tRatio * 100,
+                    JP: jRatio * 100
+                },
+                rawScores: {
+                    E: scores.E, I: scores.I,
+                    S: scores.S, N: scores.N,
+                    T: scores.T, F: scores.F,
+                    J: scores.J, P: scores.P
+                }
+            };
+        }
+
+        // 显示结果
+        function showResult() {
+            gameState.currentPage = 'result';
+            const result = calculateqxrg();
+            const typeInfo = qxrgTypes[result.type] || { name: '未知类型', desc: '描述暂缺', detail: '', advice: [] };
+
+            const gameMainPage = document.getElementById('game-main-page');
+            if (gameMainPage) gameMainPage.classList.add('hidden');
+
+            const resultPage = document.getElementById('result-page');
+            if (resultPage) resultPage.classList.remove('hidden');
+
+            const badge = document.getElementById('result-badge');
+            const typeName = document.getElementById('result-type-name');
+            const description = document.getElementById('result-description');
+            const detailDesc = document.getElementById('result-detail-description');
+
+            if (badge) badge.textContent = result.type;
+            if (typeName) typeName.textContent = typeInfo.name;
+            if (description) description.textContent = typeInfo.desc;
+            if (detailDesc) detailDesc.innerHTML = (typeInfo.detail || '').replace(/\n/g, '<br>');
+
+            // 显示维度百分比
+            const eiBar = document.getElementById('e-i-bar');
+            const snBar = document.getElementById('s-n-bar');
+            const tfBar = document.getElementById('t-f-bar');
+            const jpBar = document.getElementById('j-p-bar');
+            
+            const eiPercentage = document.getElementById('ei-percentage');
+            const snPercentage = document.getElementById('sn-percentage');
+            const tfPercentage = document.getElementById('tf-percentage');
+            const jpPercentage = document.getElementById('jp-percentage');
+
+            const eiPct = Math.round(result.percentages.EI);
+            const snPct = Math.round(result.percentages.SN);
+            const tfPct = Math.round(result.percentages.TF);
+            const jpPct = Math.round(result.percentages.JP);
+
+            if (eiBar) eiBar.style.width = `${eiPct}%`;
+            if (snBar) snBar.style.width = `${snPct}%`;
+            if (tfBar) tfBar.style.width = `${tfPct}%`;
+            if (jpBar) jpBar.style.width = `${jpPct}%`;
+            
+            // 显示偏向文字（哪个维度更高）
+            if (eiPercentage) eiPercentage.textContent = `${eiPct}% ${eiPct >= 50 ? '偏向E' : '偏向I'}`;
+            if (snPercentage) snPercentage.textContent = `${snPct}% ${snPct >= 50 ? '偏向S' : '偏向N'}`;
+            if (tfPercentage) tfPercentage.textContent = `${tfPct}% ${tfPct >= 50 ? '偏向T' : '偏向F'}`;
+            if (jpPercentage) jpPercentage.textContent = `${jpPct}% ${jpPct >= 50 ? '偏向J' : '偏向P'}`;
+
+            // 资源使用总结
+            const resourceSummary = document.getElementById('resource-summary-content');
+            if (resourceSummary) {
+                const energyUsed = gameState.resourceUsed.energy;
+                const logicUsed = gameState.resourceUsed.logic;
+                const empathyUsed = gameState.resourceUsed.empathy;
+                const totalUsed = Math.max(1, energyUsed + logicUsed + empathyUsed);
+                
+                resourceSummary.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">⚡</span>
+                        <span class="flex-1 text-gray-300">精力消耗：${energyUsed} 点</span>
+                        <span class="text-xs text-gray-400">${Math.round(energyUsed/totalUsed*100)}%</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full" style="width:${Math.round(energyUsed/totalUsed*100)}%"></div>
+                    </div>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-xl">🧠</span>
+                        <span class="flex-1 text-gray-300">逻辑使用：${logicUsed} 点</span>
+                        <span class="text-xs text-gray-400">${Math.round(logicUsed/totalUsed*100)}%</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full" style="width:${Math.round(logicUsed/totalUsed*100)}%"></div>
+                    </div>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-xl">❤️</span>
+                        <span class="flex-1 text-gray-300">共情使用：${empathyUsed} 点</span>
+                        <span class="text-xs text-gray-400">${Math.round(empathyUsed/totalUsed*100)}%</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-pink-400 to-rose-500 rounded-full" style="width:${Math.round(empathyUsed/totalUsed*100)}%"></div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-3">
+                        ${energyUsed > logicUsed && energyUsed > empathyUsed ? '你的决策风格偏向直接行动，注重效率和执行力。' : 
+                          logicUsed > energyUsed && logicUsed > empathyUsed ? '你的决策风格偏向理性分析，注重逻辑和系统性思考。' :
+                          empathyUsed > energyUsed && empathyUsed > logicUsed ? '你的决策风格偏向情感关怀，注重人际关系和他人感受。' :
+                          '你的决策风格比较均衡，在不同情境下灵活运用理性和感性的力量。'}
+                    </p>
+                `;
+            }
+
+            // 人格建议 - 按3个类别展示
+            const adviceContent = document.getElementById('advice-content');
+            if (adviceContent && typeInfo.advice && typeInfo.advice.length > 0) {
+                const icons = ['📈', '🤝', '🌱'];
+                adviceContent.innerHTML = typeInfo.advice.map((adv, index) => `
+                    <div class="bg-white/5 rounded-lg p-3">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-lg">${icons[index] || '💡'}</span>
+                            <span class="font-semibold text-cyan-400">${adv.category}</span>
+                        </div>
+                        <p class="text-gray-300">${adv.text}</p>
+                    </div>
+                `).join('');
+            } else if (adviceContent) {
+                adviceContent.innerHTML = '<p class="text-gray-400">暂无建议</p>';
+            }
+        }
+
+        // 重新开始游戏
+        function restartGame() {
+            const resultPage = document.getElementById('result-page');
+            const startPage = document.getElementById('start-page');
+            
+            if (resultPage) resultPage.classList.add('hidden');
+            if (startPage) startPage.classList.remove('hidden');
+        }
+
+        // 复制结果
+        function copyResult() {
+            const result = calculateqxrg();
+            const typeInfo = qxrgTypes[result.type] || { name: '未知类型', desc: '' };
+            const text = `我的全新人格测试结果：\n\n类型：${result.type} - ${typeInfo.name}\n描述：${typeInfo.desc}\n\n维度倾向：\nE/I: ${Math.round(result.percentages.EI)}%\nS/N: ${Math.round(result.percentages.SN)}%\nT/F: ${Math.round(result.percentages.TF)}%\nJ/P: ${Math.round(result.percentages.JP)}%`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('结果已复制到剪贴板！', 'info');
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification('结果已复制到剪贴板！', 'info');
+            });
+        }
+
+        // 生成分享卡片
+        function generateShareCard() {
+            const result = calculateqxrg();
+            const typeInfo = qxrgTypes[result.type] || { name: '未知类型', desc: '' };
+            
+            const cardHTML = `
+            <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); border-radius: 20px; padding: 30px; max-width: 350px; margin: 0 auto; color: white; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="width: 120px; height: 50px; border-radius: 50px; background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px; font-weight: bold; box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);">
+                        ${result.type}
+                    </div>
+                    <h2 style="margin: 0; font-size: 20px;">${typeInfo.name}</h2>
+                    <p style="color: #9ca3af; font-size: 13px; margin-top: 5px;">${typeInfo.desc}</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 15px;">
+                    <h3 style="margin: 0 0 12px; font-size: 13px; color: #9ca3af;">维度倾向</h3>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px;">
+                        <span>E</span>
+                        <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 10px; overflow: hidden;">
+                            <div style="height: 100%; width: ${result.percentages.EI}%; background: linear-gradient(90deg, #fbbf24, #8b5cf6); border-radius: 3px;"></div>
+                        </div>
+                        <span>I</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px;">
+                        <span>S</span>
+                        <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 10px; overflow: hidden;">
+                            <div style="height: 100%; width: ${result.percentages.SN}%; background: linear-gradient(90deg, #34d399, #3b82f6); border-radius: 3px;"></div>
+                        </div>
+                        <span>N</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px;">
+                        <span>T</span>
+                        <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 10px; overflow: hidden;">
+                            <div style="height: 100%; width: ${result.percentages.TF}%; background: linear-gradient(90deg, #3b82f6, #ec4899); border-radius: 3px;"></div>
+                        </div>
+                        <span>F</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                        <span>J</span>
+                        <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 10px; overflow: hidden;">
+                            <div style="height: 100%; width: ${result.percentages.JP}%; background: linear-gradient(90deg, #06b6d4, #f97316); border-radius: 3px;"></div>
+                        </div>
+                        <span>P</span>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px; color: #6b7280; font-size: 11px;">🎴 全新人格测试</div>
+            </div>`;
+            
+            const popup = document.createElement('div');
+            popup.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.85); display: flex; align-items: center; justify-content: center; z-index: 1000;';
+            popup.innerHTML = `
+                <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 16px; padding: 20px; max-width: 400px; max-height: 90vh; overflow-y: auto;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="color: white; margin: 0;">分享卡片</h3>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: rgba(255,255,255,0.1); border: none; color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer;">关闭</button>
+                    </div>
+                    <div>${cardHTML}</div>
+                    <button id="copy-card-btn" style="width: 100%; margin-top: 15px; background: linear-gradient(135deg, #06b6d4, #8b5cf6); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer;">复制卡片代码</button>
+                </div>`;
+            
+            document.body.appendChild(popup);
+            
+            document.getElementById('copy-card-btn').addEventListener('click', () => {
+                navigator.clipboard.writeText(cardHTML).then(() => {
+                    showNotification('卡片代码已复制！', 'info');
+                }).catch(() => {
+                    showNotification('复制失败，请手动复制', 'warning');
+                });
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            const startBtn = document.getElementById('start-game-btn');
+            if (startBtn) {
+                startBtn.addEventListener('click', function() {
+                    document.getElementById('start-page').classList.add('hidden');
+                    document.getElementById('game-main-page').classList.remove('hidden');
+                    initGame();
+                });
+            }
+            
+            const backHomeBtn = document.getElementById('back-to-home-btn');
+            if (backHomeBtn) {
+                backHomeBtn.addEventListener('click', function() {
+                    localStorage.setItem('fromGame', 'true');
+                    window.location.href = 'index.html';
+                });
+            }
+            
+            const homeBtnMain = document.getElementById('home-btn-main');
+            if (homeBtnMain) {
+                homeBtnMain.addEventListener('click', function() {
+                    localStorage.setItem('fromGame', 'true');
+                    window.location.href = 'index.html';
+                });
+            }
+
+            const restartBtn = document.getElementById('restart-game-btn');
+            if (restartBtn) {
+                restartBtn.addEventListener('click', function() {
+                    restartGame();
+                });
+            }
+
+            const homeBtnResult = document.getElementById('home-btn-result');
+            if (homeBtnResult) {
+                homeBtnResult.addEventListener('click', function() {
+                    localStorage.setItem('fromGame', 'true');
+                    window.location.href = 'index.html';
+                });
+            }
+
+            const showGuideBtn = document.getElementById('show-guide-btn');
+            if (showGuideBtn) {
+                showGuideBtn.addEventListener('click', function() {
+                    document.getElementById('guide-popup').classList.remove('hidden');
+                    const gameMainPage = document.getElementById('game-main-page');
+                    if (gameMainPage) {
+                        gameMainPage.style.filter = 'blur(8px)';
+                    }
+                });
+            }
+
+            // 游戏说明弹窗功能
+            const guidePopup = document.getElementById('guide-popup');
+            const closeGuideBtn = document.getElementById('close-guide-btn');
+            const toggleGuideDetail = document.getElementById('toggle-guide-detail');
+            const guideSimple = document.getElementById('guide-simple');
+            const guideDetail = document.getElementById('guide-detail');
+            
+            let isDetailView = false;
+            
+            // 切换详细说明
+            if (toggleGuideDetail) {
+                toggleGuideDetail.addEventListener('click', () => {
+                    isDetailView = !isDetailView;
+                    if (isDetailView) {
+                        guideSimple.classList.add('hidden');
+                        guideDetail.classList.remove('hidden');
+                        toggleGuideDetail.textContent = '📕 收起详细说明';
+                    } else {
+                        guideDetail.classList.add('hidden');
+                        guideSimple.classList.remove('hidden');
+                        toggleGuideDetail.textContent = '📖 查看详细说明';
+                    }
+                });
+            }
+            
+            // 关闭按钮
+            if (closeGuideBtn) {
+                closeGuideBtn.addEventListener('click', function() {
+                    guidePopup.classList.add('hidden');
+                    const gameMainPage = document.getElementById('game-main-page');
+                    if (gameMainPage) {
+                        gameMainPage.style.filter = '';
+                    }
+                    // 重置为简单说明视图
+                    isDetailView = false;
+                    guideDetail.classList.add('hidden');
+                    guideSimple.classList.remove('hidden');
+                    if (toggleGuideDetail) {
+                        toggleGuideDetail.textContent = '📖 查看详细说明';
+                    }
+                });
+            }
+            
+            // 点击弹窗外部关闭
+            if (guidePopup) {
+                guidePopup.addEventListener('click', (e) => {
+                    if (e.target === guidePopup) {
+                        guidePopup.classList.add('hidden');
+                        const gameMainPage = document.getElementById('game-main-page');
+                        if (gameMainPage) {
+                            gameMainPage.style.filter = '';
+                        }
+                        // 重置为简单说明视图
+                        isDetailView = false;
+                        guideDetail.classList.add('hidden');
+                        guideSimple.classList.remove('hidden');
+                        if (toggleGuideDetail) {
+                            toggleGuideDetail.textContent = '📖 查看详细说明';
+                        }
+                    }
+                });
+            }
+
+            const copyResultBtn = document.getElementById('copy-result-btn');
+            if (copyResultBtn) {
+                copyResultBtn.addEventListener('click', copyResult);
+            }
+
+            const shareCardBtn = document.getElementById('share-card-btn');
+            if (shareCardBtn) {
+                shareCardBtn.addEventListener('click', generateShareCard);
+            }
+        });
+    </script>
+</body>
+</html>

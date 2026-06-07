@@ -334,10 +334,6 @@ const faqDatabase = {
 
 // ==================== 测试类型介绍数据 ====================
 const testTypeInfo = {
-    comprehensive: {
-        title: '🎯 综合测试',
-        content: '<p class="mb-3">综合测试将同时评估您的创业思维和爱情认知能力。</p><p class="mb-3"><strong class="text-[#F59E0B]">🚀 创业思维</strong>：评估您在商业创新领域的核心能力，包括机会识别、风险容忍、市场洞察等维度。</p><p class="mb-3"><strong class="text-[#7C3AED]">💜 爱情认知</strong>：探索您在情感关系中的成熟度，包括情绪管理、共情能力、沟通能力等维度。</p><p>综合测试结合以上两个维度，为您提供全面的自我认知报告。</p>'
-    },
     entrepreneur: {
         title: '🚀 创业思维',
         content: '<p class="mb-3">创业思维是指发现机会、创造价值并将想法付诸实践的能力。</p><p class="mb-3">本次测评将从以下八个维度评估您的创业思维：</p><ul class="list-disc list-inside space-y-1 mb-3 text-gray-400"><li><strong class="text-[#F59E0B]">机会识别</strong> - 发现商业机会的敏锐度</li><li><strong class="text-[#F59E0B]">风险容忍</strong> - 面对不确定性的态度</li><li><strong class="text-[#F59E0B]">市场洞察</strong> - 理解市场需求的能力</li><li><strong class="text-[#F59E0B]">创业热情</strong> - 对创业的内在动力</li><li><strong class="text-[#F59E0B]">自我效能</strong> - 对自身能力的信心</li><li><strong class="text-[#F59E0B]">内在驱动</strong> - 自我激励与目标导向</li><li><strong class="text-[#F59E0B]">创新倾向</strong> - 创造性解决问题的能力</li><li><strong class="text-[#F59E0B]">行动执行</strong> - 将想法转化为行动</li></ul><p>了解这些维度可以帮助您更好地认识自己的创业潜力。</p>'
@@ -1684,7 +1680,7 @@ let radarChart = null;
 let historyChart = null;
 let isDarkTheme = true;
 let isMusicPlaying = false;
-let currentTestType = 'comprehensive'; // 当前测试类型
+let currentTestType = 'entrepreneur'; // 当前测试类型
 let currentSelectedQuestions = []; // 当前抽取的题目
 
 // 维度映射（支持多种格式）
@@ -1779,14 +1775,14 @@ function getLevel(score) {
 }
 
 // 获取阶段
-function getStage(entrepreneurScore, loveScore, testType = 'comprehensive') {
+function getStage(entrepreneurScore, loveScore, testType = 'entrepreneur') {
     let score;
     if (testType === 'entrepreneur') {
         score = entrepreneurScore;
     } else if (testType === 'love') {
         score = loveScore;
     } else {
-        score = (entrepreneurScore + loveScore) / 2;
+        score = entrepreneurScore;
     }
     
     if (score >= 85) return { stage: '卓越期', percentage: 100, description: '你已经达到了很高的境界，继续保持！' };
@@ -1797,7 +1793,7 @@ function getStage(entrepreneurScore, loveScore, testType = 'comprehensive') {
 
 // 获取人格画像
 // 根据雷达图各维度得分获取人格画像
-function getProfile(entrepreneurScore, loveScore, dimensionScores, testType = 'comprehensive') {
+function getProfile(entrepreneurScore, loveScore, dimensionScores, testType = 'entrepreneur') {
     // 获取各维度得分
     const { opportunity, risk, innovation, execution, emotion, communication, boundary, empathy, market, passion, efficacy, motivation, security, conflict, intimacy, trust } = dimensionScores;
     
@@ -2522,17 +2518,57 @@ function stratifiedSampleByDimension(questions, targetCount, dimensions) {
     return shuffleArray(selected);
 }
 
+// ==================== 问答测评按钮相关函数 ====================
+let selectedTestType = 'entrepreneur';
+
+// 更新问答测评按钮文本
+function updateTestModalBtnText(type) {
+    const btnText = document.getElementById('test-modal-btn-text');
+    if (!btnText) return;
+    
+    const typeNames = {
+        'entrepreneur': { icon: '🚀', text: '创业思维' },
+        'love': { icon: '💜', text: '爱情认知' }
+    };
+    
+    const typeInfo = typeNames[type] || { icon: '🚀', text: '创业思维' };
+    btnText.innerHTML = `
+        <span class="text-[#10B981]">${typeInfo.icon}</span>
+        <span>${typeInfo.text}</span>
+    `;
+}
+
+// 重置问答测评按钮到初始状态
+function resetTestModalBtn() {
+    const btnText = document.getElementById('test-modal-btn-text');
+    if (btnText) {
+        btnText.innerHTML = `
+            <span class="text-[#10B981]">🎯</span>
+            <span>选择测评类型后开始</span>
+        `;
+    }
+    selectedTestType = 'entrepreneur';
+}
+
+// 根据类型开始测评
+function startTestWithType(type) {
+    selectedTestType = type;
+    startTest();
+}
+
 // ==================== 开始测评 ====================
 function startTest() {
     // 获取选择的测试类型
-    let selectedType = 'comprehensive';
-    const activeBtn = document.querySelector('.test-type-btn.bg-gradient-to-r');
-    if (activeBtn) {
-        selectedType = activeBtn.dataset.type;
-    }
+    let selectedType = selectedTestType || 'entrepreneur';
     
     // 保存当前测试类型
     currentTestType = selectedType;
+    
+    // 如果是卡牌测试，跳转到qxrg游戏页面
+    if (selectedType === 'qxrg') {
+        window.location.href = 'qxrg-game.html';
+        return;
+    }
     
     let entrepreneurSample = [];
     let loveSample = [];
@@ -2547,11 +2583,7 @@ function startTest() {
     ];
     
     // 根据选择类型抽取题目（分层抽样确保维度覆盖）
-    if (selectedType === 'comprehensive') {
-        // 综合测试：创业8题 + 爱情8题 = 16题（确保每个维度至少1题）
-        entrepreneurSample = stratifiedSampleByDimension(entrepreneurQuestionsAll, 8, entrepreneurDimensions);
-        loveSample = stratifiedSampleByDimension(loveQuestionsAll, 8, loveDimensions);
-    } else if (selectedType === 'entrepreneur') {
+    if (selectedType === 'entrepreneur') {
         // 纯创业思维：16题（确保每个维度至少1题）
         entrepreneurSample = stratifiedSampleByDimension(entrepreneurQuestionsAll, 16, entrepreneurDimensions);
     } else if (selectedType === 'love') {
@@ -3105,21 +3137,13 @@ function showResult(result) {
         '输入您的问题，如：如何表达爱意？',
         '输入您的问题，如：如何管理情绪？'
     ];
-    const comprehensivePrompts = [
-        '输入您的问题，如：如何提高情商？如何识别商机？',
-        '输入您的问题，如：如何处理冲突？如何制定计划？',
-        '输入您的问题，如：如何建立信任？如何识别机会？',
-        '输入您的问题，如：如何管理情绪？如何提高执行力？',
-        '输入您的问题，如：如何沟通？如何创业？'
-    ];
-    
     let prompts;
     if (currentTestType === 'entrepreneur') {
         prompts = entrepreneurPrompts;
     } else if (currentTestType === 'love') {
         prompts = lovePrompts;
     } else {
-        prompts = comprehensivePrompts;
+        prompts = entrepreneurPrompts;
     }
     
     const randomIndex = Math.floor(Math.random() * prompts.length);
@@ -3132,7 +3156,7 @@ function showResult(result) {
     } else if (currentTestType === 'love') {
         faqNotFoundHint.textContent = '请尝试提问关于爱情认知相关的问题';
     } else {
-        faqNotFoundHint.textContent = '请尝试提问关于爱情认知或创业思维相关的问题';
+        faqNotFoundHint.textContent = '请尝试提问关于创业思维相关的问题';
     }
 }
 
@@ -3969,6 +3993,57 @@ function generateChallenge() {
 
 // ==================== 初始化 ====================
 function init() {
+    // 处理免责声明弹窗
+    const disclaimerModal = document.getElementById('disclaimer-modal');
+    const disclaimerContent = document.getElementById('disclaimer-content');
+    const disclaimerAcceptBtn = document.getElementById('disclaimer-accept-btn');
+    
+    // 检查是否是从游戏页面返回的
+    const isFromGame = localStorage.getItem('fromGame');
+    
+    // 每次都清除之前的接受状态，确保只有从游戏返回时才不显示
+    localStorage.removeItem('disclaimerAccepted');
+    
+    if (isFromGame === 'true') {
+        // 从游戏页面返回，隐藏弹窗
+        disclaimerModal.classList.add('hidden');
+        // 清除标志
+        localStorage.removeItem('fromGame');
+    } else {
+        // 不是从游戏返回，显示弹窗
+        disclaimerModal.classList.remove('hidden');
+        
+        // 监听滚动事件
+        disclaimerContent.addEventListener('scroll', checkScrollToBottom);
+        
+        // 接受按钮点击事件
+        disclaimerAcceptBtn.addEventListener('click', () => {
+            // 隐藏弹窗
+            disclaimerModal.style.opacity = '0';
+            setTimeout(() => {
+                disclaimerModal.classList.add('hidden');
+                disclaimerModal.style.opacity = '1';
+            }, 300);
+        });
+    }
+    
+    function checkScrollToBottom() {
+        const scrollTop = disclaimerContent.scrollTop;
+        const scrollHeight = disclaimerContent.scrollHeight;
+        const clientHeight = disclaimerContent.clientHeight;
+        
+        // 检查是否滚动到底部（留一点余量）
+        if (scrollTop + clientHeight >= scrollHeight - 10) {
+            // 启用按钮
+            disclaimerAcceptBtn.disabled = false;
+            disclaimerAcceptBtn.textContent = '我已了解并同意';
+            disclaimerAcceptBtn.classList.remove('bg-gradient-to-r', 'from-gray-600', 'to-gray-700', 'cursor-not-allowed', 'opacity-50');
+            disclaimerAcceptBtn.classList.add('bg-gradient-to-r', 'from-[#06B6D4]', 'to-[#10B981]', 'hover:scale-105', 'cursor-pointer');
+            // 移除滚动监听
+            disclaimerContent.removeEventListener('scroll', checkScrollToBottom);
+        }
+    }
+    
     // 初始化粒子背景
     initParticles();
     
@@ -4021,7 +4096,6 @@ function init() {
     });
     
     // 绑定事件监听
-    document.getElementById('start-test').addEventListener('click', startTest);
     document.getElementById('restart-test').addEventListener('click', startTest);
     document.getElementById('back-to-home').addEventListener('click', () => {
         // 重置简单答疑到初始状态
@@ -4040,14 +4114,10 @@ function init() {
             btn.style.display = 'inline-flex';
         });
         
+        // 重置问答测评按钮到初始状态
+        resetTestModalBtn();
+        
         showPage('home');
-    });
-    document.getElementById('learn-more').addEventListener('click', () => {
-        // 打开信息卡片弹窗
-        const modal = document.getElementById('info-cards-modal');
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-        modal.querySelector('.relative').classList.remove('scale-95');
-        modal.querySelector('.relative').classList.add('scale-100');
     });
     
     // 设置面板
@@ -4068,27 +4138,111 @@ function init() {
     document.getElementById('music-toggle').addEventListener('click', toggleMusic);
     document.getElementById('clear-history').addEventListener('click', clearHistory);
     
-    // 测试类型选择
-    document.querySelectorAll('.test-type-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            // 移除所有active样式
-            document.querySelectorAll('.test-type-btn').forEach(b => {
-                b.classList.remove('bg-gradient-to-r', 'from-[#06B6D4]', 'to-[#10B981]');
-                b.classList.add('bg-white/10');
-            });
-            // 添加active样式到当前按钮
-            this.classList.remove('bg-white/10');
-            this.classList.add('bg-gradient-to-r', 'from-[#06B6D4]', 'to-[#10B981]');
-            
-            // 选择测试类型后隐藏指引
-            const testTypeGuide = document.getElementById('test-type-guide');
-            if (testTypeGuide) testTypeGuide.style.display = 'none';
+    // 打开测评类型选择弹窗
+    const openTestModalBtn = document.getElementById('open-test-modal');
+    if (openTestModalBtn) {
+        openTestModalBtn.addEventListener('click', function() {
+            const modal = document.getElementById('test-type-modal');
+            const modalContent = modal.querySelector('.relative');
+            if (modal) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }
         });
+    }
+    
+    // 打开测评说明弹窗
+    const openInfoModalBtn = document.getElementById('open-info-modal');
+    if (openInfoModalBtn) {
+        openInfoModalBtn.addEventListener('click', function() {
+            const modal = document.getElementById('info-cards-modal');
+            const modalContent = modal.querySelector('.relative');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        });
+    }
+    
+    // 打开qxrg人格测试游戏
+    const qxrgGameBtn = document.getElementById('qxrg-game-btn');
+    if (qxrgGameBtn) {
+        qxrgGameBtn.addEventListener('click', function() {
+            window.open('qxrg-game.html', '_blank');
+        });
+    }
+    
+    // 关闭测评类型选择弹窗
+    const closeModalBtn = document.getElementById('close-modal');
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', function() {
+            const modal = document.getElementById('test-type-modal');
+            const modalContent = modal.querySelector('.relative');
+            if (modal) {
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('opacity-0', 'pointer-events-none');
+                }, 300);
+            }
+        });
+    }
+    
+    // 测评类型选择弹窗中的选项点击事件
+    const modalOptions = ['modal-entrepreneur', 'modal-love'];
+    modalOptions.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('click', function() {
+                const type = this.dataset.type;
+                selectedTestType = type;
+                
+                // 更新按钮显示文本
+                updateTestModalBtnText(type);
+                
+                // 关闭弹窗
+                const modal = document.getElementById('test-type-modal');
+                const modalContent = modal.querySelector('.relative');
+                if (modal) {
+                    modalContent.classList.remove('scale-100');
+                    modalContent.classList.add('scale-95');
+                    setTimeout(() => {
+                        modal.classList.add('opacity-0', 'pointer-events-none');
+                    }, 300);
+                }
+            });
+        }
     });
+    
+    // 开始测评按钮点击事件
+    const startTestBtn = document.getElementById('start-test-btn');
+    if (startTestBtn) {
+        startTestBtn.addEventListener('click', function() {
+            startTest();
+        });
+    }
+    
+    // 点击弹窗背景关闭
+    const testTypeModal = document.getElementById('test-type-modal');
+    if (testTypeModal) {
+        testTypeModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                const modalContent = this.querySelector('.relative');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    this.classList.add('opacity-0', 'pointer-events-none');
+                }, 300);
+            }
+        });
+    }
     
     // 返回按钮 - 返回首页
     document.getElementById('back-btn').addEventListener('click', () => {
         if (confirm('确定要退出测评吗？当前进度将会丢失。')) {
+            // 重置问答测评按钮到初始状态
+            resetTestModalBtn();
+            
             // 直接回到首页，确保页面状态正确
             showPage('home');
         }
@@ -4164,7 +4318,6 @@ function showTestTypeModal(type) {
     const title = document.getElementById('modal-title');
     
     // 隐藏所有内容区域
-    document.getElementById('modal-content-comprehensive').classList.add('hidden');
     document.getElementById('modal-content-entrepreneur').classList.add('hidden');
     document.getElementById('modal-content-love').classList.add('hidden');
     
@@ -4175,9 +4328,6 @@ function showTestTypeModal(type) {
     } else if (type === 'love') {
         title.textContent = '💜 爱情认知';
         document.getElementById('modal-content-love').classList.remove('hidden');
-    } else {
-        title.textContent = '🎯 综合测试';
-        document.getElementById('modal-content-comprehensive').classList.remove('hidden');
     }
     
     // 显示弹窗

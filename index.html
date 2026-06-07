@@ -12,10 +12,97 @@
 </head>
 <body class="font-sans bg-gradient-to-br from-[#0A1628] via-[#1a1a2e] to-[#16213e] min-h-screen text-white overflow-x-hidden">
     
+    <!-- 免责声明弹窗 -->
+    <div id="disclaimer-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-4 transition-all duration-300 hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        <div class="relative bg-gradient-to-br from-[#0A1628] to-[#1a1a2e] rounded-2xl p-6 max-w-lg w-full border border-white/20 shadow-2xl transform scale-100 max-h-[85vh] flex flex-col">
+            <h3 class="text-xl font-semibold mb-4 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#FF4747] to-[#FF7F50]">📜 免责声明</h3>
+            
+            <div id="disclaimer-content" class="text-gray-300 text-sm leading-relaxed space-y-4 overflow-y-auto pr-2" style="max-height: 60vh;">
+                <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                    <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+                        <span>🎯</span> 测评性质说明
+                    </h4>
+                    <p class="text-gray-400">本网站提供的"开智觉醒"自我认知测评（以下简称"本测评"）仅供个人娱乐和自我探索参考使用，不得被视为专业的心理评估、职业咨询、医疗建议或法律意见。</p>
+                </div>
+                
+                <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                    <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+                        <span>📊</span> 结果仅供参考
+                    </h4>
+                    <p class="text-gray-400">本测评基于心理学研究框架设计，但结果仅反映您在特定情境下的选择倾向，不构成对您能力、智力、人格特质的权威性判断。测评结果不应作为重大人生决策的唯一依据。</p>
+                </div>
+                
+                <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                    <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+                        <span>🔬</span> 科学局限性
+                    </h4>
+                    <p class="text-gray-400 mb-2">心理学测评存在以下局限性：</p>
+                    <ul class="list-disc list-inside text-gray-400 space-y-1">
+                        <li>自评方式可能受社会赞许性影响</li>
+                        <li>单次测评难以反映长期变化</li>
+                        <li>情境因素可能影响选择判断</li>
+                        <li>测评工具存在信度和效度限制</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                    <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+                        <span>🛡️</span> 隐私保护承诺
+                    </h4>
+                    <p class="text-gray-400 mb-2">我们重视您的隐私：</p>
+                    <ul class="list-disc list-inside text-gray-400 space-y-1">
+                        <li>所有测评数据仅存储于您的本地设备</li>
+                        <li>不会将您的个人信息上传至任何服务器</li>
+                        <li>不会向第三方分享您的测评结果</li>
+                        <li>您可随时清除历史数据</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                    <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+                        <span>⚖️</span> 使用责任声明
+                    </h4>
+                    <p class="text-gray-400 mb-2">使用本测评即表示您同意：</p>
+                    <ul class="list-disc list-inside text-gray-400 space-y-1">
+                        <li>自愿参与本测评，风险自担</li>
+                        <li>测评结果由您自行负责解读</li>
+                        <li>不将结果用于任何商业目的</li>
+                        <li>不会因使用本服务追究网站责任</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                    <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+                        <span>💡</span> 专业建议
+                    </h4>
+                    <p class="text-gray-400">如您需要专业的心理评估或职业咨询，建议寻求具备资质的心理咨询师、职业规划师或相关专业人士的帮助。</p>
+                </div>
+                
+                <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                    <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+                        <span>🔄</span> 权利保留
+                    </h4>
+                    <p class="text-gray-400">本网站保留随时修改、暂停或终止本测评服务的权利，以及修改本免责声明的权利。</p>
+                </div>
+                
+                <div class="text-center text-gray-500 text-xs">
+                    <p>— 请认真阅读以上内容 —</p>
+                </div>
+            </div>
+            
+            <div class="mt-4 pt-4 border-t border-white/10">
+                <button id="disclaimer-accept-btn" class="w-full py-3 bg-gradient-to-r from-gray-600 to-gray-700 rounded-full font-medium cursor-not-allowed opacity-50 transition-all duration-300" disabled>
+                    请先滚动阅读完整内容
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- 开智说明弹窗 -->
-    <div id="awakening-info-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-300">
+    <div id="awakening-info-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-        <div class="relative bg-gradient-to-br from-[#1a1a2e] to-[#16213e] rounded-2xl p-6 max-w-md w-full border border-white/20 shadow-2xl transform scale-100">
+        <div class="relative bg-gradient-to-br from-[#1a1a2e] to-[#16213e] rounded-2xl p-6 max-w-md w-full border border-white/20 shadow-2xl transform scale-95 transition-transform duration-300">
             <h3 class="text-xl font-semibold mb-4 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#06B6D4] to-[#10B981]">关于"开智"与"未开智"的说明</h3>
             <div class="text-gray-300 text-sm leading-relaxed space-y-3">
                 <p>本测评中的<span class="text-[#F59E0B] font-medium">"开智"</span>指<span class="text-white">开启智慧、启发思维</span>；</p>
@@ -94,7 +181,7 @@
     <div id="particles-bg"></div>
     
     <!-- 设置按钮 -->
-    <button id="settings-btn" class="fixed top-4 right-4 z-50 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300">
+    <button id="settings-btn" class="fixed top-4 right-4 z-50 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.5s;">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -102,7 +189,7 @@
     </button>
     
     <!-- 设置按钮指引 -->
-    <div id="settings-guide" class="fixed top-4 right-20 z-40 flex items-center gap-2 animate-pulse">
+    <div id="settings-guide" class="fixed top-4 right-20 z-40 flex items-center gap-2 animate-pulse animate-fade-in-up" style="animation-delay: 0.6s;">
         <div class="bg-white/10 backdrop-blur-md rounded-full px-3 py-2 text-sm text-gray-300">
             <span class="flex items-center gap-1">
                 <span class="text-[#06B6D4]">⚙️</span>
@@ -147,8 +234,8 @@
     <div id="home-page" class="page active">
         <div class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
             <!-- 主标题区域 -->
-            <div class="text-center mb-12 animate-fade-in-up">
-                <div class="inline-block mb-6">
+            <div class="text-center mb-12 animate-fade-in-up" style="animation-delay: 0s;">
+                <div class="inline-block mb-6 animate-float">
                     <span class="text-6xl">◈</span>
                 </div>
                 <h1 class="text-4xl md:text-6xl font-serif font-bold bg-gradient-to-r from-[#06B6D4] via-[#10B981] to-[#06B6D4] bg-clip-text text-transparent mb-4">
@@ -160,95 +247,70 @@
                 </p>
             </div>
             
-            <!-- 测试类型选择区域 -->
-            <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.15s;">
-                <!-- 测评模式选择指引 -->
-                <div id="test-type-guide" class="flex items-center justify-center gap-2 mb-4 animate-pulse">
-                    <svg class="w-4 h-4 text-[#10B981] rotate-180" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5.884 17.352a.5.5 0 00.895.377l4.914-5.132 4.914 5.132a.5.5 0 00.895-.377V6.648a.5.5 0 00-.895-.377l-4.914 5.132-4.914-5.132A.5.5 0 005 6.648v10.704z"/>
-                    </svg>
-                    <div class="bg-white/10 backdrop-blur-md rounded-full px-3 py-2 text-sm text-gray-300">
-                        <span class="flex items-center gap-1">
-                            <span class="text-[#10B981]">🎯</span>
-                            <span>选择测评类型后开始</span>
-                        </span>
-                    </div>
-                </div>
-                <p class="text-center text-gray-400 mb-4">选择测评类型</p>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <button id="select-comprehensive" class="test-type-btn group relative px-6 py-3 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full font-medium transition-all duration-300 hover:scale-105 active" data-type="comprehensive">
-                        <span class="relative z-10">🎯 综合测试</span>
-                    </button>
-                    <button id="select-entrepreneur" class="test-type-btn group relative px-6 py-3 bg-white/10 backdrop-blur-md rounded-full font-medium border border-[#06B6D4]/30 hover:border-[#06B6D4] transition-all duration-300 hover:scale-105" data-type="entrepreneur">
-                        <span class="relative z-10 text-white">🚀 创业思维</span>
-                    </button>
-                    <button id="select-love" class="test-type-btn group relative px-6 py-3 bg-white/10 backdrop-blur-md rounded-full font-medium border border-[#10B981]/30 hover:border-[#10B981] transition-all duration-300 hover:scale-105" data-type="love">
-                        <span class="relative z-10 text-white">💜 爱情认知</span>
-                    </button>
-                </div>
+            <!-- 问答测评提示 -->
+            <div class="mb-4 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <p class="text-center text-gray-400">请点击选择测试模式</p>
             </div>
             
-            <!-- 按钮区域 -->
-            <div class="flex flex-col sm:flex-row gap-4 mb-16 animate-fade-in-up" style="animation-delay: 0.2s;">
-                <button id="start-test" class="group relative px-12 py-4 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]">
-                    <span class="relative z-10">开始测评</span>
-                    <div class="absolute inset-0 bg-gradient-to-r from-[#10B981] to-[#06B6D4] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <!-- 问答测评按钮 -->
+            <div class="mb-4 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <button id="open-test-modal" class="group relative px-8 py-3 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]" style="width: 248px;">
+                    <span id="test-modal-btn-text" class="relative z-10 flex items-center gap-2">
+                        <span class="text-white">🎯</span>
+                        <span class="text-white">选择测评类型后开始</span>
+                    </span>
                 </button>
-                <button id="learn-more" class="px-12 py-4 bg-white/10 backdrop-blur-md rounded-full font-semibold text-lg border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+            </div>
+            
+            <!-- qxrg测试按钮 -->
+            <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <button id="qxrg-game-btn" class="px-8 py-3 bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(139,92,246,0.5)]" style="width: 248px;">
+                    🎴 全新人格测试卡牌
+                </button>
+            </div>
+                
+            <!-- 操作按钮 -->
+            <div class="flex flex-wrap justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.4s;">
+                <button id="start-test-btn" class="px-12 py-4 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-full font-bold text-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]">
+                    开始测评
+                </button>
+                <button id="open-info-modal" class="px-12 py-4 bg-white/10 backdrop-blur-md rounded-full font-bold text-xl border border-white/20 hover:bg-white/20 transition-all duration-300">
                     了解测评
                 </button>
             </div>
-            
-            <!-- 信息卡片区域 - 隐藏 -->
-            <div id="home-info-cards" class="hidden">
-                <!-- 创业思维卡片 -->
-                <div class="info-card group relative bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-[#F59E0B]/30 transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(245,158,11,0.2)]">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#F59E0B]/20 to-[#F59E0B]/5 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <span class="text-2xl">🚀</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-[#F59E0B] mb-3">创业思维</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        评估你的机会识别能力、风险容忍度、创新倾向与行动执行力，洞察创业潜力。
-                    </p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-[#F59E0B]/10 text-[#F59E0B] text-xs rounded-full">认知系统</span>
-                        <span class="px-2 py-1 bg-[#F59E0B]/10 text-[#F59E0B] text-xs rounded-full">动力系统</span>
-                        <span class="px-2 py-1 bg-[#F59E0B]/10 text-[#F59E0B] text-xs rounded-full">行为意向</span>
-                    </div>
-                </div>
-                
-                <!-- 爱情认知卡片 -->
-                <div class="info-card group relative bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-[#7C3AED]/30 transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(124,58,237,0.2)]">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7C3AED]/20 to-[#7C3AED]/5 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <span class="text-2xl">💜</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-[#7C3AED] mb-3">爱情认知</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        探索你的情感成熟度、沟通能力、边界意识与共情能力，理解爱情关系中的自我。
-                    </p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-[#7C3AED]/10 text-[#7C3AED] text-xs rounded-full">情感成熟</span>
-                        <span class="px-2 py-1 bg-[#7C3AED]/10 text-[#7C3AED] text-xs rounded-full">关系认知</span>
-                        <span class="px-2 py-1 bg-[#7C3AED]/10 text-[#7C3AED] text-xs rounded-full">价值观</span>
-                    </div>
-                </div>
-                
-                <!-- 科学测评卡片 -->
-                <div class="info-card group relative bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <span class="text-2xl">🔬</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white mb-3">科学测评</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        基于心理学研究框架设计，采用标准化评分体系，结果客观可靠。
-                    </p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-white/10 text-white/80 text-xs rounded-full">匿名测试</span>
-                        <span class="px-2 py-1 bg-white/10 text-white/80 text-xs rounded-full">数据加密</span>
-                        <span class="px-2 py-1 bg-white/10 text-white/80 text-xs rounded-full">隐私保护</span>
-                    </div>
-                </div>
             </div>
+        </div>
+    </div>
+
+    <!-- 测评类型选择弹窗 -->
+    <div id="test-type-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center px-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-gradient-to-br from-[#0F172A] to-[#1E293B] rounded-3xl p-8 max-w-md w-full border border-white/10 shadow-2xl transform scale-95 transition-all duration-300">
+            <div class="text-center mb-8">
+                <div class="inline-block w-16 h-16 rounded-full bg-gradient-to-r from-[#06B6D4] to-[#10B981] flex items-center justify-center mb-4">
+                    <span class="text-3xl">📝</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">选择测评类型</h3>
+                <p class="text-gray-400 text-sm">选择一个测评类型开始测试</p>
+            </div>
+            
+            <div class="space-y-3">
+                <button id="modal-entrepreneur" class="w-full py-4 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-xl font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]" data-type="entrepreneur">
+                    <span class="flex items-center justify-center gap-2">
+                        <span>🚀</span>
+                        <span>创业思维</span>
+                    </span>
+                </button>
+                <button id="modal-love" class="w-full py-4 bg-gradient-to-r from-[#06B6D4] to-[#10B981] rounded-xl font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]" data-type="love">
+                    <span class="flex items-center justify-center gap-2">
+                        <span>💜</span>
+                        <span>爱情认知</span>
+                    </span>
+                </button>
+            </div>
+            
+            <button id="close-modal" class="w-full mt-6 py-3 bg-white/5 rounded-xl font-medium text-gray-400 hover:bg-white/10 hover:text-white transition-all duration-300">
+                取消
+            </button>
         </div>
     </div>
 
@@ -771,15 +833,8 @@
                     <span class="text-xl">×</span>
                 </button>
             </div>
-            <!-- 综合测试内容 -->
-            <div id="modal-content-comprehensive" class="text-gray-300 text-sm leading-relaxed">
-                <p class="mb-3">综合测试将同时评估您的创业思维和爱情认知能力。</p>
-                <p class="mb-3"><strong class="text-[#F59E0B]">🚀 创业思维</strong>：评估您在商业创新领域的核心能力，包括机会识别、风险容忍、市场洞察等维度。</p>
-                <p class="mb-3"><strong class="text-[#7C3AED]">💜 爱情认知</strong>：探索您在情感关系中的成熟度，包括情绪管理、共情能力、沟通能力等维度。</p>
-                <p>综合测试结合以上两个维度，为您提供全面的自我认知报告。</p>
-            </div>
             <!-- 创业思维内容 -->
-            <div id="modal-content-entrepreneur" class="text-gray-300 text-sm leading-relaxed hidden">
+            <div id="modal-content-entrepreneur" class="text-gray-300 text-sm leading-relaxed">
                 <p class="mb-3">创业思维是指发现机会、创造价值并将想法付诸实践的能力。</p>
                 <p class="mb-3">本次测评将从以下八个维度评估您的创业思维：</p>
                 <ul class="list-disc list-inside space-y-1 mb-3 text-gray-400">
