@@ -476,30 +476,30 @@ button:active {
 @media (max-width: 768px) {
     #event-card {
         max-width: 100%;
-        padding: 0.75rem;
+        padding: 1rem;
     }
     
     #card-image {
-        height: 100px;
+        height: 120px;
     }
     
     #card-title {
-        font-size: 0.95rem;
+        font-size: 1.1rem;
     }
     
     #card-description {
-        font-size: 0.8rem;
+        font-size: 1rem;
     }
     
     #slot-a, #slot-b, #slot-c, #slot-d {
-        width: 38vw;
-        height: 16vh;
-        max-height: 80px;
-        padding: 0.35rem;
+        width: 42vw;
+        height: 18vh;
+        max-height: 96px;
+        padding: 0.5rem;
     }
     
     #slot-a-text, #slot-b-text, #slot-c-text, #slot-d-text {
-        font-size: 0.7rem;
+        font-size: 0.95rem;
     }
     
     #logic-eye, #empathy-eye {
@@ -582,20 +582,20 @@ button:active {
 /* 确保四个选项大小一致 - 桌面端 */
 @media (min-width: 640px) {
     #slot-a, #slot-b, #slot-c, #slot-d {
-        width: 160px !important;
-        height: 112px !important;
-        min-width: 160px !important;
-        min-height: 112px !important;
+        width: 176px !important;
+        height: 128px !important;
+        min-width: 176px !important;
+        min-height: 128px !important;
     }
 }
 
 /* 手机端选项大小 */
 @media (max-width: 639px) {
     #slot-a, #slot-b, #slot-c, #slot-d {
-        width: 136px !important;
-        height: 80px !important;
-        min-width: 136px !important;
-        min-height: 80px !important;
+        width: 150px !important;
+        height: 96px !important;
+        min-width: 150px !important;
+        min-height: 96px !important;
     }
 }
 
@@ -1179,22 +1179,22 @@ button#back-to-home-btn {
                     </div>
                     <!-- 当前翻开的卡牌（中央大卡） -->
                     <div id="active-card-container" class="hidden w-full max-w-sm">
-                        <div id="event-card" class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-xl p-2 sm:p-3 border border-white/10 shadow-2xl cursor-grab active:cursor-grabbing transition-all duration-200 select-none">
+                        <div id="event-card" class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-xl p-3 sm:p-4 border border-white/10 shadow-2xl cursor-grab active:cursor-grabbing transition-all duration-200 select-none">
                             <!-- 卡牌图片 -->
-                            <div id="card-image" class="w-full h-20 sm:h-28 mb-1.5 sm:mb-2 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
+                            <div id="card-image" class="w-full h-28 sm:h-32 mb-2 sm:mb-3 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
                                 <span class="text-3xl sm:text-4xl">🎴</span>
                             </div>
                             <!-- 卡牌内容 -->
                             <div id="card-content" class="text-center">
-                                <h3 id="card-title" class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-white">场景标题</h3>
-                                <p id="card-description" class="text-gray-300 mb-2 sm:mb-3 text-sm sm:text-base leading-relaxed">场景描述将出现在这里...</p>
+                                <h3 id="card-title" class="text-lg sm:text-xl font-semibold mb-2 text-white">场景标题</h3>
+                                <p id="card-description" class="text-gray-300 mb-3 text-base leading-relaxed">场景描述将出现在这里...</p>
                             </div>
                             <!-- 卡牌状态指示器 -->
-                            <div id="card-status" class="text-center text-xs text-gray-400 mt-2">
+                            <div id="card-status" class="text-center text-sm text-gray-400 mt-2">
                                 立即行动 - 消耗1精力
                             </div>
                         </div>
-                        <p class="text-center text-xs text-gray-500 mt-1">💡 长按卡牌后拖拽到选项或洞察之眼</p>
+                        <p class="text-center text-sm text-gray-500 mt-2">💡 长按卡牌后拖拽到选项或洞察之眼</p>
                     </div>
                 </div>
             </div>
@@ -1204,43 +1204,43 @@ button#back-to-home-btn {
                 <!-- 第一行：选项A和B -->
                 <div class="flex flex-col sm:flex-row gap-4">
                     <!-- 决策槽A -->
-                    <div id="slot-a" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-cyan-500/15 to-blue-500/10 border-2 border-cyan-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
-                        <span id="slot-a-text" class="text-center text-sm sm:text-base px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                    <div id="slot-a" class="w-40 h-24 sm:w-48 sm:h-32 bg-gradient-to-br from-cyan-500/15 to-blue-500/10 border-2 border-cyan-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
+                        <span id="slot-a-text" class="text-center text-base sm:text-lg px-2 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
                     </div>
                     
                     <!-- 决策槽B -->
-                    <div id="slot-b" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-purple-500/15 to-pink-500/10 border-2 border-purple-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
-                        <span id="slot-b-text" class="text-center text-sm sm:text-base px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                    <div id="slot-b" class="w-40 h-24 sm:w-48 sm:h-32 bg-gradient-to-br from-purple-500/15 to-pink-500/10 border-2 border-purple-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
+                        <span id="slot-b-text" class="text-center text-base sm:text-lg px-2 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
                     </div>
                 </div>
                 
                 <!-- 第二行：选项C和D -->
                 <div class="flex flex-col sm:flex-row gap-4">
                     <!-- 决策槽C -->
-                    <div id="slot-c" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-green-500/15 to-emerald-500/10 border-2 border-green-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
-                        <span id="slot-c-text" class="text-center text-sm sm:text-base px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                    <div id="slot-c" class="w-40 h-24 sm:w-48 sm:h-32 bg-gradient-to-br from-green-500/15 to-emerald-500/10 border-2 border-green-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
+                        <span id="slot-c-text" class="text-center text-base sm:text-lg px-2 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
                     </div>
                     
                     <!-- 决策槽D -->
-                    <div id="slot-d" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-orange-500/15 to-amber-500/10 border-2 border-orange-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
-                        <span id="slot-d-text" class="text-center text-sm sm:text-base px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                    <div id="slot-d" class="w-40 h-24 sm:w-48 sm:h-32 bg-gradient-to-br from-orange-500/15 to-amber-500/10 border-2 border-orange-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
+                        <span id="slot-d-text" class="text-center text-base sm:text-lg px-2 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
                     </div>
                 </div>
             </div>
         </div>
         
         <!-- 选项详情弹窗 -->
-        <div id="option-detail-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div id="option-detail-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 hidden items-center justify-center p-4">
             <div id="option-detail-modal" class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 max-w-md w-full border border-white/10 shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
                 <!-- 标题 -->
-                <h3 id="option-detail-title" class="text-xl font-bold mb-4 text-center bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent"></h3>
+                <h3 id="option-detail-title" class="text-xl font-bold mb-4 text-center text-white"></h3>
                 
                 <!-- 详细内容 -->
-                <div id="option-detail-content" class="text-gray-300 leading-relaxed mb-6 max-h-[60vh] overflow-y-auto scrollbar-thin">
+                <div id="option-detail-content" class="text-white/85 text-base sm:text-lg leading-relaxed mb-6 max-h-[60vh] overflow-y-auto scrollbar-thin">
                 </div>
                 
                 <!-- 关闭按钮 -->
-                <button id="option-detail-close-btn" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl font-medium hover:scale-105 transition-transform text-white" style="background-color: #6361ea; color: #45d9cf;">
+                <button id="option-detail-close-btn" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl font-medium text-lg hover:scale-105 transition-transform text-white">
                     我知道了
                 </button>
             </div>
@@ -1309,42 +1309,42 @@ button#back-to-home-btn {
         <div class="max-w-md w-full animate-fade-in">
             <div class="text-center mb-6">
                 <div class="text-5xl mb-3">🎴</div>
-                <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">选择测试模式</h2>
-                <p class="text-gray-400 text-sm mt-2">请选择你想要的测试题数</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-white">选择测试模式</h2>
+                <p class="text-white text-sm mt-2">请选择你想要的测试题数</p>
             </div>
             <div class="grid grid-cols-1 gap-4">
                 <!-- 32题精测 -->
-                <div id="mode-full" class="mode-card relative rounded-2xl p-5 border border-cyan-400/30 shadow-2xl" style="background: rgba(6, 100, 120, 0.9);">
-                    <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-bold bg-cyan-500/30 text-cyan-300 border border-cyan-400/40">推荐</div>
+                <div id="mode-full" class="mode-card relative rounded-2xl p-5 border border-white/30 shadow-2xl" style="background: rgba(6, 100, 120, 0.9);">
+                    <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white border border-white/30">推荐</div>
                     <div class="flex items-start gap-4">
                         <div class="text-4xl">🔬</div>
                         <div class="flex-1">
-                            <h3 class="text-lg font-bold text-cyan-300 mb-1">32题 · 精准测试</h3>
-                            <p class="text-gray-400 text-xs leading-relaxed">全面覆盖四个维度，每题精心设计，结果更加准确可靠。适合想要深入了解自己的你。</p>
+                            <h3 class="text-lg font-bold text-white mb-1">32题 · 精准测试</h3>
+                            <p class="text-white/80 text-xs leading-relaxed">全面覆盖四个维度，每题精心设计，结果更加准确可靠。适合想要深入了解自己的你。</p>
                             <div class="flex gap-2 mt-2">
-                                <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">4维度深度分析</span>
-                                <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">约8-15分钟</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-white/15 text-white border border-white/20">4维度深度分析</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-white/15 text-white border border-white/20">约8-15分钟</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- 16题简测 -->
-                <div id="mode-short" class="mode-card relative rounded-2xl p-5 border border-purple-400/30 shadow-2xl" style="background: rgba(80, 40, 140, 0.9);">
-                    <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-bold bg-purple-500/30 text-purple-300 border border-purple-400/40">快速</div>
+                <div id="mode-short" class="mode-card relative rounded-2xl p-5 border border-white/30 shadow-2xl" style="background: rgba(80, 40, 140, 0.9);">
+                    <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white border border-white/30">快速</div>
                     <div class="flex items-start gap-4">
                         <div class="text-4xl">⚡</div>
                         <div class="flex-1">
-                            <h3 class="text-lg font-bold text-purple-300 mb-1">16题 · 快速测试</h3>
-                            <p class="text-gray-400 text-xs leading-relaxed">精选核心题目，快速定位性格类型。适合时间有限但仍想了解自己的你。</p>
+                            <h3 class="text-lg font-bold text-white mb-1">16题 · 快速测试</h3>
+                            <p class="text-white/80 text-xs leading-relaxed">精选核心题目，快速定位性格类型。适合时间有限但仍想了解自己的你。</p>
                             <div class="flex gap-2 mt-2">
-                                <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">4维度快速定位</span>
-                                <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">约3-5分钟</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-white/15 text-white border border-white/20">4维度快速定位</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-white/15 text-white border border-white/20">约3-5分钟</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <button id="mode-select-close-btn" class="mt-4 w-full py-2.5 rounded-xl font-medium text-sm border border-white/20 hover:bg-white/30 transition-all duration-300 text-gray-300" style="background: rgba(255,255,255,0.15);">
+            <button id="mode-select-close-btn" class="mt-4 w-full py-2.5 rounded-xl font-medium text-sm border border-white/30 hover:bg-white/30 transition-all duration-300 text-white" style="background: rgba(255,255,255,0.15);">
                 返回
             </button>
         </div>
@@ -1856,8 +1856,18 @@ button#back-to-home-btn {
             
             // 自动弹出游戏说明并模糊游戏页面
             setTimeout(() => {
-                showGuidePopup();
-            }, 400);
+                const guidePopup = document.getElementById('guide-popup');
+                const gameMainPage = document.getElementById('game-main-page');
+                if (guidePopup) {
+                    guidePopup.classList.remove('hidden');
+                    void guidePopup.offsetWidth;
+                    guidePopup.classList.add('show');
+                }
+                if (gameMainPage) {
+                    gameMainPage.style.filter = 'blur(8px)';
+                    gameMainPage.style.transition = 'filter 0.3s ease';
+                }
+            }, 500);
         }
 
         // 设置拖动事件
@@ -3413,22 +3423,37 @@ button#back-to-home-btn {
             if (startBtn) {
                 startBtn.addEventListener('click', function() {
                     const modeOverlay = document.getElementById('mode-select-overlay');
+                    const startPage = document.getElementById('start-page');
                     if (modeOverlay) {
                         modeOverlay.classList.remove('hidden');
                         modeOverlay.classList.add('flex');
                     }
+                    // 虚化背景
+                    if (startPage) {
+                        startPage.style.filter = 'blur(6px)';
+                        startPage.style.transition = 'filter 0.3s ease';
+                    }
                 });
+            }
+            
+            // 隐藏模式选择弹窗并恢复背景
+            function hideModeOverlay() {
+                const modeOverlay = document.getElementById('mode-select-overlay');
+                const startPage = document.getElementById('start-page');
+                if (modeOverlay) {
+                    modeOverlay.classList.add('hidden');
+                    modeOverlay.classList.remove('flex');
+                }
+                if (startPage) {
+                    startPage.style.filter = '';
+                }
             }
             
             // 模式选择 - 32题精测
             const modeFull = document.getElementById('mode-full');
             if (modeFull) {
                 modeFull.addEventListener('click', function() {
-                    const modeOverlay = document.getElementById('mode-select-overlay');
-                    if (modeOverlay) {
-                        modeOverlay.classList.add('hidden');
-                        modeOverlay.classList.remove('flex');
-                    }
+                    hideModeOverlay();
                     document.getElementById('start-page').classList.add('hidden');
                     document.getElementById('game-main-page').classList.remove('hidden');
                     initGame(32);
@@ -3439,11 +3464,7 @@ button#back-to-home-btn {
             const modeShort = document.getElementById('mode-short');
             if (modeShort) {
                 modeShort.addEventListener('click', function() {
-                    const modeOverlay = document.getElementById('mode-select-overlay');
-                    if (modeOverlay) {
-                        modeOverlay.classList.add('hidden');
-                        modeOverlay.classList.remove('flex');
-                    }
+                    hideModeOverlay();
                     document.getElementById('start-page').classList.add('hidden');
                     document.getElementById('game-main-page').classList.remove('hidden');
                     initGame(16);
@@ -3454,11 +3475,7 @@ button#back-to-home-btn {
             const modeCloseBtn = document.getElementById('mode-select-close-btn');
             if (modeCloseBtn) {
                 modeCloseBtn.addEventListener('click', function() {
-                    const modeOverlay = document.getElementById('mode-select-overlay');
-                    if (modeOverlay) {
-                        modeOverlay.classList.add('hidden');
-                        modeOverlay.classList.remove('flex');
-                    }
+                    hideModeOverlay();
                 });
             }
             
