@@ -215,9 +215,9 @@
 
 ### 01-旅行计划
 
-**场景**：角色坐在书桌前，面前墙上是世界地图和飞镖，桌上摊开各种旅行攻略书、打印的行程单和彩色便签。手机和电脑同时开着不同旅行App。角色戴着眼镜认真勾画，表情既有兴奋又有被信息淹没的微焦虑。
+**场景**：一个人坐在书桌前规划旅行，面前摊开一本旅行指南书和一张地图，手机屏幕显示航班信息。窗外是蓝天白云，角色表情充满期待和兴奋。整体氛围温暖明亮，充满旅行的憧憬感。
 
-> Flat vector illustration of a person at a desk with a world map and dart on the wall, travel guidebooks, printed itineraries, and colorful sticky notes spread across the desk. Multiple travel apps open on phone and laptop simultaneously. The person wears glasses and marks things carefully, looking both excited and slightly overwhelmed. Travel planning atmosphere, warm light, Korean travel illustration style, 3:4 ratio.
+> A young person sitting at a desk, planning a trip with a travel guidebook and a map open on the table, phone screen showing flight information. Window in background shows blue sky and white clouds. The person looks excited and dreamy about the upcoming journey. Cozy warm lighting, flat vector illustration style, soft colors, 3:4 aspect ratio.
 
 ---
 
