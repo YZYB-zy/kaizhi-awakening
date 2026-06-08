@@ -68,14 +68,37 @@ function loadCardImage(cardTitle) {
     const imgPath = cardImageMap[cardTitle];
 
     if (imgPath) {
-        cardImageEl.innerHTML = `<img src="${imgPath}" 
-             alt="${cardTitle}" 
-             class="w-full h-full object-cover rounded-lg"
-             onerror="this.parentElement.innerHTML='<span class=\\'text-3xl sm:text-4xl\\'>🎴</span>'"
-             loading="lazy">`;
+        // 停止 shimmer 动画，清除背景，让图片正常显示
+        cardImageEl.style.animation = 'none';
+        cardImageEl.style.background = '#1f2937';
+
+        // 创建 img 标签
+        const img = document.createElement('img');
+        img.src = imgPath;
+        img.alt = cardTitle;
+        img.className = 'w-full h-full object-cover rounded-lg';
+        img.loading = 'lazy';
+
+        // 加载失败时回退到占位符
+        img.addEventListener('error', function() {
+            cardImageEl.innerHTML = '<span class="text-3xl sm:text-4xl">🎴</span>';
+            cardImageEl.style.animation = '';
+            cardImageEl.style.background = '';
+        });
+
+        // 加载成功时确保样式正确
+        img.addEventListener('load', function() {
+            cardImageEl.style.animation = 'none';
+            cardImageEl.style.background = '#1f2937';
+        });
+
+        cardImageEl.innerHTML = '';
+        cardImageEl.appendChild(img);
     } else {
-        // 没有匹配的图片，显示默认占位符
+        // 没有匹配的图片，恢复 shimmer 占位
         cardImageEl.innerHTML = '<span class="text-3xl sm:text-4xl">🎴</span>';
+        cardImageEl.style.animation = '';
+        cardImageEl.style.background = '';
     }
 }
 

@@ -2443,6 +2443,11 @@ button#back-to-home-btn {
                 if (slotCText) slotCText.textContent = card.optionC;
                 if (slotDText) slotDText.textContent = card.optionD;
                 
+                // 加载卡牌图片（双保险：直接调用 + MutationObserver）
+                if (typeof loadCardImage === 'function') {
+                    loadCardImage(card.title);
+                }
+                
                 // 显示中央大卡
                 const activeContainer = document.getElementById('active-card-container');
                 const cardStack = document.getElementById('card-stack');
