@@ -404,6 +404,13 @@
     animation: shimmer 2s ease-in-out infinite;
 }
 
+/* 图片加载成功后停止 shimmer 动画 */
+#card-image.image-loaded {
+    animation: none;
+    background: #1f2937;
+    background-size: auto;
+}
+
 @keyframes shimmer {
     0% {
         background-position: -200% 0;

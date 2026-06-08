@@ -62,43 +62,22 @@ const cardImageMap = {
  * @param {string} cardTitle - 卡牌标题文字
  */
 function loadCardImage(cardTitle) {
-    const cardImageEl = document.getElementById('card-image');
+    var cardImageEl = document.getElementById('card-image');
     if (!cardImageEl) return;
 
-    const imgPath = cardImageMap[cardTitle];
+    var imgPath = cardImageMap[cardTitle];
 
     if (imgPath) {
-        // 停止 shimmer 动画，清除背景，让图片正常显示
-        cardImageEl.style.animation = 'none';
-        cardImageEl.style.background = '#1f2937';
-
-        // 创建 img 标签
-        const img = document.createElement('img');
-        img.src = imgPath;
-        img.alt = cardTitle;
-        img.className = 'w-full h-full object-cover rounded-lg';
-        img.loading = 'lazy';
-
-        // 加载失败时回退到占位符
-        img.addEventListener('error', function() {
-            cardImageEl.innerHTML = '<span class="text-3xl sm:text-4xl">🎴</span>';
-            cardImageEl.style.animation = '';
-            cardImageEl.style.background = '';
-        });
-
-        // 加载成功时确保样式正确
-        img.addEventListener('load', function() {
-            cardImageEl.style.animation = 'none';
-            cardImageEl.style.background = '#1f2937';
-        });
-
-        cardImageEl.innerHTML = '';
-        cardImageEl.appendChild(img);
+        // 使用 innerHTML 设置图片（恢复之前可用的方式）
+        // 同时添加 image-loaded 类来停止 shimmer 动画
+        cardImageEl.classList.add('image-loaded');
+        cardImageEl.innerHTML = '<img src="' + imgPath + '" ' +
+            'alt="' + cardTitle + '" ' +
+            'class="w-full h-full object-cover rounded-lg">';
     } else {
-        // 没有匹配的图片，恢复 shimmer 占位
+        // 没有匹配的图片，恢复默认占位符
+        cardImageEl.classList.remove('image-loaded');
         cardImageEl.innerHTML = '<span class="text-3xl sm:text-4xl">🎴</span>';
-        cardImageEl.style.animation = '';
-        cardImageEl.style.background = '';
     }
 }
 
@@ -107,7 +86,7 @@ function loadCardImage(cardTitle) {
  * 使用 MutationObserver 兼容不修改主脚本的方案
  */
 function initCardImageObserver() {
-    const cardTitleEl = document.getElementById('card-title');
+    var cardTitleEl = document.getElementById('card-title');
     if (!cardTitleEl) return;
 
     // 首次加载（如果已有内容）
@@ -116,10 +95,11 @@ function initCardImageObserver() {
     }
 
     // 监听标题文字变化
-    const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
+    var observer = new MutationObserver(function(mutations) {
+        for (var i = 0; i < mutations.length; i++) {
+            var mutation = mutations[i];
             if (mutation.type === 'characterData' || mutation.type === 'childList') {
-                const title = cardTitleEl.textContent.trim();
+                var title = cardTitleEl.textContent.trim();
                 if (title) {
                     loadCardImage(title);
                 }
