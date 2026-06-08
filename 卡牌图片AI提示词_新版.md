@@ -215,9 +215,9 @@
 
 ### 01-旅行计划
 
-**场景**：一个人坐在书桌前规划旅行，面前摊开一本旅行指南书和一张地图，手机屏幕显示航班信息。窗外是蓝天白云，角色表情充满期待和兴奋。整体氛围温暖明亮，充满旅行的憧憬感。
+**场景**：一个人窝在沙发里，抱着笔记本电脑浏览度假目的地，旁边放着咖啡杯和一本翻开的笔记本写满了想法。表情充满期待和憧憬，窗外透进温暖的午后阳光。氛围放松、温馨、充满对假期的美好想象。
 
-> A young person sitting at a desk, planning a trip with a travel guidebook and a map open on the table, phone screen showing flight information. Window in background shows blue sky and white clouds. The person looks excited and dreamy about the upcoming journey. Cozy warm lighting, flat vector illustration style, soft colors, 3:4 aspect ratio.
+> A young person curled up on a cozy sofa with a laptop, browsing vacation destinations, a coffee cup and open notebook with handwritten notes beside them. Excited dreamy expression, warm afternoon sunlight through the window. Relaxed aspirational mood, flat vector illustration, warm pastel tones, 3:4 aspect ratio.
 
 ---
 
