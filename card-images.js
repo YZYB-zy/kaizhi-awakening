@@ -40,6 +40,21 @@ const cardImageMap = {
     '突发状况':     'cards/lifestyle/06-突发状况 (id 43).png',
     '未来规划':     'cards/lifestyle/07-未来规划 (id 44).png',
     '旅行决策':     'cards/lifestyle/08-旅行决策 (id 28).png',
+
+    // ===== extras/ 文件夹 - 混合维度备用卡牌 =====
+    '突然来客':     'cards/extras/突然来客 (id 17).png',
+    '朋友聚会':     'cards/extras/朋友聚会 (id 18).png',
+    '种草拔草':     'cards/extras/种草拔草 (id 19).png',
+    '职业选择':     'cards/extras/职业选择 (id 20).png',
+    '意见不合':     'cards/extras/意见不合 (id 21).png',
+    '群聊轰炸':     'cards/extras/群聊轰炸 (id 22).png',
+    '学乐器':       'cards/extras/学乐器 (id 23).png',
+    '快速决策':     'cards/extras/快速决策 (id 24).png',
+    '聚餐讨论':     'cards/extras/聚餐讨论 (id 25).png',
+    '策划派对':     'cards/extras/策划派对 (id 26).png',
+    '找丢东西':     'cards/extras/找丢东西 (id 30).png',
+    '朋友冷战':     'cards/extras/朋友冷战 (id 31).png',
+    '生日感悟':     'cards/extras/生日感悟 (id 32).png',
 };
 
 /**
