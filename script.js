@@ -4023,6 +4023,13 @@ function init() {
             setTimeout(() => {
                 disclaimerModal.classList.add('hidden');
                 disclaimerModal.style.opacity = '1';
+                
+                // 显示开智说明弹窗
+                const awakeningInfoModal = document.getElementById('awakening-info-modal');
+                if (awakeningInfoModal) {
+                    awakeningInfoModal.style.display = 'flex';
+                    awakeningInfoModal.classList.remove('opacity-0', 'pointer-events-none');
+                }
             }, 300);
         });
     }
@@ -4055,6 +4062,12 @@ function init() {
             modal.style.display = 'none';
         }, 300);
     });
+    
+    // 确保开智说明弹窗默认隐藏
+    const awakeningInfoModal = document.getElementById('awakening-info-modal');
+    if (awakeningInfoModal) {
+        awakeningInfoModal.style.display = 'none';
+    }
     
     // 信息卡片弹窗关闭事件
     document.getElementById('info-cards-close').addEventListener('click', () => {

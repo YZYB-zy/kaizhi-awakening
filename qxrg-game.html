@@ -768,6 +768,45 @@ button:active {
 #slot-c.slot-highlight { color: rgba(34, 197, 94, 0.8); }
 #slot-d.slot-highlight { color: rgba(251, 146, 60, 0.8); }
 
+/* 蓝色流光边框效果 */
+@keyframes slotGlow {
+    0% {
+        box-shadow: 0 0 5px rgba(6, 182, 212, 0.5), 0 0 10px rgba(6, 182, 212, 0.3), inset 0 0 5px rgba(6, 182, 212, 0.1);
+        border-color: rgba(6, 182, 212, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(6, 182, 212, 0.8), 0 0 25px rgba(6, 182, 212, 0.5), inset 0 0 10px rgba(6, 182, 212, 0.2);
+        border-color: rgba(34, 211, 238, 1);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(6, 182, 212, 0.5), 0 0 10px rgba(6, 182, 212, 0.3), inset 0 0 5px rgba(6, 182, 212, 0.1);
+        border-color: rgba(6, 182, 212, 0.8);
+    }
+}
+
+/* 选项槽蓝色流光边框 */
+#slot-a, #slot-b, #slot-c, #slot-d {
+    position: relative;
+    border: 2px solid rgba(6, 182, 212, 0.6);
+    animation: slotGlow 2s ease-in-out infinite;
+}
+
+#slot-a { animation-delay: 0s; }
+#slot-b { animation-delay: 0.5s; }
+#slot-c { animation-delay: 1s; }
+#slot-d { animation-delay: 1.5s; }
+
+/* 焦虑抖动动画 - 与流光动画叠加 */
+@keyframes anxietySlotShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+.anxiety-slot-shake {
+    animation: anxietySlotShake 0.5s ease-in-out infinite !important;
+}
+
 /* 洞察之眼颜色 */
 #logic-eye.insight-highlight { color: rgba(6, 182, 212, 0.8); }
 #empathy-eye.insight-highlight { color: rgba(236, 72, 153, 0.8); }
@@ -907,7 +946,7 @@ button#back-to-home-btn {
             <!-- 游戏进度 -->
             <div class="flex items-start justify-between gap-2 mb-2">
                 <!-- 左侧：返回按钮 -->
-                <button id="home-btn-main" class="px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-lg text-sm border border-white/20 hover:bg-white/20 transition-all duration-300">
+                <button id="home-btn-main" class="px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-lg text-sm border border-white/20 hover:bg-white/20 transition-all duration-300" style="border-width: 0px; border-style: solid; border-color: rgb(107, 114, 128);">
                     🏠 返回首页
                 </button>
                 <!-- 中间：进度条 -->
@@ -968,8 +1007,8 @@ button#back-to-home-btn {
                         
                         <!-- 卡牌内容 -->
                         <div id="card-content" class="text-center">
-                            <h3 id="card-title" class="text-sm sm:text-base font-semibold mb-0.5 sm:mb-1.5 text-white">场景标题</h3>
-                            <p id="card-description" class="text-gray-300 mb-1.5 sm:mb-2 text-xs leading-relaxed">场景描述将出现在这里...</p>
+                            <h3 id="card-title" class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-white">场景标题</h3>
+                            <p id="card-description" class="text-gray-300 mb-2 sm:mb-3 text-sm sm:text-base leading-relaxed">场景描述将出现在这里...</p>
                         </div>
                         
                         <!-- 卡牌状态指示器 -->
@@ -986,12 +1025,12 @@ button#back-to-home-btn {
                 <div class="flex flex-col sm:flex-row gap-4">
                     <!-- 决策槽A -->
                     <div id="slot-a" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-cyan-500/15 to-blue-500/10 border-2 border-cyan-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
-                        <span id="slot-a-text" class="text-center text-xs px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                        <span id="slot-a-text" class="text-center text-sm sm:text-base px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
                     </div>
                     
                     <!-- 决策槽B -->
                     <div id="slot-b" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-purple-500/15 to-pink-500/10 border-2 border-purple-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
-                        <span id="slot-b-text" class="text-center text-xs px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                        <span id="slot-b-text" class="text-center text-sm sm:text-base px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
                     </div>
                 </div>
                 
@@ -999,14 +1038,31 @@ button#back-to-home-btn {
                 <div class="flex flex-col sm:flex-row gap-4">
                     <!-- 决策槽C -->
                     <div id="slot-c" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-green-500/15 to-emerald-500/10 border-2 border-green-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
-                        <span id="slot-c-text" class="text-center text-xs px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                        <span id="slot-c-text" class="text-center text-sm sm:text-base px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
                     </div>
                     
                     <!-- 决策槽D -->
                     <div id="slot-d" class="w-36 h-20 sm:w-40 sm:h-28 bg-gradient-to-br from-orange-500/15 to-amber-500/10 border-2 border-orange-400/40 rounded-xl flex flex-col items-center justify-center transition-all duration-200 overflow-hidden">
-                        <span id="slot-d-text" class="text-center text-xs px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                        <span id="slot-d-text" class="text-center text-sm sm:text-base px-1.5 block w-full break-words" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
                     </div>
                 </div>
+            </div>
+        </div>
+        
+        <!-- 选项详情弹窗 -->
+        <div id="option-detail-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+            <div id="option-detail-modal" class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 max-w-md w-full border border-white/10 shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+                <!-- 标题 -->
+                <h3 id="option-detail-title" class="text-xl font-bold mb-4 text-center bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent"></h3>
+                
+                <!-- 详细内容 -->
+                <div id="option-detail-content" class="text-gray-300 leading-relaxed mb-6 max-h-[60vh] overflow-y-auto scrollbar-thin">
+                </div>
+                
+                <!-- 关闭按钮 -->
+                <button id="option-detail-close-btn" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl font-medium hover:scale-105 transition-transform text-white" style="background-color: #6361ea; color: #45d9cf;">
+                    我知道了
+                </button>
             </div>
         </div>
         
@@ -1477,7 +1533,7 @@ button#back-to-home-btn {
         function initGame() {
             gameState.currentPage = 'game';
             gameState.currentCardIndex = 0;
-            gameState.resources = { energy: 10, maxEnergy: 10, logic: 5, maxLogic: 10, empathy: 5, maxEmpathy: 10 };
+            gameState.resources = { energy: 8, maxEnergy: 12, logic: 8, maxLogic: 12, empathy: 8, maxEmpathy: 12 };
             gameState.qxrgScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
             gameState.totalScore = 0;
             gameState.insightUsed = {};
@@ -1539,6 +1595,8 @@ button#back-to-home-btn {
                 if (gameMainPage) {
                     gameMainPage.style.filter = 'blur(8px)';
                 }
+                // 暂停所有抖动动画
+                pauseShakeAnimations();
             }, 300);
         }
 
@@ -1557,6 +1615,36 @@ button#back-to-home-btn {
             document.addEventListener('touchend', handleDragEnd);
             document.addEventListener('mouseleave', handleDragEnd);
             document.addEventListener('touchcancel', handleDragEnd);
+            
+            // 添加选项点击事件，显示详细内容
+            const slots = ['slot-a', 'slot-b', 'slot-c', 'slot-d'];
+            slots.forEach(slotId => {
+                const slot = document.getElementById(slotId);
+                if (slot) {
+                    slot.style.cursor = 'pointer';
+                    slot.addEventListener('click', function(e) {
+                        // 阻止事件冒泡，避免触发其他事件
+                        e.stopPropagation();
+                        
+                        const slotType = slotId.split('-')[1].toUpperCase();
+                        const card = gameState.cards[gameState.currentCardIndex];
+                        if (!card) return;
+                        
+                        // 获取选项的完整文本
+                        const optionKeys = { 'A': 'optionA', 'B': 'optionB', 'C': 'optionC', 'D': 'optionD' };
+                        const optionText = card[optionKeys[slotType]];
+                        
+                        // 显示详情弹窗
+                        showOptionDetailModal(slotType + '选项', optionText);
+                    });
+                }
+            });
+            
+            // 添加关闭按钮事件
+            const closeBtn = document.getElementById('option-detail-close-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeOptionDetailModal);
+            }
         }
 
         // 开始拖动
@@ -1808,11 +1896,11 @@ button#back-to-home-btn {
             }
             
             if (insightType === 'logic') {
-                gameState.resources.logic = Math.max(1, gameState.resources.logic - 0.5);
-                gameState.resourceUsed.logic += 0.5;
+                gameState.resources.logic = Math.max(0, gameState.resources.logic - 1);
+                gameState.resourceUsed.logic += 1;
             } else {
-                gameState.resources.empathy = Math.max(1, gameState.resources.empathy - 0.5);
-                gameState.resourceUsed.empathy += 0.5;
+                gameState.resources.empathy = Math.max(0, gameState.resources.empathy - 1);
+                gameState.resourceUsed.empathy += 1;
             }
             
             gameState.insightUsed[gameState.currentCardIndex] = true;
@@ -1837,6 +1925,9 @@ button#back-to-home-btn {
 
         // 显示洞察弹窗
         function showInsightModal(title, content, gradientClass) {
+            // 暂停所有抖动动画
+            pauseShakeAnimations();
+            
             // 模糊游戏主页面
             const gameMain = document.getElementById('game-main-page');
             if (gameMain) gameMain.style.filter = 'blur(8px)';
@@ -1878,10 +1969,95 @@ button#back-to-home-btn {
                 modal.remove();
                 // 恢复模糊
                 if (gameMain) gameMain.style.filter = '';
+                // 恢复所有抖动动画
+                resumeShakeAnimations();
             };
             
             closeBtn.addEventListener('click', closeModal);
             okBtn.addEventListener('click', closeModal);
+        }
+
+        // 显示选项详情弹窗
+        function showOptionDetailModal(optionText, optionFullText) {
+            // 模糊游戏主页面
+            const gameMain = document.getElementById('game-main-page');
+            if (gameMain) gameMain.style.filter = 'blur(8px)';
+            
+            const overlay = document.getElementById('option-detail-overlay');
+            const modal = document.getElementById('option-detail-modal');
+            const title = document.getElementById('option-detail-title');
+            const content = document.getElementById('option-detail-content');
+            
+            // 设置内容
+            title.textContent = '📋 ' + optionText;
+            content.innerHTML = optionFullText.replace(/\n/g, '<br>');
+            
+            // 显示弹窗
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            
+            // 暂停所有抖动动画，避免模糊时看到抖动
+            pauseShakeAnimations();
+            
+            // 延迟显示动画
+            setTimeout(() => {
+                modal.classList.remove('scale-95', 'opacity-0');
+                modal.classList.add('scale-100', 'opacity-100');
+            }, 50);
+        }
+        
+        // 暂停所有抖动动画
+        function pauseShakeAnimations() {
+            const slots = ['slot-a', 'slot-b', 'slot-c', 'slot-d'];
+            slots.forEach(slotId => {
+                const slot = document.getElementById(slotId);
+                if (slot) {
+                    // 暂停流光动画
+                    slot.style.animationPlayState = 'paused';
+                    // 暂停焦虑抖动动画
+                    slot.classList.remove('anxiety-slot-shake');
+                }
+            });
+            // 移除卡牌的焦虑抖动类
+            const card = document.getElementById('event-card');
+            if (card) {
+                card.classList.remove('anxiety-shake');
+            }
+        }
+        
+        // 恢复所有抖动动画
+        function resumeShakeAnimations() {
+            const slots = ['slot-a', 'slot-b', 'slot-c', 'slot-d'];
+            slots.forEach(slotId => {
+                const slot = document.getElementById(slotId);
+                if (slot) {
+                    // 恢复流光动画
+                    slot.style.animationPlayState = 'running';
+                }
+            });
+            // 根据当前焦虑值重新应用抖动（updateMoodDisplay会正确处理）
+            updateMoodDisplay();
+        }
+
+        // 关闭选项详情弹窗
+        function closeOptionDetailModal() {
+            const gameMain = document.getElementById('game-main-page');
+            const overlay = document.getElementById('option-detail-overlay');
+            const modal = document.getElementById('option-detail-modal');
+            
+            // 隐藏动画
+            modal.classList.remove('scale-100', 'opacity-100');
+            modal.classList.add('scale-95', 'opacity-0');
+            
+            // 延迟隐藏
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+                // 恢复模糊
+                if (gameMain) gameMain.style.filter = '';
+                // 恢复抖动动画
+                resumeShakeAnimations();
+            }, 300);
         }
 
         // 禁用洞察之眼
@@ -1980,15 +2156,22 @@ button#back-to-home-btn {
             if (empathyText) empathyText.textContent = Math.round(gameState.resources.empathy);
         }
 
-        // 资源恢复函数
+        // 资源恢复函数 - 每完成5题自动恢复资源
         function restoreResources() {
             const cardIndex = gameState.currentCardIndex;
             
+            // 每完成5题（第5,10,15...题后）自动恢复资源
             if (cardIndex % 5 === 0 && cardIndex > 0) {
-                gameState.resources.energy = Math.min(gameState.resources.maxEnergy, gameState.resources.energy + 2);
-                gameState.resources.logic = Math.min(gameState.resources.maxLogic, gameState.resources.logic + 1);
-                gameState.resources.empathy = Math.min(gameState.resources.maxEmpathy, gameState.resources.empathy + 1);
+                // 精力值恢复较多（休息恢复精力）
+                gameState.resources.energy = Math.min(gameState.resources.maxEnergy, gameState.resources.energy + 3);
+                // 逻辑值恢复中等（思考后需要整理）
+                gameState.resources.logic = Math.min(gameState.resources.maxLogic, gameState.resources.logic + 2);
+                // 共情值恢复中等（情感交流后需要平复）
+                gameState.resources.empathy = Math.min(gameState.resources.maxEmpathy, gameState.resources.empathy + 2);
                 updateResourceBars();
+                
+                // 显示资源恢复提示
+                showNotification('休息时间！资源已恢复', 'success');
             }
         }
 
@@ -2017,19 +2200,31 @@ button#back-to-home-btn {
             gameState.qxrgScores[selectedType]++;
             gameState.totalScore++;
 
-            // 根据答案选项调整资源值（精力、逻辑、共情）
+            // 根据答案选项调整资源值
+            // 精力值(energy): 参与社交活动消耗，独处恢复
+            // 逻辑值(logic): 深度思考消耗，分析问题恢复  
+            // 共情值(empathy): 情感交流消耗，倾听他人恢复
             if (resEffect) {
+                // 调整精力值
                 if (resEffect.energy) {
                     gameState.resources.energy = Math.max(0, Math.min(gameState.resources.maxEnergy, gameState.resources.energy + resEffect.energy));
-                    if (resEffect.energy < 0) gameState.resourceUsed.energy += Math.abs(resEffect.energy);
+                    if (resEffect.energy < 0) {
+                        gameState.resourceUsed.energy += Math.abs(resEffect.energy);
+                    }
                 }
+                // 调整逻辑值
                 if (resEffect.logic) {
                     gameState.resources.logic = Math.max(0, Math.min(gameState.resources.maxLogic, gameState.resources.logic + resEffect.logic));
-                    if (resEffect.logic < 0) gameState.resourceUsed.logic += Math.abs(resEffect.logic);
+                    if (resEffect.logic < 0) {
+                        gameState.resourceUsed.logic += Math.abs(resEffect.logic);
+                    }
                 }
+                // 调整共情值
                 if (resEffect.empathy) {
                     gameState.resources.empathy = Math.max(0, Math.min(gameState.resources.maxEmpathy, gameState.resources.empathy + resEffect.empathy));
-                    if (resEffect.empathy < 0) gameState.resourceUsed.empathy += Math.abs(resEffect.empathy);
+                    if (resEffect.empathy < 0) {
+                        gameState.resourceUsed.empathy += Math.abs(resEffect.empathy);
+                    }
                 }
             }
 
@@ -2290,7 +2485,8 @@ button#back-to-home-btn {
                 slots.forEach(slotId => {
                     const slot = document.getElementById(slotId);
                     if (slot) {
-                        slot.style.animation = 'moodSlotShake 0.5s ease-in-out infinite';
+                        // 添加抖动动画类，而不是直接设置animation属性
+                        slot.classList.add('anxiety-slot-shake');
                         slot.style.animationDelay = Math.random() * 0.3 + 's';
                     }
                 });
@@ -2298,7 +2494,8 @@ button#back-to-home-btn {
                 slots.forEach(slotId => {
                     const slot = document.getElementById(slotId);
                     if (slot) {
-                        slot.style.animation = '';
+                        // 移除抖动动画类
+                        slot.classList.remove('anxiety-slot-shake');
                         slot.style.animationDelay = '';
                     }
                 });
@@ -2679,6 +2876,8 @@ button#back-to-home-btn {
                     if (gameMainPage) {
                         gameMainPage.style.filter = 'blur(8px)';
                     }
+                    // 暂停所有抖动动画
+                    pauseShakeAnimations();
                 });
             }
 
@@ -2715,6 +2914,8 @@ button#back-to-home-btn {
                     if (gameMainPage) {
                         gameMainPage.style.filter = '';
                     }
+                    // 恢复抖动动画
+                    resumeShakeAnimations();
                     // 重置为简单说明视图
                     isDetailView = false;
                     guideDetail.classList.add('hidden');
@@ -2734,6 +2935,8 @@ button#back-to-home-btn {
                         if (gameMainPage) {
                             gameMainPage.style.filter = '';
                         }
+                        // 恢复抖动动画
+                        resumeShakeAnimations();
                         // 重置为简单说明视图
                         isDetailView = false;
                         guideDetail.classList.add('hidden');
