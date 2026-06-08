@@ -138,23 +138,23 @@
 }
 
 #event-card.dragging {
-    opacity: 0.92;
-    transform: scale(0.36) !important;
+    opacity: 0.9;
+    transform: scale(0.65) !important;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 25px rgba(6, 182, 212, 0.35);
     z-index: 1000;
     cursor: grabbing;
-    transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.15s ease;
+    transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.15s ease, box-shadow 0.2s ease;
     border-radius: 12px;
 }
 
 #event-card.dragging #card-image {
-    transform: scale(0.85);
-    transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transform: scale(0.9);
+    transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 #event-card.dragging #card-content {
-    transform: scale(0.85);
-    transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transform: scale(0.9);
+    transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 #event-card.dragging #card-title {
@@ -658,6 +658,117 @@ button:active {
     }
 }
 
+/* 竖排小卡牌 - 未翻开状态 */
+.card-mini {
+    width: 220px;
+    height: 48px;
+    perspective: 600px;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    flex-shrink: 0;
+}
+
+.card-mini:hover {
+    transform: translateX(-5px) scale(1.03);
+    box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+}
+
+.card-mini .card-mini-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #4338ca 60%, #6366f1 100%);
+    border: 1.5px solid rgba(99, 102, 241, 0.4);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-mini .card-mini-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    background: 
+        repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.03) 8px, rgba(255,255,255,0.03) 10px),
+        repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(255,255,255,0.03) 8px, rgba(255,255,255,0.03) 10px);
+    border-radius: 10px;
+}
+
+.card-mini .card-mini-icon {
+    position: relative;
+    z-index: 1;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    color: rgba(199, 210, 254, 0.9);
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+}
+
+.card-mini.flipping {
+    animation: cardMiniFlip 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes cardMiniFlip {
+    0% { transform: rotateY(0deg) scale(1); opacity: 1; }
+    40% { transform: rotateY(90deg) scale(0.9); opacity: 0.6; }
+    60% { transform: rotateY(90deg) scale(0.9); opacity: 0.6; }
+    100% { transform: rotateY(0deg) scale(1.15); opacity: 0; }
+}
+
+.card-mini.removing {
+    animation: cardMiniRemove 0.4s ease forwards;
+}
+
+@keyframes cardMiniRemove {
+    0% { transform: scale(1); opacity: 1; max-height: 48px; margin-bottom: 6px; }
+    100% { transform: scale(0.3); opacity: 0; max-height: 0; margin-bottom: 0; padding: 0; border-width: 0; }
+}
+
+/* 翻转后的中央大卡入场 */
+#active-card-container {
+    animation: bigCardAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes bigCardAppear {
+    0% { transform: scale(0.4) rotateY(90deg); opacity: 0; }
+    60% { transform: scale(1.05) rotateY(0deg); opacity: 0.8; }
+    100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+}
+
+/* 操作提示线 */
+#card-stack-hint {
+    color: rgba(148, 163, 184, 0.6);
+    font-size: 0.7rem;
+    text-align: center;
+    margin-top: 2px;
+}
+
+/* 选项槽翻面消除动画 */
+.slot-flip-out {
+    animation: slotFlipOut 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+}
+
+@keyframes slotFlipOut {
+    0% { transform: rotateY(0deg) scale(1); opacity: 1; }
+    35% { transform: rotateY(90deg) scale(0.95); opacity: 0.7; }
+    50% { transform: rotateY(90deg) scale(0.95); opacity: 0.5; }
+    100% { transform: rotateY(180deg) scale(0.8); opacity: 0; }
+}
+
+/* 选项槽翻面恢复（从背面翻回正面，用于新卡牌出现时） */
+.slot-flip-in {
+    animation: slotFlipIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes slotFlipIn {
+    0% { transform: rotateY(180deg) scale(0.8); opacity: 0; }
+    100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+}
+
 /* 卡牌滑入动画 */
 .card-enter {
     animation: cardSlideIn 0.5s ease-out;
@@ -846,6 +957,76 @@ button#back-to-home-btn {
     -webkit-text-fill-color: #e23636 !important;
     background: none !important;
 }
+
+/* 游戏说明弹窗丝滑入场动画 */
+#guide-popup {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+#guide-popup.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#guide-popup-content {
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#guide-popup.show #guide-popup-content {
+    transform: scale(1) translateY(0);
+}
+
+/* 结果页粒子动画 */
+.result-particle {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: resultParticleFloat linear infinite;
+    opacity: 0;
+}
+@keyframes resultParticleFloat {
+    0% { transform: translateY(0) translateX(0) scale(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 0.6; }
+    100% { transform: translateY(-200px) translateX(var(--drift)) scale(1.5); opacity: 0; }
+}
+
+/* 标签点击样式 */
+.tag-clickable {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+.tag-clickable:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(244, 114, 182, 0.3);
+}
+.tag-clickable:active {
+    transform: scale(0.95);
+}
+
+/* 标签详情弹窗动画 */
+#tag-detail-modal.scale-100 {
+    transform: scale(1);
+    opacity: 1;
+}
+#tag-detail-modal.scale-95 {
+    transform: scale(0.95);
+    opacity: 0;
+}
+
+/* 模式选择弹窗 */
+#mode-select-overlay .mode-card {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#mode-select-overlay .mode-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+}
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white">
@@ -947,7 +1128,7 @@ button#back-to-home-btn {
             <div class="flex items-start justify-between gap-2 mb-2">
                 <!-- 左侧：返回按钮 -->
                 <button id="home-btn-main" class="px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-lg text-sm border border-white/20 hover:bg-white/20 transition-all duration-300" style="border-width: 0px; border-style: solid; border-color: rgb(107, 114, 128);">
-                    🏠 返回首页
+                    返回首页
                 </button>
                 <!-- 中间：进度条 -->
                 <div class="flex items-center gap-2 flex-1 justify-center">
@@ -984,37 +1165,36 @@ button#back-to-home-btn {
                 </div>
             </div>
             
-            <!-- 操作提示 -->
-            <div class="text-center mb-2 px-2">
-                <p class="text-xs text-gray-500">💡 长按卡牌后拖拽到选项或洞察之眼</p>
-            </div>
-            
             <!-- 虚拟同伴气泡评论 -->
             <div id="companion-bubble" class="fixed top-24 left-3 max-w-[180px] bg-white/10 backdrop-blur-md rounded-xl p-2 border border-white/20 hidden animate-fade-in">
                 <div class="text-xs text-gray-400 mb-1">👤 路人</div>
                 <p id="companion-comment" class="text-xs"></p>
             </div>
             
-            <!-- 事件卡牌区域 -->
-            <div class="flex-1 flex items-center justify-center py-4">
-                <div id="card-area" class="relative w-full max-w-sm">
-                    <!-- 卡牌 -->
-                    <div id="event-card" class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-xl p-2 sm:p-3 border border-white/10 shadow-2xl cursor-grab active:cursor-grabbing transition-all duration-200 select-none">
-                        <!-- 卡牌图片 -->
-                        <div id="card-image" class="w-full h-20 sm:h-28 mb-1.5 sm:mb-2 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
-                            <span class="text-3xl sm:text-4xl">🎴</span>
+            <!-- 事件卡牌区域 - 竖排卡牌堆 -->
+            <div class="flex-1 flex items-center justify-center py-2">
+                <div id="card-area" class="relative w-full max-w-sm flex flex-col items-center gap-2">
+                    <!-- 卡牌堆容器 - 竖排显示 -->
+                    <div id="card-stack" class="flex flex-col items-center gap-1.5 w-full max-w-[280px]">
+                    </div>
+                    <!-- 当前翻开的卡牌（中央大卡） -->
+                    <div id="active-card-container" class="hidden w-full max-w-sm">
+                        <div id="event-card" class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-xl p-2 sm:p-3 border border-white/10 shadow-2xl cursor-grab active:cursor-grabbing transition-all duration-200 select-none">
+                            <!-- 卡牌图片 -->
+                            <div id="card-image" class="w-full h-20 sm:h-28 mb-1.5 sm:mb-2 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
+                                <span class="text-3xl sm:text-4xl">🎴</span>
+                            </div>
+                            <!-- 卡牌内容 -->
+                            <div id="card-content" class="text-center">
+                                <h3 id="card-title" class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-white">场景标题</h3>
+                                <p id="card-description" class="text-gray-300 mb-2 sm:mb-3 text-sm sm:text-base leading-relaxed">场景描述将出现在这里...</p>
+                            </div>
+                            <!-- 卡牌状态指示器 -->
+                            <div id="card-status" class="text-center text-xs text-gray-400 mt-2">
+                                立即行动 - 消耗1精力
+                            </div>
                         </div>
-                        
-                        <!-- 卡牌内容 -->
-                        <div id="card-content" class="text-center">
-                            <h3 id="card-title" class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-white">场景标题</h3>
-                            <p id="card-description" class="text-gray-300 mb-2 sm:mb-3 text-sm sm:text-base leading-relaxed">场景描述将出现在这里...</p>
-                        </div>
-                        
-                        <!-- 卡牌状态指示器 -->
-                        <div id="card-status" class="text-center text-xs text-gray-400 mt-2">
-                            立即行动 - 消耗1精力
-                        </div>
+                        <p class="text-center text-xs text-gray-500 mt-1">💡 长按卡牌后拖拽到选项或洞察之眼</p>
                     </div>
                 </div>
             </div>
@@ -1067,101 +1247,121 @@ button#back-to-home-btn {
         </div>
         
         <!-- 结果页面 -->
-        <div id="result-page" class="flex-1 flex flex-col items-center justify-center p-4 hidden">
-            <div class="max-w-2xl w-full text-center animate-fade-in">
-                <!-- 全新人格结果 -->
-                <div class="mb-8">
-                    <!-- 徽章 -->
-                    <div id="result-badge-container" class="flex justify-center mb-4">
-                        <div id="result-badge" class="w-40 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center text-2xl font-bold shadow-lg shadow-cyan-500/30" style="border-radius: 50px;">
-                            INTJ
+        <div id="result-page" class="flex-1 flex flex-col items-center justify-center p-4 hidden relative overflow-hidden">
+            <!-- 结果页背景粒子 -->
+            <div id="result-particles" class="absolute inset-0 pointer-events-none z-0"></div>
+            <div class="max-w-xl w-full text-center animate-fade-in relative z-10">
+                <!-- 结果核心 - 高级卡牌式设计，整体发光边框 -->
+                <div class="mb-6 relative backdrop-blur-xl rounded-2xl p-5 border border-amber-400/30" style="background: rgba(30, 20, 50, 0.4); box-shadow: 0 0 25px rgba(245, 158, 11, 0.15), 0 0 50px rgba(244, 63, 94, 0.1), 0 8px 32px rgba(0,0,0,0.3);">
+                    <!-- 装饰光环 -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-r from-amber-400/10 via-rose-400/10 to-violet-500/10 blur-3xl animate-pulse"></div>
+                    <!-- 徽章 - 显示花名 -->
+                    <div id="result-badge-container" class="flex justify-center mb-4 relative">
+                        <div id="result-badge" class="px-10 py-4 rounded-full bg-gradient-to-r from-amber-400 via-rose-500 to-violet-600 flex items-center justify-center text-xl font-bold text-white shadow-2xl shadow-rose-500/40 animate-glow" style="border-radius: 50px; letter-spacing: 0.05em;">
+                            战略家本家
                         </div>
                     </div>
-                    <h2 id="result-type-name" class="text-3xl font-bold mb-2">建筑师型</h2>
-                    <p id="result-description" class="text-gray-300 max-w-lg mx-auto mb-4"></p>
+                    <h2 id="result-type-name" class="text-3xl font-bold mb-2 text-white">战略家本家</h2>
+                    <p id="result-description" class="text-rose-200/70 text-base max-w-md mx-auto mb-4 italic"></p>
                     
-                    <!-- 详细性格描述 -->
-                    <div id="result-detail-description" class="bg-white/5 backdrop-blur-md rounded-xl p-4 text-left text-sm text-gray-300 max-w-lg mx-auto mb-4">
+                    <!-- 详细性格描述 - 高级玻璃拟态卡片 -->
+                    <div id="result-detail-description" class="relative backdrop-blur-xl rounded-2xl p-5 text-left text-sm text-gray-200 max-w-lg mx-auto mb-4 leading-relaxed border border-amber-400/40 shadow-2xl" style="background: rgba(30, 20, 50, 0.55); box-shadow: 0 0 20px rgba(245, 158, 11, 0.2), 0 0 40px rgba(244, 63, 94, 0.12), 0 8px 32px rgba(0,0,0,0.3);">
+                        <div class="absolute top-0 left-4 -translate-y-1/2 px-3 py-0.5 rounded-full text-xs font-semibold bg-gradient-to-r from-amber-500/30 to-rose-500/30 border border-amber-400/20 text-amber-300 backdrop-blur-sm">📖 性格解读</div>
                     </div>
                 </div>
                 
-                <!-- 维度百分比 -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div class="bg-white/5 backdrop-blur-md rounded-xl p-4">
-                        <div class="flex justify-between text-sm mb-2">
-                            <span class="text-yellow-400">E</span>
-                            <span id="ei-percentage" class="text-sm font-medium">50%</span>
-                            <span class="text-purple-400">I</span>
-                        </div>
-                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                            <div id="e-i-bar" class="h-full bg-gradient-to-r from-yellow-400 to-purple-500 rounded-full transition-all duration-300" style="width: 50%"></div>
-                        </div>
-                    </div>
-                    <div class="bg-white/5 backdrop-blur-md rounded-xl p-4">
-                        <div class="flex justify-between text-sm mb-2">
-                            <span class="text-green-400">S</span>
-                            <span id="sn-percentage" class="text-sm font-medium">50%</span>
-                            <span class="text-blue-400">N</span>
-                        </div>
-                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                            <div id="s-n-bar" class="h-full bg-gradient-to-r from-green-400 to-blue-500 rounded-full transition-all duration-300" style="width: 50%"></div>
-                        </div>
-                    </div>
-                    <div class="bg-white/5 backdrop-blur-md rounded-xl p-4">
-                        <div class="flex justify-between text-sm mb-2">
-                            <span class="text-blue-400">T</span>
-                            <span id="tf-percentage" class="text-sm font-medium">50%</span>
-                            <span class="text-pink-400">F</span>
-                        </div>
-                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                            <div id="t-f-bar" class="h-full bg-gradient-to-r from-blue-400 to-pink-500 rounded-full transition-all duration-300" style="width: 50%"></div>
-                        </div>
-                    </div>
-                    <div class="bg-white/5 backdrop-blur-md rounded-xl p-4">
-                        <div class="flex justify-between text-sm mb-2">
-                            <span class="text-cyan-400">J</span>
-                            <span id="jp-percentage" class="text-sm font-medium">50%</span>
-                            <span class="text-orange-400">P</span>
-                        </div>
-                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                            <div id="j-p-bar" class="h-full bg-gradient-to-r from-cyan-400 to-orange-500 rounded-full transition-all duration-300" style="width: 50%"></div>
-                        </div>
+                <!-- 你的性格标签 - 趣味标签展示（可点击）发光卡片 -->
+                <div class="mb-6 backdrop-blur-xl rounded-2xl p-4 border border-rose-400/30" style="background: rgba(30, 20, 50, 0.35); box-shadow: 0 0 20px rgba(244, 63, 94, 0.12), 0 0 40px rgba(244, 63, 94, 0.06), 0 8px 24px rgba(0,0,0,0.25);">
+                    <h3 class="text-sm font-semibold text-gray-400 mb-3">🏷️ 点击标签查看详细介绍</h3>
+                    <div id="personality-tags" class="flex flex-wrap gap-2 justify-center">
                     </div>
                 </div>
                 
-                <!-- 资源使用总结 -->
-                <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 mb-8">
-                    <h3 class="text-lg font-semibold mb-4">📊 资源使用总结</h3>
-                    <div id="resource-summary-content" class="text-left text-sm text-gray-300 space-y-3">
+                <!-- 给你的小建议 -->
+                <div id="personality-advice" class="relative backdrop-blur-xl rounded-2xl p-5 mb-6 mt-12 border border-emerald-400/40 shadow-2xl" style="background: rgba(30, 20, 50, 0.45); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), 0 0 40px rgba(16, 185, 129, 0.08), 0 8px 32px rgba(0,0,0,0.3);">
+                    <div class="absolute top-0 left-4 -translate-y-1/2 px-3 py-0.5 rounded-full text-xs font-semibold bg-gradient-to-r from-emerald-500/30 to-teal-500/30 border border-emerald-400/20 text-emerald-300 backdrop-blur-sm">✨ 给你的小建议</div>
+                    <h3 class="text-base font-semibold mb-3 mt-1 opacity-0">占位</h3>
+                    <div id="advice-content" class="text-left text-sm text-gray-300 space-y-3">
                     </div>
                 </div>
-                
-                <!-- 人格建议 -->
-                <div id="personality-advice" class="bg-white/5 backdrop-blur-md rounded-xl p-6 mb-8">
-                    <h3 class="text-lg font-semibold mb-4">💡 给你的建议</h3>
-                    <div id="advice-content" class="text-left text-sm text-gray-300 space-y-4">
-                    </div>
-                </div>
-                
-                <!-- 通知选择分析 -->
-                <div id="notification-analysis"></div>
                 
                 <!-- 按钮区域 -->
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button id="home-btn-result" class="px-8 py-3 bg-white/10 backdrop-blur-md rounded-xl font-medium border border-white/20 hover:bg-white/20 transition-all duration-300">
-                        🏠 返回首页
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <button id="home-btn-result" class="px-5 py-2.5 bg-white/10 backdrop-blur-md rounded-full font-medium text-sm border border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300">
+                        返回首页
                     </button>
-                    <button id="restart-game-btn" class="px-8 py-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl font-semibold transition-all duration-300 hover:scale-105">
-                        重新开始
+                    <button id="restart-game-btn" class="px-5 py-2.5 bg-white/10 backdrop-blur-md rounded-full font-medium text-sm border border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300">
+                        再来一次
                     </button>
-                    <button id="copy-result-btn" class="px-8 py-3 bg-white/10 backdrop-blur-md rounded-xl font-medium border border-white/20 hover:bg-white/20 transition-all duration-300">
+                    <button id="copy-result-btn" class="px-5 py-2.5 bg-white/10 backdrop-blur-md rounded-full font-medium text-sm border border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300">
                         复制结果
                     </button>
-                    <button id="share-card-btn" class="px-8 py-3 bg-white/10 backdrop-blur-md rounded-xl font-medium border border-white/20 hover:bg-white/20 transition-all duration-300">
+                    <button id="share-card-btn" class="px-5 py-2.5 bg-white/10 backdrop-blur-md rounded-full font-medium text-sm border border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300">
                         生成分享卡片
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+    
+    <!-- 模式选择弹窗 -->
+    <div id="mode-select-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="max-w-md w-full animate-fade-in">
+            <div class="text-center mb-6">
+                <div class="text-5xl mb-3">🎴</div>
+                <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">选择测试模式</h2>
+                <p class="text-gray-400 text-sm mt-2">请选择你想要的测试题数</p>
+            </div>
+            <div class="grid grid-cols-1 gap-4">
+                <!-- 32题精测 -->
+                <div id="mode-full" class="mode-card relative rounded-2xl p-5 border border-cyan-400/30 shadow-2xl" style="background: rgba(6, 100, 120, 0.9);">
+                    <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-bold bg-cyan-500/30 text-cyan-300 border border-cyan-400/40">推荐</div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-4xl">🔬</div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold text-cyan-300 mb-1">32题 · 精准测试</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed">全面覆盖四个维度，每题精心设计，结果更加准确可靠。适合想要深入了解自己的你。</p>
+                            <div class="flex gap-2 mt-2">
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">4维度深度分析</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">约8-15分钟</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 16题简测 -->
+                <div id="mode-short" class="mode-card relative rounded-2xl p-5 border border-purple-400/30 shadow-2xl" style="background: rgba(80, 40, 140, 0.9);">
+                    <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-bold bg-purple-500/30 text-purple-300 border border-purple-400/40">快速</div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-4xl">⚡</div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold text-purple-300 mb-1">16题 · 快速测试</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed">精选核心题目，快速定位性格类型。适合时间有限但仍想了解自己的你。</p>
+                            <div class="flex gap-2 mt-2">
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">4维度快速定位</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">约3-5分钟</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="mode-select-close-btn" class="mt-4 w-full py-2.5 rounded-xl font-medium text-sm border border-white/20 hover:bg-white/30 transition-all duration-300 text-gray-300" style="background: rgba(255,255,255,0.15);">
+                返回
+            </button>
+        </div>
+    </div>
+    
+    <!-- 性格标签详情弹窗 -->
+    <div id="tag-detail-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div id="tag-detail-modal" class="relative backdrop-blur-xl rounded-2xl p-6 max-w-md w-full border border-white/20 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" style="background: rgba(20, 15, 40, 0.9);">
+            <div class="text-center mb-4">
+                <span id="tag-detail-emoji" class="text-5xl block mb-3"></span>
+                <h3 id="tag-detail-title" class="text-2xl font-bold bg-gradient-to-r from-amber-300 to-rose-300 bg-clip-text text-transparent"></h3>
+                <p id="tag-detail-category" class="text-xs text-gray-400 mt-1"></p>
+            </div>
+            <p id="tag-detail-content" class="text-gray-200 text-sm leading-relaxed mb-6 text-center"></p>
+            <button id="tag-detail-close-btn" class="w-full py-3 bg-gradient-to-r from-amber-500 via-rose-500 to-violet-600 rounded-xl font-semibold text-sm hover:scale-105 transition-transform text-white shadow-lg shadow-rose-500/20">
+                我知道了
+            </button>
         </div>
     </div>
     
@@ -1206,38 +1406,38 @@ button#back-to-home-btn {
     
     <!-- 游戏说明弹窗 -->
     <div id="guide-popup" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div id="guide-popup-content" class="bg-gradient-to-br from-gray-800/95 to-gray-900/95 rounded-xl p-4 w-full max-w-xs border border-white/30 shadow-2xl" style="max-height: 80vh;">
-            <h3 class="text-base font-bold mb-3 text-center" style="color: #ff4747;">🎴 游戏说明</h3>
+        <div id="guide-popup-content" class="bg-gradient-to-br from-gray-800/95 to-gray-900/95 rounded-xl p-5 w-full max-w-sm border border-white/20 shadow-2xl" style="max-height: 85vh;">
+            <h3 class="text-lg font-bold mb-3 text-center" style="color: #ff4747;">🎴 游戏说明</h3>
             
             <!-- 简单说明（默认显示） -->
-            <div id="guide-simple" class="space-y-2 text-xs text-gray-300">
-                <div class="p-2 bg-white/5 rounded-lg">
+            <div id="guide-simple" class="space-y-2 text-sm text-gray-300">
+                <div class="p-2.5 bg-white/5 rounded-lg">
                     <div class="font-semibold text-sm text-white mb-1">📱 拖拽操作</div>
-                    <div class="text-gray-400 text-xs">长按卡牌0.5秒激活拖动，拖到选项槽选择</div>
+                    <div class="text-gray-400">长按卡牌0.5秒激活拖动模式，将卡牌拖至下方选项槽（A/B/C/D）即可作答</div>
                 </div>
-                <div class="p-2 bg-cyan-500/10 rounded-lg">
+                <div class="p-2.5 bg-cyan-500/10 rounded-lg">
                     <div class="font-semibold text-sm text-cyan-400 mb-1">🧠 逻辑洞察</div>
-                    <div class="text-gray-300 text-xs">消耗1点逻辑值，获取理性分析解读</div>
+                    <div class="text-gray-300">拖拽卡牌至顶部"逻辑洞察"，消耗1点逻辑值获取理性分析，辅助冷静决策</div>
                 </div>
-                <div class="p-2 bg-pink-500/10 rounded-lg">
+                <div class="p-2.5 bg-pink-500/10 rounded-lg">
                     <div class="font-semibold text-sm text-pink-400 mb-1">❤️ 共情洞察</div>
-                    <div class="text-gray-300 text-xs">消耗1点共情值，获取情感体验解读</div>
+                    <div class="text-gray-300">拖拽卡牌至顶部"共情洞察"，消耗1点共情值获取情感解读，贴近内心直觉</div>
                 </div>
-                <div class="p-2 bg-yellow-500/10 rounded-lg">
+                <div class="p-2.5 bg-yellow-500/10 rounded-lg">
                     <div class="font-semibold text-sm text-yellow-400 mb-1">⚡ 精力管理</div>
-                    <div class="text-gray-300 text-xs">选择消耗精力，每5题恢复一次</div>
+                    <div class="text-gray-300">每次选择会消耗精力值，精力见底将暂停游戏并进入休息阶段。每完成5题自动恢复</div>
                 </div>
-                <div class="p-2 bg-white/5 rounded-lg">
-                    <div class="font-semibold text-sm text-white mb-1">🎯 16种人格</div>
-                    <div class="text-gray-400 text-xs">E/I · S/N · T/F · J/P 四维度测试</div>
+                <div class="p-2.5 bg-white/5 rounded-lg">
+                    <div class="font-semibold text-sm text-white mb-1">😌 冷静/焦虑</div>
+                    <div class="text-gray-400">你的选择会影响情绪天平。保持冷静有助于做出更清晰的判断</div>
                 </div>
-                <div class="p-2 bg-purple-500/10 rounded-lg">
-                    <div class="font-semibold text-sm text-purple-400 mb-1">💎 资源平衡</div>
-                    <div class="text-gray-300 text-xs">每张卡牌洞察只能用一次</div>
+                <div class="p-2.5 bg-purple-500/10 rounded-lg">
+                    <div class="font-semibold text-sm text-purple-400 mb-1">💎 资源限制</div>
+                    <div class="text-gray-300">每张卡牌的两种洞察各只能用一次，合理规划使用时机</div>
                 </div>
-                <div class="p-2 bg-green-500/10 rounded-lg">
-                    <div class="font-semibold text-sm text-green-400 mb-1">🎲 科学设计</div>
-                    <div class="text-gray-300 text-xs">题目均衡分布，请按第一反应作答</div>
+                <div class="p-2.5 bg-green-500/10 rounded-lg">
+                    <div class="font-semibold text-sm text-green-400 mb-1">🎯 人格测试</div>
+                    <div class="text-gray-300">基于 E/I · S/N · T/F · J/P 四维度，16或32题测出你的16型人格</div>
                 </div>
             </div>
             
@@ -1245,42 +1445,46 @@ button#back-to-home-btn {
             <div id="guide-detail" class="space-y-3 text-sm text-gray-300 hidden overflow-y-auto" style="max-height: 55vh;">
                 <div class="p-3 bg-white/5 rounded-xl border border-white/10">
                     <div class="font-bold text-base text-white mb-1">📱 拖拽操作</div>
-                    <div class="text-gray-400 leading-relaxed">长按卡牌约0.5秒激活拖动模式，然后将卡牌拖动到下方的选项槽中进行选择。你也可以将卡牌拖动到上方的"洞察之眼"获取详细分析。</div>
+                    <div class="text-gray-400 leading-relaxed">长按中央卡牌约0.5秒后，卡牌会微微放大并激活拖动模式。将卡牌拖拽到下方任意选项槽（A/B/C/D）即可完成选择。也可以拖拽至顶部两只"洞察之眼"使用洞察功能。不想选择时可以松手，卡牌会归位。</div>
                 </div>
                 <div class="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/30">
                     <div class="font-bold text-base text-cyan-400 mb-1">🧠 逻辑洞察</div>
-                    <div class="text-gray-300 leading-relaxed">拖动卡牌到"🧠 逻辑洞察"可消耗1点逻辑值，获取从理性分析角度对当前问题的深度解读，帮助你做出更客观的选择。</div>
+                    <div class="text-gray-300 leading-relaxed">将卡牌拖拽至顶部的"🧠 逻辑洞察"图标，消耗1点逻辑值，即可查看从理性分析角度对当前场景的深度解读。这会帮助你排除干扰因素，看清问题的本质，做出更客观的判断。</div>
                 </div>
                 <div class="p-3 bg-pink-500/10 rounded-xl border border-pink-500/30">
                     <div class="font-bold text-base text-pink-400 mb-1">❤️ 共情洞察</div>
-                    <div class="text-gray-300 leading-relaxed">拖动卡牌到"❤️ 共情洞察"可消耗1点共情值，获取从情感体验角度对当前问题的深度解读，帮助你做出更贴合内心的选择。</div>
+                    <div class="text-gray-300 leading-relaxed">将卡牌拖拽至顶部的"❤️ 共情洞察"图标，消耗1点共情值，即可查看从情感体验角度对当前场景的深度解读。这会帮你连接内心真实感受，做出更贴合本心的选择。</div>
                 </div>
                 <div class="p-3 bg-yellow-500/10 rounded-xl border border-yellow-500/30">
                     <div class="font-bold text-base text-yellow-400 mb-1">⚡ 精力管理系统</div>
-                    <div class="text-gray-300 leading-relaxed">精力是你做出选择的基础能量。每次直接选择选项会消耗精力值。当精力较低时，建议使用洞察功能获取额外信息后再做选择。每完成5道题后，系统会自动为你恢复部分精力。</div>
+                    <div class="text-gray-300 leading-relaxed">每道题作答都会消耗精力值。精力归零后游戏会暂停，需要将卡牌拖入休息区域来恢复。每完成5道题，系统会自动为你恢复一定精力。合理使用洞察功能可以减轻精力消耗的压力。</div>
+                </div>
+                <div class="p-3 bg-white/5 rounded-xl border border-white/10">
+                    <div class="font-bold text-base text-white mb-1">😌 冷静与焦虑</div>
+                    <div class="text-gray-400 leading-relaxed">游戏中的冷静值和焦虑值会随着你的选择而变化。不同选项对不同维度的倾向性不同，影响你的情绪状态。保持冷静有助于获得更准确的测试结果，过高的焦虑会影响后续判断。</div>
                 </div>
                 <div class="p-3 bg-white/5 rounded-xl border border-white/10">
                     <div class="font-bold text-base text-white mb-1">🎯 16种人格类型</div>
-                    <div class="text-gray-400 leading-relaxed">本测试基于经典的四维人格理论，通过32道精心设计的题目，全面评估你在以下四个维度上的倾向：外向(E)/内向(I)、感觉(S)/直觉(N)、思考(T)/情感(F)、判断(J)/知觉(P)。最终根据各维度的得分计算得出你的独特人格类型。</div>
+                    <div class="text-gray-400 leading-relaxed">本测试基于经典的四维人格理论，精心设计了16道或32道生活场景题。每道题有四个选项分别对应不同维度倾向，最终通过四个维度（E/I外向内向、S/N感觉直觉、T/F思考情感、J/P判断知觉）的综合得分，得出你的专属人格类型。</div>
                 </div>
                 <div class="p-3 bg-purple-500/10 rounded-xl border border-purple-500/30">
-                    <div class="font-bold text-base text-purple-400 mb-1">💎 资源平衡机制</div>
-                    <div class="text-gray-300 leading-relaxed">逻辑值和共情值会在使用洞察时消耗。我们精心设计了资源平衡系统，确保你在使用洞察辅助决策的同时，仍能顺利完成全部测试。每张卡牌的洞察功能只能使用一次。</div>
+                    <div class="font-bold text-base text-purple-400 mb-1">💎 资源限制机制</div>
+                    <div class="text-gray-300 leading-relaxed">逻辑值和共情值各有上限，使用洞察功能时会消耗对应资源。每张卡牌上两种洞察各只能使用一次——使用后会标记为不可再用。请根据实际情况决定是否使用洞察，以及使用哪种洞察。</div>
                 </div>
                 <div class="p-3 bg-green-500/10 rounded-xl border border-green-500/30">
-                    <div class="font-bold text-base text-green-400 mb-1">🎲 科学设计原则</div>
-                    <div class="text-gray-300 leading-relaxed">每道题目都经过精心设计，确保题目分布均衡，答案选项互不偏袒。测试结果反映的是你在不同情境下的真实倾向，而非刻意的选择策略。请根据第一反应作答，结果会更加准确。</div>
+                    <div class="font-bold text-base text-green-400 mb-1">🎲 设计说明</div>
+                    <div class="text-gray-300 leading-relaxed">题目在四个人格维度间均衡分布，每道题的四个选项覆盖不同维度倾向，不存在"偏袒"某一人格类型的题目。测试结果取决于你在面对真实情境时的本能反应，而非刻意追求某个结果。</div>
                 </div>
                 <div class="p-3 bg-orange-500/10 rounded-xl border border-orange-500/30">
                     <div class="font-bold text-base text-orange-400 mb-1">📖 使用建议</div>
-                    <div class="text-gray-300 leading-relaxed">• 不必思考太久，相信直觉<br>• 每道题没有"正确"答案<br>• 设想在真实情境中你会怎么做<br>• 两次测试结果可能略有不同，这是正常的</div>
+                    <div class="text-gray-300 leading-relaxed">• 不用过度思考，相信第一直觉<br>• 每道题没有"对错"之分<br>• 想象自己真的在这个情境中<br>• 冷静/焦虑值可以帮你了解自己的情绪模式<br>• 两次测试结果可能略有不同，这很正常</div>
                 </div>
             </div>
             
             <!-- 按钮区域 -->
-            <div class="mt-3 space-y-2">
+            <div class="mt-4 space-y-2">
                 <button id="toggle-guide-detail" class="w-full py-2.5 bg-white/10 rounded-lg font-semibold text-sm hover:bg-white/20 transition-all" style="color: #fd4949;">
-                    📖 查看详细说明
+                    📖 点击查看详细说明
                 </button>
                 <button id="close-guide-btn" class="w-full py-2.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg font-semibold text-sm hover:scale-105 transition-transform">
                     我知道了
@@ -1312,208 +1516,228 @@ button#back-to-home-btn {
         // 基于全新人格心理学理论，每道题精心设计以平衡16种人格的分布
         const qxrgCards = [
             // ===== E/I 维度 (外向/内向) - 8题 =====
-            { id: 1, title: "团队讨论", desc: "在一次重要的团队会议上，每个人都需要对关键决策发表意见。会议室里安静了几秒，所有人都在等待第一个发言的人。你注意到有几个同事似乎有想法但不敢开口。这时你会怎么做？", optionA: "率先打破沉默，清晰表达自己的观点，为讨论定下基调", optionB: "先观察每个人的表情和肢体语言，在心里梳理思路，等有人发言后再补充", optionC: "鼓励看起来有想法的同事先发言，然后在他们的基础上展开讨论", optionD: "用提问的方式引导大家思考，逐步引出各自的意见", aType: "E", bType: "I", cType: "F", dType: "T", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "心理学研究发现，外向型人格(E)倾向于在社交互动中获取能量，他们通过表达来整理思维；内向型人格(I)则更习惯在内心加工信息后再表达。荣格认为这不是社交能力的差异，而是能量来源的不同。", empathyInsight: "从情感需求角度看：每个人在群体中都有被倾听的渴望。有些人需要说话来感受存在感，有些人则通过被邀请发言来感受被重视。理解不同的表达风格，才能建立真正的团队信任。" },
+            { id: 1, title: "朋友聊天", desc: "一群朋友在咖啡馆聚会，聊到最近的热门话题。突然有人抛出一个问题让大家发表看法，空气安静了几秒，大家都在等别人先开口。你注意到有几个朋友似乎想说什么但犹豫了。", optionA: "率先打破沉默，说出你的看法，带动讨论的气氛", optionB: "先观察大家的表情和反应，在心里理清思路，等有人开口后再补充", optionC: "鼓励看起来想说话的朋友先说，然后在他们的基础上展开", optionD: "用一个有趣的问题引导大家思考，让每个人自然地加入讨论", aType: "E", bType: "I", cType: "F", dType: "T", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "外向者倾向于在社交互动中通过表达来整理思维，内向者则习惯在内心加工后再表达。这不是社交能力的差异，而是能量来源的不同——每个人都有自己的节奏。", empathyInsight: "每个人在群体中都有被倾听的渴望。有人需要说话来感受存在感，有人需要被邀请发言来感受被重视。理解不同的表达风格，朋友间的聊天才会更舒服。" },
             { id: 2, title: "周末计划", desc: "漫长的一周终于结束了，你拥有了完全属于自己的两天时间。最近工作压力很大，你感到身心都需要调整。打开手机，看到几个朋友发来的聚会邀请，也想起那本买了很久还没看的书。你会如何安排这个周末？", optionA: "接受朋友邀请，组织一次小型聚会，和大家一起放松", optionB: "婉拒邀请，在家安静地看书、听音乐，享受独处时光", optionC: "约一两个最亲近的朋友单独见面，进行深度交流", optionD: "先去参加聚会，但提前离开，给自己留出独处充电的时间", aType: "E", bType: "I", cType: "F", dType: "P", aRes: {energy:-2, logic:0, empathy:+1}, bRes: {energy:+2, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:-1, logic:0, empathy:0}, logicInsight: "从精力管理角度看：外向者通过社交充电，独处反而消耗精力；内向者则相反。心理学研究建议根据自身类型安排恢复性活动，而非盲目模仿他人的放松方式。", empathyInsight: "社会心理学研究表明，真正的幸福感来自于按照自己的价值观生活，而非迎合社会期望。有些人需要人群来感受活力，有些人需要独处来回归自我——两者都是健康的。" },
-            { id: 3, title: "社交场合", desc: "你受邀参加一个行业交流酒会，会场里大约有50人，大多数是陌生人。你看到有人在三五成群地交谈，也有人独自站在角落。你手中端着一杯饮料，环顾四周，思考着如何度过接下来的两小时。", optionA: "主动走向人群，自我介绍并加入正在进行的对话", optionB: "找到一个舒适的角落，观察整个场合并等待有人主动来交谈", optionC: "找到另一个独自站着的人，主动上前进行一对一交流", optionD: "先在场边观察，找到看起来志同道合的人后再有目标地接近", aType: "E", bType: "I", cType: "E", dType: "I", aRes: {energy:-2, logic:0, empathy:+1}, bRes: {energy:+1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "社会心理学中的'接近效应'表明，主动发起社交的人更容易建立广泛的人脉网络，但深度关系往往来自有选择性的交流。不同的社交策略适用于不同的目标和场合。", empathyInsight: "在陌生社交环境中感到紧张是完全正常的——这被称为'社交评价焦虑'。重要的是找到让自己舒适的方式，无论是一对一交流还是小组互动，真诚比技巧更重要。" },
+            { id: 3, title: "派对新人", desc: "朋友带你去一个派对，房间里大约有30人，大部分你都不认识。有人在跳舞，有人在聊天，也有人独自玩手机。你端着一杯饮料，环顾四周，不确定该怎么融入这个陌生的环境。", optionA: "主动走向人群，大方地介绍自己，加入正在聊天的圈子", optionB: "找个舒服的位置坐下，观察大家，等有人来跟你搭话", optionC: "发现另一个也落单的人，主动走过去一对一聊天", optionD: "先在旁边感受一下氛围，找到看起来兴趣相投的人再接近", aType: "E", bType: "I", cType: "E", dType: "I", aRes: {energy:-2, logic:0, empathy:+1}, bRes: {energy:+1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "在陌生社交环境中，外向者倾向主动出击建立广泛连接，内向者倾向选择性深度交流。研究表明，找到让自己舒适的社交方式比强迫自己'外向'更能建立真实的关系。", empathyInsight: "在陌生派对感到紧张太正常了。不需要强迫自己变成社交达人——找一个友善的人聊几句，或者帮主人做点事，都能让你慢慢放松下来。真诚永远是最好的社交技巧。" },
             { id: 4, title: "午休时光", desc: "午休时间到了，你有一个小时的休息时间。同事们正在讨论去哪里吃饭，有人提议一起去公司附近新开的餐厅，也有人说想在工位快速解决然后休息。你今天上午的工作效率很高，心情也不错。", optionA: "加入同事们一起去新餐厅，边吃边聊，享受热闹的午餐氛围", optionB: "独自去常去的安静小馆，一边吃饭一边整理下午的工作思路", optionC: "和关系最好的同事两人一起去，深入聊聊最近的工作和生活", optionD: "快速吃完后去公司楼下的花园散步，享受独处的宁静时光", aType: "E", bType: "I", cType: "F", dType: "I", aRes: {energy:-1, logic:0, empathy:+1}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:+1, logic:0, empathy:0}, logicInsight: "午餐时间的社交选择反映了你的能量管理偏好。研究显示，在工作中适度社交可以提升团队凝聚力，但过度社交可能导致下午精力不足。关键是根据当天状态灵活调整。", empathyInsight: "人际关系中的'微时刻'——如共进午餐——是建立信任的基石。不必每次都参加集体活动，但偶尔的参与会让同事感受到你的善意和团队精神。" },
 
             // ===== S/N 维度 (感觉/直觉) - 8题 =====
-            { id: 5, title: "新项目启动", desc: "公司交给你一个全新的项目，目标是在三个月内开发一款创新产品。目前只有大致的方向，具体的需求和方案都需要你来制定。你的办公桌上堆满了行业报告、用户反馈和竞品分析资料。时间紧迫，你需要在今天内确定初步方案。", optionA: "先系统梳理所有已有的数据和资料，基于事实和案例来设计方案", optionB: "先构想产品最终的样子和用户体验，从愿景出发反向推导实现路径", optionC: "去和实际用户交流，收集第一手的反馈和需求再来做决定", optionD: "思考这个产品可能带来的行业变革和未来趋势，从更宏观的角度定位", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "全新人格理论中，感觉型(S)偏好具体、实际的信息，依赖五感收集的数据；直觉型(N)偏好抽象、概念性的信息，关注模式和可能性。优秀的产品设计往往需要两者的结合。", empathyInsight: "每个人都有自己理解世界的方式。感觉型的人通过具体体验获得安全感，直觉型的人通过想象可能性获得动力。理解自己的认知偏好，能帮你更有效地学习和工作。" },
-            { id: 6, title: "技术难题", desc: "项目中遇到了一个棘手的技术难题，传统的解决方案都行不通。团队已经讨论了两轮，提出了几种不同的思路。时间在流逝，压力在增加。你需要决定接下来的攻关方向。", optionA: "查阅类似案例和技术文档，找到可借鉴的实际解决方案", optionB: "跳出框架思考，尝试用一种全新的理论方法来解决问题", optionC: "搭建实验环境，通过反复测试和调整来找到最优方案", optionD: "从问题的本质出发，重新定义问题本身，寻找突破口", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "认知心理学区分了两种问题解决策略：算法式（逐步尝试）和启发式（凭经验直觉）。感觉型偏好前者，直觉型偏好后者。高效的问题解决者能在两种模式间灵活切换。", empathyInsight: "面对困难时，不同的人需要不同的支持。有些人需要具体的指导和案例，有些人需要被鼓励大胆尝试。了解自己的认知风格，能帮你在压力下找到最适合自己的应对方式。" },
+            { id: 5, title: "学做新菜", desc: "你刷到一道看起来超好吃的菜，心血来潮想在家尝试做出来。但你从来没做过这道菜，冰箱里的食材也不全。打开手机搜了三个不同版本的菜谱，每个做法都不太一样。你系上围裙，准备开始你的厨房冒险。", optionA: "严格按照点赞最高的菜谱一步步来，精确称量每种食材", optionB: "大概看一下菜谱了解思路，然后凭感觉自由发挥", optionC: "先看几个视频教程熟悉操作流程，再动手实践", optionD: "在基础菜谱上大胆创新，加入自己喜欢的元素", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "感觉型(S)偏好具体、实际的指导，喜欢跟着步骤来；直觉型(N)偏好自由发挥和创意改编。做饭这件事完美展现了两种认知风格的差异——有人是'精准派'，有人是'感觉派'，各有各的美味。", empathyInsight: "做饭不只是填饱肚子，更是一种生活态度。有人享受精确复刻的成就感，有人享受自由创作的惊喜感。不管哪种方式，用心做的菜都会有爱的味道。" },
+            { id: 6, title: "拼大型乐高", desc: "朋友送了你一套超大型乐高，打开盒子发现有好几千个零件和一本厚厚的说明书。有人建议严格按照说明书来，有人说自由发挥更有意思，也有人建议先分类再拼。你看着满地的零件，有点兴奋又有点懵。", optionA: "严格按照说明书的步骤，一步步组装，确保不出错", optionB: "先看看成品图，在脑海中构思结构，然后自由发挥", optionC: "先把零件按颜色和形状分类整理，再按区域逐步拼装", optionD: "从整体结构入手，思考每个部分的功能和连接方式", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "拼乐高完美暴露了S/N偏好。感觉型喜欢按照说明书一步步来，享受秩序感；直觉型喜欢先构想整体再自由发挥，享受创造感。两种方式都能拼出精彩的作品。", empathyInsight: "乐高的乐趣不在于最终成品多完美，而在于拼的过程。有人享受按部就班的安心感，有人享受天马行空的自由感——找到让你开心的方式最重要。" },
             { id: 7, title: "阅读偏好", desc: "你走进一家书店，有整整两个小时可以自由浏览。书架上有各种类型的书：实用技能、哲学思想、人物传记、科幻小说、历史研究、商业管理……你的目光扫过一排排书脊，思考着哪本能给你最大的收获。", optionA: "选择一本实用的技能提升书籍，能直接应用到工作或生活中", optionB: "选择一本探讨深层思想和理论的书籍，拓展思维边界", optionC: "选择一本基于真实案例和数据分析的行业研究书籍", optionD: "选择一本富有想象力的科幻或哲学作品，激发新的思考", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:0, logic:+1, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:0, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "阅读偏好反映了信息获取的倾向。感觉型偏好具体、可操作的内容；直觉型偏好抽象、有启发性的内容。研究显示，跨类型阅读能有效拓展认知广度。", empathyInsight: "书籍是心灵的窗户——你选择的书反映了你当下的内心需求。有时需要实用指导，有时需要思想启发，这都是成长的一部分。" },
-            { id: 8, title: "产品设计", desc: "你需要为公司的核心产品设计一个新功能。用户反馈显示现有功能不够完善，但具体怎么改，不同用户有不同意见。产品经理希望你提出一个创新的设计方案，同时也要考虑开发成本和上线时间。", optionA: "基于用户行为数据和反馈报告，逐步优化现有功能", optionB: "大胆想象一个全新的交互方式，重新定义用户体验", optionC: "研究市场上同类产品的最佳实践，在此基础上改进", optionD: "从未来趋势出发，设计一个具有前瞻性的功能架构", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "设计思维(Design Thinking)强调在具体和抽象之间切换：既要基于用户反馈（感觉），也要敢于想象可能性（直觉）。最成功的设计往往是两者的平衡。", empathyInsight: "设计的本质是为人服务。数据能告诉你用户做了什么，但只有深入理解用户的情感和动机，才能知道他们真正需要什么。" },
+            { id: 8, title: "装修房间", desc: "你打算重新布置自己的房间。房间不算大，但东西不少。你在网上看了很多装修案例，有极简风、复古风、温馨风……你希望这个房间既好看又实用，但预算有限，而且你不想折腾太久。", optionA: "量好尺寸，画好布局图，按照实用的原则一件件添置", optionB: "先在脑海中想象理想房间的样子，然后去找能实现这个感觉的物件", optionC: "参考朋友家和网上的实际案例，选择经过验证的方案", optionD: "不拘泥于某种风格，把喜欢的元素混搭出自己的个性空间", aType: "S", bType: "N", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "感觉型偏好从具体案例和实际尺寸出发做决策，直觉型偏好从整体风格和氛围出发。装修这件事很有趣——它既是工程问题也是美学问题，完美暴露了你的思维偏好。", empathyInsight: "房间是内心的延伸。有人需要秩序和实用来获得安全感，有人需要美感和氛围来获得幸福感。你的房间，应该让你一进门就觉得'啊，回家了'。" },
 
             // ===== T/F 维度 (思考/情感) - 8题 =====
-            { id: 9, title: "人事决策", desc: "你是团队主管，需要评估一位员工的去留。这位员工工作很努力，经常加班，但业绩数据确实不理想，连续两个季度未达标。其他团队成员对此也有议论。你知道他家里有经济压力，而且他本人对工作很有热情。明天就是最后决定期限。", optionA: "基于业绩数据和客观标准做出决定，公平对待所有人", optionB: "考虑他的个人情况和努力态度，再给他一次改进机会", optionC: "综合分析数据和他面临的客观困难，制定一个明确的改进计划", optionD: "和他深入沟通，了解真实困难，共同决定去留", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "管理学研究表明，纯粹的绩效导向可能导致短视；纯粹的人情管理可能导致不公平。最佳实践是建立清晰的绩效改进计划(PIP)，既有客观标准也有人文关怀。", empathyInsight: "每个人都在与自己的困难作斗争。一个公平的决定应该是透明的、有同情心的、给人改进机会的。领导力不仅在于做正确的事，更在于以正确的方式做事。" },
+            { id: 9, title: "朋友吵架", desc: "你的两个好朋友最近闹了矛盾，起因是一件小事——一个人觉得另一个人不够重视自己。两人都在微信上找你吐槽，各说各的委屈。你被夹在中间，两人都希望你能站队。明天你们三个还要一起吃饭。", optionA: "客观分析双方的言行，指出谁对谁错，公平公正", optionB: "分别安抚两人的情绪，先让大家冷静下来再谈对错", optionC: "整理两人各自的说法，找出误解的关键点，帮他们理清思路", optionD: "约两人一起坐下来，引导他们坦诚沟通，化解误会", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "朋友之间的冲突调解需要智慧。T型人倾向客观分析谁对谁错，F型人倾向先处理情绪再解决问题。研究表明，在亲密关系中，情感支持往往比逻辑分析更有效。", empathyInsight: "被夹在朋友中间真的很难受。你不需要当法官——有时候只要陪着他们、理解他们，就够了。真正的好朋友会感谢你没有选边站，而是帮他们找回了彼此。" },
             { id: 10, title: "朋友求助", desc: "深夜，一位好朋友打来电话，声音听起来很低落。他最近和伴侣发生了严重的争吵，情绪崩溃，不知道该怎么做。他既想倾诉，又想要建议。你明天早上还有一个重要的报告要交。", optionA: "帮他理性分析问题的来龙去脉，列出可行的解决方案", optionB: "先耐心倾听，给予情感上的支持和安慰，让他感到被理解", optionC: "听完后帮他梳理双方的观点和诉求，找到折中的解决方案", optionD: "先安抚情绪，等对方冷静下来后再一起讨论解决办法", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "心理咨询的基本原则是：先处理情绪，再处理问题。当一个人处于情绪激动状态时，逻辑分析往往难以被接受。有效的帮助需要共情先行，理性后行。", empathyInsight: "有时候人们打电话不是为了寻求解决方案，而只是希望有人能听到他们的声音。'我理解你的感受'比'你应该这样做'更有力量。" },
-            { id: 11, title: "方案评审", desc: "你需要评审两个竞标方案。方案A数据详实、逻辑严密、风险可控，但创意平平；方案B创意十足、愿景宏大，但缺乏数据支撑，风险较高。团队成员各执一词，争论激烈。最终决定权在你手上。", optionA: "基于客观指标和风险评估矩阵，选择数据更可靠的方案", optionB: "考虑团队对方案的热情和投入度，选择大家更认同的方案", optionC: "让两个团队补充完善各自的方案，再进行第二轮比较", optionD: "综合两个方案的优点，提出融合性的第三种方案", aType: "T", bType: "F", cType: "J", dType: "P", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:-1, logic:+1, empathy:+1}, logicInsight: "决策理论中的'理性决策模型'强调基于数据和逻辑做判断，而'直觉决策模型'承认经验和情感的价值。现实中，最佳决策往往结合了两者——用数据缩小范围，用直觉做最终选择。", empathyInsight: "团队决策不仅是选方案，更是在管理人。尊重每个团队成员的贡献，让他们感到被倾听，比选择'最优方案'更有利于长期团队健康。" },
-            { id: 12, title: "年终评优", desc: "年终到了，你需要推荐一位团队成员为年度优秀员工。候选人A全年业绩第一，但性格孤僻，与团队合作较少；候选人B业绩排名第三，但乐于助人，经常帮助新人，团队口碑极好。你的推荐将影响晋升和奖金。", optionA: "严格按照业绩排名推荐，这是最公平客观的标准", optionB: "综合考虑团队贡献和协作精神，推荐对团队氛围贡献更大的", optionC: "制定一个综合评分体系，将业绩和团队贡献都纳入考量", optionD: "让团队成员匿名投票，由大家共同决定", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:0, logic:+1, empathy:-1}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "组织行为学研究表明，单一维度的评价体系（如只看业绩）会导致'指标暴政'，忽视协作、创新等难以量化的贡献。360度评价能更全面地反映一个人的价值。", empathyInsight: "评价一个人的价值不应只看数字。那些默默帮助同事、提升团队士气的人，他们的贡献虽然不体现在KPI上，却是一个团队不可或缺的黏合剂。" },
+            { id: 11, title: "选生日礼物", desc: "你最好的朋友快过生日了，你想送一份特别的礼物。朋友A推荐送实用的电子产品，朋友B说送有纪念意义的手工礼物更好，朋友C觉得直接问对方想要什么最保险。你的预算有限，而且只剩三天时间准备了。", optionA: "根据朋友的日常习惯和需求，选一件最实用的礼物", optionB: "选一件能表达你们友情的、有情感价值的礼物", optionC: "再观察几天朋友最近喜欢什么，多收集信息再做决定", optionD: "结合实用和心意，自己动手改造一件独一无二的礼物", aType: "T", bType: "F", cType: "J", dType: "P", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:-1, logic:+1, empathy:+1}, logicInsight: "选礼物这件事完美暴露了你的决策风格。T型人倾向功能性考量，F型人倾向情感价值。最好的礼物往往是理性和感性的结合——既实用又走心。", empathyInsight: "礼物不在乎贵不贵，而在乎你有没有用心。收到礼物的人感受到的不是物品本身，而是你花时间去想'ta会喜欢什么'的那份心意。" },
+            { id: 12, title: "选室友", desc: "你需要找一个合租的室友，现在有两个候选人。A很爱干净、作息规律，但性格比较冷淡，不太爱聊天；B性格开朗、热情大方，但比较随性，偶尔会忘记打扫公共区域。房租和水电费是平摊的，合同要签一年。", optionA: "选爱干净的那个，生活习惯好是最重要的客观标准", optionB: "选性格好的那个，住得开心比什么都重要", optionC: "列出两人的优缺点对比表，综合评分后再决定", optionD: "分别再约两人聊一次，看看谁更合拍", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:0, logic:+1, empathy:-1}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "选室友是一个典型的决策场景。T型人倾向用客观标准（卫生、作息），F型人倾向用主观感受（相处氛围）。好的室友关系往往需要两者兼顾——规则和情感到位。", empathyInsight: "室友不只是分摊房租的人，更是你每天回家都会见到的人。选一个让你放松的，而不是让你紧张的。住得舒心，比住得'标准'更重要。" },
 
             // ===== J/P 维度 (判断/感知) - 8题 =====
             { id: 13, title: "旅行计划", desc: "你计划下个月出国旅行一周。这是你期待已久的假期，你想充分利用每一分钟。打开旅行App，各种攻略和游记扑面而来：热门景点、特色美食、交通路线、住宿推荐……信息量大得让人有点不知所措。", optionA: "制定详细的行程表，每天几点去哪里都安排得清清楚楚", optionB: "只订好机票和第一晚酒店，其他的到了再说，随性而行", optionC: "规划好主要景点和交通，但每天的安排留出弹性空间", optionD: "不做具体计划，带上一本指南书，每天根据心情决定去哪里", aType: "J", bType: "P", cType: "J", dType: "P", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "心理学研究发现，判断型(J)偏好结构和确定性，这能减少焦虑但可能错过意外发现；感知型(P)偏好灵活和开放，这能增加新奇体验但可能带来压力。最佳旅行策略因人而异。", empathyInsight: "旅行的意义不在于打卡了多少景点，而在于你收获了怎样的体验和感悟。有些人需要计划来获得安全感，有些人需要自由来感受快乐——尊重自己的节奏最重要。" },
-            { id: 14, title: "截止日期", desc: "一个重要项目的截止日期就在三天后，但核心模块还有30%未完成。客户已经发了两次催促邮件，你的压力很大。团队的进度参差不齐，有人建议延期，有人认为加班能赶上。你需要快速做出决定。", optionA: "立即制定详细的冲刺计划，按小时分配任务，确保按时交付", optionB: "评估哪些功能是必须的，哪些可以后续迭代，灵活调整范围", optionC: "先完成最关键的部分，确保核心功能可用，其他的做降级处理", optionD: "和客户坦诚沟通当前情况，协商一个更合理的交付时间", aType: "J", bType: "P", cType: "T", dType: "F", aRes: {energy:-2, logic:+1, empathy:-1}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "项目管理中的'铁三角'（范围、时间、成本）告诉我们三者不可兼得。面对截止日期压力，调整范围比牺牲质量或透支团队更可持续。", empathyInsight: "截止日期的压力不仅影响工作质量，更影响团队的心理健康。坦诚沟通、合理调整预期，比硬撑着交付一个有问题的产品更负责任。" },
-            { id: 15, title: "日常安排", desc: "新的一周开始了，你的待办清单上至少有15件事。有重要的、紧急的、琐碎的、长期的。你坐在办公桌前，思考如何高效地度过这一周。手机又震动了一下——新的消息又来了。", optionA: "列出详细的周计划，把每项任务分配到具体的时间段", optionB: "只确定本周最重要的3件事，其他的灵活安排", optionC: "按优先级排序，每天处理最重要的任务，不纠结于具体时间", optionD: "保持开放心态，根据每天的实际情况灵活调整", aType: "J", bType: "P", cType: "J", dType: "P", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "时间管理中的'艾森豪威尔矩阵'建议区分重要/紧急。判断型偏好计划驱动，感知型偏好事件驱动。两者结合——重要的事计划好，紧急的事灵活处理——往往最有效。", empathyInsight: "不要被待办清单奴役。记住你是一个活生生的人，不是效率机器。留出一些空白时间给自己，给意外，给生活本身。" },
+            { id: 14, title: "赶飞机", desc: "你计划了一个月终于要出发旅行了，结果出发当天睡过头了！现在距离航班起飞还有两小时，从家到机场正常需要一小时，但你还没收拾完行李。你看着摊了一床的衣服和护肤品，心跳加速。", optionA: "快速列一个清单，按清单高效打包，掐着时间出发", optionB: "抓几件最喜欢的衣服塞进箱子，剩下的到了再买", optionC: "先确保证件、手机、充电器这些最重要的东西带齐", optionD: "立刻查一下能不能改签，给自己多争取一些时间", aType: "J", bType: "P", cType: "T", dType: "F", aRes: {energy:-2, logic:+1, empathy:-1}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "赶飞机是典型的压力情境测试。J型人倾向快速建立秩序来应对，P型人倾向灵活应变。有趣的是，研究表明约85%的'赶飞机'焦虑其实是不必要的——大部分时候都能赶上。", empathyInsight: "旅行的意义不在于完美的开始，而在于途中的体验。就算漏带了几件东西，就算差点赶不上飞机，这些'小插曲'往往会成为最有趣的回忆。" },
+            { id: 15, title: "周末清单", desc: "周末到了，你列了一堆想做的事：洗衣服、整理衣柜、去超市采购、给爸妈打电话、追完那部剧、尝试新菜谱、去健身房、约朋友喝咖啡……但两天时间显然不够。你瘫在沙发上，决定好好规划一下。", optionA: "把每件事排进周六日的时间表里，精确到小时", optionB: "只挑两三件最想做的，其他随缘，周末是用来放松的", optionC: "按重要程度排序，先做必须做的，有时间再做想做的", optionD: "不做计划，睡到自然醒，想到什么做什么", aType: "J", bType: "P", cType: "J", dType: "P", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "周末安排是J/P偏好的完美测试。J型人喜欢有结构地安排时间，P型人喜欢保持自由。研究发现，适度的计划能提升周末满意度，但过度计划反而让人更累。", empathyInsight: "周末是你的，不是待办清单的。别把休息日过成第二个工作日。有些事不做也没关系，躺在沙发上发呆也是正经事。" },
             { id: 16, title: "搬家整理", desc: "你准备搬家，面对满屋子的物品：衣服、书籍、杂物、纪念品……有些东西已经很久没用过了，但每件似乎都有它的故事。新家比现在的小一些，你不可能把所有东西都带走。", optionA: "按类别系统整理，列出清单，决定每件物品的去留", optionB: "边收拾边决定，保留那些让自己心动的，舍弃其余的", optionC: "先打包必需品和常用品，剩下的慢慢处理", optionD: "随性整理，重要的东西自然会被留下", aType: "J", bType: "F", cType: "J", dType: "P", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "整理专家近藤麻理惠提出的'心动整理法'结合了判断型和情感型的优点：有明确的整理流程，但以情感作为判断标准。这说明最好的方法往往融合多种风格。", empathyInsight: "每一件物品都承载着一段记忆。告别它们不是否定过去，而是为未来腾出空间。允许自己保留那些真正重要的，也允许自己放手那些已经不再需要的。" },
 
+            // ===== E/I 新增 - 3题 =====
+            { id: 33, title: "工作会议", desc: "部门例会正在进行，老板让每个人汇报本周进展。轮到你的时候，你有几个成果想展示，但注意到时间已经不多了，后面还有好几个人等着发言。你翻了一下自己的笔记本，上面密密麻麻记了不少要点。", optionA: "精神饱满地站起来，用生动的语言和手势展现你的成果", optionB: "简明扼要地说出关键数据和结论，不多说一句废话", optionC: "先肯定团队合作，再谦虚地分享自己的贡献", optionD: "重点讲最有亮点的部分，其余用一句话带过", aType: "E", bType: "I", cType: "F", dType: "T", aRes: {energy:-1, logic:0, empathy:+1}, bRes: {energy:+1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "职场汇报是E/I偏好的经典场景。外向者通过口头表达理清思路，内向者倾向精炼核心信息。研究表明，最有效的汇报是结合两者——有亮点有数据，简洁有力。", empathyInsight: "在会议上发言多少不代表能力高低。有时候最安静的那个人，说出来的话最有分量。按你舒服的方式来，你的实力不需要用音量来证明。" },
+            { id: 34, title: "团队建设", desc: "公司组织团建活动，有密室逃脱、户外拓展和创意工作坊三个选项。你不确定哪个更有趣，但知道这次团建的目的是增进同事之间的了解和信任。你看到不同部门的同事都在群里讨论各自的偏好。", optionA: "在群里积极发表意见，拉票支持你喜欢的活动", optionB: "等大家讨论出结果再表态，不想参与激烈的争论", optionC: "私下问问关系好的同事想去哪个，然后一起投票", optionD: "建议来个民主投票，每人一票公平决定", aType: "E", bType: "I", cType: "F", dType: "T", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:+1, logic:0, empathy:0}, cRes: {energy:0, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "团建选择反映团队中的社交角色。主动拉票者往往承担意见领袖角色，等待结果者则是团队稳定的力量。不同风格对团队决策都有价值。", empathyInsight: "团建的目的不是选'最好玩'的活动，而是让每个人都有参与感。无论你选择积极发声还是默默支持，重要的是你愿意和大家在一起。" },
+            { id: 35, title: "新环境", desc: "你刚搬到一个新城市工作，住在公司安排的公寓里。楼下有健身房、咖啡厅和一个小公园。周末到了，你不认识任何人，也不知道附近有什么好玩的地方。手机里的地图显示周围有很多餐厅和商店。", optionA: "主动去咖啡厅和公园逛逛，找机会跟邻居或路人搭话", optionB: "在网上搜索本地社群和活动，先了解再慢慢融入", optionC: "加入一个兴趣小组（运动/读书/志愿者），通过共同兴趣认识人", optionD: "花时间布置新家，让自己先安顿下来，社交不着急", aType: "E", bType: "I", cType: "S", dType: "N", aRes: {energy:-1, logic:0, empathy:+1}, bRes: {energy:+1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:+1, logic:0, empathy:0}, logicInsight: "搬到新环境是重大的生活转变。外向者通过快速建立社交网络来适应，内向者通过先建立个人秩序来找到安全感。两种策略都是有效的适应方式。", empathyInsight: "新城市、新生活，给自己一点时间。不需要强迫自己立刻变成社交达人。像种一棵树一样——先扎根，再慢慢开枝散叶。" },
+
+            // ===== S/N 新增 - 3题 =====
+            { id: 36, title: "投资理财", desc: "你有一笔闲钱想用来投资。朋友A推荐了一个据说稳赚的理财产品，朋友B说他最近在研究加密货币赚了不少，朋友C建议你买指数基金长期持有。你对投资了解不多，但不想让钱躺在银行里贬值。", optionA: "选择风险低、收益稳定的理财产品，保住本金最重要", optionB: "研究一下加密货币和新兴投资方式，寻找高回报的机会", optionC: "花时间系统学习投资知识，对比各种方案后再决定", optionD: "分散投资——一部分稳健一部分进取，平衡风险和收益", aType: "S", bType: "N", cType: "T", dType: "J", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-2, logic:+1, empathy:0}, dRes: {energy:-1, logic:+1, empathy:0}, logicInsight: "投资偏好与人格类型高度相关。感觉型偏好看得见摸得着的稳健投资，直觉型更愿意尝试新兴机会。最佳策略是匹配自己的风险承受能力和认知风格。", empathyInsight: "理财不是比谁赚得多，而是找到让自己晚上睡得着的方式。有人需要稳健来获得安心，有人享受探索新领域来获得刺激——选让你踏实的那个。" },
+            { id: 37, title: "学新技能", desc: "你想学一项新技能提升自己。选项包括：编程、设计、写作、视频剪辑、烹饪、健身教练……每个看起来都很有用但也很花时间。你只有下班后和周末能学习，一周大概有10小时可支配。", optionA: "选择一门能立刻应用到工作中的实用技能", optionB: "选择一门能拓展思维、打开新世界的技能", optionC: "先试听几门课的入门内容，找到真正感兴趣的再深入", optionD: "选择一门有长期发展潜力的技能，不急于一时的应用", aType: "S", bType: "N", cType: "P", dType: "J", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "学习动机分为内在动机和外在动机。S型倾向选择能直接应用的技能（外在动机），N型倾向选择能拓展认知的技能（内在动机）。两者结合效果最佳。", empathyInsight: "学什么不重要，重要的是保持学习的热情。不用纠结选哪个——先选一个开始，学得开心就继续，不开心就换。终身学习的关键不是选对方向，而是保持好奇。" },
+            { id: 38, title: "健康方案", desc: "你最近感觉身体有点亚健康，决定开始重视健康管理。你可以选择：办健身卡去健身房、在家跟着视频锻炼、找个私教一对一指导、或者从改变饮食和作息开始。你对健身了解有限，预算也有限。", optionA: "办一张健身房卡，跟着器材和课程一步步练", optionB: "研究各种健康理念（瑜伽、冥想、间歇训练等），找到适合自己的", optionC: "先做个体检，根据数据制定针对性的健康计划", optionD: "找一个有经验的朋友或教练带你入门", aType: "S", bType: "N", cType: "T", dType: "F", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "健康管理方式暴露了你的信息处理偏好。S型倾向具体可操作的计划（课程、器材），N型倾向先理解整体理念再行动。最重要的是找到能坚持下去的方式。", empathyInsight: "照顾身体不是跟风打卡，而是学会倾听自己的感受。有人需要教练的督促，有人喜欢独自探索。找到让你感觉'身体被善待了'的方式最重要。" },
+
+            // ===== T/F 新增 - 3题 =====
+            { id: 39, title: "同事犯错", desc: "你的同事在一个重要项目上犯了一个明显的错误，导致项目延期了两天。你知道问题出在哪里，而且这个问题本可以避免。明天团队要开复盘会，讨论这次延期的原因。你和这位同事平时关系还不错。", optionA: "在复盘会上直接指出问题所在，用事实说话", optionB: "会前私下找同事聊聊，让他自己意识到问题", optionC: "准备一份客观的问题分析，不针对个人只讨论流程", optionD: "在会议上既指出问题也肯定同事的其他贡献", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "反馈的艺术在于平衡诚实和善意。T型人倾向直接指出问题以提升效率，F型人倾向保护关系的同时传达信息。研究表明，有效的反馈需要两者兼顾——诚实且有温度。", empathyInsight: "指出别人的错误需要勇气也需要善意。批评的目的是帮助成长，不是证明谁对谁错。私下提醒给面子，公开肯定给信心——这样的同事谁都想要。" },
+            { id: 40, title: "慈善捐款", desc: "你看到一条朋友圈，有人为一个患重病的孩子发起募捐。你有能力捐款，但你也听说过一些骗捐的新闻。朋友群里有人在讨论要不要捐款，有人说要核实再说，有人说不管真假捐了就是一份心意。", optionA: "先核实信息的真实性，确认后再捐款", optionB: "被故事打动，直接捐款，相信善意比怀疑更重要", optionC: "捐一小笔，既表达了心意又控制了风险", optionD: "转发募捐信息，让更多人看到和帮助", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:0, logic:+1, empathy:-1}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:0, logic:+1, empathy:+1}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "面对募捐时的决策反映了理性与感性的博弈。T型人倾向先核实再行动，F型人倾向被情感驱动。两种方式都合理——重要的是保持善良的同时保护自己的善意不被利用。", empathyInsight: "善良不需要完美。就算被骗了一次，你的善意也是真实的。在保持警惕的同时不关闭心门——这是善良的最高境界。" },
+            { id: 41, title: "好友创业", desc: "你的好朋友辞职创业，邀请你加入他的团队。项目听起来很有前景，但也意味着你要放弃现在稳定的工作。你相信朋友的能力，但创业失败率很高。你的家人也不太支持这个决定。", optionA: "客观分析创业项目的可行性、风险和回报", optionB: "相信朋友的判断，支持他的梦想，一起拼一把", optionC: "给朋友一些资金支持，但自己暂时不加入", optionD: "帮朋友联系一些资源和人脉，同时保持自己的工作", aType: "T", bType: "F", cType: "T", dType: "F", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:+1}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "朋友创业邀请是理性与情感的重大考验。T型人倾向客观评估风险和收益，F型人倾向基于信任和情感做决定。好的决策往往需要两者结合。", empathyInsight: "支持朋友的方式有很多种——全身投入是一种，提供帮助是另一种。不管选择哪种，你的真心朋友都会感激你。友谊不是一起做什么，而是一起经历什么。" },
+
+            // ===== J/P 新增 - 3题 =====
+            { id: 42, title: "年终总结", desc: "又到了写年终总结的时候。过去一年你做了很多事：完成了几个项目、学了新技能、也遇到了一些挫折。公司要求提交一份不超过两页的总结，包括成果、反思和明年计划。你打开空白文档，光标一闪一闪。", optionA: "按照成果-反思-计划的框架，逐项填写，结构清晰", optionB: "随心所欲地写，想到什么写什么，最后再整理", optionC: "先列出所有想写的内容，再按重要性排序整理", optionD: "从最有感触的一件事写起，自然延伸到其他方面", aType: "J", bType: "P", cType: "T", dType: "F", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "年终总结的写作方式完美暴露了J/P偏好。J型人喜欢结构化框架，P型人喜欢自由流畅的表达。两种风格各有优势——框架确保全面，自由表达更有感染力。", empathyInsight: "年终总结不只是写给老板看的，更是写给你自己的。回顾这一年，你做了什么很重要，你变成了什么样的人更重要。对自己诚实，给自己肯定。" },
+            { id: 43, title: "突发状况", desc: "你精心策划了一个周末活动，提前订好了餐厅、买好了门票、通知了所有人。但就在出发前一小时，天气预报说会有暴雨，餐厅也打来电话说今天临时停电。你的朋友们纷纷在群里问怎么办。", optionA: "立刻启动B计划——改成室内活动，重新安排所有流程", optionB: "随机应变——问问大家想去哪，现场临时决定", optionC: "先确认哪些环节不受影响，取消或延期受影响的部分", optionD: "顺其自然——暴雨也可以是一种特别的体验", aType: "J", bType: "P", cType: "T", dType: "F", aRes: {energy:-2, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "计划被打乱是对J型人的终极测试。J型人倾向快速重建秩序，P型人更能享受即兴变化。灵活应变的能力可以通过练习提升——每次意外都是训练机会。", empathyInsight: "计划赶不上变化，但变化也可以很美。一场暴雨可能毁掉你的户外计划，但也可能创造出更难忘的室内回忆。重要的不是去哪，而是和谁在一起。" },
+            { id: 44, title: "未来规划", desc: "朋友问你'五年后你想成为什么样的人'。这个问题让你愣了一下——你平时很少想这么远。你有一些模糊的想法，但没有具体的规划。朋友说现在就应该开始为未来做准备，你觉得有道理但也有点焦虑。", optionA: "制定一个五年计划，分解成每年的小目标", optionB: "不想太远，专注于当下，把眼前的事情做好", optionC: "设定几个大方向，保持灵活性，随时调整", optionD: "思考自己想成为什么样的人，而不是做什么样的事", aType: "J", bType: "P", cType: "J", dType: "F", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "长期规划是J/P偏好的核心差异。J型人通过明确规划减少不确定性焦虑，P型人通过保持开放来拥抱更多可能性。两种人生策略都有成功案例。", empathyInsight: "五年后的事谁能说得准呢？做计划很重要，但别让计划绑架了你。你不需要把所有路都想清楚再出发——有时候走着走着，路就出来了。" },
+
             // ===== 混合维度题目 - 16题，确保各维度平衡 =====
-            { id: 17, title: "紧急任务", desc: "周五下午5点，你正准备收拾东西下班。突然收到老板的消息：一个重要客户临时要求在下周一早上看到方案。这意味着一整个周末都要泡汤了。同事们大多已经走了，办公室里只剩下你和另外两个人。", optionA: "立刻行动起来，列出需要完成的事项，开始加班赶工", optionB: "先冷静分析客户需求，制定一个两天的工作计划再开始执行", optionC: "联系还在的同事一起分担，团队协作效率更高", optionD: "和老板沟通，确认是否真的需要整个周末，尝试协商范围", aType: "J", bType: "T", cType: "E", dType: "F", aRes: {energy:-2, logic:0, empathy:0}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "面对突发任务，不同性格的人有不同的应对策略。判断型偏好立即行动，思考型偏好先分析。高效应对的关键是根据任务性质选择策略，而非固守一种模式。", empathyInsight: "紧急任务考验的不仅是能力，更是心态。不要让紧迫感压垮你，也不要让完美主义拖累你。在压力下保持冷静和善意，是对自己最好的保护。" },
-            { id: 18, title: "团队建设", desc: "公司组织了团队建设活动，你可以参与活动形式的决策。选项有户外拓展（攀岩、漂流）、室内工作坊（创意手工、烹饪比赛）、公益活动（去敬老院或动物收容所）以及自由安排（大家投票选择）。你倾向于推荐哪个？", optionA: "户外拓展——挑战自我，在极限中建立信任和默契", optionB: "室内工作坊——在轻松的环境中深度交流，了解彼此", optionC: "公益活动——做有意义的事，同时增进团队凝聚力", optionD: "自由选择——让大家根据兴趣分组，各取所需", aType: "E", bType: "I", cType: "F", dType: "P", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:0, empathy:0}, logicInsight: "团队建设活动的选择反映了领导风格。外向型领导偏好高能量活动，情感型领导关注团队和谐。最有效的团建是让不同性格的人都能找到舒适区。", empathyInsight: "团建的本质不是活动本身，而是人与人之间的连接。最好的团建是每个人都能在其中找到价值感和归属感的活动。" },
-            { id: 19, title: "用户反馈", desc: "产品上线后收到了一批用户反馈，评价两极分化：一部分用户称赞功能强大，另一部分抱怨操作复杂。产品经理要求你在下周给出改进方案。你打开用户反馈文档，几十条评论各有各的道理。", optionA: "优先解决反馈最多、最具体的问题，按紧急程度排序处理", optionB: "从用户体验的整体感受出发，重新思考产品的设计理念", optionC: "分析用户行为数据，找出实际使用中的痛点和流失点", optionD: "联系几位典型用户深入访谈，了解他们背后的真实需求", aType: "S", bType: "N", cType: "T", dType: "F", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "用户反馈分析需要结合定量和定性方法。数据告诉你'发生了什么'，访谈告诉你'为什么发生'。产品改进既要解决具体问题（S），也要洞察深层需求（N）。", empathyInsight: "每一条用户反馈背后都是一个真实的人的使用体验。他们花时间写反馈是因为在乎你的产品。认真对待每一个声音，这是对用户最大的尊重。" },
+            { id: 17, title: "突然来客", desc: "你正穿着睡衣窝在沙发上看剧，家里一团乱——外卖盒子还没扔，衣服堆在椅子上。突然手机响了，朋友说刚好在附近，想顺便上来坐坐，十分钟就到！你瞬间从沙发上弹了起来。", optionA: "立刻行动起来，快速把杂物塞进柜子，至少让客厅能看", optionB: "先冷静想想：朋友介意吗？有什么必须要收拾的？", optionC: "叫朋友在楼下咖啡店等你，你收拾好再让他上来", optionD: "直接告诉朋友家里有点乱，让他别介意，顺其自然", aType: "J", bType: "T", cType: "E", dType: "F", aRes: {energy:-2, logic:0, empathy:0}, bRes: {energy:-1, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "'突然来客'是经典的即兴应对场景。J型人倾向快速建立秩序，P型人更能接受临时的混乱。其实大部分朋友根本不会在意你家乱不乱——他们在意的是你。", empathyInsight: "放松点！真正的朋友不会因为你家乱就改变对你的看法。有时候最温暖的聚会恰恰发生在最'不完美'的环境里——乱一点才有人情味。" },
+            { id: 18, title: "朋友聚会", desc: "你是这次朋友聚会的组织者，有几种活动方案可以选：户外野餐+飞盘、室内桌游+火锅、一起去做志愿者、或者让大家投票决定。参与的朋友性格各异，有爱动的有爱静的。", optionA: "户外活动——在大自然中尽情释放活力，好玩又健康", optionB: "室内桌游——在轻松的氛围里深度交流，舒服又自在", optionC: "一起做志愿者——做有意义的事，让聚会更有温度", optionD: "让大家投票选——每个人都能选自己喜欢的，各得其所", aType: "E", bType: "I", cType: "F", dType: "P", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:0, empathy:0}, logicInsight: "聚会形式的选择反映了你的社交偏好。外向者倾向高能量活动，内向者倾向深度交流的小型聚会。最好的聚会是让每个人都能以自己的方式参与和享受。", empathyInsight: "聚会的本质不是活动多精彩，而是朋友们在一起的感觉。照顾到不同性格的朋友——让爱闹的能闹，让爱静的能静，每个人都能找到自己的舒适区。" },
+            { id: 19, title: "种草拔草", desc: "你种草了一款网红产品很久了，看了几十条评价——一半人说超好用、性价比无敌，另一半人说鸡肋、千万别买。两种声音都很真诚，配图也很真实。你的购物车里已经放了一周了，今天是优惠最后一天。", optionA: "看具体的使用评测，关注产品的实际功能和参数", optionB: "想象自己用上它的场景，如果感觉很心动就买", optionC: "分析好评和差评的数据比例，理性判断值不值得", optionD: "问问身边用过的朋友，听他们的真实体验", aType: "S", bType: "N", cType: "T", dType: "F", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "消费决策是很好的性格测试。S型关注具体参数和评测数据，N型关注使用场景和感受。研究显示，理性分析和直觉感受结合做消费决策，满意度最高。", empathyInsight: "有时候买东西不只是买东西——是对自己好一点的方式。如果一个小物件能让你每天用的时候都开心，那它就值了。理性很重要，但开心更重要。" },
             { id: 20, title: "职业选择", desc: "你同时收到了两份工作offer。A公司是大厂，薪资优厚、福利完善、发展稳定，但工作内容比较固定，创新空间有限。B公司是创业公司，薪资一般但有期权，工作内容充满挑战，但不确定性很大。你的选择将影响未来3-5年的职业轨迹。", optionA: "选择稳定的大厂，优厚的待遇和清晰的晋升路径更有保障", optionB: "选择创业公司，挑战和成长空间更让人兴奋", optionC: "列出两份工作的详细对比表，从薪资、发展、风险等多维度打分决定", optionD: "跟随内心的感觉，想象5年后回望哪个选择不会后悔", aType: "J", bType: "P", cType: "T", dType: "F", aRes: {energy:0, logic:0, empathy:0}, bRes: {energy:0, logic:0, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "职业决策理论建议考虑三个维度：能力匹配、兴趣匹配和价值观匹配。没有绝对的好选择，只有更适合你的选择。判断型偏好可预测性，感知型偏好可能性。", empathyInsight: "职业生涯是一段漫长的旅程，不是一次性的选择。无论选择哪条路，重要的是你在这个过程中学到什么、成为什么样的人。相信自己有适应和成长的能力。" },
-            { id: 21, title: "冲突处理", desc: "你和一位同事在工作方法上产生了严重分歧。他认为应该按照公司既定的流程一步步来，你觉得当前情况特殊，应该灵活处理。双方各执一词，气氛越来越紧张，其他同事也开始注意到了。", optionA: "坚持自己的观点，用事实和数据证明灵活处理的合理性", optionB: "先缓和气氛，理解对方的顾虑，寻找双方都能接受的折中方案", optionC: "分析两种方案的利弊，用客观标准来决定哪种更合适", optionD: "暂时搁置争议，各自按自己的方式先推进，用结果说话", aType: "T", bType: "F", cType: "T", dType: "P", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:0}, logicInsight: "冲突管理理论将冲突处理分为五种模式：竞争、合作、妥协、回避和顺应。不同情境需要不同策略。T型偏好竞争或合作，F型偏好顺应或妥协。没有一种模式永远正确。", empathyInsight: "工作中的分歧不是战争。对方不是敌人，而是一个有不同视角的合作伙伴。保持尊重和善意，即使立场不同，也能找到共同前行的方式。" },
-            { id: 22, title: "信息管理", desc: "你的收件箱里有47封未读邮件，微信上有128条未读消息，还有5个群在同时讨论不同的话题。有些是重要的工作信息，有些是闲聊，有些是通知。你感到信息过载，需要整理出一个处理策略。", optionA: "逐条处理，看到一条回一条，保持沟通的即时性", optionB: "设定固定时间批量处理，其他时间专注做自己的事", optionC: "按发送者和主题分类，优先处理来自上级和客户的消息", optionD: "使用工具自动分类和过滤，只关注高优先级的信息", aType: "P", bType: "J", cType: "S", dType: "T", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:-1}, logicInsight: "信息过载是现代工作的常态。研究表明，频繁切换任务会降低40%的生产力。建立信息处理系统比单纯提高处理速度更有效。", empathyInsight: "在信息洪流中，不要忘记每条消息背后都是一个人。虽然不可能秒回所有消息，但定期回复和表达关注，能让对方感受到被重视。" },
-            { id: 23, title: "学习方式", desc: "公司要求所有员工在三个月内掌握一项新技术。你可以选择线上课程、线下培训、跟项目实战或自学文档。你有一定基础但不是特别扎实，平时工作也比较忙，只能利用业余时间学习。", optionA: "报名系统的线上课程，按课程大纲循序渐进地学习", optionB: "直接跟一个相关项目，在实践中学，遇到问题再查资料", optionC: "先搭建一个个人小项目，通过做中学来掌握技术", optionD: "广泛阅读相关文档和教程，构建自己的知识体系", aType: "J", bType: "P", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "学习理论区分了'系统学习'和'问题驱动学习'。系统学习（J型偏好）构建完整知识框架，问题驱动（P型偏好）更快见效。最佳策略是根据学习阶段灵活切换。", empathyInsight: "学习新技术的过程可能让人感到焦虑和挫败。给自己时间和耐心，庆祝每一个小进步。每个人学习的节奏不同，找到适合自己的节奏最重要。" },
+            { id: 21, title: "意见不合", desc: "你和朋友在讨论一部热门电影，你觉得结局是神来之笔，朋友觉得烂尾了。本来只是随便聊聊，但两人越说越激动，旁边的人都开始侧目了。你意识到气氛有点不对，但你还是觉得自己的看法是对的。", optionA: "坚持自己的观点，用电影中的具体情节来论证", optionB: "先认同朋友的部分看法，缓和气氛，再温和表达自己", optionC: "分析一下为什么两人看法不同，是不是关注点不一样", optionD: "主动结束这个话题，换个轻松的话题聊", aType: "T", bType: "F", cType: "T", dType: "P", aRes: {energy:-1, logic:+1, empathy:-1}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:0}, logicInsight: "争论电影结局这种'安全话题'其实反映了深层的人际互动模式。T型人更关注对错本身，F型人更关注争论对关系的影响。研究表明，朋友之间的分歧有80%其实不需要'解决'。", empathyInsight: "为了一部电影跟朋友争得面红耳赤，多年后回想起来会觉得特别好笑。观点不同不代表谁对谁错——有时候'你说的也有道理'是最好的结束语。" },
+            { id: 22, title: "群聊轰炸", desc: "你打开手机，发现几个群聊都炸了——家人群在讨论过年去哪，朋友群在策划聚会，还有一个兴趣群在激烈争论某个话题。未读消息加起来有200多条。你有点懵，不知道从哪看起。", optionA: "从最早的消息开始，一条条看完再回应", optionB: "先大致扫一眼，挑重要的回复，其他的随缘", optionC: "按群的重要性排序，先看家人群再看朋友群", optionD: "只看@你的消息，其他等有空再慢慢翻", aType: "P", bType: "J", cType: "S", dType: "T", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:-1}, logicInsight: "群聊信息处理方式反映了你的信息管理偏好。P型人倾向逐条处理保持即时感，J型人倾向系统化批量处理。找到自己的节奏，不被消息洪流裹挟。", empathyInsight: "群聊里每一条消息都是有人在跟你分享生活。不用每条都回，但偶尔冒个泡、发个表情包，能让群里的人感受到你的存在。" },
+            { id: 23, title: "学乐器", desc: "你一直想学一门乐器，终于下定决心开始了。你可以选择报班系统学习、看视频自学、找一个会的朋友教你、或者直接找一首喜欢的歌硬磕。你完全零基础，但热情很高。", optionA: "报一个正规课程，从基础乐理开始，按部就班打好基础", optionB: "直接找一首最喜欢的歌，硬磕下来，遇到问题再搜教程", optionC: "先看几个入门视频，熟悉基本操作，再慢慢深入", optionD: "广泛浏览各种风格和技巧，先找到自己想走的方向", aType: "J", bType: "P", cType: "S", dType: "N", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "学习方式反映了J/P偏好。系统学习建立完整框架，实践驱动更快获得成就感。音乐教育研究表明，保持兴趣比追求完美更重要——弹得开心才是最好的学习动力。", empathyInsight: "学乐器的过程就像交朋友——一开始很笨拙，慢慢就熟悉了。允许自己弹出难听的音符，那是通往好听的必经之路。享受过程，别急着要结果。" },
             { id: 24, title: "快速决策", desc: "你在一家餐厅，服务员告诉你只剩最后一份招牌菜，而旁边一桌的客人也在考虑点这道菜。你需要立刻做出决定。同时，你的手机响了，是一个重要客户的电话。时间紧迫，你必须在几秒内做出多个决定。", optionA: "果断下单招牌菜，然后立即接听客户电话", optionB: "让给旁边的客人，选择其他菜品，然后回拨客户电话", optionC: "快速评估：招牌菜值不值得抢？客户电话是否紧急？", optionD: "先接电话了解情况，菜品的事可以之后再处理", aType: "J", bType: "F", cType: "T", dType: "P", aRes: {energy:-1, logic:0, empathy:-1}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:0, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:0}, logicInsight: "决策心理学发现，人在压力下的决策往往依赖直觉而非理性分析。判断型更倾向快速决定，感知型更倾向保持开放。训练自己在压力下保持冷静可以提升决策质量。", empathyInsight: "生活中的小决定看似微不足道，但累积起来反映了你的价值观。对别人多一份礼让，对自己多一份从容，生活会变得更温暖。" },
-            { id: 25, title: "会议发言", desc: "在部门月度会议上，经理问大家对新的工作流程有什么意见。你已经默默观察了一个月，确实发现了一些可以改进的地方。但你注意到会议室里气氛比较正式，几位资深同事似乎对新流程很满意。", optionA: "主动举手，清晰表达自己的观察和改进建议", optionB: "先听听其他人的发言，如果没人提再决定是否说出来", optionC: "会后单独找经理沟通，用书面的方式提交建议", optionD: "先和旁边的同事小声讨论，确认自己的想法是否合理", aType: "E", bType: "I", cType: "J", dType: "F", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:0, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "组织行为学中的'发言行为'研究发现，员工选择在会议上发言受到多种因素影响：心理安全感、权力距离、个性特征等。创造安全的发言环境是管理者的责任。", empathyInsight: "每个人的声音都值得被听到。如果你选择在会议中发言，那是因为你关心团队；如果你选择私下沟通，那是因为你尊重场合。两种方式都是参与。" },
-            { id: 26, title: "创意激发", desc: "项目陷入了瓶颈，团队已经连续讨论了三个小时却没有任何突破。白板上画满了各种草图，但都不够好。咖啡已经喝了三轮，大家的眼神开始涣散。老板说再给你们30分钟，必须拿出一个可行方案。", optionA: "组织一场快速头脑风暴，让大家天马行空地抛出任何想法", optionB: "让每个人安静地独立思考10分钟，然后再汇总讨论", optionC: "从现有的方案中挑出最好的，集中精力优化它", optionD: "暂时放下这个问题，换个轻松的话题聊5分钟再回来", aType: "E", bType: "I", cType: "S", dType: "N", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "创造力研究表明，头脑风暴适合发散思维（E/N偏好），独立深思适合聚合思维（I/S偏好）。最佳创意流程是发散和聚合交替进行。", empathyInsight: "创造力不是压榨出来的。当团队陷入瓶颈时，有时候最好的方法就是暂停一下。给大脑一点空间，灵感往往在最放松的时刻悄然而至。" },
-            { id: 27, title: "团队管理", desc: "你带领的团队中有一位成员进度明显落后。他的代码质量不错，但速度总比别人慢。其他成员开始有微词，认为这影响了整体进度。你需要在下一次一对一会议中和他沟通这个问题。", optionA: "直接指出进度问题，设定明确的改进目标和期限", optionB: "先了解他是否遇到了什么困难，表达关心和支持", optionC: "分析他的工作数据，找出效率低下的具体原因", optionD: "和他一起制定一个循序渐进的改进计划", aType: "T", bType: "F", cType: "T", dType: "J", aRes: {energy:0, logic:+1, empathy:-1}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "绩效管理的最佳实践是'直接但尊重'。明确的反馈（T偏好）需要配合情感支持（F偏好），而具体的行动计划（J偏好）能提供清晰的改进路径。", empathyInsight: "每个人都有可能经历低谷。作为领导者，你的角色不仅是评估绩效，更是帮助团队成员成长。一次善意的对话可能改变一个人的职业生涯。" },
+            { id: 25, title: "聚餐讨论", desc: "一群朋友聚餐，讨论下次一起去哪里玩。有人提议去海边，有人说去爬山，还有人想去新开的主题乐园。大家七嘴八舌，气氛热烈但有点混乱。你心里有个很想去的地方，但还在犹豫要不要说出来。", optionA: "大声说出你的想法，热情地告诉大家为什么你的提议最棒", optionB: "先听听每个人的意见，等讨论差不多了再提出你的想法", optionC: "私下先和最好的朋友讨论，再联合他一起在桌上提议", optionD: "观察一下大家的倾向，支持那个最可能被多数人接受的方案", aType: "E", bType: "I", cType: "J", dType: "F", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:0, logic:+1, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "朋友聚餐讨论出行计划是一个典型的群体决策场景。外向者倾向于公开表达来推动决策，内向者倾向于先观察再发言。两种风格对群体决策都有价值。", empathyInsight: "朋友间的讨论，开心比效率重要。不管你是大声提议还是默默支持，重要的是大家都享受这个过程。最好的旅行计划不是最完美的那个，而是大家都能期待的那个。" },
+            { id: 26, title: "策划派对", desc: "你要给好朋友策划一个惊喜生日派对。你可以选择自己搞定一切、和几个共同朋友一起策划、参考网上的派对方案、或者完全即兴发挥。预算不多，但你希望朋友能感受到满满的心意。", optionA: "拉一个策划群，和大家头脑风暴，集思广益", optionB: "先自己安静想几个方案，拿出雏形再找大家讨论", optionC: "参考网上成功的派对案例，在别人的基础上调整", optionD: "抛开固定流程，凭感觉创造一个独一无二的体验", aType: "E", bType: "I", cType: "S", dType: "N", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:0, empathy:0}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "策划活动时外向者喜欢群体创意碰撞，内向者偏好独立构思后再分享。两种方式各有优劣——前者想法多，后者想法深。最好的策划往往结合两者。", empathyInsight: "惊喜派对的灵魂不是多华丽，而是'我了解你，我知道你会喜欢什么'。花心思比花钱更重要。看到朋友惊喜的表情，所有准备都值了。" },
+            { id: 27, title: "朋友减肥", desc: "你的好朋友最近在减肥，但进展不太顺利。她跟你抱怨说坚持了半个月体重一点没降，想放弃。你知道她确实在努力，但也注意到她偶尔会偷吃零食。她很沮丧，问你该怎么办。", optionA: "直接指出她的问题：零食没断，运动量不够，给她一个严格计划", optionB: "先安慰她，告诉她半个月看不出效果很正常，别太苛责自己", optionC: "帮她分析饮食和运动数据，找出效果不理想的具体原因", optionD: "和她一起制定一个温和的、可持续的健康计划", aType: "T", bType: "F", cType: "T", dType: "J", aRes: {energy:0, logic:+1, empathy:-1}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "给朋友建议时，T型人倾向直指问题，F型人倾向先给情感支持。研究发现，当人们处于沮丧状态时，情感支持是让建议被接受的前提条件。", empathyInsight: "减肥这件事，朋友需要的可能不是'正确答案'，而是'我懂你的感受'。先抱抱她，再说建议。有时候一句'你已经很棒了'比一套减肥方案更有力量。" },
             { id: 28, title: "旅行决策", desc: "朋友临时提议周末一起去周边城市玩两天。你之前没有这个计划，但这个提议听起来很诱人。不过你也有一些顾虑：周末本来安排了家务，天气预报说可能有雨，而且还没查过那个城市有什么好玩的。", optionA: "快速查一下攻略和天气，如果条件允许就出发", optionB: "欣然接受，不做太多准备，来一场说走就走的旅行", optionC: "婉拒提议，按原计划过周末，下次提前规划再去", optionD: "建议推迟一周，这样可以好好规划，确保旅行体验更好", aType: "P", bType: "P", cType: "J", dType: "J", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:0, logic:0, empathy:0}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "即时决策反映了你的生活态度。感知型享受意外之喜，判断型偏好可控性。研究显示，适度的即兴行为能提升幸福感，但关键决策仍需理性规划。", empathyInsight: "生活不只有计划和安排，还需要一些意外的惊喜。说走就走的旅行可能成为最珍贵的回忆，而按部就班的计划也能带来踏实的满足感。" },
             { id: 29, title: "社交聚会", desc: "朋友组织了一次聚会，大约有15个人参加，大部分你认识但有几个新面孔。聚会在朋友家里举行，有桌游、K歌和自由聊天等选择。你到达时，聚会已经开始了半小时，气氛正热闹。", optionA: "热情地加入正在玩游戏的人群，快速融入氛围", optionB: "先和熟悉的朋友打招呼，在舒适的小圈子里安顿下来", optionC: "主动去认识那几个新面孔，让他们感到被欢迎", optionD: "在聚会上帮忙做点事情（端饮料、整理桌面），自然地融入", aType: "E", bType: "I", cType: "F", dType: "S", aRes: {energy:-1, logic:0, empathy:0}, bRes: {energy:0, logic:0, empathy:0}, cRes: {energy:-1, logic:0, empathy:+1}, dRes: {energy:0, logic:0, empathy:+1}, logicInsight: "社交聚会的参与方式反映了个人的社交策略。外向型通过广泛互动获取能量，内向型通过深度交流建立连接。没有优劣之分，关键是找到自己的舒适方式。", empathyInsight: "聚会中最温暖的人不一定是说话最多的，而是那些让每个人都感到被欢迎的人。一个小小的善意举动——帮人拿杯饮料、真诚地听对方说话——比任何社交技巧都重要。" },
-            { id: 30, title: "问题排查", desc: "线上系统突然出现了故障，用户无法正常使用。你不知道问题出在哪里，但影响面正在扩大。运维、开发、产品都在等你的判断。你需要快速定位问题并给出解决方案。", optionA: "按标准排查流程，逐一检查可能出问题的环节", optionB: "根据经验和直觉，先排查最可能的原因", optionC: "先查看系统日志和数据监控，用数据定位问题", optionD: "召集相关人员快速讨论，利用集体智慧定位问题", aType: "S", bType: "N", cType: "T", dType: "E", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "故障排查有两种基本策略：系统化排查（S型偏好）和启发式排查（N型偏好）。紧急情况下，结合两者——用直觉快速缩小范围，用系统化方法验证——最高效。", empathyInsight: "系统故障时团队压力都很大。保持冷静不仅是为了解决问题，更是为了给团队信心。承认不确定性的同时展示解决决心，是最好的领导力。" },
-            { id: 31, title: "人际关系", desc: "你注意到两位关系不错的同事最近似乎有了矛盾。他们在会议上开始避免直接交流，午餐也不再一起吃。作为团队的一员，你觉得这种氛围影响了整个团队。你不知道具体发生了什么，也不确定自己是否应该介入。", optionA: "分别找两人客观了解情况，基于事实帮他们梳理问题", optionB: "创造一个轻松的机会（如一起吃饭），让他们自然修复关系", optionC: "先观察一段时间，如果他们自己不能解决再考虑介入", optionD: "和团队一起营造积极的氛围，间接改善他们的关系", aType: "T", bType: "F", cType: "P", dType: "E", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:0, logic:0, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "人际冲突的第三方介入需要技巧。研究表明，非正式、低压力的调解比正式干预更有效。尊重当事人的自主性，同时提供支持性的环境。", empathyInsight: "看到朋友之间有隔阂，我们都会感到难过。有时候最好的帮助不是直接介入，而是创造一个温暖的环境，让关系自然修复。善意和耐心是最好的调解工具。" },
-            { id: 32, title: "自我反思", desc: "年底了，你在写年度总结。回顾这一年的经历：有成功的项目，也有失败的努力；有温暖的时刻，也有孤独的夜晚；有明确的前进，也有迷茫的徘徊。你需要给自己这一年的成长打一个分数。", optionA: "列出具体的目标和完成情况，基于客观数据给自己打分", optionB: "回顾这一年的感受和体验，基于内心的成长给自己评价", optionC: "收集他人的反馈和评价，综合多方面的视角来看自己", optionD: "思考这一年的经历让你成为了怎样的人，从更深的角度反思", aType: "T", bType: "F", cType: "E", dType: "N", aRes: {energy:0, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:0, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "自我反思的质量取决于反思的维度。基于数据的反思（T）更客观，基于感受的反思（F）更深刻。多维度的反思能给你更完整的自我认知。", empathyInsight: "不管这一年过得怎样，你已经尽力了。成功值得庆祝，失败值得感谢，迷茫值得接纳。每一段经历都塑造了今天的你，而今天的你已经足够好了。" }
+            { id: 30, title: "找丢东西", desc: "你马上要出门了，但死活找不到钥匙！你明明记得昨天回家的时候还拿在手里的。房间有点乱，可能放在桌上、沙发上、包里、或者掉在某个角落了。你已经找了五分钟，再不出门就要迟到了。", optionA: "按照昨天回家后的行动路线，一步步复盘寻找", optionB: "凭直觉先翻最可能的地方——外套口袋、门厅、床头柜", optionC: "冷静下来回想最后一次见到钥匙的确切时间和位置", optionD: "边找边喊家人/室友帮忙一起找", aType: "S", bType: "N", cType: "T", dType: "E", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:0, logic:+1, empathy:0}, cRes: {energy:-1, logic:+1, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "找东西这件事意外地揭示了思维模式。S型人倾向系统化地回溯路径，N型人倾向凭直觉定位。研究发现，系统化搜索找到东西的概率其实更高，但直觉搜索更省时间。", empathyInsight: "找不到东西时的焦躁感人人都有。深呼吸一下，钥匙不会飞走，你也不会因此错过人生大事。有时候暂停找东西，它反而自己就出现了。" },
+            { id: 31, title: "朋友冷战", desc: "你发现两个共同好友最近互相不说话了——朋友圈不再互相点赞，群聊里也刻意避开对方的话题。你不知道发生了什么，但感觉气氛怪怪的。周末还有一个大家都参加的聚会，你担心场面会尴尬。", optionA: "分别找两人聊聊，客观了解情况，帮他们理清问题", optionB: "在聚会上创造轻松的氛围，让他们自然地重新互动", optionC: "先不介入，观察一段时间，相信他们自己能解决", optionD: "在群里多发起一些有趣的话题，让大家的注意力从尴尬中转移", aType: "T", bType: "F", cType: "P", dType: "E", aRes: {energy:-1, logic:+1, empathy:0}, bRes: {energy:-1, logic:0, empathy:+1}, cRes: {energy:0, logic:0, empathy:0}, dRes: {energy:-1, logic:0, empathy:+1}, logicInsight: "朋友间的矛盾介入需要微妙的分寸感。直接介入可能让双方尴尬，完全不介入可能让裂痕加深。最好的方式往往是在提供支持的同时尊重当事人的自主空间。", empathyInsight: "看到朋友之间疏远，心里会不好受。有时候你不需要当和事佬——创造一些让美好回忆自然浮现的机会，比说一万句'你们和好吧'更有效。" },
+            { id: 32, title: "生日感悟", desc: "今天是你生日，你一个人坐在窗边，回想过去这一年的经历：有认识新朋友的开心，有跟老友渐行渐远的遗憾；有实现小目标的成就感，也有搞砸事情的懊恼。你打开手机备忘录，想给自己写点什么。", optionA: "列出今年完成的事情和没完成的事情，客观评估自己", optionB: "回顾这一年最有感触的瞬间，写下内心的成长和变化", optionC: "回想别人对你的评价和反馈，从他人的视角看自己", optionD: "思考这一年的经历让你变成了什么样的人，未来想成为谁", aType: "T", bType: "F", cType: "E", dType: "N", aRes: {energy:0, logic:+1, empathy:0}, bRes: {energy:0, logic:0, empathy:+1}, cRes: {energy:0, logic:0, empathy:+1}, dRes: {energy:0, logic:+1, empathy:0}, logicInsight: "生日反思的质量取决于维度。T型人倾向用'完成清单'来衡量，F型人倾向用'感受变化'来评估。多维度的反思——既有客观审视也有情感回顾——让你更完整地认识自己。", empathyInsight: "不管这一年过得怎样，你已经很棒了。每一个笑过的瞬间、哭过的夜晚、努力过的日子，都算数。生日快乐，不是因为你又大了一岁，而是因为你又成长了一年。" }
         ];
 
-        // 人格类型数据 - 基于全新人格心理学理论，包含详细描述和3类建议
+        // 人格类型数据 - 趣味版人格测试，包含详细描述和个性化建议
         const qxrgTypes = {
             'INTJ': { 
-                name: '建筑师型 (INTJ)', 
-                desc: '富有想象力的战略家，一切皆在计划之中',
-                detail: '你是天生的战略家，拥有卓越的全局视野和长远规划能力。你善于从复杂的信息中发现规律，构建系统性的解决方案。你独立自主，追求知识和智慧，对事物有着深刻的洞察力。\n\n在你的世界里，一切都可以被优化和改进。你不满足于表面的解释，总是追问"为什么"，直到触及问题的本质。你享受独自思考的时光，在安静中构建自己的思想体系。\n\n你的优势在于战略思维、独立判断和坚定的执行力。你不太容易被情绪左右，更相信逻辑和数据。你对自己和他人都有很高的标准，这让你在专业领域表现出色。\n\n心理学研究表明，INTJ型约占人口的2%，是16种人格中最稀有的类型之一。你的认知功能组合是Ni-Te-Fi-Se，以内向直觉为主导，辅以外向思考。',
+                name: '战略家本家', 
+                desc: '一切尽在掌握，棋盘上的每一步都早已算好',
+                detail: '你就像下棋时总比别人多看三步的那个人。你的脑袋里装着一台永不关机的未来模拟器，遇到什么事都会自动推演各种可能。你享受独处的安静时光，因为那是你构建内心帝国的最佳时刻。\n\n你不喜欢无意义的闲聊，觉得那是在浪费脑细胞。你对"为什么"有着近乎偏执的追问，直到找到事物的底层逻辑才肯罢休。在朋友眼中，你可能有点高冷，但其实你只是觉得没必要把精力花在无关紧要的事情上。\n\n你的超能力是"预判"——不是算命那种，而是基于逻辑和经验的精准推演。当你决定做一件事，会默默准备好所有方案，然后一击必中。',
                 advice: [
-                    { category: '职业发展', text: '选择能让你发挥战略思维优势的领域，如科研、工程、战略规划等。不要满足于执行层面的工作，主动寻求能参与决策的机会。建立个人知识管理体系，持续深耕你的专业领域。' },
-                    { category: '人际关系', text: '学会用他人能接受的方式表达你的想法。不是所有人都能跟上你的思维速度，耐心解释和温和沟通比直接给出结论更有效。定期花时间与亲近的人进行深度交流，情感连接需要维护。' },
-                    { category: '自我成长', text: '接受不完美——不是每件事都需要做到极致。学会在"足够好"和"完美"之间找到平衡。适当放松对自己的要求，留出时间来享受生活中的小确幸。冥想和独处是你的充电方式，但也尝试偶尔走出舒适区。' }
+                    { category: '你的优势', text: '你天生就是规划大师，复杂问题在你面前会自动变简单。不需要跟着别人的节奏走，你自有你的步调。独处不是孤独，是你充电的方式。' },
+                    { category: '与人相处', text: '试着用更轻松的方式表达你的想法，不是所有人都能跟上你的思维速度。偶尔的闲聊也不是浪费时间，那是关系的润滑剂。你不需要改变自己，只需要多一点耐心。' },
+                    { category: '善待自己', text: '完美主义是你的天赋也是你的负担——不是每件事都需要100分。偶尔"够用就行"也很棒。给自己放个假，享受一下不用思考的悠闲时光。' }
                 ]
             },
             'INTP': { 
-                name: '逻辑学家型 (INTP)', 
-                desc: '富有创造力的发明家，对知识有着永不满足的渴望',
-                detail: '你是思想世界的探索者，对知识有着无尽的好奇心。你善于分析、质疑和创新，喜欢探索各种可能性。你的思维敏捷而深刻，能发现别人忽略的逻辑漏洞和潜在模式。\n\n你热衷于理解事物运作的原理，从物理学到哲学，从编程到心理学——任何能激发你思考的领域都让你着迷。你享受独自钻研的时光，在思维的海洋中自由遨游。\n\n你的优势在于创新思维、逻辑分析和解决问题的能力。你不太在意社会常规，更关注自己的想法是否正确、有趣。有时候你会沉浸在自己的思考中而忽略外部世界，但正是这种专注让你能产生突破性的想法。\n\nINTP型约占人口的3%，认知功能组合为Ti-Ne-Si-Fe。以内向思考为主导，辅以外向直觉，这让你能从一个想法跳跃到另一个想法，构建复杂的理论体系。',
+                name: '杠精/逻辑狂魔', 
+                desc: '脑子里有一万个问号，对"为什么"上瘾的思考机器',
+                detail: '你的大脑就像一个永不关闭的浏览器，开了几百个标签页，每一个都在探索不同的问题。你享受思维的乐趣，一个有趣的问题能让你废寝忘食。在别人看来理所当然的事情，你偏要问一句"凭什么呢？"\n\n你可能是朋友中最爱"抬杠"的那个——但你不是为了赢，而是真心觉得讨论能接近真理。你收集知识就像别人收集手办，纯粹因为"这太有意思了"。有时候你沉浸在自己的脑洞世界里，回过神来发现天都黑了。\n\n你的超能力是"解构"——任何复杂的概念到你手里都能拆成零件，然后组装成全新的东西。你不随大流，因为你忙着在自己的轨道上探索。',
                 advice: [
-                    { category: '职业发展', text: '寻找能让你自由探索和创新的工作环境，如研究、开发、分析类岗位。与执行力强的伙伴合作，他们能帮你的想法落地。设定明确的截止日期，避免在一个问题上过度钻研而忽视进度。' },
-                    { category: '人际关系', text: '主动表达你的关心，即使只是简单的一句问候。别人无法读心，你需要用言语和行动来表达情感。学会在社交场合中适当参与，哪怕只是分享你最近在思考的有趣问题。' },
-                    { category: '自我成长', text: '将你的想法付诸实践——一个被实现的80分方案比一个完美的理论更有价值。建立时间管理习惯，使用外部工具来弥补你对时间感知的不足。尝试不同的表达方式（写作、演讲、教学），把你的思想分享给世界。' }
+                    { category: '你的优势', text: '你的好奇心是你最珍贵的礼物，永远不要停止问"为什么"。想法再天马行空也没关系，那是创造力的来源。找一个能懂你的怪想法的人，你们会碰撞出精彩的火花。' },
+                    { category: '与人相处', text: '辩论时注意一下对方的感受——不是每个人都把讨论当乐趣。学会用"我觉得挺有意思的"代替"你错了"。偶尔从脑洞里爬出来，跟真实世界的人聊聊。' },
+                    { category: '善待自己', text: '想到就去做——80分的实践比100分的理论更有价值。给自己设个闹钟，提醒自己吃饭睡觉。找一个能把你天马行空的想法变成现实的好搭档。' }
                 ]
             },
             'ENTJ': { 
-                name: '指挥官型 (ENTJ)', 
-                desc: '大胆、富有想象力且意志坚强的领导者，天生擅长掌控全局',
-                detail: '你是天生的领导者，自信果断，善于组织和指挥。你拥有强大的决策能力和执行力，能迅速分析形势并采取行动。你追求效率和结果，不畏挑战，敢于承担责任。\n\n在你的带领下，团队总能找到前进的方向。你擅长制定战略目标并激励他人一起实现。你不怕做出艰难的决定，因为你相信自己的判断力——而这种自信往往是有根据的。\n\n你的优势在于领导力、战略规划和高效执行。你有着强烈的成就动机，总是追求更高的目标。你欣赏能力和效率，对自己和团队都有很高的期望。\n\nENTJ型约占人口的2%，认知功能组合为Te-Ni-Se-Fi。以外向思考为主导，辅以内向直觉，这让你既能高效组织执行，又能洞察长远趋势。',
+                name: '霸道总裁', 
+                desc: '天生的领航者，气场两米八，目标明确从不拐弯',
+                detail: '你身上自带"全场听我指挥"的气场，走到哪都是自然形成的中心人物。你不是那种纠结犹豫的人——看到问题就解决问题，有目标就直奔目标。效率是你的信仰，拖泥带水会让你浑身难受。\n\n你有着一种让人愿意追随的魔力。你知道自己在做什么，也知道要带大家去哪里。你的果断不是冲动，而是快速整合信息后的精准判断。你享受带领一群人一起完成一件大事的成就感。\n\n你的超能力是"掌控"——混乱的局面在你面前会自动变得有序。你不怕挑战，甚至有点享受在压力下做出关键决策的感觉。',
                 advice: [
-                    { category: '职业发展', text: '大胆追求领导岗位，你的天赋在于带领团队实现宏大目标。培养倾听和授权的能力——最好的领导不是自己做所有事，而是激发每个人的潜能。持续学习新领域的知识，拓宽你的战略视野。' },
-                    { category: '人际关系', text: '在追求效率的同时，别忘了关注他人的感受。有时候一句真诚的赞美比一个高效的方案更能激励团队。学会放慢节奏，给别人思考和表达的空间。不是每个人都像你一样快速果断。' },
-                    { category: '自我成长', text: '学会接受不同的观点和工作方式——你的方法不一定总是最优的。定期反思自己的决策和领导方式，寻求可信赖的人的反馈。在工作和生活之间建立健康的边界，你的价值不仅仅在于成就。' }
+                    { category: '你的优势', text: '你的领导力是天生的，不需要刻意收敛。果断是你的强项，但要记得给团队留出发言的空间。设定高目标是好事，也别忘了庆祝每一个小胜利。' },
+                    { category: '与人相处', text: '偶尔放慢脚步，不是所有人都能跟上你的节奏。一句真诚的"做得好"比十页效率报告更有力量。让别人也有犯错和成长的机会，你不是一个人在战斗。' },
+                    { category: '善待自己', text: '你的价值不只在成就里。偶尔也让自己"无所事事"一下。找几个能跟你平等对话、不怕你的朋友，他们是你最珍贵的镜子。' }
                 ]
             },
             'ENTP': { 
-                name: '辩论家型 (ENTP)', 
-                desc: '聪明好奇的思考者，无法抗拒智力挑战',
-                detail: '你是思想领域的探险家，喜欢辩论和探讨新想法。你机智敏捷，善于发现问题和提出创新解决方案。你热衷于智力上的刺激和挑战，总能看到事物的多面性。\n\n你享受头脑交锋的快感——不是为了赢，而是为了探索真理。你天生擅长从不同角度审视问题，这种能力让你成为出色的创意来源和问题解决者。\n\n你的优势在于创新思维、适应能力和沟通表达。你能快速理解复杂概念并用自己的方式重新诠释。你充满热情和感染力，能带动周围的人一起探索新可能。\n\nENTP型约占人口的3%，认知功能组合为Ne-Ti-Fe-Si。以外向直觉为主导，辅以内向思考，这让你能不断产生新想法并用逻辑来检验它们。',
+                name: '辩论战神', 
+                desc: '思维永远在线，任何话题都能展开一场精彩交锋',
+                detail: '你是朋友圈里的"辩论担当"——不管什么话题你都能接上，而且总能说出让人眼前一亮的观点。你喜欢头脑风暴，享受思想碰撞的火花。对你来说，一个有趣的讨论比一顿大餐更让人满足。\n\n你有一种特殊的天赋：能看到问题的另一面。当大家都往东走的时候，你会忍不住想"往西会不会更好？"这不是叛逆，而是你骨子里的探索精神。你讨厌无聊和一成不变，总是在寻找下一个有趣的挑战。\n\n你的超能力是"灵光一现"——总能在关键时刻蹦出意想不到的好点子。你就像思想的DJ，把不同的想法混搭成全新的旋律。',
                 advice: [
-                    { category: '职业发展', text: '选择能提供持续智力刺激和多样性的职业，如创业、咨询、创意行业等。与执行力强的伙伴合作，他们能帮你把好想法变成现实。学会在产生新想法和执行现有计划之间找到平衡。' },
-                    { category: '人际关系', text: '在辩论中注意对方的感受——不是所有人都享受思想交锋，有些人可能会觉得被冒犯。学会聆听而不是等待反驳的机会。对他人的观点表示尊重，即使你不同意。' },
-                    { category: '自我成长', text: '培养专注力，选择一个最重要的项目深入下去而非同时启动十个。学会接受约束和限制——有时候限制反而能激发最好的创意。定期进行"数字排毒"，给大脑安静思考的空间。' }
+                    { category: '你的优势', text: '你的创造力是无穷的——尽情去探索各种可能性。辩论是你的乐趣，但要记得不是每个人都喜欢这种游戏。找一个能把你的好点子落地的实干家搭档。' },
+                    { category: '与人相处', text: '讨论问题时多看看对方的脸色——有的人是真的在困惑，不是在等你反驳。学会"嗯，你说的也有道理"这句话，它能帮你省很多麻烦。' },
+                    { category: '善待自己', text: '专注做好一件事，别同时开十个项目——虽然每个都很有趣。允许无聊的存在，有时候最好的创意恰恰来自放空的时刻。' }
                 ]
             },
             'INFJ': { 
-                name: '提倡者型 (INFJ)', 
-                desc: '安静而神秘，同时鼓舞人心且充满感染力',
-                detail: '你是理想主义者，富有洞察力和创造力。你善于理解他人，具有很强的直觉能力。你追求意义和深度，希望为世界带来积极的改变。\n\n你有一种近乎神奇的能力，能感知他人的情绪和动机。你不仅关心人们说了什么，更在意他们为什么这么说。这种深度共情让你成为出色的倾听者和建议者。\n\n你的优势在于洞察力、创造力和坚定的价值观。你对自己认定的目标会全力以赴，不轻易妥协。你需要独处的时间来整理思绪和恢复能量。\n\nINFJ型约占人口的1.5%，是最稀有的人格类型之一。认知功能组合为Ni-Fe-Ti-Se，以内向直觉为主导，辅以外向情感，这让你既能洞察深层意义，又能深刻理解他人。',
+                name: '人间清醒', 
+                desc: '看透不说透，用温柔的方式改变世界',
+                detail: '你有一种让人安心的气场——朋友们有什么心事都喜欢找你聊，因为你能听懂他们没说完的话。你的直觉准得可怕，常常能在别人还没开口时就感知到他们的情绪。你不追求表面的热闹，更在意深层的意义和连接。\n\n你的内心世界丰富而复杂，像一个精心打理的秘密花园。你关心的事很多：人的成长、世界的走向、生命的意义……但你不喜欢张扬，更倾向于用安静的方式去影响。你相信真正的改变来自心灵层面的触动。\n\n你的超能力是"洞见"——你能看到别人看不到的深层联系。你像一面镜子，能帮别人看清自己。你的温柔不是软弱，而是经过深思熟虑的选择。',
                 advice: [
-                    { category: '职业发展', text: '寻找能让你的价值观和才能相结合的工作，如教育、心理咨询、写作、非营利组织等。学会设定边界，保护自己的精力不被过度消耗。将你的洞察力转化为实际的行动计划。' },
-                    { category: '人际关系', text: '学会表达自己的需求——你不能总是照顾别人而忽略自己。寻找能理解你深度和复杂性的朋友，质量远比数量重要。允许自己偶尔"关闭共情模式"，你需要充电的时间。' },
-                    { category: '自我成长', text: '相信自己的直觉——它往往是正确的，但也要用事实来验证。将你的理想分解为具体的小步骤，一步一步去实现。学会接受世界的复杂性，不是所有问题都需要你来解决。' }
+                    { category: '你的优势', text: '你的直觉是你最宝贵的导航仪，相信它。深度是你的天赋，不必强迫自己变得肤浅。你的存在本身就是一种力量——安静但有影响力。' },
+                    { category: '与人相处', text: '记得保护好自己的能量，你不必成为每个人的情绪垃圾桶。学会说"我累了，需要独处"，这不自私。找一两个能理解你深度的人，比一百个点头之交更珍贵。' },
+                    { category: '善待自己', text: '世界的问题不是你的责任——你可以关心，但不必背负。定期给自己放个"心灵假期"，关掉共情模式充充电。你的理想很重要，但要记得一步一个脚印去实现。' }
                 ]
             },
             'INFP': { 
-                name: '调停者型 (INFP)', 
-                desc: '诗意、善良的利他主义者，总是热情地帮助他人',
-                detail: '你是温和的理想主义者，内心丰富，追求内心的和谐与真实。你善于理解他人的感受，富有同情心，是很好的倾听者和支持者。\n\n你的内心世界丰富多彩，充满了价值观、梦想和对美好事物的向往。你对人性有着深刻的洞察，能感受到别人可能忽略的情感细微之处。\n\n你的优势在于创造力、共情能力和坚定的价值观。你对自己认为重要的事情会投入极大的热情。你需要时间和空间来探索自己的内心世界。\n\nINFP型约占人口的4%，认知功能组合为Fi-Ne-Si-Te。以内向情感为主导，辅以外向直觉，这让你拥有强烈的价值观和丰富的想象力。',
+                name: '小蝴蝶/泪失禁体质', 
+                desc: '内心住着一个诗意的小宇宙，善良又敏感',
+                detail: '你的内心世界像一个梦幻花园，装满了美好、善良和无限可能。你很容易被感动——一首歌、一部电影、甚至路边的一朵小花都能触动你的心弦。你看这个世界带着柔和的滤镜，总能发现别人忽略的美和温暖。\n\n你有强烈的价值观，对自己认定的信念非常坚定。虽然外表可能安静，但内心有一团火在燃烧。你关心他人的感受，讨厌冲突和不公，渴望一个更美好的世界。有时候你会觉得自己像个"异类"，但你的与众不同恰恰是你最珍贵的地方。\n\n你的超能力是"共情"——你能真正走进别人的心里，理解他们最柔软的部分。你是天生的疗愈者，用你的善良和温柔治愈身边的人。',
                 advice: [
-                    { category: '职业发展', text: '选择能表达你价值观和创造力的工作，如写作、艺术、心理咨询、教育等。找到能将你的理想主义转化为实际成果的方法。与务实的人合作，他们能帮你的梦想找到落地的路径。' },
-                    { category: '人际关系', text: '学会表达自己的需求——你的感受同样重要。不必总是取悦他人，真正的朋友会尊重你的边界。在关系中保持真实，不要为了和谐而隐藏真实的自己。' },
-                    { category: '自我成长', text: '将你的创意想法付诸实践，哪怕只是一小步。学会接受建设性批评，把它看作成长的机会而非对自我的否定。建立日常习惯来保持平衡，特别是当情绪波动时。' }
+                    { category: '你的优势', text: '你的敏感不是弱点，是你感知世界的独特天线。你的创造力来自内心的丰富——永远不要停止做梦。你不需要变成别人期待的样子，做真实的自己就已经足够好。' },
+                    { category: '与人相处', text: '学会说出你的需求——你的感受和别人的一样重要。不是所有人都值得你的善良，学会保护自己。真正的朋友会接纳全部的你，包括你的情绪起伏。' },
+                    { category: '善待自己', text: '允许自己脆弱——流泪不是软弱，是你在真诚地感受生活。把内心那些美好的想法写下来、画出来、做出来。给自己一些安全感，你比想象中更坚强。' }
                 ]
             },
             'ENFJ': { 
-                name: '主人公型 (ENFJ)', 
-                desc: '富有魅力且鼓舞人心的领导者，能带动他人共同前进',
-                detail: '你是天生的教育家和领导者，善于激励和引导他人。你富有同情心，善于理解他人的需求，能够团结团队朝着共同目标前进。\n\n你有一种自然的魅力，能让人们愿意追随你。你不仅关心团队的绩效，更关心每个人的成长和幸福。你善于发现他人的潜能并帮助他们发挥出来。\n\n你的优势在于领导力、沟通能力和共情能力。你能在复杂的人际关系中找到平衡点，让每个人都被听到、被重视。\n\nENFJ型约占人口的2.5%，认知功能组合为Fe-Ni-Se-Ti。以外向情感为主导，辅以内向直觉，这让你既能敏锐感知他人需求，又能洞察深层意义。',
+                name: '人生导师', 
+                desc: '自带光芒的引路人，总能看到每个人最好的样子',
+                detail: '你有一种让人愿意敞开心扉的魅力。你善于发现别人的闪光点，并且真诚地希望每个人都能成为更好的自己。你说话的方式让人感到被理解、被接纳，朋友遇到困惑总是第一个想到找你聊。\n\n你不是那种高高在上的说教者，而是真正的陪伴者和引导者。你关心的不只是一个人的"问题"，更是这个人的"成长"。你的热情和信念感能感染身边的人，让大家愿意跟着你一起向前。\n\n你的超能力是"激发"——你能看到别人自己都没发现的潜能，并帮他们释放出来。你就像一盏灯，照亮别人的路，同时也温暖了自己。',
                 advice: [
-                    { category: '职业发展', text: '追求能让你帮助他人成长的工作，如教育、管理、人力资源、咨询等。学会将你的愿景分解为可执行的计划。在关注他人发展的同时，也别忘了自己的职业目标。' },
-                    { category: '人际关系', text: '关注自己的需求——你不能从空杯子里倒水。学会接受别人的帮助，你不必总是那个给予者。在关系中保持真诚，不要为了取悦所有人而耗尽自己。' },
-                    { category: '自我成长', text: '学会放手，让团队成员自己成长和犯错。定期独处反思，确保你在追求的是自己的目标而非别人的期望。相信你的直觉——你对人的判断通常很准确。' }
+                    { category: '你的优势', text: '你的共情和领导力是天作之合——既能理解人，又能带动人。不需要隐藏你的热情，这个世界需要更多像你这样的光。帮助别人成长是你最大的快乐源泉。' },
+                    { category: '与人相处', text: '记得先照顾好自己的杯子，才能给别人倒水。不是所有人都准备好接受你的帮助，尊重他们的节奏。学会接受别人的关心——你也值得被照顾。' },
+                    { category: '善待自己', text: '你不必成为所有人的拯救者——每个人都有自己的路要走。定期给自己"断联"的时间，好好陪陪自己。你的价值不只是在于你帮了多少人。' }
                 ]
             },
             'ENFP': { 
-                name: '竞选者型 (ENFP)', 
-                desc: '热情、有创造力、社交自由的探索者，总能看到生活中的可能性',
-                detail: '你是充满热情的自由灵魂，善于发现新机会和可能性。你富有创造力，善于与人交往，能够激发他人的热情和动力。\n\n你对生活充满好奇心，总是能看到事物的积极面。你善于在不同的人和想法之间建立联系，这种能力让你成为出色的创意者和连接者。\n\n你的优势在于创造力、社交能力和适应能力。你充满感染力的热情能带动周围的人一起探索新可能。你珍视自由和真实性，不喜欢被条条框框束缚。\n\nENFP型约占人口的7%，认知功能组合为Ne-Fi-Te-Si。以外向直觉为主导，辅以内向情感，这让你能不断发现新可能性并用价值观来引导选择。',
+                name: '快乐小狗', 
+                desc: '永远对世界充满好奇，走到哪里就把阳光带到哪里',
+                detail: '你就是行走的小太阳！对生活有着无穷的热情和好奇心，任何新鲜事物都能让你眼睛发光。你的快乐有传染性——跟你在一起的人会不自觉地笑起来。你善于发现生活中的小美好，并且毫不吝啬地分享你的热情。\n\n你不喜欢被条条框框束缚，自由对你来说比什么都重要。你的脑子里每天都会冒出无数个"好主意"，虽然有些可能只存活了五分钟。你擅长把不同的人连接在一起，是天生的社交催化剂。\n\n你的超能力是"热情"——你有一种让沉闷变有趣、让无聊变精彩的魔法。你是生活的探索者，永远在路上寻找下一个惊喜。',
                 advice: [
-                    { category: '职业发展', text: '选择能提供多样性和创造空间的工作，如创业、媒体、设计、营销等。与组织能力强的人合作，他们能帮你把想法变成现实。学会在自由和结构之间找到平衡。' },
-                    { category: '人际关系', text: '学会深度倾听——不只是等待说话的机会，而是真正理解对方。在关系中保持承诺和一致性，不要因为新的兴趣而忽视已有的关系。对他人的反馈保持开放，即使是批评。' },
-                    { category: '自我成长', text: '培养完成一件事的能力——完成比完美更重要。建立一些日常习惯来保持稳定性，即使你觉得它们有些无聊。定期反思你的目标和价值观，确保你的精力投向真正重要的事。' }
+                    { category: '你的优势', text: '你的热情是你最闪耀的标签，永远不要因为别人的眼光而收敛。你的创造力像喷泉——让它尽情流淌吧。你让这个世界变得更有趣、更温暖。' },
+                    { category: '与人相处', text: '学会深度倾听——有时候朋友需要的是陪伴而不是解决方案。别让"下一个更好的可能性"让你错过眼前的美好。在关系中保持一些稳定性和承诺。' },
+                    { category: '善待自己', text: '完成一件事的感觉其实很棒——试试从头到尾坚持一个项目。偶尔安静下来也很不错，跟自己独处也是一种充电。' }
                 ]
             },
             'ISTJ': { 
-                name: '物流师型 (ISTJ)', 
-                desc: '注重事实、务实且注重秩序的人，值得信赖的责任担当者',
-                detail: '你是可靠的执行者，注重细节和秩序。你善于组织和管理，是很好的问题解决者。你重视责任和承诺，值得信赖。\n\n你做事一丝不苟，喜欢按照既定的流程和标准来完成任务。你不追求花哨，但你的成果总是经得起检验。你是团队中最稳定的力量。\n\n你的优势在于可靠性、组织能力和务实精神。你能在混乱中找到秩序，在不确定中创造稳定。你的承诺一旦做出就会全力以赴。\n\nISTJ型约占人口的12%，是最常见的人格类型之一。认知功能组合为Si-Te-Fi-Ne，以内向感觉为主导，辅以外向思考，这让你能高效组织事实和数据。',
+                name: '规矩哥/规矩姐', 
+                desc: '靠谱的代名词，说到做到，稳得像一座山',
+                detail: '你就是朋友圈里最让人放心的那个人。答应的事一定会做，约定的时间一定会到。你不喜欢花里胡哨的东西，追求的是实实在在、看得见摸得着的成果。你的生活有自己的节奏和秩序，这种稳定感让你感到安心。\n\n你做事情一丝不苟，每一步都踏踏实实。你不追求成为焦点，但你的贡献总是最扎实的。在混乱中你是那个能保持冷静、按部就班解决问题的人。别人可能觉得你有点"较真"，但正是这种较真让你值得信赖。\n\n你的超能力是"靠谱"——不管什么事交给你，都能放心。你的承诺比合同还有分量，你的存在就是一种安全感。',
                 advice: [
-                    { category: '职业发展', text: '发挥你在组织、管理和执行方面的天赋，如财务、行政管理、工程等领域。学会展示你的成果——你的贡献值得被看到。适当接受新的工作方法，不是所有传统都是最优的。' },
-                    { category: '人际关系', text: '学会表达你的关心——你的行动已经说明了一切，但有时候言语也很重要。给自己和他人一些放松的时间，不必总是那么严肃。在亲密关系中主动分享你的感受和想法。' },
-                    { category: '自我成长', text: '学会灵活变通——计划很重要，但生活总有意外。给自己留出一些"计划外"的时间来放松和探索。尝试新事物，即使它们不在你的舒适区内。' }
+                    { category: '你的优势', text: '你的可靠是你最大的魅力——在这个善变的世界里，你是一块稳定的基石。按自己的节奏来，不需要迎合别人的快节奏。你的认真和细致，让你在任何领域都能做出成绩。' },
+                    { category: '与人相处', text: '偶尔也跟朋友分享你的内心想法——你的稳重之下也有柔软的一面。允许别人有不同的做事方式，不是只有你的方法才是对的。多说一些温暖的话，你的关心有时候需要被说出来。' },
+                    { category: '善待自己', text: '计划被打乱时深呼吸——生活总有意外，偶尔的即兴也挺有趣。给自己一些"不做计划"的时间。尝试一些新鲜事物，不必总是走熟悉的路。' }
                 ]
             },
             'ISFJ': { 
-                name: '守卫者型 (ISFJ)', 
-                desc: '非常专注、热心、温暖的守护者，默默守护着身边的人',
-                detail: '你是温暖的守护者，善于照顾他人，注重传统和责任。你富有同情心，善于倾听，是很好的朋友和支持者。\n\n你用行动来表达关心——记住每个人的喜好，在他们需要的时候默默出现。你不追求聚光灯，但你的存在让周围的人感到安全和被爱。\n\n你的优势在于关怀能力、可靠性和务实精神。你有一双善于发现他人需求的眼睛和一双愿意提供帮助的手。\n\nISFJ型约占人口的13%，认知功能组合为Si-Fe-Ti-Ne。以内向感觉为主导，辅以外向情感，这让你既注重细节又善于照顾他人感受。',
+                name: '守护甜心', 
+                desc: '默默付出的温柔守护者，总是第一个察觉到别人的需要',
+                detail: '你是那种不声不响就把所有事情都安排好的人。朋友随口说的一句话你会记在心里，然后在合适的时候默默准备好一切。你的温暖不张扬，像冬日里的暖宝宝——存在的时候不显眼，但没有你会觉得少了什么。\n\n你有一种超能力般的观察力——能注意到谁不开心了、谁需要帮助了、谁的杯子空了。你照顾身边的人就像呼吸一样自然，从不求回报。你喜欢和谐的氛围，讨厌冲突，愿意为了大家的舒服而付出。\n\n你的超能力是"守护"——你让身边的人感到安全和被爱。你不是人群中最闪耀的那个，但你是最不可或缺的那个。',
                 advice: [
-                    { category: '职业发展', text: '选择能让你帮助他人的职业，如医疗、教育、社会服务等。学会为自己的贡献争取认可——你的默默付出值得被看到。在照顾他人的同时，也关注自己的职业成长。' },
-                    { category: '人际关系', text: '学会说"不"——你不可能满足所有人的需求。表达你自己的感受和需求，真正关心你的人会理解。给自己留出独处和充电的时间，这是你维持关怀能力的基础。' },
-                    { category: '自我成长', text: '关注自己的需求——你也是一个需要被照顾的人。尝试走出舒适区，接受一些适度的挑战。相信自己的直觉和判断，你的感受和想法同样重要。' }
+                    { category: '你的优势', text: '你的温柔是世界上最珍贵的东西之一，不要觉得它不值钱。照顾别人是你的天赋，但别忘了这份天赋也值得用在你自己身上。你的细心和体贴是很多人都学不会的本领。' },
+                    { category: '与人相处', text: '学会说"不"——你的善良不应该被理所当然地消耗。偶尔也让自己被照顾一下，感受一下做"被照顾者"的感觉。表达你的感受，别人不是天生就会读心。' },
+                    { category: '善待自己', text: '你值得被好好对待——不是因为你付出了多少，而是因为你就是你。给自己留出独处充电的时间。偶尔任性一下，不照顾任何人，只照顾自己。' }
                 ]
             },
             'ESTJ': { 
-                name: '总经理型 (ESTJ)', 
-                desc: '出色的管理者，在组织和管理方面无与伦比',
-                detail: '你是务实的组织者，善于管理和执行。你注重效率和秩序，是很好的管理者和领导者。你重视传统和稳定，做事雷厉风行。\n\n你相信制度和流程的力量，善于建立高效的工作体系。你不会被情绪干扰，总是以结果为导向做出决策。你对自己和他人都有明确的期望。\n\n你的优势在于管理能力、决断力和责任心。你能在复杂的环境中建立秩序，带领团队高效运转。\n\nESTJ型约占人口的9%，认知功能组合为Te-Si-Ne-Fi。以外向思考为主导，辅以内向感觉，这让你既能高效组织执行，又能借鉴过往经验。',
+                name: '大管家/卷王', 
+                desc: '天生的管理者，秩序和效率的捍卫者',
+                detail: '你就是那种能把任何混乱局面收拾得井井有条的人。在你的世界里，事情应该有明确的规则和流程。你不怕承担责任，反而享受把一切安排妥当的成就感。你的执行力强得可怕——想到就做，做就做好。\n\n你相信"没有规矩不成方圆"，而且你愿意成为那个制定规矩的人。你做事雷厉风行，不喜欢拖泥带水。在团队中，你可能不是最受欢迎的，但一定是最靠谱的——你知道怎么把事情搞定。\n\n你的超能力是"组织"——一堆乱七八糟的事情到你手里就会变得井井有条。你是那种"有事找你就对了"的人，因为你知道怎么解决问题。',
                 advice: [
-                    { category: '职业发展', text: '追求管理和领导岗位，你的组织才能在这些位置上能发挥最大价值。学会灵活处理特殊情况——规则很重要，但有时需要酌情处理。培养创新思维，不要完全依赖已有的方法。' },
-                    { category: '人际关系', text: '学会倾听——团队成员的意见可能带来更好的方案。在反馈中增加正面肯定的比重，不只是指出问题。理解和尊重不同的工作方式，高效不只有一种定义。' },
-                    { category: '自我成长', text: '学会放松——工作不是生活的全部，花时间享受家人和朋友的陪伴。尝试在没有计划的情况下度过一天，你可能会发现意外的乐趣。开放心态接受新的观点和方法。' }
+                    { category: '你的优势', text: '你的组织能力是你的王牌——能搞定别人搞不定的事。保持你的高标准，但也给自己和别人一些容错空间。你的效率让人敬佩，继续保持。' },
+                    { category: '与人相处', text: '规则很重要，但人情也重要——有时候需要灵活处理。多夸夸身边的人，你的一句肯定对他们来说是巨大的鼓励。偶尔放慢节奏，陪朋友家人享受慢生活。' },
+                    { category: '善待自己', text: '你不需要总是"在线"——休息不是浪费时间。尝试没有任何计划的一天，随性而为。工作不是全部，生活中还有很多值得你投入的事。' }
                 ]
             },
             'ESFJ': { 
-                name: '执政官型 (ESFJ)', 
-                desc: '极有同情心、爱社交的热心助人者，总把他人放在第一位',
-                detail: '你是热情的社交者，善于与人交往，注重和谐。你富有同情心，善于照顾他人，是很好的团队成员和组织者。\n\n你喜欢让每个人都感到被欢迎和被重视。你善于察觉他人的情绪变化，并主动提供帮助。你是团队中的"社交胶水"，让每个人都感到归属感。\n\n你的优势在于社交能力、组织能力和共情能力。你善于创造温暖、包容的环境，让每个人都能发挥最好的一面。\n\nESFJ型约占人口的12%，认知功能组合为Fe-Si-Ne-Ti。以外向情感为主导，辅以内向感觉，这让你既善于照顾他人又注重实际细节。',
+                name: '热心居委会', 
+                desc: '人群中的人气王，有你在的地方就不会冷场',
+                detail: '你就是社交圈的"居委会主任"——谁家有什么事你都知道，而且乐于帮忙。你喜欢把大家聚在一起，看到每个人都开心你才开心。你的热心肠是出了名的，朋友有困难第一个想到的就是你。\n\n你对别人的情绪变化超级敏感，能在第一时间发现谁不开心并送上关怀。你擅长制造温暖的气氛，让每个人都感到被欢迎。你不喜欢冷场，总是有说不完的话题和关心不完的事情。\n\n你的超能力是"连接"——你能让一群人从陌生人变成好朋友。你是社交圈的粘合剂，有你在的地方就有家的感觉。',
                 advice: [
-                    { category: '职业发展', text: '选择能发挥你人际交往优势的工作，如客户服务、教育、医疗、公关等。学会为自己的成就感到骄傲——你的贡献值得认可。在帮助他人达成目标的同时，明确自己的职业方向。' },
-                    { category: '人际关系', text: '学会设置个人边界——你不需要对每个人的幸福负责。花时间独处，了解自己真正的需求和感受。接受冲突是关系的一部分，有时候直面问题比维持表面和谐更健康。' },
-                    { category: '自我成长', text: '学会独处——在安静中你能更好地了解自己。尝试独立完成一些事情，不总是依赖团队。接受改变——不是所有传统都需要坚守，有些改变能带来更好的生活。' }
+                    { category: '你的优势', text: '你的热心是你最闪亮的标签——这个世界因为有你这样的人而温暖。你让别人感到被重视的能力是很多人都没有的。继续保持你的善良和热情。' },
+                    { category: '与人相处', text: '偶尔也问问自己"我想要什么"——你不只是别人的帮手。有些人可能不习惯被过度关心，学会尊重不同的边界。你的价值不取决于你对别人有多好。' },
+                    { category: '善待自己', text: '学会享受独处——一个人的时光也可以很美好。不需要对每个人的快乐负责，先保证自己开心。偶尔做做"被照顾"的那个人。' }
                 ]
             },
             'ISTP': { 
-                name: '鉴赏家型 (ISTP)', 
-                desc: '大胆而实际的实验者，擅长动手解决问题',
-                detail: '你是务实的问题解决者，善于分析和动手。你灵活机智，善于应对突发情况，喜欢探索和实践。\n\n你不太喜欢理论探讨，更喜欢亲自动手去尝试。你对事物如何运作有着天然的好奇心，喜欢拆解和重组。你是危机时刻最冷静的那个人。\n\n你的优势在于动手能力、分析能力和应变能力。你善于在高压环境中保持冷静，找到最直接的解决方案。\n\nISTP型约占人口的5%，认知功能组合为Ti-Se-Ni-Fe。以内向思考为主导，辅以外向感觉，这让你能精准分析并灵活应对当下环境。',
+                name: '动手战神', 
+                desc: '用双手创造世界，冷静又酷的行动派',
+                detail: '你是那种"能动手解决就绝不废话"的人。你的手很巧，什么东西坏了你都想拆开看看。你喜欢实践胜过理论——与其讨论半天，不如直接试试。在紧急情况下，你是最冷静的那个人，总能找到最直接的解决办法。\n\n你不太爱说废话，更喜欢用行动表达。你享受独自钻研的时光，沉浸在自己的世界里摆弄感兴趣的东西。你有一种天然的酷感——不刻意耍帅，但你的淡定和实力就是最帅的样子。\n\n你的超能力是"搞定"——管它什么问题，到你手里总能找到办法。你像一把瑞士军刀，什么场景都能应付自如。',
                 advice: [
-                    { category: '职业发展', text: '选择需要动手能力和分析思维的职业，如工程、技术、手工艺等。学会在行动前做一些规划——不是所有问题都需要立即动手。培养沟通能力，让你的技术见解能被更多人理解。' },
-                    { category: '人际关系', text: '学会表达你的情感——行动固然重要，但言语也能传递关心。在关系中多一些耐心和投入，不要总是保持距离。接受他人的情感表达，即使你觉得不必要。' },
-                    { category: '自我成长', text: '尝试设定一些长期目标——短期效率固然重要，但长远规划能带来更大的成就感。学会接受不确定性，不是所有事情都能被完全理解和掌控。培养一项需要持续投入的兴趣或技能。' }
+                    { category: '你的优势', text: '你的动手能力是你最强的武器——任何技能你都能很快上手。保持你的冷静和理性，这是你最酷的地方。你的实践精神让你在真实世界里如鱼得水。' },
+                    { category: '与人相处', text: '偶尔用言语表达一下你的关心——别人不一定能从你的行动里读懂。多一些耐心，不是所有人都像你一样高效。允许别人有不同的节奏和方式。' },
+                    { category: '善待自己', text: '尝试设定一些长远目标——你的能力值得更大的舞台。偶尔走出舒适区，学习一些软技能会让你更强大。找一个懂你的沉默的伙伴。' }
                 ]
             },
             'ISFP': { 
-                name: '探险家型 (ISFP)', 
-                desc: '灵活有魅力的艺术家，随时准备探索和体验新事物',
-                detail: '你是温柔的艺术家，善于感受和表达美。你注重当下，善于享受生活，是很好的伴侣和朋友。\n\n你用感官来体验世界——美的画面、动听的音乐、温暖的触感都能深深打动你。你不太喜欢被规则束缚，更喜欢按照自己的节奏生活。\n\n你的优势在于审美能力、适应能力和真诚。你对美和和谐有着天生的敏感，能在平凡中发现不平凡。\n\nISFP型约占人口的6%，认知功能组合为Fi-Se-Ni-Te。以内向情感为主导，辅以外向感觉，这让你拥有强烈的审美感和对当下体验的敏锐度。',
+                name: '佛系艺术家', 
+                desc: '活在当下的小确幸收藏家，用心灵感受世界的美',
+                detail: '你的眼睛自带"发现美"的滤镜——路边的野花、傍晚的云彩、咖啡上的拉花，都能让你心情变好。你不追求轰轰烈烈，更喜欢生活中的小确幸。你的生活态度是"舒服就好"，不喜欢被催促和逼迫。\n\n你有自己独特的审美和品味，可能是穿搭、音乐、美食或者任何能触动感官的东西。你不喜欢争吵和冲突，更愿意用沉默和退让来维持和谐。你享受一个人做自己喜欢的事的时光。\n\n你的超能力是"感知"——你能感受到别人忽略的美好。你的存在让世界多了一份温柔和色彩。你就是"生活家"本家。',
                 advice: [
-                    { category: '职业发展', text: '追求能发挥你创造力和审美感的工作，如设计、艺术、手工艺、护理等。学会将你的天赋转化为市场需要的技能。与组织能力强的人合作，他们能帮你处理你不擅长的行政事务。' },
-                    { category: '人际关系', text: '学会用言语表达你的感受——你的内心丰富，让别人了解你会加深关系。在关系中保持沟通，不要总是用沉默来应对冲突。接受他人的关心和帮助，你不需要总是独立面对一切。' },
-                    { category: '自我成长', text: '尝试制定一些简单的计划和目标——它们能帮你的创造力找到方向。学会接受建设性反馈，它是成长的催化剂。培养自律习惯，特别是对于那些不太有趣但必要的事情。' }
+                    { category: '你的优势', text: '你的审美是你的天赋——继续用你的方式让世界变得更美。你不需要迎合别人的标准，你的独特就是你的价值。享受当下的能力是很多人一辈子都学不会的本领。' },
+                    { category: '与人相处', text: '试着用语言分享你的内心世界——你的感受值得被听见。偶尔也说出你的真实想法，哪怕是不同的意见。找一个欣赏你独特品味的人。' },
+                    { category: '善待自己', text: '给自己设定一些小目标——不是压力，是让生活有方向感。尝试一些需要坚持的事情，完成后的成就感会很棒。偶尔走出舒适区，你会发现新的世界。' }
                 ]
             },
             'ESTP': { 
-                name: '企业家型 (ESTP)', 
-                desc: '聪明、精力充沛且善于感知的行动者，总能抓住当下的机会',
-                detail: '你是精力充沛的行动者，善于把握机会。你勇敢果断，善于应对挑战，是很好的问题解决者和领导者。\n\n你活在当下，对周围的环境有着敏锐的感知。你不喜欢过度分析，更倾向于直接行动、快速试错。你是危机中最可靠的那个人。\n\n你的优势在于应变能力、行动力和社交能力。你能在瞬息万变的环境中迅速做出判断并采取行动。\n\nESTP型约占人口的4%，认知功能组合为Se-Ti-Fe-Ni。以外向感觉为主导，辅以内向思考，这让你能敏锐感知环境并快速做出逻辑判断。',
+                name: '社交悍匪', 
+                desc: '哪里有热闹哪里就有你，行动力满格的冒险家',
+                detail: '你就是人群中的"气氛点燃器"——有你在的地方绝对不会无聊。你胆子大、反应快，看到机会就冲，犹豫不决这个词不在你的字典里。你享受刺激和挑战，越有难度的事情越让你兴奋。\n\n你对周围的环境有着雷达般的敏锐度，总能第一时间察觉到机会和风险。你不太喜欢纸上谈兵，更倾向于"先干再说"。你的朋友圈很广，三教九流都有你的熟人。\n\n你的超能力是"行动"——别人还在想的时候你已经做完了。你像一阵旋风，所到之处充满了活力和惊喜。你是天生的"社交牛人"。',
                 advice: [
-                    { category: '职业发展', text: '选择充满变化和挑战的工作，如销售、创业、应急管理等。学会在做决定前多思考一步——冲动有时会带来不必要的风险。培养长期规划能力来平衡你的短期行动力。' },
-                    { category: '人际关系', text: '学会考虑他人的感受——你的直率有时可能无意中伤害别人。在关系中多一些耐心和深度，不只是停留在表面的互动。对他人的情感需求多一些敏感度。' },
-                    { category: '自我成长', text: '学会三思而后行——给自己一点时间评估后果再行动。培养耐心，有些收获需要时间来积累。设定一些长期目标，让你的行动力和精力投向有持久价值的方向。' }
+                    { category: '你的优势', text: '你的行动力是你的超能力——继续勇往直前。你的社交天赋让你在任何圈子都吃得开。享受冒险和刺激，这是你的生活方式。' },
+                    { category: '与人相处', text: '偶尔慢下来听听别人的故事——不只是分享你的精彩。注意一下你的直率是否伤到了人。深度关系比广度关系更能滋养你。' },
+                    { category: '善待自己', text: '三思而后行有时候能帮你避开不必要的坑。培养一点耐心——好东西需要时间。给自己设定一个长期目标，看看自己能走多远。' }
                 ]
             },
             'ESFP': { 
-                name: '表演者型 (ESFP)', 
-                desc: '自发的、精力充沛的表演者，生活永远不会枯燥',
-                detail: '你是热情的表演者，善于与人交往，享受生活。你富有魅力，善于娱乐他人，是很好的团队成员和朋友。\n\n你天生就是人群中的焦点，能用你的热情和幽默感染周围的人。你喜欢让每个人都开心，善于创造欢乐的氛围。\n\n你的优势在于社交能力、适应能力和乐观精神。你能在社交场合中如鱼得水，让每个人都感到愉快和被接纳。\n\nESFP型约占人口的8%，认知功能组合为Se-Fi-Te-Ni。以外向感觉为主导，辅以内向情感，这让你能充分体验当下并用价值观来引导行为。',
+                name: '气氛组担当', 
+                desc: '生活的主演，走到哪里都是欢乐的中心',
+                detail: '你就是自带BGM出场的人！你天生就是表演者，能用你的魅力和幽默点亮任何一个场合。你喜欢成为焦点，但不是那种让人讨厌的炫耀——你是真心想让大家都开心起来。\n\n你的生活态度是"人生苦短，及时行乐"。你不喜欢想太多，更愿意跟着感觉走。你对美和快乐有着天然的追求，善于把普通的日子过成节日。朋友跟你在一起永远不会觉得无聊。\n\n你的超能力是"感染"——你的快乐能传染给身边的每一个人。你是派对的灵魂、聚会的核心、快乐的源泉。有你在，生活永远不会枯燥。',
                 advice: [
-                    { category: '职业发展', text: '选择能发挥你社交天赋的工作，如表演、销售、服务行业、活动策划等。学会发展专业技能来支撑你的社交优势。在追求新鲜感的同时，保持对长期目标的关注。' },
-                    { category: '人际关系', text: '学会深度倾听——不只是分享自己的故事，也给别人表达的空间。在关系中保持一致性，不要因为追求新鲜感而忽视已有的关系。对他人的需求保持敏感，不是所有人都像你一样外向。' },
-                    { category: '自我成长', text: '学会独处——在安静中你能更好地了解自己。培养长期规划的习惯，平衡当下的快乐和未来的目标。尝试深度阅读或学习，拓展你获取满足感的方式。' }
+                    { category: '你的优势', text: '你的魅力是天生的礼物——继续用你的方式让世界更欢乐。你享受生活的能力是顶级的生活智慧。你的乐观和热情是无价之宝。' },
+                    { category: '与人相处', text: '偶尔也做一次安静的听众——给别人表演的机会。学会在关系中保持深度，不只是广度。不是所有人都需要时刻快乐，尊重不同的情绪状态。' },
+                    { category: '善待自己', text: '独处的时间也很宝贵——在安静中你会更了解自己。培养一个需要长期投入的兴趣或技能。你的价值不只是在于你能让别人多开心。' }
                 ]
             }
         };
@@ -1529,49 +1753,94 @@ button#back-to-home-btn {
         let currentHoveredSlot = null;
         let currentHoveredInsight = null;
 
-        // 初始化游戏
-        function initGame() {
+        // 洗牌函数 (Fisher-Yates)
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        // 初始化游戏 - totalCards: 32 或 16
+        function initGame(totalCards = 32) {
             gameState.currentPage = 'game';
             gameState.currentCardIndex = 0;
-            gameState.resources = { energy: 8, maxEnergy: 12, logic: 8, maxLogic: 12, empathy: 8, maxEmpathy: 12 };
+            gameState.resources = { energy: totalCards === 16 ? 6 : 8, maxEnergy: totalCards === 16 ? 8 : 12, logic: totalCards === 16 ? 5 : 8, maxLogic: totalCards === 16 ? 8 : 12, empathy: totalCards === 16 ? 5 : 8, maxEmpathy: totalCards === 16 ? 8 : 12 };
             gameState.qxrgScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
             gameState.totalScore = 0;
             gameState.insightUsed = {};
             gameState.resourceUsed = { energy: 0, logic: 0, empathy: 0 };
             
-            // 随机排列但确保题目分布均衡：每8道题包含所有4个维度的题目
-            // 先将题目按维度分组，再交替抽取，确保各维度均匀分布
-            const grouped = { EI: [], SN: [], TF: [], JP: [], MIX: [] };
+            // 将题目按维度分组：卡牌有该维度类型即归入（一张卡可归入多组）
+            const grouped = { EI: [], SN: [], TF: [], JP: [] };
             qxrgCards.forEach(card => {
                 const types = [card.aType, card.bType, card.cType, card.dType];
-                if (types.some(t => t === 'E' || t === 'I') && !types.some(t => ['S','N','T','F','J','P'].includes(t) && !['E','I'].includes(t))) {
-                    // 纯EI维度
-                    if (grouped.EI.length < 8) grouped.EI.push(card);
-                    else grouped.MIX.push(card);
-                } else if (types.some(t => t === 'S' || t === 'N') && !types.some(t => ['E','I','T','F','J','P'].includes(t) && !['S','N'].includes(t))) {
-                    if (grouped.SN.length < 8) grouped.SN.push(card);
-                    else grouped.MIX.push(card);
-                } else if (types.some(t => t === 'T' || t === 'F') && !types.some(t => ['E','I','S','N','J','P'].includes(t) && !['T','F'].includes(t))) {
-                    if (grouped.TF.length < 8) grouped.TF.push(card);
-                    else grouped.MIX.push(card);
-                } else if (types.some(t => t === 'J' || t === 'P') && !types.some(t => ['E','I','S','N','T','F'].includes(t) && !['J','P'].includes(t))) {
-                    if (grouped.JP.length < 8) grouped.JP.push(card);
-                    else grouped.MIX.push(card);
-                } else {
-                    grouped.MIX.push(card);
+                if (types.some(t => t === 'E' || t === 'I')) grouped.EI.push(card);
+                if (types.some(t => t === 'S' || t === 'N')) grouped.SN.push(card);
+                if (types.some(t => t === 'T' || t === 'F')) grouped.TF.push(card);
+                if (types.some(t => t === 'J' || t === 'P')) grouped.JP.push(card);
+            });
+
+            // 每个组内随机打乱（翻牌随机）
+            grouped.EI = shuffle(grouped.EI);
+            grouped.SN = shuffle(grouped.SN);
+            grouped.TF = shuffle(grouped.TF);
+            grouped.JP = shuffle(grouped.JP);
+
+            // 每个维度需要取的数量：32题各取8题，16题各取4题
+            const perGroup = totalCards === 16 ? 4 : 8;
+            const usedIds = new Set();
+            const selected = { EI: [], SN: [], TF: [], JP: [] };
+            const dimensions = ['EI', 'SN', 'TF', 'JP'];
+
+            // 从各组中选择，跳过已在之前组选中的卡牌（去重）
+            dimensions.forEach(dim => {
+                for (let i = 0; i < grouped[dim].length && selected[dim].length < perGroup; i++) {
+                    if (!usedIds.has(grouped[dim][i].id)) {
+                        selected[dim].push(grouped[dim][i]);
+                        usedIds.add(grouped[dim][i].id);
+                    }
                 }
             });
-            
+
+            // 补充：若某组数量不足，从其他组剩余卡牌中补足
+            dimensions.forEach(dim => {
+                if (selected[dim].length < perGroup) {
+                    const otherDims = dimensions.filter(d => d !== dim);
+                    for (const otherDim of otherDims) {
+                        for (let i = 0; i < grouped[otherDim].length && selected[dim].length < perGroup; i++) {
+                            if (!usedIds.has(grouped[otherDim][i].id)) {
+                                selected[dim].push(grouped[otherDim][i]);
+                                usedIds.add(grouped[otherDim][i].id);
+                            }
+                        }
+                        if (selected[dim].length >= perGroup) break;
+                    }
+                    // 最后一招：从未使用过的卡牌中补充（包括所有剩余卡牌）
+                    if (selected[dim].length < perGroup) {
+                        for (const card of shuffle(qxrgCards)) {
+                            if (selected[dim].length >= perGroup) break;
+                            if (!usedIds.has(card.id)) {
+                                selected[dim].push(card);
+                                usedIds.add(card.id);
+                            }
+                        }
+                    }
+                }
+            });
+
             // 交替排列确保维度均匀分布
             const sortedCards = [];
-            const maxLen = Math.max(grouped.EI.length, grouped.SN.length, grouped.TF.length, grouped.JP.length, grouped.MIX.length);
+            const maxLen = Math.max(selected.EI.length, selected.SN.length, selected.TF.length, selected.JP.length);
             for (let i = 0; i < maxLen; i++) {
-                if (i < grouped.EI.length) sortedCards.push(grouped.EI[i]);
-                if (i < grouped.SN.length) sortedCards.push(grouped.SN[i]);
-                if (i < grouped.TF.length) sortedCards.push(grouped.TF[i]);
-                if (i < grouped.JP.length) sortedCards.push(grouped.JP[i]);
-                if (i < grouped.MIX.length) sortedCards.push(grouped.MIX[i]);
+                if (i < selected.EI.length) sortedCards.push(selected.EI[i]);
+                if (i < selected.SN.length) sortedCards.push(selected.SN[i]);
+                if (i < selected.TF.length) sortedCards.push(selected.TF[i]);
+                if (i < selected.JP.length) sortedCards.push(selected.JP[i]);
             }
+
             gameState.cards = sortedCards;
             
             // 初始化情绪显示
@@ -1587,17 +1856,8 @@ button#back-to-home-btn {
             
             // 自动弹出游戏说明并模糊游戏页面
             setTimeout(() => {
-                const guidePopup = document.getElementById('guide-popup');
-                const gameMainPage = document.getElementById('game-main-page');
-                if (guidePopup) {
-                    guidePopup.classList.remove('hidden');
-                }
-                if (gameMainPage) {
-                    gameMainPage.style.filter = 'blur(8px)';
-                }
-                // 暂停所有抖动动画
-                pauseShakeAnimations();
-            }, 300);
+                showGuidePopup();
+            }, 400);
         }
 
         // 设置拖动事件
@@ -1662,6 +1922,9 @@ button#back-to-home-btn {
                 const rect = card.getBoundingClientRect();
                 cardStartX = rect.left;
                 cardStartY = rect.top;
+                // 保存原始尺寸（此时还未缩放），拖动时使用
+                card.dataset.origWidth = rect.width;
+                card.dataset.origHeight = rect.height;
             }
 
             longPressTimer = setTimeout(() => {
@@ -1719,14 +1982,18 @@ button#back-to-home-btn {
                 
                 const card = document.getElementById('event-card');
                 if (card) {
-                    // 先记录原始尺寸
-                    const rect = card.getBoundingClientRect();
-                    card.dataset.originalWidth = rect.width;
-                    card.dataset.originalHeight = rect.height;
+                    // 清除父容器的动画残留 transform，否则 position:fixed 会相对父容器定位
+                    const activeContainer = document.getElementById('active-card-container');
+                    if (activeContainer) {
+                        activeContainer.style.animation = 'none';
+                        activeContainer.style.transform = '';
+                    }
                     
                     card.classList.add('dragging');
                     card.classList.remove('long-press');
                     card.style.position = 'fixed';
+                    // 直接用原始位置设置 left/top，CSS transform:scale(0.65) 以中心为原点，
+                    // 视觉中心保持不变，无需偏移补偿
                     card.style.left = cardStartX + 'px';
                     card.style.top = cardStartY + 'px';
                 }
@@ -2083,7 +2350,117 @@ button#back-to-home-btn {
             }, 2000);
         }
 
-        // 显示当前卡牌
+        // 卡牌是否已翻开
+        let cardRevealed = false;
+
+        // 渲染卡牌堆（竖排小卡牌）
+        function renderCardStack() {
+            const stack = document.getElementById('card-stack');
+            if (!stack) return;
+            stack.innerHTML = '';
+            
+            const total = gameState.cards.length;
+            const current = gameState.currentCardIndex;
+            
+            // 显示当前及后续最多5张卡牌（竖排）
+            const showCount = Math.min(5, total - current);
+            for (let i = 0; i < showCount; i++) {
+                const card = gameState.cards[current + i];
+                const miniCard = document.createElement('div');
+                miniCard.className = 'card-mini';
+                miniCard.setAttribute('data-card-index', current + i);
+                if (i === 0) {
+                    miniCard.setAttribute('data-current', 'true');
+                }
+                miniCard.innerHTML = `
+                    <div class="card-mini-inner">
+                        <div class="card-mini-pattern"></div>
+                        <span class="card-mini-icon">🂠 第${current + i + 1}题</span>
+                    </div>
+                `;
+                
+                // 点击翻牌（只有当前第一张可点）
+                if (i === 0) {
+                    miniCard.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        if (!cardRevealed && !isDragging) {
+                            flipCard(miniCard, card);
+                        }
+                    });
+                }
+                
+                stack.appendChild(miniCard);
+            }
+            
+            // 显示提示
+            const existingHint = document.getElementById('card-stack-hint');
+            if (!existingHint) {
+                const hint = document.createElement('p');
+                hint.id = 'card-stack-hint';
+                hint.className = 'text-center';
+                hint.textContent = '👆 点击卡牌翻开';
+                stack.parentElement.appendChild(hint);
+            }
+        }
+
+        // 翻牌动画 + 显示中央大卡
+        function flipCard(miniCard, card) {
+            cardRevealed = true;
+            
+            // 小卡翻转消失动画
+            miniCard.classList.add('flipping');
+            
+            // 隐藏卡牌堆提示
+            const hint = document.getElementById('card-stack-hint');
+            if (hint) hint.style.display = 'none';
+            
+            // 0.3s后显示中央大卡
+            setTimeout(() => {
+                miniCard.style.display = 'none';
+                
+                // 填充大卡内容
+                const cardTitle = document.getElementById('card-title');
+                const cardDesc = document.getElementById('card-description');
+                const slotAText = document.getElementById('slot-a-text');
+                const slotBText = document.getElementById('slot-b-text');
+                const slotCText = document.getElementById('slot-c-text');
+                const slotDText = document.getElementById('slot-d-text');
+                
+                if (cardTitle) cardTitle.textContent = card.title;
+                if (cardDesc) cardDesc.textContent = card.desc;
+                if (slotAText) slotAText.textContent = card.optionA;
+                if (slotBText) slotBText.textContent = card.optionB;
+                if (slotCText) slotCText.textContent = card.optionC;
+                if (slotDText) slotDText.textContent = card.optionD;
+                
+                // 显示中央大卡
+                const activeContainer = document.getElementById('active-card-container');
+                const cardStack = document.getElementById('card-stack');
+                if (activeContainer) {
+                    activeContainer.classList.remove('hidden');
+                    // 强制重启动画
+                    activeContainer.style.animation = 'none';
+                    activeContainer.offsetHeight;
+                    activeContainer.style.animation = 'bigCardAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+                }
+                if (cardStack) {
+                    cardStack.style.display = 'none';
+                }
+                
+                // 更新洞察之眼状态
+                const logicEye = document.getElementById('logic-eye');
+                const empathyEye = document.getElementById('empathy-eye');
+                if (logicEye) logicEye.classList.remove('disabled');
+                if (empathyEye) empathyEye.classList.remove('disabled');
+                if (gameState.insightUsed[gameState.currentCardIndex]) {
+                    disableInsightEyes();
+                }
+                
+                updateProgress();
+            }, 300);
+        }
+
+        // 显示当前卡牌（新逻辑：先显示卡牌堆，等待翻牌）
         function showCurrentCard() {
             const card = gameState.cards[gameState.currentCardIndex];
             if (!card) {
@@ -2091,37 +2468,24 @@ button#back-to-home-btn {
                 return;
             }
 
-            const cardTitle = document.getElementById('card-title');
-            const cardDesc = document.getElementById('card-description');
-            const slotAText = document.getElementById('slot-a-text');
-            const slotBText = document.getElementById('slot-b-text');
-            const slotCText = document.getElementById('slot-c-text');
-            const slotDText = document.getElementById('slot-d-text');
-
-            if (cardTitle) cardTitle.textContent = card.title;
-            if (cardDesc) cardDesc.textContent = card.desc;
-            if (slotAText) slotAText.textContent = card.optionA;
-            if (slotBText) slotBText.textContent = card.optionB;
-            if (slotCText) slotCText.textContent = card.optionC;
-            if (slotDText) slotDText.textContent = card.optionD;
-
+            cardRevealed = false;
+            
+            // 隐藏中央大卡
+            const activeContainer = document.getElementById('active-card-container');
+            if (activeContainer) activeContainer.classList.add('hidden');
+            
+            // 显示卡牌堆
+            const cardStack = document.getElementById('card-stack');
+            if (cardStack) cardStack.style.display = '';
+            
+            // 显示提示
+            const hint = document.getElementById('card-stack-hint');
+            if (hint) hint.style.display = '';
+            
+            // 渲染竖排小卡牌
+            renderCardStack();
+            
             updateProgress();
-
-            const eventCard = document.getElementById('event-card');
-            if (eventCard) {
-                eventCard.classList.add('card-enter');
-                setTimeout(() => eventCard.classList.remove('card-enter'), 400);
-            }
-            
-            const logicEye = document.getElementById('logic-eye');
-            const empathyEye = document.getElementById('empathy-eye');
-            
-            if (logicEye) logicEye.classList.remove('disabled');
-            if (empathyEye) empathyEye.classList.remove('disabled');
-            
-            if (gameState.insightUsed[gameState.currentCardIndex]) {
-                disableInsightEyes();
-            }
         }
 
         // 更新进度
@@ -2237,16 +2601,48 @@ button#back-to-home-btn {
             
             restoreResources();
             
+            // 大卡消失动画 + 选项槽按顺序翻面消除 + 回到卡牌堆
+            const activeContainer = document.getElementById('active-card-container');
             const eventCard = document.getElementById('event-card');
             if (eventCard) {
                 eventCard.classList.add('card-exit');
-                setTimeout(() => {
-                    eventCard.classList.remove('card-exit');
-                    showCurrentCard();
-                }, 300);
-            } else {
-                showCurrentCard();
             }
+            
+            // 选项槽按顺序翻面消除：A→B→C→D，每个间隔80ms
+            const slotIds = ['slot-a', 'slot-b', 'slot-c', 'slot-d'];
+            const slotTextIds = ['slot-a-text', 'slot-b-text', 'slot-c-text', 'slot-d-text'];
+            const flipDelays = [0, 80, 160, 240]; // 每个槽间隔80ms
+            
+            slotIds.forEach((slotId, index) => {
+                const slot = document.getElementById(slotId);
+                if (slot) {
+                    setTimeout(() => {
+                        slot.classList.add('slot-flip-out');
+                        // 翻面到一半时清空文字
+                        setTimeout(() => {
+                            const textEl = document.getElementById(slotTextIds[index]);
+                            if (textEl) textEl.textContent = '';
+                        }, 180);
+                    }, flipDelays[index]);
+                }
+            });
+            
+            setTimeout(() => {
+                if (eventCard) eventCard.classList.remove('card-exit');
+                if (activeContainer) activeContainer.classList.add('hidden');
+                // 清除选项槽翻面状态，为下一张卡牌准备
+                slotIds.forEach(slotId => {
+                    const slot = document.getElementById(slotId);
+                    if (slot) {
+                        slot.classList.remove('slot-flip-out');
+                        slot.classList.add('slot-flip-in');
+                        setTimeout(() => {
+                            slot.classList.remove('slot-flip-in');
+                        }, 350);
+                    }
+                });
+                showCurrentCard();
+            }, 450);
         }
 
         // 精力耗尽时的特殊效果 - 有趣但不影响最终答案
@@ -2618,6 +3014,237 @@ button#back-to-home-btn {
             };
         }
 
+        // 性格标签详细介绍库（每个标签有3个随机介绍）
+        const personalityTagDetails = {
+            '社交达人': [
+                '你天生就是人群中的磁铁，跟人打交道让你充满能量。派对上你永远是最后一个走的人，因为你太享受和每个人聊天了。你的通讯录可能比别人的微信好友列表长三倍，但这正是你的魅力所在——你能让每个人都感到被关注。',
+                '你的社交电池是"充放电一体"的——跟人聊天就是在充电。你拥有一种让人放松的天赋，陌生人跟你聊十分钟就会觉得认识了很久。不过也要记得，深度关系有时候比广度关系更能给你带来真正的满足感。',
+                '对你来说，独处才是真正的"耗电"。你喜欢热闹，喜欢被朋友环绕的感觉。你的社交圈就像一个不断扩展的星系，每颗星星都因为你而发光。偶尔也试试一个人待着——你会发现安静中也有别样的风景。'
+            ],
+            '乐于交流': [
+                '你喜欢和人聊天，但也会享受自己的空间。你是个"社交节能型"选手——需要的时候能侃侃而谈，不需要的时候也能安静自处。这种平衡感让你在各种场合都游刃有余。',
+                '你在人群中不会是最吵闹的那个，但一定是最让人舒服的那个。你善于倾听，也善于表达，知道什么时候该说话、什么时候该安静。朋友觉得跟你聊天就像喝了一杯温水——舒服、自然、没有压力。',
+                '你的社交风格是"顺其自然"——不会刻意迎合，也不会刻意疏远。你享受高质量的对话胜过热闹的寒暄。这种特质让你既能融入群体，又能保持自己的节奏。'
+            ],
+            '收放自如': [
+                '你是社交场合的"变温动物"——能热闹也能安静，完全看心情和场合。你不会被"应该外向"或"应该内向"的标签束缚，而是自由地在两者之间切换。这种灵活性让你在各种环境中都能找到舒适的位置。',
+                '你有一种令人羡慕的能力：在需要的时候可以光芒四射，在不需要的时候可以完美隐身。你不依赖外部刺激来获得能量，也不排斥与人交往的快乐。你掌握了社交的"开关"，随心所欲。',
+                '你就像一个经验丰富的舞者——知道什么时候该上前一步，什么时候该后退一步。你的社交节奏完全由自己掌控，不会被外界的期待裹挟。这种"刚刚好"的状态，是很多人羡慕却学不来的。'
+            ],
+            '享受独处': [
+                '你的内心世界足够丰富，不需要外界的喧嚣来填补。独处对你来说不是孤独，而是充电。一本书、一杯茶、一段安静的时光，就能让你满血复活。你享受这种"一个人的热闹"。',
+                '你喜欢独处，但并不是孤僻。你只是觉得，高质量的独处胜过低质量的社交。你有自己的节奏和步调，不急着追赶别人的脚步。在你的小世界里，一切都刚刚好。',
+                '你是那种"一个人也能过得很好"的人。周末独自在家看电影、做饭、收拾房间，对你来说是顶级的享受。但这不意味着你不喜欢朋友——你只是需要更多时间跟自己相处。真正懂你的人会尊重你的节奏。'
+            ],
+            '独处充电型': [
+                '你是一个完完全全的"内向充电宝"——只有在独处的时候才能真正恢复能量。热闹的社交对你来说像是一场马拉松，跑完了需要很久的独处来恢复。这不是缺点，而是你的独特之处。',
+                '你的内心世界深不可测，像一片宁静的深海。你不轻易向外人展露，但一旦有人走进了你的世界，会发现那里无比丰富。你不需要很多朋友，几个懂你的就够了。',
+                '你就像一只优雅的猫——有自己的领地，不轻易被打扰。在别人看来你可能有点神秘，但你知道自己只是在保护内心的平静。独处不是逃避世界，而是你拥抱世界的方式。'
+            ],
+            '细节控': [
+                '你的眼睛像一台高精度扫描仪，任何微小的细节都逃不过你的法眼。朋友发朋友圈错了一个标点符号你都会注意到。这种对细节的敏感让你在工作生活中都极其靠谱——交给你的事情，基本不会有遗漏。',
+                '你相信"魔鬼藏在细节里"。做一道菜你会精确到克，整理房间你会对齐每一条边。有人觉得你太较真，但正是这种较真让你总能交出令人惊艳的成果。细节不是你的负担，是你的超能力。',
+                '你的观察力堪比侦探——能从别人忽略的蛛丝马迹中发现真相。朋友换了新发型、办公室多了一盆植物、菜单上改了价格，都逃不过你的眼睛。这种敏感让你成为一个极其靠谱和细心的人。'
+            ],
+            '脚踏实地': [
+                '你是现实世界里的"定海神针"——不喜欢虚无缥缈的幻想，更相信看得见摸得着的东西。你的每一步都踩得很实，不急着飞，但每一步都在前进。这种稳健的风格让你在关键时刻从不掉链子。',
+                '你注重实际体验胜过天马行空的想象。想学做菜？先买齐工具和食材。想去旅行？先查好攻略和预算。你不是没有梦想，只是更愿意把梦想拆解成一步步可以执行的计划。',
+                '你有一种"把想法落地"的天赋。当别人还在畅想的时候，你已经动手了。你的务实不是无趣，而是一种让梦想照进现实的能力。跟你合作的人都会觉得特别踏实。'
+            ],
+            '脑洞大开': [
+                '你的大脑就像一个永不关机的创意工厂，随时能蹦出让人意想不到的点子。别人看到的是一个杯子，你看到的是一个花瓶、一个笔筒、一个微型生态系统的容器。你的想象力是你最宝贵的财富。',
+                '你喜欢思考"如果……会怎样"，然后沿着这个假设一路狂奔到完全意想不到的地方。你的脑洞有时候连自己都觉得离谱，但往往最离谱的想法里藏着最有趣的创意。永远不要停止这种天马行空。',
+                '对你来说，现实只是众多可能性中的一种。你总是能看到事物背后的关联和隐喻，这让你的思考比别人多了一个维度。有时候你会因为想太多而犹豫不决，但更多时候你的想象力让你看到了别人看不到的风景。'
+            ],
+            '天马行空': [
+                '你的思维模式是"跳跃式"的——从A到F中间不经过BCD。别人还在想第一步怎么做，你已经想到了最终成品的样子。这种跳跃思维让你在创意领域如鱼得水，但在需要按部就班的时候可能会有点头疼。',
+                '你的脑袋里住着一个宇宙，每天都在上演各种奇思妙想。你不喜欢被条条框框束缚，更喜欢在想象的世界里自由翱翔。你的灵感来得快也去得快，所以记得随时记录下那些闪光的瞬间。',
+                '你有一种把"不可能"变成"可能"的魔力。因为你从不认为有什么是绝对不可能的，所以你的想法总是比别人大胆。虽然有些想法可能不切实际，但最伟大的创新往往始于一个"不切实际"的念头。'
+            ],
+            '灵感喷泉': [
+                '你就是行走的"灵感制造机"！一个路牌、一段对话、一片落叶都能触发你源源不断的联想。你的创意不需要酝酿，它们自己就会冒出来。有时候你甚至觉得灵感太多来不及记下来。',
+                '你的直觉非常敏锐，常常能"凭空"感知到事物的本质。你相信第六感，而且你的第六感确实常常是对的。这种近乎神秘的感知能力让你在艺术和创意领域有着天然的优势。',
+                '你的大脑是一个永不关机的灵感雷达，随时随地都在扫描周围的信息。你善于把看似不相关的事物连接起来，创造出全新的东西。保持这种敏锐——它是你最独特的礼物。'
+            ],
+            '理性脑': [
+                '你的大脑就是一台精密的逻辑机器——遇到问题先分析、再推理、最后得出结论。情绪很难干扰你的判断，因为你相信数据和事实才是最可靠的。在混乱中，你是那个能冷静思考的人。',
+                '你做决定的时候像一个法官：听取各方证据、权衡利弊、做出最合理的判断。朋友遇到纠结的事情都喜欢找你分析，因为你的建议总是客观、清晰、有说服力。不过偶尔也试着听听心里的声音。',
+                '你信奉"逻辑是解决问题的最好工具"。面对复杂的情况，你能迅速理清头绪，找到最有效的解决方案。你的理性不是冷漠，而是一种让世界变得有序的能力。'
+            ],
+            '逻辑优先': [
+                '你习惯用逻辑来导航生活——做决定之前会先在脑子里列一个"利弊清单"。你喜欢把事情想清楚再做，不轻易被情绪带跑。这种理性让你在很多场合都显得特别靠谱和稳重。',
+                '你相信"道理越辩越明"。跟朋友讨论问题时你喜欢摆事实、讲道理，有时候可能会忽略了对方只是想倾诉。你的逻辑思维很强，但也记得不是所有问题都需要用逻辑来解决。',
+                '你的思维方式像一个程序员——喜欢把复杂的问题拆解成简单的模块，然后逐一解决。这种系统化的思维让你在面对挑战时总能保持冷静。偶尔也让情感参与决策，可能会有惊喜。'
+            ],
+            '走心派': [
+                '你做的每一个决定都经过了"内心审查"——这件事让我开心吗？符合我的价值观吗？对你来说，对的事情不一定是"正确"的事情，而是"让你心安"的事情。你的内心指南针比任何地图都可靠。',
+                '你是那种"用心生活"的人。别人用脑子做选择，你用心做选择。你很容易被感动——一首歌、一个故事、一个温暖的瞬间都能触动你的心弦。这种敏感让你比很多人更懂得什么是真正重要的。',
+                '你相信"感觉对了就是对了"。不是说你没有理性，而是你更信任自己的直觉和情感。你善于理解他人的感受，常常能在别人开口之前就知道他们需要什么。这是一种非常珍贵的天赋。'
+            ],
+            '共情高手': [
+                '你拥有一种近乎"读心术"的能力——能精准感知到身边人的情绪变化。朋友还没开口，你就知道他们今天心情不好。这种高度的共情力让你成为一个极好的倾听者和陪伴者。',
+                '你的心像一个高灵敏度的雷达，不断扫描周围人的情绪状态。看到别人难过你会跟着难过，看到别人开心你也会开心。虽然有时候会让自己很累，但这种深度的共情让你能建立真正深刻的连接。',
+                '对你来说，"理解一个人"比"评判一个人"更重要。你总是能站在对方的角度思考问题，这让你的建议特别有温度。不过记得保护好自己——不是所有人的情绪你都需要接住。'
+            ],
+            '暖心小天使': [
+                '你就是身边人的"情绪充电宝"——你的温暖和善良能治愈所有的不开心。你天生就知道怎么让人感到被爱、被理解、被接纳。有你在的地方，温度自动上升三度。',
+                '你的善良不是刻意的，而是发自内心的本能。看到别人需要帮助，你会毫不犹豫地伸出援手。你的温柔是这个世界上最珍贵的品质之一——永远不要因为别人的冷漠而收起你的温暖。',
+                '你有一颗比棉花糖还柔软的心。别人的一个微笑能让你开心一整天，别人的一滴眼泪也能让你难过一整天。虽然有时候会受伤，但你从不后悔做一个温柔的人——因为这世界需要更多像你这样的人。'
+            ],
+            '计划达人': [
+                '你的人生就像一本精心编排的日程表——每天做什么、每周完成什么、每月达到什么目标，都清清楚楚。你不是强迫症，你只是喜欢一切都在掌控之中的感觉。你的计划能力是你最强的竞争力。',
+                '你的座右铭是"凡事预则立，不预则废"。旅行前你会做详细的攻略，购物前你会列好清单，连周末都会提前安排好。有人觉得你太紧绷，但你知道计划给你的是自由——不用临时慌乱。',
+                '你喜欢把事情安排得井井有条，然后一项项打勾完成。那种"全部搞定"的成就感是别人体会不到的快乐。你的计划性让你在工作和生活中都表现出色，偶尔也给自己一些不做计划的自由。'
+            ],
+            '有条不紊': [
+                '你做事有自己的节奏和章法——不慌不忙，但每一步都走得稳稳当当。你喜欢先想清楚再行动，这让你的效率虽然不是最快的，但质量一定是最好的。',
+                '你的生活有自己的"操作系统"——东西放在固定的位置，事情有固定的流程。这种秩序感让你在面对混乱时能保持镇定。别人觉得你有点"强迫症"，但你知道这是你的生产力密码。',
+                '你是那种"让混乱变得有序"的人。接手一个乱七八糟的项目，你能在短时间内理出头绪、建立流程、推动执行。你的条理性让跟你合作的人感到安心。'
+            ],
+            '随遇而安': [
+                '你的人生哲学是"船到桥头自然直"——不喜欢过度规划，更相信随机应变的能力。计划被打乱了？没关系，换个方案就行。这种灵活性让你在面对不确定性时比别人从容得多。',
+                '你不喜欢被日程表绑架——生活应该有些即兴的空间。有时候最好的体验恰恰来自于"没有计划"的时刻：随便走进一家餐厅、临时决定去看一场电影、说走就走的旅行。',
+                '你的适应能力很强——不管被扔到什么环境里，你都能找到自己的位置。你相信"计划赶不上变化"，所以不如保持开放的心态，拥抱每一个意外。这种松弛感让很多人羡慕。'
+            ],
+            '自由灵魂': [
+                '你就像一只不愿被关在笼子里的鸟——自由对你来说比什么都重要。你讨厌被安排、被定义、被框住。你的生活没有固定的模式，每一天都可能是全新的冒险。',
+                '你的内心住着一个永远长不大的孩子——对世界充满好奇，不喜欢被规则束缚。你享受随心所欲的感觉，做决定更多靠"想不想"而不是"该不该"。保持这种自由，它是你创造力的源泉。',
+                '你的人生格言是"规矩是用来打破的"。你不喜欢一成不变的生活，总是渴望新的体验和挑战。虽然有时候会让人觉得你不按常理出牌，但正是这种不羁让你活得格外精彩。'
+            ],
+            '即兴玩家': [
+                '你的生活是一场精彩的即兴演出——没有剧本，但每一幕都充满惊喜。你讨厌提前安排好一切，更喜欢"到了再说"的刺激感。你的临场反应能力超强，总能在最后一刻想出绝妙的解决方案。',
+                '你是那种"deadline是第一生产力"的人——不到最后一刻不行动，但每次都能神奇地完成。你喜欢压力下的爆发力，觉得那才是真正的自己。虽然别人替你捏把汗，但你知道自己搞得定。',
+                '对你来说，计划是用来打破的，变化才是生活的常态。你喜欢留白、喜欢弹性、喜欢一切皆有可能的感觉。你的灵活和变通让你在快节奏的环境中如鱼得水。'
+            ]
+        };
+
+        // 根据维度数据生成趣味性格标签（不显示MBTI字母）
+        function generatePersonalityTags(result) {
+            const eiPct = Math.round(result.percentages.EI);
+            const snPct = Math.round(result.percentages.SN);
+            const tfPct = Math.round(result.percentages.TF);
+            const jpPct = Math.round(result.percentages.JP);
+            const tags = [];
+
+            // 社交能量标签
+            let socialTag;
+            if (eiPct >= 70) socialTag = { emoji: '🔥', label: '社交达人', category: '社交能量' };
+            else if (eiPct >= 55) socialTag = { emoji: '💬', label: '乐于交流', category: '社交能量' };
+            else if (eiPct >= 45) socialTag = { emoji: '⚖️', label: '收放自如', category: '社交能量' };
+            else if (eiPct >= 30) socialTag = { emoji: '🌙', label: '享受独处', category: '社交能量' };
+            else socialTag = { emoji: '🏠', label: '独处充电型', category: '社交能量' };
+            // 随机选一个介绍
+            const socialDetails = personalityTagDetails[socialTag.label] || ['暂无详细介绍'];
+            socialTag.detail = socialDetails[Math.floor(Math.random() * socialDetails.length)];
+            tags.push(socialTag);
+
+            // 认知风格标签
+            let cogTag;
+            if (snPct >= 70) cogTag = { emoji: '🔍', label: '细节控', category: '认知风格' };
+            else if (snPct >= 55) cogTag = { emoji: '📋', label: '脚踏实地', category: '认知风格' };
+            else if (snPct >= 45) cogTag = { emoji: '🌈', label: '脑洞大开', category: '认知风格' };
+            else if (snPct >= 30) cogTag = { emoji: '🚀', label: '天马行空', category: '认知风格' };
+            else cogTag = { emoji: '💡', label: '灵感喷泉', category: '认知风格' };
+            const cogDetails = personalityTagDetails[cogTag.label] || ['暂无详细介绍'];
+            cogTag.detail = cogDetails[Math.floor(Math.random() * cogDetails.length)];
+            tags.push(cogTag);
+
+            // 决策风格标签
+            let decTag;
+            if (tfPct >= 70) decTag = { emoji: '🧠', label: '理性脑', category: '决策风格' };
+            else if (tfPct >= 55) decTag = { emoji: '📐', label: '逻辑优先', category: '决策风格' };
+            else if (tfPct >= 45) decTag = { emoji: '💗', label: '走心派', category: '决策风格' };
+            else if (tfPct >= 30) decTag = { emoji: '🫂', label: '共情高手', category: '决策风格' };
+            else decTag = { emoji: '❤️', label: '暖心小天使', category: '决策风格' };
+            const decDetails = personalityTagDetails[decTag.label] || ['暂无详细介绍'];
+            decTag.detail = decDetails[Math.floor(Math.random() * decDetails.length)];
+            tags.push(decTag);
+
+            // 生活态度标签
+            let lifeTag;
+            if (jpPct >= 70) lifeTag = { emoji: '📅', label: '计划达人', category: '生活态度' };
+            else if (jpPct >= 55) lifeTag = { emoji: '✅', label: '有条不紊', category: '生活态度' };
+            else if (jpPct >= 45) lifeTag = { emoji: '🌊', label: '随遇而安', category: '生活态度' };
+            else if (jpPct >= 30) lifeTag = { emoji: '🍃', label: '自由灵魂', category: '生活态度' };
+            else lifeTag = { emoji: '🎲', label: '即兴玩家', category: '生活态度' };
+            const lifeDetails = personalityTagDetails[lifeTag.label] || ['暂无详细介绍'];
+            lifeTag.detail = lifeDetails[Math.floor(Math.random() * lifeDetails.length)];
+            tags.push(lifeTag);
+
+            return tags;
+        }
+
+        // 显示标签详情弹窗
+        function showTagDetail(tag) {
+            const overlay = document.getElementById('tag-detail-overlay');
+            const modal = document.getElementById('tag-detail-modal');
+            const emoji = document.getElementById('tag-detail-emoji');
+            const title = document.getElementById('tag-detail-title');
+            const category = document.getElementById('tag-detail-category');
+            const content = document.getElementById('tag-detail-content');
+            
+            if (emoji) emoji.textContent = tag.emoji;
+            if (title) title.textContent = tag.label;
+            if (category) category.textContent = tag.category || '';
+            if (content) content.textContent = tag.detail || '暂无详细介绍';
+            
+            if (overlay) {
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+            }
+            setTimeout(() => {
+                if (modal) {
+                    modal.classList.remove('scale-95', 'opacity-0');
+                    modal.classList.add('scale-100', 'opacity-100');
+                }
+            }, 50);
+        }
+
+        // 关闭标签详情弹窗
+        function closeTagDetail() {
+            const overlay = document.getElementById('tag-detail-overlay');
+            const modal = document.getElementById('tag-detail-modal');
+            if (modal) {
+                modal.classList.remove('scale-100', 'opacity-100');
+                modal.classList.add('scale-95', 'opacity-0');
+            }
+            setTimeout(() => {
+                if (overlay) {
+                    overlay.classList.add('hidden');
+                    overlay.classList.remove('flex');
+                }
+            }, 300);
+        }
+
+        // 结果页粒子特效
+        function startResultParticles() {
+            const container = document.getElementById('result-particles');
+            if (!container) return;
+            container.innerHTML = '';
+            const colors = ['#fbbf24', '#f472b6', '#a78bfa', '#34d399', '#60a5fa', '#fb923c', '#f87171'];
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'result-particle';
+                const size = 2 + Math.random() * 6;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = 4 + Math.random() * 6;
+                const drift = (Math.random() - 0.5) * 80;
+                particle.style.cssText = `
+                    width: ${size}px; height: ${size}px;
+                    background: ${color};
+                    left: ${left}%;
+                    bottom: -10px;
+                    animation-delay: ${delay}s;
+                    animation-duration: ${duration}s;
+                    --drift: ${drift}px;
+                    box-shadow: 0 0 ${size * 2}px ${color};
+                `;
+                container.appendChild(particle);
+            }
+        }
+
         // 显示结果
         function showResult() {
             gameState.currentPage = 'result';
@@ -2630,83 +3257,45 @@ button#back-to-home-btn {
             const resultPage = document.getElementById('result-page');
             if (resultPage) resultPage.classList.remove('hidden');
 
+            // 启动结果页粒子特效
+            startResultParticles();
+
             const badge = document.getElementById('result-badge');
             const typeName = document.getElementById('result-type-name');
             const description = document.getElementById('result-description');
             const detailDesc = document.getElementById('result-detail-description');
 
-            if (badge) badge.textContent = result.type;
+            // 徽章和标题都显示花名
+            if (badge) badge.textContent = typeInfo.name;
             if (typeName) typeName.textContent = typeInfo.name;
             if (description) description.textContent = typeInfo.desc;
             if (detailDesc) detailDesc.innerHTML = (typeInfo.detail || '').replace(/\n/g, '<br>');
 
-            // 显示维度百分比
-            const eiBar = document.getElementById('e-i-bar');
-            const snBar = document.getElementById('s-n-bar');
-            const tfBar = document.getElementById('t-f-bar');
-            const jpBar = document.getElementById('j-p-bar');
-            
-            const eiPercentage = document.getElementById('ei-percentage');
-            const snPercentage = document.getElementById('sn-percentage');
-            const tfPercentage = document.getElementById('tf-percentage');
-            const jpPercentage = document.getElementById('jp-percentage');
-
-            const eiPct = Math.round(result.percentages.EI);
-            const snPct = Math.round(result.percentages.SN);
-            const tfPct = Math.round(result.percentages.TF);
-            const jpPct = Math.round(result.percentages.JP);
-
-            if (eiBar) eiBar.style.width = `${eiPct}%`;
-            if (snBar) snBar.style.width = `${snPct}%`;
-            if (tfBar) tfBar.style.width = `${tfPct}%`;
-            if (jpBar) jpBar.style.width = `${jpPct}%`;
-            
-            // 显示偏向文字（哪个维度更高）
-            if (eiPercentage) eiPercentage.textContent = `${eiPct}% ${eiPct >= 50 ? '偏向E' : '偏向I'}`;
-            if (snPercentage) snPercentage.textContent = `${snPct}% ${snPct >= 50 ? '偏向S' : '偏向N'}`;
-            if (tfPercentage) tfPercentage.textContent = `${tfPct}% ${tfPct >= 50 ? '偏向T' : '偏向F'}`;
-            if (jpPercentage) jpPercentage.textContent = `${jpPct}% ${jpPct >= 50 ? '偏向J' : '偏向P'}`;
-
-            // 资源使用总结
-            const resourceSummary = document.getElementById('resource-summary-content');
-            if (resourceSummary) {
-                const energyUsed = gameState.resourceUsed.energy;
-                const logicUsed = gameState.resourceUsed.logic;
-                const empathyUsed = gameState.resourceUsed.empathy;
-                const totalUsed = Math.max(1, energyUsed + logicUsed + empathyUsed);
+            // 生成趣味性格标签（基于原始维度数据，但不显示MBTI字母）
+            const tags = generatePersonalityTags(result);
+            const tagsContainer = document.getElementById('personality-tags');
+            if (tagsContainer) {
+                const tagColors = [
+                    'from-amber-500/20 to-amber-600/20 text-amber-300 border-amber-500/30',
+                    'from-rose-500/20 to-rose-600/20 text-rose-300 border-rose-500/30',
+                    'from-violet-500/20 to-violet-600/20 text-violet-300 border-violet-500/30',
+                    'from-emerald-500/20 to-emerald-600/20 text-emerald-300 border-emerald-500/30',
+                    'from-sky-500/20 to-sky-600/20 text-sky-300 border-sky-500/30',
+                    'from-orange-500/20 to-orange-600/20 text-orange-300 border-orange-500/30',
+                    'from-fuchsia-500/20 to-fuchsia-600/20 text-fuchsia-300 border-fuchsia-500/30',
+                    'from-teal-500/20 to-teal-600/20 text-teal-300 border-teal-500/30'
+                ];
+                tagsContainer.innerHTML = tags.map((tag, i) => `
+                    <span class="tag-clickable px-4 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-br ${tagColors[i % tagColors.length]} border backdrop-blur-sm" data-tag-index="${i}">
+                        ${tag.emoji} ${tag.label}
+                    </span>
+                `).join('');
                 
-                resourceSummary.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <span class="text-xl">⚡</span>
-                        <span class="flex-1 text-gray-300">精力消耗：${energyUsed} 点</span>
-                        <span class="text-xs text-gray-400">${Math.round(energyUsed/totalUsed*100)}%</span>
-                    </div>
-                    <div class="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full" style="width:${Math.round(energyUsed/totalUsed*100)}%"></div>
-                    </div>
-                    <div class="flex items-center gap-3 mt-2">
-                        <span class="text-xl">🧠</span>
-                        <span class="flex-1 text-gray-300">逻辑使用：${logicUsed} 点</span>
-                        <span class="text-xs text-gray-400">${Math.round(logicUsed/totalUsed*100)}%</span>
-                    </div>
-                    <div class="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full" style="width:${Math.round(logicUsed/totalUsed*100)}%"></div>
-                    </div>
-                    <div class="flex items-center gap-3 mt-2">
-                        <span class="text-xl">❤️</span>
-                        <span class="flex-1 text-gray-300">共情使用：${empathyUsed} 点</span>
-                        <span class="text-xs text-gray-400">${Math.round(empathyUsed/totalUsed*100)}%</span>
-                    </div>
-                    <div class="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-pink-400 to-rose-500 rounded-full" style="width:${Math.round(empathyUsed/totalUsed*100)}%"></div>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-3">
-                        ${energyUsed > logicUsed && energyUsed > empathyUsed ? '你的决策风格偏向直接行动，注重效率和执行力。' : 
-                          logicUsed > energyUsed && logicUsed > empathyUsed ? '你的决策风格偏向理性分析，注重逻辑和系统性思考。' :
-                          empathyUsed > energyUsed && empathyUsed > logicUsed ? '你的决策风格偏向情感关怀，注重人际关系和他人感受。' :
-                          '你的决策风格比较均衡，在不同情境下灵活运用理性和感性的力量。'}
-                    </p>
-                `;
+                // 为每个标签绑定点击事件
+                const tagElements = tagsContainer.querySelectorAll('.tag-clickable');
+                tagElements.forEach((el, i) => {
+                    el.addEventListener('click', () => showTagDetail(tags[i]));
+                });
             }
 
             // 人格建议 - 按3个类别展示
@@ -2717,7 +3306,7 @@ button#back-to-home-btn {
                     <div class="bg-white/5 rounded-lg p-3">
                         <div class="flex items-center gap-2 mb-2">
                             <span class="text-lg">${icons[index] || '💡'}</span>
-                            <span class="font-semibold text-cyan-400">${adv.category}</span>
+                            <span class="font-semibold text-emerald-300">${adv.category}</span>
                         </div>
                         <p class="text-gray-300">${adv.text}</p>
                     </div>
@@ -2740,7 +3329,9 @@ button#back-to-home-btn {
         function copyResult() {
             const result = calculateqxrg();
             const typeInfo = qxrgTypes[result.type] || { name: '未知类型', desc: '' };
-            const text = `我的全新人格测试结果：\n\n类型：${result.type} - ${typeInfo.name}\n描述：${typeInfo.desc}\n\n维度倾向：\nE/I: ${Math.round(result.percentages.EI)}%\nS/N: ${Math.round(result.percentages.SN)}%\nT/F: ${Math.round(result.percentages.TF)}%\nJ/P: ${Math.round(result.percentages.JP)}%`;
+            const tags = generatePersonalityTags(result);
+            const tagText = tags.map(t => `${t.emoji} ${t.label}`).join(' | ');
+            const text = `我的全新人格测试结果：\n\n🏅 ${typeInfo.name}\n📝 ${typeInfo.desc}\n\n🏷️ 性格标签：\n${tagText}`;
             
             navigator.clipboard.writeText(text).then(() => {
                 showNotification('结果已复制到剪贴板！', 'info');
@@ -2759,45 +3350,34 @@ button#back-to-home-btn {
         function generateShareCard() {
             const result = calculateqxrg();
             const typeInfo = qxrgTypes[result.type] || { name: '未知类型', desc: '' };
+            const tags = generatePersonalityTags(result);
+            const tagsHTML = tags.map((t, i) => {
+                const colors = [
+                    'background: rgba(6,182,212,0.2); color: #67e8f9; border: 1px solid rgba(6,182,212,0.3);',
+                    'background: rgba(139,92,246,0.2); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.3);',
+                    'background: rgba(236,72,153,0.2); color: #f9a8d4; border: 1px solid rgba(236,72,153,0.3);',
+                    'background: rgba(250,204,21,0.2); color: #fde68a; border: 1px solid rgba(250,204,21,0.3);',
+                    'background: rgba(34,197,94,0.2); color: #86efac; border: 1px solid rgba(34,197,94,0.3);',
+                    'background: rgba(59,130,246,0.2); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3);',
+                    'background: rgba(249,115,22,0.2); color: #fdba74; border: 1px solid rgba(249,115,22,0.3);',
+                    'background: rgba(244,63,94,0.2); color: #fda4af; border: 1px solid rgba(244,63,94,0.3);'
+                ];
+                return `<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin: 3px; ${colors[i % colors.length]}">${t.emoji} ${t.label}</span>`;
+            }).join('');
             
             const cardHTML = `
             <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); border-radius: 20px; padding: 30px; max-width: 350px; margin: 0 auto; color: white; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
                 <div style="text-align: center; margin-bottom: 20px;">
-                    <div style="width: 120px; height: 50px; border-radius: 50px; background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px; font-weight: bold; box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);">
-                        ${result.type}
+                    <div style="padding: 10px 24px; border-radius: 50px; background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%); display: inline-flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 18px; font-weight: bold; box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);">
+                        ${typeInfo.name}
                     </div>
                     <h2 style="margin: 0; font-size: 20px;">${typeInfo.name}</h2>
                     <p style="color: #9ca3af; font-size: 13px; margin-top: 5px;">${typeInfo.desc}</p>
                 </div>
-                <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 15px;">
-                    <h3 style="margin: 0 0 12px; font-size: 13px; color: #9ca3af;">维度倾向</h3>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px;">
-                        <span>E</span>
-                        <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 10px; overflow: hidden;">
-                            <div style="height: 100%; width: ${result.percentages.EI}%; background: linear-gradient(90deg, #fbbf24, #8b5cf6); border-radius: 3px;"></div>
-                        </div>
-                        <span>I</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px;">
-                        <span>S</span>
-                        <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 10px; overflow: hidden;">
-                            <div style="height: 100%; width: ${result.percentages.SN}%; background: linear-gradient(90deg, #34d399, #3b82f6); border-radius: 3px;"></div>
-                        </div>
-                        <span>N</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px;">
-                        <span>T</span>
-                        <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 10px; overflow: hidden;">
-                            <div style="height: 100%; width: ${result.percentages.TF}%; background: linear-gradient(90deg, #3b82f6, #ec4899); border-radius: 3px;"></div>
-                        </div>
-                        <span>F</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 11px;">
-                        <span>J</span>
-                        <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 10px; overflow: hidden;">
-                            <div style="height: 100%; width: ${result.percentages.JP}%; background: linear-gradient(90deg, #06b6d4, #f97316); border-radius: 3px;"></div>
-                        </div>
-                        <span>P</span>
+                <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 15px; text-align: center;">
+                    <h3 style="margin: 0 0 12px; font-size: 13px; color: #9ca3af;">🏷️ 性格标签</h3>
+                    <div style="line-height: 2;">
+                        ${tagsHTML}
                     </div>
                 </div>
                 <div style="text-align: center; margin-top: 20px; color: #6b7280; font-size: 11px;">🎴 全新人格测试</div>
@@ -2828,12 +3408,72 @@ button#back-to-home-btn {
 
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
+            // 开始按钮 - 弹出模式选择弹窗
             const startBtn = document.getElementById('start-game-btn');
             if (startBtn) {
                 startBtn.addEventListener('click', function() {
+                    const modeOverlay = document.getElementById('mode-select-overlay');
+                    if (modeOverlay) {
+                        modeOverlay.classList.remove('hidden');
+                        modeOverlay.classList.add('flex');
+                    }
+                });
+            }
+            
+            // 模式选择 - 32题精测
+            const modeFull = document.getElementById('mode-full');
+            if (modeFull) {
+                modeFull.addEventListener('click', function() {
+                    const modeOverlay = document.getElementById('mode-select-overlay');
+                    if (modeOverlay) {
+                        modeOverlay.classList.add('hidden');
+                        modeOverlay.classList.remove('flex');
+                    }
                     document.getElementById('start-page').classList.add('hidden');
                     document.getElementById('game-main-page').classList.remove('hidden');
-                    initGame();
+                    initGame(32);
+                });
+            }
+            
+            // 模式选择 - 16题简测
+            const modeShort = document.getElementById('mode-short');
+            if (modeShort) {
+                modeShort.addEventListener('click', function() {
+                    const modeOverlay = document.getElementById('mode-select-overlay');
+                    if (modeOverlay) {
+                        modeOverlay.classList.add('hidden');
+                        modeOverlay.classList.remove('flex');
+                    }
+                    document.getElementById('start-page').classList.add('hidden');
+                    document.getElementById('game-main-page').classList.remove('hidden');
+                    initGame(16);
+                });
+            }
+            
+            // 模式选择 - 返回按钮
+            const modeCloseBtn = document.getElementById('mode-select-close-btn');
+            if (modeCloseBtn) {
+                modeCloseBtn.addEventListener('click', function() {
+                    const modeOverlay = document.getElementById('mode-select-overlay');
+                    if (modeOverlay) {
+                        modeOverlay.classList.add('hidden');
+                        modeOverlay.classList.remove('flex');
+                    }
+                });
+            }
+            
+            // 标签详情弹窗 - 关闭按钮
+            const tagCloseBtn = document.getElementById('tag-detail-close-btn');
+            if (tagCloseBtn) {
+                tagCloseBtn.addEventListener('click', closeTagDetail);
+            }
+            // 标签详情弹窗 - 点击外部关闭
+            const tagOverlay = document.getElementById('tag-detail-overlay');
+            if (tagOverlay) {
+                tagOverlay.addEventListener('click', function(e) {
+                    if (e.target === tagOverlay) {
+                        closeTagDetail();
+                    }
                 });
             }
             
@@ -2871,13 +3511,7 @@ button#back-to-home-btn {
             const showGuideBtn = document.getElementById('show-guide-btn');
             if (showGuideBtn) {
                 showGuideBtn.addEventListener('click', function() {
-                    document.getElementById('guide-popup').classList.remove('hidden');
-                    const gameMainPage = document.getElementById('game-main-page');
-                    if (gameMainPage) {
-                        gameMainPage.style.filter = 'blur(8px)';
-                    }
-                    // 暂停所有抖动动画
-                    pauseShakeAnimations();
+                    showGuidePopup();
                 });
             }
 
@@ -2890,6 +3524,42 @@ button#back-to-home-btn {
             
             let isDetailView = false;
             
+            // 显示弹窗（丝滑动画）
+            function showGuidePopup() {
+                if (!guidePopup) return;
+                guidePopup.classList.remove('hidden');
+                // 强制回流后添加 show 触发动画
+                void guidePopup.offsetWidth;
+                guidePopup.classList.add('show');
+                const gameMainPage = document.getElementById('game-main-page');
+                if (gameMainPage) {
+                    gameMainPage.style.filter = 'blur(8px)';
+                }
+                pauseShakeAnimations();
+            }
+            
+            // 隐藏弹窗（丝滑动画）
+            function hideGuidePopup() {
+                if (!guidePopup) return;
+                guidePopup.classList.remove('show');
+                const gameMainPage = document.getElementById('game-main-page');
+                if (gameMainPage) {
+                    gameMainPage.style.filter = '';
+                }
+                resumeShakeAnimations();
+                // 动画结束后隐藏
+                setTimeout(() => {
+                    guidePopup.classList.add('hidden');
+                    // 重置为简单说明视图
+                    isDetailView = false;
+                    guideDetail.classList.add('hidden');
+                    guideSimple.classList.remove('hidden');
+                    if (toggleGuideDetail) {
+                        toggleGuideDetail.textContent = '📖 点击查看详细说明';
+                    }
+                }, 350);
+            }
+            
             // 切换详细说明
             if (toggleGuideDetail) {
                 toggleGuideDetail.addEventListener('click', () => {
@@ -2897,53 +3567,25 @@ button#back-to-home-btn {
                     if (isDetailView) {
                         guideSimple.classList.add('hidden');
                         guideDetail.classList.remove('hidden');
-                        toggleGuideDetail.textContent = '📕 收起详细说明';
+                        toggleGuideDetail.textContent = '📕 点击收起详细说明';
                     } else {
                         guideDetail.classList.add('hidden');
                         guideSimple.classList.remove('hidden');
-                        toggleGuideDetail.textContent = '📖 查看详细说明';
+                        toggleGuideDetail.textContent = '📖 点击查看详细说明';
                     }
                 });
             }
             
             // 关闭按钮
             if (closeGuideBtn) {
-                closeGuideBtn.addEventListener('click', function() {
-                    guidePopup.classList.add('hidden');
-                    const gameMainPage = document.getElementById('game-main-page');
-                    if (gameMainPage) {
-                        gameMainPage.style.filter = '';
-                    }
-                    // 恢复抖动动画
-                    resumeShakeAnimations();
-                    // 重置为简单说明视图
-                    isDetailView = false;
-                    guideDetail.classList.add('hidden');
-                    guideSimple.classList.remove('hidden');
-                    if (toggleGuideDetail) {
-                        toggleGuideDetail.textContent = '📖 查看详细说明';
-                    }
-                });
+                closeGuideBtn.addEventListener('click', hideGuidePopup);
             }
             
             // 点击弹窗外部关闭
             if (guidePopup) {
                 guidePopup.addEventListener('click', (e) => {
                     if (e.target === guidePopup) {
-                        guidePopup.classList.add('hidden');
-                        const gameMainPage = document.getElementById('game-main-page');
-                        if (gameMainPage) {
-                            gameMainPage.style.filter = '';
-                        }
-                        // 恢复抖动动画
-                        resumeShakeAnimations();
-                        // 重置为简单说明视图
-                        isDetailView = false;
-                        guideDetail.classList.add('hidden');
-                        guideSimple.classList.remove('hidden');
-                        if (toggleGuideDetail) {
-                            toggleGuideDetail.textContent = '📖 查看详细说明';
-                        }
+                        hideGuidePopup();
                     }
                 });
             }
@@ -2959,5 +3601,6 @@ button#back-to-home-btn {
             }
         });
     </script>
+    <script src="card-images.js"></script>
 </body>
 </html>

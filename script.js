@@ -2281,25 +2281,25 @@ function getBooks(type, dimensionScores = null) {
     const allBooks = {
         // 创业思维书籍（8本）
         entrepreneur: [
-            { title: '精益创业', author: '埃里克·莱斯', reason: '学习如何用最小成本验证商业假设', dimension: 'execution' },
-            { title: '从零到一', author: '彼得·蒂尔', reason: '理解商业创新的本质', dimension: 'innovation' },
-            { title: '创业维艰', author: '本·霍洛维茨', reason: '了解创业中的真实挑战', dimension: 'risk' },
-            { title: '穷查理宝典', author: '彼得·考夫曼', reason: '培养多元思维模型', dimension: 'opportunity' },
-            { title: '颠覆者', author: '周鸿祎', reason: '揭示商业颠覆的底层逻辑', dimension: 'innovation' },
-            { title: '商业的本质', author: '杰克·韦尔奇', reason: '掌握商业运营的核心要素', dimension: 'market_insight' },
-            { title: '史蒂夫·乔布斯传', author: '沃尔特·艾萨克森', reason: '学习创新大师的思维方式', dimension: 'innovation' },
-            { title: '原则', author: '瑞·达利欧', reason: '建立个人和企业的决策原则', dimension: 'execution' }
+            { title: '《精益创业》', author: '埃里克·莱斯', reason: '学习如何用最小成本验证商业假设', dimension: 'execution' },
+            { title: '《从零到一》', author: '彼得·蒂尔', reason: '理解商业创新的本质', dimension: 'innovation' },
+            { title: '《创业维艰》', author: '本·霍洛维茨', reason: '了解创业中的真实挑战', dimension: 'risk' },
+            { title: '《穷查理宝典》', author: '彼得·考夫曼', reason: '培养多元思维模型', dimension: 'opportunity' },
+            { title: '《颠覆者》', author: '周鸿祎', reason: '揭示商业颠覆的底层逻辑', dimension: 'innovation' },
+            { title: '《商业的本质》', author: '杰克·韦尔奇', reason: '掌握商业运营的核心要素', dimension: 'market_insight' },
+            { title: '《史蒂夫·乔布斯传》', author: '沃尔特·艾萨克森', reason: '学习创新大师的思维方式', dimension: 'innovation' },
+            { title: '《原则》', author: '瑞·达利欧', reason: '建立个人和企业的决策原则', dimension: 'execution' }
         ],
         // 爱情认知书籍（8本）
         love: [
-            { title: '爱的艺术', author: '埃里希·弗洛姆', reason: '理解爱情的本质', dimension: 'empathy' },
-            { title: '非暴力沟通', author: '马歇尔·卢森堡', reason: '改善亲密关系沟通', dimension: 'communication' },
-            { title: '亲密关系', author: '罗兰·米勒', reason: '科学理解亲密关系', dimension: 'emotion' },
-            { title: '男人来自火星', author: '约翰·格雷', reason: '理解两性差异', dimension: 'communication' },
-            { title: '被讨厌的勇气', author: '岸见一郎', reason: '建立健康的人际关系观', dimension: 'boundary' },
-            { title: '情绪勒索', author: '苏珊·福沃德', reason: '识别和应对情感操控', dimension: 'boundary' },
-            { title: '依恋', author: '苏珊·哈特', reason: '理解成人依恋模式', dimension: 'security' },
-            { title: '关键对话', author: '科里·帕特森', reason: '掌握高风险对话技巧', dimension: 'communication' }
+            { title: '《爱的艺术》', author: '埃里希·弗洛姆', reason: '理解爱情的本质', dimension: 'empathy' },
+            { title: '《非暴力沟通》', author: '马歇尔·卢森堡', reason: '改善亲密关系沟通', dimension: 'communication' },
+            { title: '《亲密关系》', author: '罗兰·米勒', reason: '科学理解亲密关系', dimension: 'emotion' },
+            { title: '《男人来自火星》', author: '约翰·格雷', reason: '理解两性差异', dimension: 'communication' },
+            { title: '《被讨厌的勇气》', author: '岸见一郎', reason: '建立健康的人际关系观', dimension: 'boundary' },
+            { title: '《情绪勒索》', author: '苏珊·福沃德', reason: '识别和应对情感操控', dimension: 'boundary' },
+            { title: '《依恋》', author: '苏珊·哈特', reason: '理解成人依恋模式', dimension: 'security' },
+            { title: '《关键对话》', author: '科里·帕特森', reason: '掌握高风险对话技巧', dimension: 'communication' }
         ]
     };
     
